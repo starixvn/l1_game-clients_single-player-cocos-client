@@ -29,6 +29,12 @@ export default class SoloGame extends StandAloneTableGameBase {
     onConfirmBet(bet: any) {
         console.log("onConfirmBet", bet);
 
+        this.sendSocketData("spin", null);
+    }
+
+    onPlaceBet(bet: any) {
+        console.log("onPlaceBet", bet);
+
         const betData = this.createBetData(bet);
         this.sendSocketData("bet", betData);
     }

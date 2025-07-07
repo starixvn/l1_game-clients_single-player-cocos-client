@@ -251,6 +251,7 @@ export default class RouletteS extends SoloGame {
         }
 
         this.soloBetModel.addBet(choice);
+        this.onPlaceBet({[choice]: this.currentBet});
     }
 
     protected createBetData(bet: any) {
