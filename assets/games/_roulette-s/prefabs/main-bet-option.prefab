@@ -55,8 +55,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        175.104,
-        -19.714,
+        0,
+        0,
         0,
         0,
         0,
@@ -1035,8 +1035,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -40,
-        19.714,
+        0,
+        0,
         0,
         0,
         0,
