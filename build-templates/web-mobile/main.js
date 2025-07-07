@@ -282,7 +282,6 @@ window.boot = function () {
         }
         count++;
         if (count === bundleRoot.length + 1) {
-            cc.macro.ENABLE_TRANSPARENT_CANVAS = true;
             cc.game.run(option, onStart);
         }
     }

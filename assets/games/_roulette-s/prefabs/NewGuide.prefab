@@ -46,8 +46,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 930,
-      "height": 786
+      "width": 786,
+      "height": 772
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -58,8 +58,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        465,
         393,
+        386,
         0,
         0,
         0,
@@ -116,8 +116,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 930,
-      "height": 786
+      "width": 786,
+      "height": 772
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -368,9 +368,9 @@
         0,
         0,
         1,
-        1,
-        1,
-        1
+        0.8451612903225807,
+        0.8451612903225807,
+        0.8451612903225807
       ]
     },
     "_eulerAngles": {
@@ -943,7 +943,7 @@
       }
     ],
     "_srcBlendFactor": 770,
-    "_dstBlendFactor": 1,
+    "_dstBlendFactor": 771,
     "_string": "UI.GAMERULES",
     "_N$string": "UI.GAMERULES",
     "_fontSize": 36,
@@ -1078,7 +1078,7 @@
       }
     ],
     "_srcBlendFactor": 770,
-    "_dstBlendFactor": 1,
+    "_dstBlendFactor": 771,
     "_spriteFrame": {
       "__uuid__": "2b5d2824-ee33-4daf-8edb-d2ec8e36f240"
     },

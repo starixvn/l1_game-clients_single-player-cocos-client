@@ -46,8 +46,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 930,
-      "height": 786
+      "width": 786,
+      "height": 772
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -58,8 +58,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        465,
         393,
+        386,
         0,
         0,
         0,
@@ -116,8 +116,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 930,
-      "height": 786
+      "width": 786,
+      "height": 772
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -647,7 +647,7 @@
       }
     ],
     "_srcBlendFactor": 770,
-    "_dstBlendFactor": 1,
+    "_dstBlendFactor": 771,
     "_spriteFrame": {
       "__uuid__": "2b5d2824-ee33-4daf-8edb-d2ec8e36f240"
     },
@@ -827,7 +827,7 @@
       }
     ],
     "_srcBlendFactor": 770,
-    "_dstBlendFactor": 1,
+    "_dstBlendFactor": 771,
     "_string": "UI.STATISTIC_2",
     "_N$string": "UI.STATISTIC_2",
     "_fontSize": 36,
@@ -4038,7 +4038,7 @@
       }
     ],
     "_srcBlendFactor": 770,
-    "_dstBlendFactor": 1,
+    "_dstBlendFactor": 771,
     "_string": "UI.HOT_NUMBER",
     "_N$string": "UI.HOT_NUMBER",
     "_fontSize": 28,
@@ -6973,7 +6973,7 @@
       }
     ],
     "_srcBlendFactor": 770,
-    "_dstBlendFactor": 1,
+    "_dstBlendFactor": 771,
     "_string": "UI.COLD_NUMBER",
     "_N$string": "UI.COLD_NUMBER",
     "_fontSize": 28,
@@ -8911,7 +8911,7 @@
       }
     ],
     "_srcBlendFactor": 770,
-    "_dstBlendFactor": 1,
+    "_dstBlendFactor": 771,
     "_string": "Ui.choice_odd",
     "_N$string": "Ui.choice_odd",
     "_fontSize": 32,
@@ -9195,7 +9195,7 @@
       }
     ],
     "_srcBlendFactor": 770,
-    "_dstBlendFactor": 1,
+    "_dstBlendFactor": 771,
     "_string": "Ui.choice_even",
     "_N$string": "Ui.choice_even",
     "_fontSize": 32,
