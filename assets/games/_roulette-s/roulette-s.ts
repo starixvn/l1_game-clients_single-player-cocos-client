@@ -36,9 +36,6 @@ export default class RouletteS extends SoloGame {
     @property(cc.Node)
     rouletteBetItemsContainer: cc.Node = null;
 
-    @property(cc.Widget)
-    tableWidget: cc.Widget = null;
-
     @property(cc.Button)
     btnSpin: cc.Button = null;
 
@@ -68,9 +65,6 @@ export default class RouletteS extends SoloGame {
     private rouletteBetItems: RouletteBetItem[] = [];
     private roundHistoryComponent: MiniRouletteRoundHistory = null;
 
-    private readonly TableWidgetRightShowWheel = -330;
-    private readonly TableWidgetRightHideWheel = 0;
-
     private readonly BetChipsPositionShow = 0;
     private readonly BetChipsPositionHide = -300;
 
@@ -92,7 +86,6 @@ export default class RouletteS extends SoloGame {
     onLoad() {
         this.initRouletteBetItems();
         this.initRoundHistory();
-        this.hideWheel(false);
 
         this.singleBetControl = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetControl);
         super.onLoad();
@@ -121,45 +114,6 @@ export default class RouletteS extends SoloGame {
         } else {
             this.showBetChip();
         }
-    }
-
-    showWheel(animated = true) {
-        if (!animated) {
-            this.tableWidget.right = this.TableWidgetRightShowWheel;
-            return Promise.resolve();
-        }
-
-        return new Promise<void>((resolve) => {
-            this.tweenTableWidget(this.TableWidgetRightShowWheel, resolve);
-        });
-    }
-
-    hideWheel(animated = true) {
-        if (!animated) {
-            this.tableWidget.right = this.TableWidgetRightHideWheel;
-            return Promise.resolve();
-        }
-        return new Promise<void>((resolve) => {
-            this.tweenTableWidget(this.TableWidgetRightHideWheel, resolve);
-        });
-    }
-
-    tweenTableWidget(toRight: number, complete: () => void) {
-        return cc
-            .tween({ value: this.tableWidget.right })
-            .to(
-                0.5,
-                { value: toRight },
-                {
-                    onUpdate: (target) => {
-                        this.tableWidget.right = target.value;
-                        this.tableWidget.updateAlignment();
-                    },
-                    easing: "sineOut"
-                }
-            )
-            .call(complete)
-            .start();
     }
 
     protected onChangedBetChip(bet: number) {
@@ -333,11 +287,7 @@ export default class RouletteS extends SoloGame {
 
         const result = settlement.result;
         try {
-            await this.showWheel();
             await this.showWheelResult(result);
-            AnimationUtils.delayTime(1).then(() => {
-                this.hideWheel();
-            });
             AnimationUtils.delayTime(4).then(() => {
                 this.wheel.hideResultNumber();
             });

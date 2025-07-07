@@ -2704,7 +2704,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -89.163,
+        -86.421,
         0,
         0,
         0,
@@ -9737,9 +9737,6 @@
     },
     "rouletteBetItemsContainer": {
       "__id__": 63
-    },
-    "tableWidget": {
-      "__id__": 70
     },
     "btnSpin": {
       "__id__": 104
