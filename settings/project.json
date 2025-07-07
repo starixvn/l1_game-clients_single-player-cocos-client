@@ -44,8 +44,8 @@
       false
     ]
   ],
-  "design-resolution-height": 786,
-  "design-resolution-width": 930,
+  "design-resolution-height": 772,
+  "design-resolution-width": 786,
   "excluded-modules": [
     "3D Physics/cannon.js",
     "3D Physics/Builtin",
