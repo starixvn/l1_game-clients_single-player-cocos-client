@@ -1,0 +1,13 @@
+
+ghost.png
+size: 155,243
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ghost-1
+  rotate: false
+  xy: 2, 2
+  size: 151, 239
+  orig: 151, 239
+  offset: 0, 0
+  index: -1

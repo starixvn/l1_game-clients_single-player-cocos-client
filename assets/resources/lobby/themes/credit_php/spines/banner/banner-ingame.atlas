@@ -1,0 +1,62 @@
+
+banner-ingame.png
+size: 826,250
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+banner
+  rotate: true
+  xy: 2, 2
+  size: 246, 412
+  orig: 259, 414
+  offset: 6, 1
+  index: -1
+bg-gamename
+  rotate: false
+  xy: 416, 49
+  size: 201, 95
+  orig: 202, 97
+  offset: 0, 0
+  index: -1
+effect-bot
+  rotate: true
+  xy: 644, 105
+  size: 143, 145
+  orig: 156, 155
+  offset: 5, 4
+  index: -1
+flare
+  rotate: false
+  xy: 619, 63
+  size: 169, 40
+  orig: 173, 44
+  offset: 2, 3
+  index: -1
+gamename
+  rotate: false
+  xy: 619, 22
+  size: 159, 39
+  orig: 159, 39
+  offset: 0, 0
+  index: -1
+text-bot
+  rotate: false
+  xy: 416, 146
+  size: 226, 102
+  orig: 226, 102
+  offset: 0, 0
+  index: -1
+text1
+  rotate: true
+  xy: 791, 52
+  size: 196, 33
+  orig: 197, 33
+  offset: 0, 0
+  index: -1
+text2
+  rotate: false
+  xy: 416, 10
+  size: 196, 37
+  orig: 197, 37
+  offset: 1, 0
+  index: -1

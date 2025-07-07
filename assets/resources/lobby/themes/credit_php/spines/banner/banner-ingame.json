@@ -1,0 +1,123 @@
+{
+"skeleton": { "hash": "c7jxZdz1T/zWfqxUtXhoBv3aImo", "spine": "3.8.99", "x": -129, "y": -225.59, "width": 268.78, "height": 432.59 },
+"bones": [
+	{ "name": "root" },
+	{ "name": "banner", "parent": "root" },
+	{ "name": "top", "parent": "root", "y": 160.99 },
+	{ "name": "text1", "parent": "top", "y": 9.83 },
+	{ "name": "text2", "parent": "top", "y": -17.32 },
+	{ "name": "game-name", "parent": "root", "y": 87.52 },
+	{ "name": "bg-gamename", "parent": "game-name" },
+	{ "name": "gamename", "parent": "game-name" },
+	{ "name": "bottom", "parent": "root", "y": -143.21 },
+	{ "name": "effect-bot", "parent": "bottom", "x": 61.78 },
+	{ "name": "text-bot", "parent": "bottom" },
+	{ "name": "flare", "parent": "game-name" },
+	{ "name": "effect-bot2", "parent": "bottom", "x": -49.14, "y": -12.64, "scaleX": 0.9, "scaleY": 0.9 }
+],
+"slots": [
+	{ "name": "banner", "bone": "banner", "attachment": "banner" },
+	{ "name": "banner2", "bone": "banner", "attachment": "banner", "blend": "additive" },
+	{ "name": "text1", "bone": "text1", "attachment": "text1" },
+	{ "name": "text2", "bone": "text2", "attachment": "text2" },
+	{ "name": "bg-gamename", "bone": "bg-gamename", "attachment": "bg-gamename" },
+	{ "name": "gamename", "bone": "gamename", "attachment": "gamename" },
+	{ "name": "effect-bot", "bone": "effect-bot", "attachment": "effect-bot" },
+	{ "name": "effect-bot2", "bone": "effect-bot2", "attachment": "effect-bot" },
+	{ "name": "text-bot", "bone": "text-bot", "attachment": "text-bot" },
+	{ "name": "flare", "bone": "flare", "attachment": "flare" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"banner": {
+				"banner": { "x": 0.5, "width": 259, "height": 414 }
+			},
+			"banner2": {
+				"banner": { "x": 0.5, "width": 259, "height": 414 }
+			},
+			"bg-gamename": {
+				"bg-gamename": { "x": 0.5, "width": 202, "height": 97 }
+			},
+			"effect-bot": {
+				"effect-bot": { "width": 156, "height": 155 }
+			},
+			"effect-bot2": {
+				"effect-bot": { "width": 156, "height": 155 }
+			},
+			"flare": {
+				"flare": { "x": 0.5, "width": 173, "height": 44 }
+			},
+			"gamename": {
+				"gamename": { "x": 0.5, "width": 159, "height": 39 }
+			},
+			"text-bot": {
+				"text-bot": { "width": 226, "height": 102 }
+			},
+			"text1": {
+				"text1": { "x": 0.5, "width": 197, "height": 33 }
+			},
+			"text2": {
+				"text2": { "x": 0.5, "width": 197, "height": 37 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"banner2": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.3333, "color": "ffffff00", "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6667, "color": "ffffff32", "curve": 0.25, "c3": 0.75 },
+					{ "time": 1.3333, "color": "ffffff00" }
+				]
+			},
+			"flare": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.6, "color": "ffffff00", "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 0.9333, "color": "ffffffff", "curve": 0.25, "c3": 0.75 },
+					{ "time": 1.1, "color": "ffffff00", "curve": 0.25, "c3": 0.75 },
+					{ "time": 1.3, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 1.8, "color": "ffffffff", "curve": 0.25, "c3": 0.75 },
+					{ "time": 2, "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"game-name": {
+				"scale": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3333, "x": 0.9, "y": 0.9, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6667 }
+				]
+			},
+			"bottom": {
+				"scale": [
+					{ "time": 0.6667, "curve": 0.25, "c3": 0.75 },
+					{ "time": 1.3333, "x": 0.9, "y": 0.9, "curve": 0.25, "c3": 0.75 },
+					{ "time": 2 }
+				]
+			},
+			"effect-bot": {
+				"scale": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 1.3333, "x": 0.9, "y": 0.9, "curve": 0.25, "c3": 0.75 },
+					{ "time": 2 }
+				]
+			},
+			"effect-bot2": {
+				"scale": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 1.3333, "x": 0.9, "y": 0.9, "curve": 0.25, "c3": 0.75 },
+					{ "time": 2 }
+				]
+			}
+		}
+	}
+}
+}

@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    counter-reset: section;
+    color: #fff;
+}
+
+.game-guide {
+    list-style: none;
+    padding-left: 16px;
+}
+
+.heading {
+    font-weight: bold;
+    color: #f3d603;    
+}
+
+.subheading {
+    color: #f3d603; 
+}
+
+.game-guide .heading:before {
+    counter-increment: section;
+  content: counter(section) ". ";
+}
+
+.intro {
+    margin-top: 5px;
+}
+
+.game-guide li {
+    line-height: 1.5;
+    margin: 6px 0;
+}
+
+.game-guide ul {
+    margin-top: 4px;
+}
+
+.game-guide >li > ul {
+    padding-left: 18px;
+    list-style: disc;
+}
+
+.game-guide >li > ul ul {
+    list-style: circle;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.table {
+    margin: 10px 0;
+    border-collapse: collapse;
+    background-color: #e8e8e8;
+    color: #212121;
+}
+
+.table thead tr {
+    background-color: #b4b3b3;
+}
+
+.table th {
+    text-align: center;
+}
+
+.table td, .table th {
+    padding: 5px 5px;
+    border: 1px solid #8b8b8b;
+}
+
+.xoc-dia-luat-choi img {
+    position: relative;
+    top: 9px;
+    margin-right: 10px;
+}
+
+.luat-choi {
+    padding-left: 10px;
+}
+
+.four-phu {
+    padding-left: 18px;
+}
+
+.item-bets td {
+    padding: 0 5px;
+}
+
+.item-bets img {
+    max-width: 90%;
+} 
+    
+.rong-ho-card td {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.col-lua-chon {
+    min-width: 70px;
+}
+
+@media (min-width: 768px) {
+    .table td, .table th {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .item-bets td {
+        padding: 0 20px;
+    }
+
+    .item-bets img {
+        max-width: 100%;
+    } 
+
+}

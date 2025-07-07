@@ -1,0 +1,151 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "guide",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 4,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "pointer": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -81.759,
+                -273.145,
+                0
+              ]
+            },
+            {
+              "frame": 0.48333333333333334,
+              "value": [
+                -123.408,
+                -220.596,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                -123.408,
+                -220.596,
+                0
+              ]
+            },
+            {
+              "frame": 1.3666666666666667,
+              "value": [
+                -123.408,
+                -154,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 2.8333333333333335,
+              "value": 255
+            },
+            {
+              "frame": 3,
+              "value": 0
+            },
+            {
+              "frame": 4,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "hoverAA": {
+        "props": {
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 0.48333333333333334,
+              "value": true
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": false
+            }
+          ]
+        }
+      },
+      "container-hide-toolbar": {
+        "props": {
+          "y": [
+            {
+              "frame": 0.6666666666666666,
+              "value": -191.702
+            },
+            {
+              "frame": 1,
+              "value": -128.518
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.9666666666666666,
+              "value": 255
+            },
+            {
+              "frame": 2.533333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "container-hide-toolbar/highlight-hide-toolbar": {
+        "props": {
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 1.3666666666666667,
+              "value": true
+            },
+            {
+              "frame": 1.7666666666666666,
+              "value": false
+            }
+          ]
+        }
+      },
+      "mark/phone-bottom": {
+        "props": {
+          "y": [
+            {
+              "frame": 1.7166666666666666,
+              "value": -278.253
+            },
+            {
+              "frame": 2.4833333333333334,
+              "value": -403.672
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.7166666666666666,
+              "value": 255
+            },
+            {
+              "frame": 2.05,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

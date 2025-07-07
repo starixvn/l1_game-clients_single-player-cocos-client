@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "dc514584-6e15-4a88-9709-8c46725f1feb",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1398,
+  "height": 786,
+  "platformSettings": {},
+  "subMetas": {
+    "Christmas_theme_sc": {
+      "ver": "1.0.6",
+      "uuid": "65f26658-58a8-4054-b0c8-c481b0e604a5",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "dc514584-6e15-4a88-9709-8c46725f1feb",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1398,
+      "height": 786,
+      "rawWidth": 1398,
+      "rawHeight": 786,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "2ab93510-e22d-49b1-ae70-17a8832a2988",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 57,
+  "height": 30,
+  "platformSettings": {},
+  "subMetas": {
+    "baccarat_nha_con_result": {
+      "ver": "1.0.6",
+      "uuid": "949c8733-7607-433d-8427-0a7137ab5ae7",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "2ab93510-e22d-49b1-ae70-17a8832a2988",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 0,
+      "width": 54,
+      "height": 30,
+      "rawWidth": 57,
+      "rawHeight": 30,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

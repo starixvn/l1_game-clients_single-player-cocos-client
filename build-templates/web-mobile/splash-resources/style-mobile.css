@@ -1,0 +1,596 @@
+html {
+    -ms-touch-action: none;
+}
+
+body,
+canvas,
+div {
+    display: block;
+    outline: none;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+}
+
+/* Remove spin of input type number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+iframe {
+    overflow-x: hidden;
+}
+
+iframe.microsite-iframe {
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+}
+
+body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    background-color: #000;
+    /* background-color: transparent !important; */
+    background-size: auto 100vh;
+
+    cursor: default;
+    color: #888;
+
+    text-align: center;
+    font-family: Helvetica, Verdana, Arial, sans-serif;
+
+    display: flex;
+    flex-direction: column;
+
+    /* fix bug: https://github.com/cocos-creator/2d-tasks/issues/791 */
+    /* overflow cannot be applied in Cocos2dGameContainer,
+  otherwise child elements will be hidden when Cocos2dGameContainer rotated 90 deg */
+    overflow: hidden;
+}
+
+.container-themes {
+    position: relative;
+    top: 5.22vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-themes {
+    background-size: auto 89.56vh;
+    width: auto;
+    height: 89.56vh;
+}
+
+#Cocos2dGameContainer {
+    position: absolute;
+    margin: 0;
+    left: 0px;
+    top: 0px;
+
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+
+    width: 100%;
+    z-index: 1;
+    height: 100vh !important;
+    height: calc(var(--vh, 1vh) * 100) !important;
+}
+
+#Cocos2dGameContainer > div[style*="overflow-x"] {
+    overflow-x: hidden !important;
+}
+
+a:link,
+a:visited {
+    color: #666;
+}
+
+a:active,
+a:hover {
+    color: #666;
+}
+
+p.header {
+    font-size: small;
+}
+
+p.footer {
+    font-size: x-small;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1024px) and (orientation: portrait) {
+    .splash-container {
+        height: 100vw;
+        width: 100vh;
+        transform: rotate(90deg) translateX(50%);
+        transform-origin: right top;
+        top: calc(var(--height-50vh, 50vh) + var(--scrollY, 0px)) !important;
+        right: 0;
+    }
+
+    .instruction {
+        height: 100vh !important;
+        transform: rotate(90deg);
+    }
+
+    .container-themes {
+        position: fixed;
+        height: calc(89.56vw - 70px);
+        -ms-transform: translateY(-89.56vw) rotate(90deg);
+        -o-transform: translateY(-89.56vw) rotate(90deg);
+        -ms-transform: translateY(-89.56vw) rotate(90deg);
+        -o-transform: translateY(-89.56vw) rotate(90deg);
+        transform: translateY(-89.56vw) rotate(90deg);
+        -webkit-transform-origin: left bottom;
+        -moz-transform-origin: left bottom;
+        top: unset;
+        bottom: unset;
+        right: unset;
+        left: 5.22vw;
+    }
+
+    .img-themes {
+        background-size: auto 50.36vh;
+        width: auto;
+        height: 50.36vh;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    .splash-container {
+        transform: rotate(0deg);
+    }
+}
+
+.splash-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.icon-top {
+    position: absolute;
+    top: 0vh;
+    background-size: auto 20.23vh;
+    width: 100%;
+    height: 20.23vh;
+}
+
+.splash {
+    position: absolute;
+    --logo-height: calc(var(--vh, 1vh) * 11.99);
+    top: calc(var(--vh, 1vh) * 37.8);
+    background: url(./logo_saba.webp?v=1) no-repeat center;
+    background-size: auto var(--logo-height);
+    width: 100%;
+    height: var(--logo-height);
+    left: -1px;
+}
+
+.splash_Vgaming {
+    position: absolute;
+    --logo-height: calc(var(--vh, 1vh) * 18.32);
+    top: calc(var(--vh, 1vh) * 31.6);
+    background: url(./logo_vgaming.webp?v=1) no-repeat center;
+    background-size: auto var(--logo-height);
+    width: 100%;
+    height: var(--logo-height);
+}
+
+.splash_sabaplay {
+    position: absolute;
+    --logo-height: calc(var(--vh, 1vh) * 23.85);
+    top: calc(var(--vh, 1vh) * 25.9);
+    left: 1px;
+    background: url(./logo_sabaplay.webp?v=1) no-repeat center;
+    background-size: auto var(--logo-height);
+    width: 100%;
+    height: var(--logo-height);
+}
+
+.splash_other_sc2 {
+    position: absolute;
+    --logo-height: calc(var(--vh, 1vh) * 30.53);
+    top: calc(var(--vh, 1vh) * 22.65);
+    background-size: auto var(--logo-height);
+    width: 100%;
+    height: var(--logo-height);
+}
+
+.splash_text_other_sc2 {
+    position: absolute;
+    top: 54.83vh;
+    background: no-repeat center;
+    background-size: auto 6.1vh;
+    width: 100%;
+    height: 6.1vh;
+}
+
+.splash_other_sc1 {
+    position: absolute;
+    top: 22.65vh;
+    background-size: auto 30.53vh;
+    width: 100%;
+    height: 30.53vh;
+}
+
+.splash_text_other_sc1 {
+    position: absolute;
+    top: 54.83vh;
+    background: no-repeat center;
+    background-size: auto 6.1vh;
+    width: 100%;
+    height: 6.1vh;
+}
+
+.splash_tip88 {
+    position: absolute;
+    --logo-height: calc(var(--vh, 1vh) * 24.07);
+    top: calc(var(--vh, 1vh) * 25.85);
+    left: -3px;
+    background: url(./logo_soibet.webp?v=1) no-repeat center;
+    background-size: auto var(--logo-height);
+    width: 100%;
+    height: var(--logo-height);
+}
+
+.splash_text {
+    position: absolute;
+    top: calc(var(--vh, 1vh) * 50.6);
+    background: no-repeat center;
+    background-size: auto calc(var(--vh, 1vh) * 2.47);
+    width: 100%;
+    height: calc(var(--vh, 1vh) * 3.44);
+}
+
+.splash_text_vi {
+    background-image: url("splash_text_vi.webp?v=1");
+}
+
+.splash_text_en {
+    background-image: url("splash_text_en.webp?v=1");
+}
+
+.splash_text_th {
+    background-image: url("splash_text_th.webp?v=1");
+}
+
+.splash_text_id {
+    background-image: url("splash_text_id.webp?v=1");
+}
+
+.splash_text_zh_cn {
+    background-image: url("splash_text_zh_cn.webp?v=1");
+}
+
+.splash_text_zh_tw {
+    background-image: url("splash_text_zh_tw.webp?v=1");
+}
+
+.loading_icon {
+    position: absolute;
+    --loading-icon-height: calc(var(--vh, 1vh) * 0.76);
+    top: calc(var(--vh, 1vh) * 60.17);
+    left: 50%;
+    transform: translateX(-50%);
+    background: url("loading-bar.gif?v=1") no-repeat center;
+    background-size: auto var(--loading-icon-height);
+    width: 100%;
+    height: var(--loading-icon-height);
+}
+
+#powered-by {
+    position: absolute;
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+}
+
+#powered-by.powered-by {
+    --powered-by-height: calc(var(--vh, 1vh) * 4.07);
+    background: url("powered_by.webp?v=1") no-repeat top center;
+    background-size: auto var(--powered-by-height);
+    width: 100%;
+    height: var(--powered-by-height);
+    top: calc(var(--vh, 1vh) * 85.35);
+}
+
+#powered-by.powered-by_tip88 {
+    width: 100%;
+    --powered-by-height: calc(var(--vh, 1vh) * 4.85);
+    height: var(--powered-by-height);
+    top: calc(var(--vh, 1vh) * 84.4);
+    background: no-repeat center;
+    background-size: auto var(--powered-by-height);
+}
+
+#powered-by.powered-by_tip88.en {
+    background-image: url("powered_by_Vgaming_en.webp?v=1");
+}
+
+#powered-by.powered-by_tip88.vi {
+    background-image: url("powered_by_Vgaming_vi.webp?v=1");
+}
+
+#powered-by.powered-by_tip88.th {
+    background-image: url("powered_by_Vgaming_th.webp?v=1");
+}
+
+#powered-by.powered-by_tip88.id {
+    background-image: url("powered_by_Vgaming_id.webp?v=1");
+}
+
+#powered-by.powered-by_tip88.zh_cn {
+    background-image: url("powered_by_Vgaming_zh_cn.webp?v=1");
+}
+
+#powered-by.powered-by_tip88.zh_tw {
+    background-image: url("powered_by_Vgaming_zh_tw.webp?v=1");
+}
+
+.waiting-message {
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    top: calc(var(--vh, 1vh) * 91.9);
+    width: 100%;
+    font-size: 2.65vh;
+    opacity: 0;
+    color: #ccc7b4;
+    letter-spacing: -0.2px;
+    transition: transform 1s ease;
+    transform: translateY(20px);
+    visibility: hidden;
+}
+
+.waiting-message.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.waiting-message.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    visibility: hidden;
+}
+
+.conner-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+@media only screen and (min-width: 767px) and (max-width: 1024px) {
+    .light {
+        background-size: 31.47vw 8.79vw;
+        width: 31.47vw;
+        height: 8.79vw;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+    .loading_icon {
+        top: 60.17vw;
+        background-size: auto 0.76vw;
+        height: 0.76vw;
+    }
+
+    .icon-top {
+        top: 0vw;
+        background-size: auto 20.23vw;
+        height: 20.23vw;
+    }
+
+    .icon-bottom {
+        top: 61.45vw;
+        background-size: auto 34.22vw;
+        height: 34.22vw;
+    }
+    .icon-bottom.tip88 {
+        top: 52.93vw;
+    }
+
+    .splash {
+        top: 37.8vw;
+        background-size: auto 11.99vw;
+        height: 11.99vw;
+    }
+
+    .splash_text {
+        top: 50.6vw;
+        background-size: auto 2.47vw;
+        height: 3.44vw;
+    }
+
+    .splash_Vgaming {
+        top: 31.6vw;
+        background-size: auto 18.32vw;
+        height: 18.32vw;
+    }
+
+    .splash_text_Vgaming {
+        top: 54.83vw;
+        background-size: auto 6.1vw;
+        height: 6.1vw;
+    }
+
+    .splash_sabaplay {
+        top: 25.9vw;
+        background-size: auto 23.85vw;
+        height: 23.85vw;
+    }
+
+    .splash_text_sabaplay {
+        top: 54.83vw;
+        background-size: auto 6.1vw;
+        height: 6.1vw;
+    }
+
+    .splash_tip88 {
+        top: 25.85vw;
+        background-size: auto 24.06vw;
+        height: 24.06vw;
+        left: -1px;
+    }
+
+    .splash_text_tip88 {
+        top: 54.83vw;
+        background-size: auto 6.1vw;
+        height: 6.1vw;
+    }
+
+    .splash_powered {
+        top: 90.33vw;
+        background-size: auto 4.7vw;
+        height: 4.7vw;
+    }
+
+    .splash_other {
+        top: 54.83vw;
+        background-size: auto 30.53vw;
+        height: 30.53vw;
+    }
+
+    .splash_text_other {
+        top: 54.83vw;
+        background-size: auto 6.1vw;
+        height: 6.1vw;
+    }
+
+    .splash_other_sc1 {
+        top: 54.83vw;
+        background-size: auto 30.53vw;
+        height: 30.53vw;
+    }
+
+    .splash_text_other_sc1 {
+        top: 54.83vw;
+        background-size: auto 6.1vw;
+        height: 6.1vw;
+    }
+
+    .splash_other_sc2 {
+        top: 22.9vw;
+        background-size: auto 30.53vw;
+        height: 30.53vw;
+    }
+
+    .splash_text_other_sc2 {
+        top: 54.83vw;
+        background-size: auto 6.1vw;
+        height: 6.1vw;
+    }
+
+    #powered-by.powered-by {
+        background-size: auto 4.07vw;
+        height: 4.07vw;
+        top: 85.35vw;
+    }
+
+    #powered-by.powered-by_tip88 {
+        height: 4.85vw;
+        top: 84.4vw;
+        background-size: auto 4.85vw;
+    }
+
+    .waiting-message {
+        top: 91.9vw;
+        font-size: 2.65vw;
+    }
+}
+
+.text {
+    margin-bottom: 36px;
+    text-transform: capitalize;
+    background: linear-gradient(to bottom, #ffe28e 0%, #f9a71a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.8em;
+    font-family: Arial;
+}
+
+.progress-bar {
+    background-color: transparent;
+    display: none;
+    position: absolute;
+    left: 25%;
+    height: 30px;
+    padding: 0px;
+    width: 50%;
+    border-radius: 3px;
+}
+
+.ldBar {
+    display: none;
+    top: 50%;
+    position: absolute;
+    color: #f9a71a;
+    font-size: 18pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .ldBar {
+        top: 40%;
+        height: 52px !important;
+        font-size: 16px;
+    }
+}
+
+.ldBar path.mainline {
+    stroke-width: 10;
+    stroke: #f9a71a;
+    stroke-linecap: round;
+}
+
+.ldBar path.baseline {
+    stroke-width: 10;
+    stroke: #444;
+    stroke-linecap: round;
+}
+
+@keyframes animate-stripes {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 60px 0;
+    }
+}
+
+#mockup-portrait {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    background: url(./vg.jpg) no-repeat center;
+    background-size: contain;
+    width: 100vh;
+    height: 100vw;
+    opacity: 0.3;
+    transform: rotate(90deg) translateX(-100vw);
+    z-index: 99999;
+    transform-origin: bottom left;
+}

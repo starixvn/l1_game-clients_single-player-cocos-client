@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "6f7c32ae-abae-4f7a-99e3-233d7b8dd3b7",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 440,
+  "height": 507,
+  "platformSettings": {},
+  "subMetas": {
+    "texasholdem_icongame": {
+      "ver": "1.0.6",
+      "uuid": "e953b2f8-bd1b-4467-be76-681c4070c4be",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "6f7c32ae-abae-4f7a-99e3-233d7b8dd3b7",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 436,
+      "height": 503,
+      "rawWidth": 440,
+      "rawHeight": 507,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,505 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Keno Pro Viet",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.5,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "ngoi sao": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "ngoi sao 2": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 128
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            },
+            {
+              "frame": 1.5,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "ngoi sao 3": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "ngoi sao 4": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 128
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            },
+            {
+              "frame": 1.5,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "vang tuoi": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                43.744,
+                -36.04,
+                0
+              ]
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                41.706,
+                -34.681,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                44.424,
+                -35.021,
+                0
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                43.744,
+                -36.04,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "xanh la": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                60.612,
+                28.762,
+                0
+              ]
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                58.574,
+                28.422,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                59.253,
+                30.97,
+                0
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                60.612,
+                28.762,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "xanh duong": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -41.303,
+                -27.62,
+                0
+              ]
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                -41.982,
+                -26.601,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                -40.284,
+                -27.111,
+                0
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                -41.303,
+                -27.62,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "tim": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -63.67,
+                36.504,
+                0
+              ]
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                -61.632,
+                37.183,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                -61.632,
+                35.485,
+                0
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                -63.67,
+                36.504,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "vang nau": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -1.562,
+                61.445,
+                0
+              ]
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                -0.203,
+                60.766,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                -2.581,
+                59.067,
+                0
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                -1.562,
+                61.445,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "sao 1": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 0.75,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.9,
+                "y": 0.9
+              }
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "sao 4": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 0.75,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.9,
+                "y": 0.9
+              }
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "sao 2": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.8,
+                "y": 0.8
+              }
+            },
+            {
+              "frame": 0.75,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.8,
+                "y": 0.8
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.5,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 0
+            },
+            {
+              "frame": 1.5,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "sao 3": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.8,
+                "y": 0.8
+              }
+            },
+            {
+              "frame": 0.75,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.8,
+                "y": 0.8
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.5,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 0
+            },
+            {
+              "frame": 1.5,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "sao 5": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.8,
+                "y": 0.8
+              }
+            },
+            {
+              "frame": 0.75,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.8,
+                "y": 0.8
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.5,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 0
+            },
+            {
+              "frame": 1.5,
+              "value": 255
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

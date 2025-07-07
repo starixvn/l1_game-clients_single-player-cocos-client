@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "8f126d9c-4e3a-41c4-b52e-da16aa48c511",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 62,
+  "height": 31,
+  "platformSettings": {},
+  "subMetas": {
+    "vipbaccarat_banker_small": {
+      "ver": "1.0.6",
+      "uuid": "6b727eda-e82b-4d99-a905-ccd80314cfff",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "8f126d9c-4e3a-41c4-b52e-da16aa48c511",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 60,
+      "height": 29,
+      "rawWidth": 62,
+      "rawHeight": 31,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

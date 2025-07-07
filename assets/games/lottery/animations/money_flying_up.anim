@@ -1,0 +1,53 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "money_flying_up",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.6888888888888889,
+  "sample": 45,
+  "speed": 1,
+  "wrapMode": 0,
+  "curveData": {
+    "paths": {
+      "text": {
+        "props": {
+          "position": [
+            {
+              "frame": 0.022222222222222223,
+              "value": [
+                0,
+                0
+              ],
+              "motionPath": [],
+              "curve": [
+                0.48,
+                0,
+                0.3512121212121212,
+                0.9709427609427609
+              ]
+            },
+            {
+              "frame": 1.1333333333333333,
+              "value": [
+                -0.7,
+                100,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.0444444444444445,
+              "value": 255
+            },
+            {
+              "frame": 1.6888888888888889,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

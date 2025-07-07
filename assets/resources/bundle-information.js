@@ -1,0 +1,14 @@
+"use strict";
+
+if (!window.bundleManagement) {
+    window.bundleManagement = {};
+}
+
+window.bundleManagement.bundles = {
+    default: {
+        url: "",
+        name: "",
+        useMd5Cache: true,
+        dependencies: []
+    }
+};

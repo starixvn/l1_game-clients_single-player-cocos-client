@@ -1,0 +1,247 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "dealingCards",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 2,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "1": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.3,
+                "y": 0.3
+              },
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.3,
+                "y": 0.3
+              },
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 1,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                100,
+                0
+              ],
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                0,
+                100,
+                0
+              ],
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 1,
+              "value": [
+                -89,
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "2": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              },
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              },
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 0.95,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              },
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 1,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.3,
+                "y": 0.3
+              },
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                100,
+                0
+              ],
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                0,
+                100,
+                0
+              ],
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 1,
+              "value": [
+                0,
+                100,
+                0
+              ],
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "3": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "frame": 1.45,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.3,
+                "y": 0.3
+              },
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 2,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "quartInOut"
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                100,
+                0
+              ],
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                0,
+                100,
+                0
+              ],
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                0,
+                100,
+                0
+              ],
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 2,
+              "value": [
+                89,
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

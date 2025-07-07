@@ -1,0 +1,58 @@
+variables:
+    SOURCE_PATHS: assets/**/*.ts
+    TEST_PATHS: __tests__
+    PROJECT_NAME: $SERVICE_NAME
+
+stages:
+    - test
+    - report
+
+.common-rules:
+    allow_failure: true
+    rules:
+        - when: always
+
+cocos-unit-test:
+    extends: .common-rules
+    stage: test
+    image: hub.lumigame.com/docker-hub/library/node:18.14-alpine
+    tags:
+        - ci
+    before_script:
+        - npm set registry http://npm.lumigame.com
+        - yarn install
+    script:
+        - npm run test-coverage
+    artifacts:
+        when: always
+        paths:
+            - ./coverage
+            - ./reports
+        expire_in: 1 day
+
+cocos-sonarqube-report:
+    extends: .common-rules
+    stage: report
+    needs:
+        - cocos-unit-test
+    image: hub.lumigame.com/base/sonarsource/sonar-scanner-cli:latest
+    tags:
+        - ci
+    before_script:
+        - echo "===========Start Sonar Scanner============="
+        - echo "$SOURCE_PATHS";
+        - npm set registry http://npm.lumigame.com
+        - npm rebuild
+        - npm install -g typescript
+    script:
+        - sonar-scanner
+          -X
+          -Dsonar.sourceEncoding=UTF-8
+          -Dsonar.qualitygate.wait=true
+          -Dsonar.projectKey=$PROJECT_NAME
+          -Dsonar.projectVersion="${CI_COMMIT_REF_NAME} ($CI_COMMIT_SHORT_SHA) [${CI_JOB_ID}]"
+          -Dproject.settings=./sonarqube.analysis.properties
+          -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+          -Dsonar.testExecutionReportPaths=./reports/test-reporter.xml
+          -Dsonar.sources=${SOURCE_PATHS}
+          -Dsonar.tests=${TEST_PATHS}

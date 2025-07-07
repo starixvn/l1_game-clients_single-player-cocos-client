@@ -1,0 +1,195 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "dealer_open_card",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.85,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "card": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 0.7,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                -150,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1.2,
+              "value": [
+                -150,
+                0,
+                100
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                -150,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1.85,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.5
+            }
+          ],
+          "eulerAngles": [
+            {
+              "frame": 1,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0,
+                "y": -180,
+                "z": 0
+              }
+            },
+            {
+              "frame": 1.1333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0,
+                "y": -90,
+                "z": 0
+              }
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "props": {
+          "position": [
+            {
+              "frame": 0.7,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1.0166666666666666,
+              "value": [
+                -150,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                -150,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1.85,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "scale": [
+            {
+              "frame": 1.0166666666666666,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.2,
+                "y": 1,
+                "z": 0
+              }
+            },
+            {
+              "frame": 1.15,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0,
+                "y": 1,
+                "z": 0
+              }
+            },
+            {
+              "frame": 1.4333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.2,
+                "y": 1,
+                "z": 0
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.0166666666666666,
+              "value": 0
+            },
+            {
+              "frame": 1.0666666666666667,
+              "value": 50
+            },
+            {
+              "frame": 1.35,
+              "value": 50
+            },
+            {
+              "frame": 1.5833333333333333,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 1.15,
+      "func": "faceUp",
+      "params": []
+    }
+  ]
+}

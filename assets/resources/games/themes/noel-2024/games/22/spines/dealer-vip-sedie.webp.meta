@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "768cac9f-e5ec-4889-b39f-263e1dce08ac",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 751,
+  "height": 157,
+  "platformSettings": {},
+  "subMetas": {
+    "dealer-vip-sedie": {
+      "ver": "1.0.6",
+      "uuid": "97a1de96-2eb6-47f4-9d68-47359c52646d",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "768cac9f-e5ec-4889-b39f-263e1dce08ac",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 747,
+      "height": 153,
+      "rawWidth": 751,
+      "rawHeight": 157,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

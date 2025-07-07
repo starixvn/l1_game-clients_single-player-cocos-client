@@ -1,0 +1,7 @@
+{
+  "name": "dynamic-version",
+  "version": "0.0.1",
+  "description": "A custom builder that can add version to js files",
+  "author": "Cocos Creator",
+  "main": "main.js"
+}

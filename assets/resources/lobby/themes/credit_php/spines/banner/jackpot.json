@@ -1,0 +1,253 @@
+{
+"skeleton": { "hash": "eRs+jxfIs5VPojQSj8NSwbPvQdg", "spine": "3.8.99", "x": -141.14, "y": -104.53, "width": 272.55, "height": 208.28 },
+"bones": [
+	{ "name": "root", "x": 5.91, "y": -51.29 },
+	{ "name": "bone", "parent": "root", "x": -0.21, "y": -26.16 },
+	{ "name": "vang1", "parent": "bone", "length": 26.14, "rotation": 122.56, "x": -16.98, "y": 44.44 },
+	{ "name": "kimcuong1", "parent": "bone", "length": 26.27, "rotation": 84.14, "x": 2.01, "y": 99.83 },
+	{ "name": "kimcuong2", "parent": "bone", "length": 26.97, "rotation": 63.43, "x": 12.06, "y": 101.84 },
+	{ "name": "kimcuong3", "parent": "bone", "length": 20.78, "rotation": 88.15, "x": 9.38, "y": 109.88 },
+	{ "name": "bone2", "parent": "bone", "length": 24.05, "rotation": 77.12, "x": 19.87, "y": 30.19 },
+	{ "name": "ruongvang", "parent": "bone", "length": 19.07, "rotation": 108.43, "x": -76.43, "y": 103.18 },
+	{ "name": "anhsang3", "parent": "root", "x": -80.22, "y": 85.63 },
+	{ "name": "anhsang", "parent": "root", "x": 9.59, "y": 14.71 },
+	{ "name": "anhsang2", "parent": "root", "x": -106.9, "y": 31.91 },
+	{ "name": "la-dua", "parent": "bone", "length": 19.07, "rotation": 95.39, "x": -55.46, "y": 111.16 },
+	{ "name": "la-dua2", "parent": "bone", "length": 19.07, "x": -21.43, "y": 129.73 },
+	{ "name": "la-dua3", "parent": "bone", "length": 19.07, "rotation": 95.39, "x": -86.6, "y": 15.17 },
+	{ "name": "la-dua4", "parent": "bone", "length": 19.07, "rotation": -125.1, "x": 82.34, "y": 43.34 },
+	{ "name": "bg", "parent": "root", "y": -131.38 }
+],
+"slots": [
+	{ "name": "bg", "bone": "bg" },
+	{ "name": "bg-top", "bone": "root" },
+	{ "name": "la-dua", "bone": "la-dua", "attachment": "la-dua" },
+	{ "name": "la-dua3", "bone": "la-dua3", "attachment": "la-dua" },
+	{ "name": "la-dua4", "bone": "la-dua4", "attachment": "la-dua" },
+	{ "name": "la-dua2", "bone": "la-dua2", "attachment": "la-dua-2" },
+	{ "name": "kimcuong2", "bone": "kimcuong2", "attachment": "kimcuong2" },
+	{ "name": "kimcuong1", "bone": "kimcuong1", "attachment": "kimcuong1" },
+	{ "name": "ruongvang", "bone": "ruongvang", "attachment": "ruongvang" },
+	{ "name": "board", "bone": "root", "attachment": "bg-top" },
+	{ "name": "kimcuong3", "bone": "kimcuong3", "attachment": "kimcuong3" },
+	{ "name": "vang1", "bone": "vang1", "attachment": "vang1" },
+	{ "name": "vang2", "bone": "bone2", "attachment": "vang2" },
+	{ "name": "anhsang", "bone": "anhsang", "attachment": "anhsang" },
+	{ "name": "anhsang2", "bone": "anhsang2", "attachment": "anhsang2" },
+	{ "name": "anhsang3", "bone": "anhsang3", "attachment": "anhsang3" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"anhsang": {
+				"anhsang": { "rotation": 108.43, "width": 34, "height": 34 }
+			},
+			"anhsang2": {
+				"anhsang2": { "x": 0.64, "width": 28, "height": 28 }
+			},
+			"anhsang3": {
+				"anhsang3": { "x": 7.08, "y": -5.41, "width": 27, "height": 27 }
+			},
+			"board": {
+				"bg-top": { "x": -4, "y": 45, "width": 259, "height": 122 }
+			},
+			"kimcuong1": {
+				"kimcuong1": {
+					"x": 22.99,
+					"y": 15.28,
+					"scaleX": 0.8,
+					"scaleY": 0.8,
+					"rotation": -91.18,
+					"width": 139,
+					"height": 28
+				}
+			},
+			"kimcuong2": {
+				"kimcuong2": { "x": -2.65, "y": 24.46, "rotation": -63.43, "width": 157, "height": 25 }
+			},
+			"kimcuong3": {
+				"kimcuong3": { "x": -27.56, "y": 86.73, "rotation": -88.15, "width": 73, "height": 18 }
+			},
+			"la-dua": {
+				"la-dua": { "x": 4.16, "y": -1.24, "rotation": -54.79, "width": 96, "height": 91 }
+			},
+			"la-dua2": {
+				"la-dua-2": { "x": 2.49, "y": 4.71, "width": 81, "height": 22 }
+			},
+			"la-dua3": {
+				"la-dua": {
+					"x": 8.17,
+					"y": 9.06,
+					"scaleX": 0.8,
+					"scaleY": 0.8,
+					"rotation": -69.46,
+					"width": 96,
+					"height": 91
+				}
+			},
+			"la-dua4": {
+				"la-dua": {
+					"x": 15.62,
+					"y": -0.24,
+					"scaleX": 0.8,
+					"scaleY": 0.8,
+					"rotation": 156.32,
+					"width": 96,
+					"height": 91
+				}
+			},
+			"ruongvang": {
+				"ruongvang": { "x": 7.43, "y": 3.17, "rotation": -68.05, "width": 41, "height": 35 }
+			},
+			"vang1": {
+				"vang1": { "x": -36.4, "y": -17.91, "rotation": -132.46, "width": 182, "height": 59 }
+			},
+			"vang2": {
+				"vang2": { "x": -8.69, "y": 23.69, "rotation": -77.12, "width": 215, "height": 40 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"anhsang": {
+				"color": [
+					{ "color": "ffffffff" },
+					{ "time": 0.6667, "color": "ffffff00" },
+					{ "time": 1.3333, "color": "ffffffff" }
+				]
+			},
+			"anhsang2": {
+				"color": [
+					{ "color": "ffffffff" },
+					{ "time": 0.6667, "color": "ffffff00" },
+					{ "time": 1.3333, "color": "ffffffff" }
+				]
+			},
+			"anhsang3": {
+				"color": [
+					{ "color": "ffffff00" },
+					{ "time": 0.6667, "color": "ffffffff" },
+					{ "time": 1.3333, "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"anhsang": {
+				"scale": [
+					{ "x": 0.6, "y": 0.6 },
+					{ "time": 0.6667, "x": 0.8, "y": 0.8 },
+					{ "time": 1.3333, "x": 0.6, "y": 0.6 }
+				]
+			},
+			"anhsang2": {
+				"scale": [
+					{},
+					{ "time": 0.6667, "x": 0.8, "y": 0.8 },
+					{ "time": 1.3333 }
+				]
+			},
+			"anhsang3": {
+				"scale": [
+					{},
+					{ "time": 0.6667, "x": 0.8, "y": 0.8 },
+					{ "time": 1.3333 }
+				]
+			},
+			"kimcuong3": {
+				"translate": [
+					{ "y": -1.19 },
+					{ "time": 0.2, "y": -2.97 },
+					{ "time": 0.8667, "y": 2.97 },
+					{ "time": 1.3333, "y": -1.19 }
+				]
+			},
+			"kimcuong1": {
+				"translate": [
+					{},
+					{ "time": 0.6667, "y": 5.19 },
+					{ "time": 1.3333 }
+				]
+			},
+			"ruongvang": {
+				"rotate": [
+					{ "angle": -30.69 },
+					{ "time": 0.6667, "angle": -22.49 },
+					{ "time": 1.3333, "angle": -30.69 }
+				]
+			},
+			"kimcuong2": {
+				"translate": [
+					{},
+					{ "time": 0.6667, "x": 2.12, "y": 1.27 },
+					{ "time": 1.3333 }
+				]
+			},
+			"la-dua": {
+				"rotate": [
+					{ "angle": -30.69 },
+					{ "time": 0.6667, "angle": -28.43 },
+					{ "time": 1.3333, "angle": -30.69 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.6667, "x": 1.02, "y": 1.02 },
+					{ "time": 1.3333 }
+				]
+			},
+			"la-dua2": {
+				"rotate": [
+					{},
+					{ "time": 0.5333, "angle": -2 },
+					{ "time": 1.3333 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.5333, "x": 1.02, "y": 1.02 },
+					{ "time": 1.3333 }
+				]
+			},
+			"la-dua3": {
+				"rotate": [
+					{ "angle": -30.69 },
+					{ "time": 0.6667, "angle": -28.43 },
+					{ "time": 1.3333, "angle": -30.69 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.6667, "x": 1.02, "y": 1.02 },
+					{ "time": 1.3333 }
+				]
+			},
+			"la-dua4": {
+				"rotate": [
+					{ "angle": -30.69 },
+					{ "time": 0.6667, "angle": -28.43 },
+					{ "time": 1.3333, "angle": -30.69 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.6667, "x": 1.02, "y": 1.02 },
+					{ "time": 1.3333 }
+				]
+			},
+			"bone2": {
+				"scale": [
+					{},
+					{ "time": 0.5333, "x": 1.01, "y": 1.01 },
+					{ "time": 1.3333 }
+				]
+			},
+			"vang1": {
+				"scale": [
+					{},
+					{ "time": 0.8667, "x": 1.02, "y": 1.02 },
+					{ "time": 1.3333 }
+				]
+			}
+		}
+	}
+}
+}

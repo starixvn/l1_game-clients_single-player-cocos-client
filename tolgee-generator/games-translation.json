@@ -1,0 +1,24 @@
+{
+    "Configs": [
+        {
+            "id": 77,
+            "namespaces": ["ChineseBlackjack", "Common"],
+            "gameNameFolder": "chinese-blackjack"
+        },
+        {
+            "id": 80,
+            "namespaces": ["CoinToss", "Common"],
+            "gameNameFolder": "coin-toss"
+        },
+        {
+            "id": 93,
+            "namespaces": ["FootballCoinToss", "Common"],
+            "gameNameFolder": "football-coin-toss"
+        },
+        {
+            "id": 102,
+            "namespaces": ["BaccaratX"],
+            "gameNameFolder": "gateway-baccarat"
+        }
+    ]
+}

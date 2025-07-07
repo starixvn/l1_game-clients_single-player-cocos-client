@@ -1,0 +1,152 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "dealer_check_blackjack_fail",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.6,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "card": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                0,
+                0
+              ],
+              "curve": [
+                0.3,
+                0.3,
+                0.4301587301587301,
+                0.9757936507936507
+              ]
+            },
+            {
+              "frame": 0.4,
+              "value": [
+                -100,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 0.7,
+              "value": [
+                -100,
+                61,
+                20
+              ]
+            },
+            {
+              "frame": 1.0833333333333333,
+              "value": [
+                -100,
+                61,
+                20
+              ]
+            },
+            {
+              "frame": 1.3,
+              "value": [
+                -100,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1.6,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "scaleY": [],
+          "eulerAngles": [
+            {
+              "frame": 0.4,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0,
+                "y": -180,
+                "z": 0
+              }
+            },
+            {
+              "frame": 0.7,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": -35,
+                "y": -180,
+                "z": 0
+              }
+            },
+            {
+              "frame": 1.0833333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": -35,
+                "y": -180,
+                "z": 0
+              }
+            },
+            {
+              "frame": 1.3,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0,
+                "y": -180,
+                "z": 0
+              }
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 0.4,
+              "value": [
+                -98.883,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1.3,
+              "value": [
+                -100,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1.6,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

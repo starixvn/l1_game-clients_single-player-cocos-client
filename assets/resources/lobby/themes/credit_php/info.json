@@ -1,0 +1,23 @@
+{
+    "category-container": {
+        "isOverride": true
+    },
+    "background-ui": {
+        "isOverride": true
+    },
+    "lobby-center": {
+        "isOverride": true
+    },
+    "header": {
+        "isOverride": true
+    },
+    "button-arrow": {
+        "isOverride": true
+    },
+    "buttons": {
+        "isOverride": true
+    },
+    "marquee": {
+        "isOverride": true
+    }
+}

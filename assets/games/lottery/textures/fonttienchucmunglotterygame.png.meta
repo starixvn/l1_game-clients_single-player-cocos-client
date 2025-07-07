@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "87e9e663-7cf2-4b09-9680-06996eac83cf",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 256,
+  "height": 192,
+  "platformSettings": {},
+  "subMetas": {
+    "fonttienchucmunglotterygame": {
+      "ver": "1.0.6",
+      "uuid": "b527c34d-258c-4bed-8cea-0cd5c6a5d287",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "87e9e663-7cf2-4b09-9680-06996eac83cf",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -6,
+      "offsetY": 1,
+      "trimX": 2,
+      "trimY": 3,
+      "width": 240,
+      "height": 184,
+      "rawWidth": 256,
+      "rawHeight": 192,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

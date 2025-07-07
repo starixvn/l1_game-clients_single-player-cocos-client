@@ -1,0 +1,28 @@
+body {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;    
+    font-size: 24px;
+}
+
+.um-bg {
+    width: auto;
+    max-width: 100%;
+    margin-top: 45px;
+}
+
+.title {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: bold;
+    color: #0F508C;
+}
+
+.time {
+    margin-bottom: 0;
+    color: #888888;
+}
+
+.relogin-message {
+    margin-top: 10px;
+    color: #333333;
+}

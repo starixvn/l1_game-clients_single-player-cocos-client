@@ -1,0 +1,62 @@
+
+casinoholdem_icongame.png
+size: 390,834
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+poker_bg
+  rotate: false
+  xy: 2, 398
+  size: 200, 200
+  orig: 215, 215
+  offset: 8, 7
+  index: -1
+poker_card
+  rotate: false
+  xy: 204, 405
+  size: 184, 193
+  orig: 184, 193
+  offset: 0, 0
+  index: -1
+poker_icons
+  rotate: true
+  xy: 236, 677
+  size: 155, 135
+  orig: 155, 135
+  offset: 0, 0
+  index: -1
+poker_layer_3d
+  rotate: true
+  xy: 200, 9
+  size: 195, 155
+  orig: 212, 200
+  offset: 10, 45
+  index: -1
+poker_light_360
+  rotate: false
+  xy: 2, 600
+  size: 232, 232
+  orig: 248, 248
+  offset: 8, 8
+  index: -1
+poker_light_left
+  rotate: false
+  xy: 2, 200
+  size: 196, 196
+  orig: 196, 196
+  offset: 0, 0
+  index: -1
+poker_light_right
+  rotate: false
+  xy: 2, 2
+  size: 196, 196
+  orig: 196, 196
+  offset: 0, 0
+  index: -1
+porker_chip_small
+  rotate: true
+  xy: 204, 206
+  size: 197, 172
+  orig: 197, 173
+  offset: 0, 0
+  index: -1

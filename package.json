@@ -1,0 +1,107 @@
+{
+    "name": "src",
+    "version": "1.0.2",
+    "description": "Hello world new project template.",
+    "main": "version_generator.js",
+    "scripts": {
+        "lint": "eslint \"{src,apps,libs,test,assets, packages}/**/*.ts\" --fix",
+        "test": "jest --maxWorkers --colors test",
+        "test:watch": "jest --watch",
+        "format": "prettier --write ./assets",
+        "test-coverage": "jest --collect-coverage",
+        "build": "javascript-obfuscator ./build --output ./build --exclude cocos2d-js-min",
+        "obfuscator-config-file": "node ./configs/config-obfuscator.js",
+        "generate-tolgee-data": "ts-node ./tolgee-generator/index.ts"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.16.7",
+        "@babel/plugin-proposal-decorators": "^7.16.7",
+        "@babel/preset-env": "^7.16.8",
+        "@babel/preset-typescript": "^7.16.7",
+        "@types/chance": "^1.1.0",
+        "@types/jest": "^26.0.23",
+        "@types/lodash": "^4.14.178",
+        "@types/lodash.random": "^3.2.6",
+        "@types/moment": "^2.13.0",
+        "@typescript-eslint/eslint-plugin": "^5.57.0",
+        "@typescript-eslint/parser": "^5.57.0",
+        "babel-jest": "^26.6.3",
+        "eslint": "^8.37.0",
+        "eslint-config-prettier": "^6.10.0",
+        "eslint-plugin-import": "^2.25.4",
+        "javascript-obfuscator": "2.10.7",
+        "jest": "^27.0.6",
+        "jest-canvas-mock": "^2.3.1",
+        "jest-sonar-reporter": "^2.0.0",
+        "prettier": "^2.5.1",
+        "prettier-eslint": "^12.0.0",
+        "prettier-eslint-cli": "^5.0.1",
+        "ts-jest": "^27.0.3",
+        "typescript": "^4.5.4",
+        "@tolgee/web": "^5.10.1",
+        "ts-node": "^10.9.1"
+    },
+    "dependencies": {
+        "axios": "^0.21.4",
+        "base64-string": "^1.1.2",
+        "bundle-management": "1.3.0",
+        "chance": "^1.1.7",
+        "husky": "^7.0.4",
+        "i18n": "file:./packages/i18n",
+        "inversify": "^5.1.1",
+        "inversify-inject-decorators": "^3.1.0",
+        "lodash": "^4.17.20",
+        "moment": "^2.26.0",
+        "reflect-metadata": "^0.1.13",
+        "sc-scoreboards": "1.0.6",
+        "sc-user-service-client": "1.6.0",
+        "socket.io-client": "^4.5.1",
+        "socket.io-msgpack-parser": "^3.0.1"
+    },
+    "jestSonar": {
+        "reportPath": "reports",
+        "reportFile": "test-reporter.xml",
+        "indent": 4
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "useTabs": false,
+        "printWidth": 140,
+        "semi": true,
+        "trailingComma": "none"
+    },
+    "babel": {
+        "plugins": [
+            [
+                "@babel/plugin-proposal-decorators",
+                {
+                    "legacy": true
+                }
+            ]
+        ],
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "targets": {
+                        "node": "current"
+                    }
+                },
+                "@babel/preset-typescript"
+            ]
+        ],
+        "ignore": [
+            "**/cocos2d-js-for-preview.js"
+        ]
+    },
+    "activationEvents": [
+        "workspaceContains:node_modules/.bin/jest"
+    ],
+    "husky": {
+        "hooks": {
+            "pre-push": "yarn test"
+        }
+    }
+}

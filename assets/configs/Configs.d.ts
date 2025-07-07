@@ -1,0 +1,16 @@
+export const systemType: string;
+export const ssl: boolean;
+export const serverDomainMapper: { [key: string]: string };
+export const subDomain: string;
+export const env: string;
+export const sentry: { [key: string]: string };
+export const gameAnalytics: { [key: string]: string };
+export const subGuideDomain: string;
+export const enableMsgpackParserAllGames: boolean;
+export const enableMsgpackParserOnNotification: boolean;
+export const SGConnectSubDomain: string;
+export const AppDownloadSubDomain: string;
+export const clientSubDomain: string;
+export const subPromotionDomain: string;
+export const gatewaySubDomain: string;
+export const clientDomainMapper: { [key: string]: string };

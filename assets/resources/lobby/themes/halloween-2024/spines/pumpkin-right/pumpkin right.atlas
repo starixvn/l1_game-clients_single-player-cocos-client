@@ -1,0 +1,41 @@
+
+pumpkin right.webp
+size: 376,309
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Ellipse 3
+  rotate: false
+  xy: 256, 7
+  size: 118, 118
+  orig: 120, 120
+  offset: 1, 1
+  index: -1
+Ellipse 3 copy
+  rotate: false
+  xy: 256, 7
+  size: 118, 118
+  orig: 120, 120
+  offset: 1, 1
+  index: -1
+Layer 109 copy
+  rotate: false
+  xy: 2, 127
+  size: 271, 180
+  orig: 273, 182
+  offset: 1, 1
+  index: -1
+Layer 111 copy 2
+  rotate: false
+  xy: 2, 2
+  size: 125, 123
+  orig: 137, 130
+  offset: 6, 3
+  index: -1
+Layer 111 copy 3
+  rotate: false
+  xy: 129, 2
+  size: 125, 123
+  orig: 137, 130
+  offset: 6, 3
+  index: -1

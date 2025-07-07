@@ -1,0 +1,230 @@
+
+baccarat-decoration.webp
+size: 1804,1726
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: false
+  xy: 1739, 877
+  size: 58, 59
+  orig: 58, 59
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 1406, 387
+  size: 82, 81
+  orig: 82, 81
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 1640, 839
+  size: 97, 97
+  orig: 97, 97
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 1406, 338
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 1640, 762
+  size: 76, 75
+  orig: 76, 75
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 938
+  size: 1800, 786
+  orig: 1800, 786
+  offset: 0, 0
+  index: -1
+firework-1/firework00
+  rotate: false
+  xy: 2, 704
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework02
+  rotate: false
+  xy: 2, 470
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework04
+  rotate: false
+  xy: 236, 704
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework06
+  rotate: false
+  xy: 2, 236
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework08
+  rotate: false
+  xy: 236, 470
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework10
+  rotate: false
+  xy: 470, 704
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework12
+  rotate: false
+  xy: 2, 2
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework14
+  rotate: false
+  xy: 236, 236
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework16
+  rotate: false
+  xy: 470, 470
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework18
+  rotate: false
+  xy: 704, 704
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework20
+  rotate: false
+  xy: 236, 2
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework22
+  rotate: false
+  xy: 470, 236
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework24
+  rotate: false
+  xy: 704, 470
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework26
+  rotate: false
+  xy: 938, 704
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework28
+  rotate: false
+  xy: 470, 2
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework30
+  rotate: false
+  xy: 704, 236
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework32
+  rotate: false
+  xy: 938, 470
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework34
+  rotate: false
+  xy: 1172, 704
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework36
+  rotate: false
+  xy: 704, 2
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework38
+  rotate: false
+  xy: 938, 236
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework40
+  rotate: false
+  xy: 1172, 470
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework42
+  rotate: false
+  xy: 1406, 704
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework44
+  rotate: false
+  xy: 938, 2
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework46
+  rotate: false
+  xy: 1172, 236
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework48
+  rotate: false
+  xy: 1406, 470
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+firework-1/firework50
+  rotate: false
+  xy: 1172, 2
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1

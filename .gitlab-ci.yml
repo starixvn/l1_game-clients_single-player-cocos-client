@@ -1,0 +1,22 @@
+.game-test:
+    stage: test
+    trigger:
+        include:
+            - local: ci/cocos-testing-ci.yaml
+    allow_failure: true
+
+include:
+    - project: "ci/core-cicd"
+      ref: main
+      file: "luminet.gitlab-ci.yml"
+
+variables:
+    COCOS_VERSION: 2.4.6
+unit_test_js:
+    before_script:
+        - echo "run before test"
+    script:
+        - echo "run test"
+sonar_js:
+    needs:
+    dependencies:

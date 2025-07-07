@@ -1,0 +1,83 @@
+
+texasholdem_icongame.png
+size: 440,507
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A
+  rotate: true
+  xy: 199, 6
+  size: 109, 133
+  orig: 111, 134
+  offset: 1, 0
+  index: -1
+K
+  rotate: true
+  xy: 2, 5
+  size: 109, 130
+  orig: 111, 132
+  offset: 1, 1
+  index: -1
+bg_game
+  rotate: false
+  xy: 236, 303
+  size: 202, 202
+  orig: 215, 215
+  offset: 6, 5
+  index: -1
+halo
+  rotate: false
+  xy: 2, 273
+  size: 232, 232
+  orig: 248, 248
+  offset: 8, 8
+  index: -1
+items
+  rotate: false
+  xy: 236, 117
+  size: 196, 184
+  orig: 196, 196
+  offset: 0, 0
+  index: -1
+layer3d
+  rotate: false
+  xy: 2, 116
+  size: 195, 155
+  orig: 212, 200
+  offset: 10, 45
+  index: -1
+light
+  rotate: false
+  xy: 334, 2
+  size: 73, 113
+  orig: 83, 121
+  offset: 5, 4
+  index: -1
+lodan
+  rotate: true
+  xy: 199, 211
+  size: 22, 23
+  orig: 22, 23
+  offset: 0, 0
+  index: -1
+lodanlight
+  rotate: false
+  xy: 134, 71
+  size: 54, 43
+  orig: 55, 43
+  offset: 0, 0
+  index: -1
+smoke
+  rotate: true
+  xy: 199, 235
+  size: 36, 35
+  orig: 36, 35
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 199, 192
+  size: 17, 17
+  orig: 19, 19
+  offset: 1, 1
+  index: -1

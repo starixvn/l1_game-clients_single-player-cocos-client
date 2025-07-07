@@ -1,0 +1,11 @@
+{
+  "languages": [
+    "en",
+    "vi",
+    "th",
+    "zh_cn",
+    "zh_tw",
+    "id"
+  ],
+  "default_language": "en"
+}

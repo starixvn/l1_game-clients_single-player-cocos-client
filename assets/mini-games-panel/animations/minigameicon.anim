@@ -1,0 +1,135 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "minigameicon",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 4,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "icon": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.03333333333333333,
+              "value": 2
+            },
+            {
+              "frame": 0.06666666666666667,
+              "value": 0
+            },
+            {
+              "frame": 0.2,
+              "value": -8
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 0.4666666666666667,
+              "value": 12
+            },
+            {
+              "frame": 0.6,
+              "value": 0
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": -8
+            },
+            {
+              "frame": 0.8666666666666667,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 12
+            },
+            {
+              "frame": 1.1333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 1.2666666666666666,
+              "value": -8
+            },
+            {
+              "frame": 1.4,
+              "value": 0
+            },
+            {
+              "frame": 1.5333333333333334,
+              "value": 12
+            },
+            {
+              "frame": 1.6666666666666667,
+              "value": 0
+            },
+            {
+              "frame": 1.8,
+              "value": -8
+            },
+            {
+              "frame": 1.9333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 2.066666666666667,
+              "value": 12
+            },
+            {
+              "frame": 2.2,
+              "value": 0
+            },
+            {
+              "frame": 2.25,
+              "value": -2
+            },
+            {
+              "frame": 2.3,
+              "value": 2
+            },
+            {
+              "frame": 2.3333333333333335,
+              "value": -1
+            },
+            {
+              "frame": 2.3666666666666667,
+              "value": 0
+            },
+            {
+              "frame": 4,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "light": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 2.0166666666666666,
+              "value": -360
+            },
+            {
+              "frame": 4,
+              "value": -720
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

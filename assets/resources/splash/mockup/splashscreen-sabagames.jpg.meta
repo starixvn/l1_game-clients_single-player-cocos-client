@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "0af021c5-7f92-4c1c-a2f5-e7d6a3cc7611",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1398,
+  "height": 786,
+  "platformSettings": {},
+  "subMetas": {
+    "splashscreen-sabagames": {
+      "ver": "1.0.6",
+      "uuid": "9e346115-0ac6-4695-a354-a0a7ffe43f8e",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "0af021c5-7f92-4c1c-a2f5-e7d6a3cc7611",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1398,
+      "height": 786,
+      "rawWidth": 1398,
+      "rawHeight": 786,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

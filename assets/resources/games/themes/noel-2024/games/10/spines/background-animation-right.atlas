@@ -1,0 +1,27 @@
+
+background-animation-right.webp
+size: 751,380
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+element
+  rotate: false
+  xy: 2, 2
+  size: 716, 376
+  orig: 720, 376
+  offset: 4, 0
+  index: -1
+light-dot
+  rotate: false
+  xy: 720, 323
+  size: 21, 22
+  orig: 25, 23
+  offset: 2, 1
+  index: -1
+light-dot-B
+  rotate: true
+  xy: 720, 347
+  size: 31, 29
+  orig: 34, 30
+  offset: 1, 1
+  index: -1

@@ -1,0 +1,139 @@
+
+skeleton-icongame-ahcl.png
+size: 858,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+3D_light
+  rotate: true
+  xy: 483, 2
+  size: 195, 155
+  orig: 212, 200
+  offset: 10, 45
+  index: -1
+bg
+  rotate: false
+  xy: 2, 92
+  size: 196, 429
+  orig: 200, 434
+  offset: 2, 3
+  index: -1
+body-rong
+  rotate: true
+  xy: 303, 20
+  size: 120, 178
+  orig: 120, 178
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 2, 3
+  size: 87, 95
+  orig: 87, 95
+  offset: 0, 0
+  index: -1
+hero
+  rotate: false
+  xy: 613, 212
+  size: 196, 309
+  orig: 196, 309
+  offset: 0, 0
+  index: -1
+hero_circlechest
+  rotate: false
+  xy: 800, 7
+  size: 35, 35
+  orig: 39, 39
+  offset: 2, 2
+  index: -1
+hero_hair_left1
+  rotate: true
+  xy: 222, 100
+  size: 40, 55
+  orig: 40, 55
+  offset: 0, 0
+  index: -1
+hero_hair_right3
+  rotate: true
+  xy: 398, 163
+  size: 34, 80
+  orig: 34, 80
+  offset: 0, 0
+  index: -1
+hero_hair_right4
+  rotate: false
+  xy: 200, 97
+  size: 20, 43
+  orig: 20, 43
+  offset: 0, 0
+  index: -1
+hero_shouder_left
+  rotate: false
+  xy: 800, 128
+  size: 56, 82
+  orig: 56, 82
+  offset: 0, 0
+  index: -1
+hero_shouder_right
+  rotate: false
+  xy: 800, 44
+  size: 56, 82
+  orig: 56, 82
+  offset: 0, 0
+  index: -1
+mat
+  rotate: true
+  xy: 332, 4
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
+monster
+  rotate: false
+  xy: 640, 23
+  size: 158, 187
+  orig: 159, 188
+  offset: 0, 0
+  index: -1
+monster_eye
+  rotate: true
+  xy: 222, 93
+  size: 5, 9
+  orig: 5, 9
+  offset: 0, 0
+  index: -1
+s1
+  rotate: false
+  xy: 279, 104
+  size: 22, 36
+  orig: 22, 36
+  offset: 0, 0
+  index: -1
+s2
+  rotate: true
+  xy: 297, 4
+  size: 14, 33
+  orig: 14, 33
+  offset: 0, 0
+  index: -1
+thunder
+  rotate: false
+  xy: 398, 199
+  size: 213, 322
+  orig: 219, 331
+  offset: 6, 5
+  index: -1
+water
+  rotate: false
+  xy: 200, 142
+  size: 196, 379
+  orig: 196, 404
+  offset: 0, 0
+  index: -1
+water_bottom
+  rotate: false
+  xy: 99, 6
+  size: 196, 84
+  orig: 196, 89
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,41 @@
+
+icon-hot.png
+size: 246,91
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+button
+  rotate: false
+  xy: 2, 6
+  size: 83, 83
+  orig: 83, 83
+  offset: 0, 0
+  index: -1
+label-text
+  rotate: true
+  xy: 161, 23
+  size: 66, 52
+  orig: 67, 53
+  offset: 1, 0
+  index: -1
+lighning
+  rotate: false
+  xy: 161, 2
+  size: 41, 19
+  orig: 41, 19
+  offset: 0, 0
+  index: -1
+speaker
+  rotate: false
+  xy: 87, 5
+  size: 72, 84
+  orig: 72, 84
+  offset: 0, 0
+  index: -1
+text
+  rotate: true
+  xy: 215, 18
+  size: 71, 29
+  orig: 71, 29
+  offset: 0, 0
+  index: -1

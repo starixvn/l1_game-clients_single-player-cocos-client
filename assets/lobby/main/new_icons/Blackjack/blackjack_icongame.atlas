@@ -1,0 +1,41 @@
+
+blackjack_icongame.png
+size: 708,214
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bg_game
+  rotate: false
+  xy: 2, 12
+  size: 200, 200
+  orig: 215, 215
+  offset: 8, 7
+  index: -1
+card
+  rotate: false
+  xy: 371, 26
+  size: 163, 186
+  orig: 163, 186
+  offset: 0, 0
+  index: -1
+gold
+  rotate: true
+  xy: 204, 22
+  size: 190, 165
+  orig: 190, 165
+  offset: 0, 0
+  index: -1
+layer3d
+  rotate: true
+  xy: 653, 17
+  size: 195, 53
+  orig: 212, 200
+  offset: 10, 147
+  index: -1
+light
+  rotate: false
+  xy: 536, 2
+  size: 115, 210
+  orig: 129, 226
+  offset: 7, 8
+  index: -1

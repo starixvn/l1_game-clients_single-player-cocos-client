@@ -1,0 +1,155 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Hoa",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.6666666666666666,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "Mask/Round 1": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.3333333333333333,
+              "value": 255
+            },
+            {
+              "frame": 0.35,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/light left": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 2.6
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/light right": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 2.6
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/light top": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 4.8
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/light bottom": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 5.16
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.31666666666666665,
+              "value": 0
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/light left": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0.3333333333333333,
+              "value": 2.6
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/light right": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0.3333333333333333,
+              "value": 2.6
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/light top": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 4.8
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/light bottom": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 5.16
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

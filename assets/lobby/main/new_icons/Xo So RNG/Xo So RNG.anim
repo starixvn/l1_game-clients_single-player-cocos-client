@@ -1,0 +1,197 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Xo So RNG",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "banh do nho doi mau": {
+        "props": {
+          "color": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 134,
+                "a": 255
+              }
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 242,
+                "g": 61,
+                "b": 250,
+                "a": 255
+              }
+            },
+            {
+              "frame": 1,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "banh xanh doi mau": {
+        "props": {
+          "color": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 214,
+                "b": 0,
+                "a": 255
+              }
+            },
+            {
+              "frame": 1,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ],
+          "x": [
+            {
+              "frame": 0,
+              "value": -57.299
+            },
+            {
+              "frame": 0.5,
+              "value": -58.099
+            },
+            {
+              "frame": 1,
+              "value": -57.299
+            }
+          ]
+        }
+      },
+      "vung trang cua banh xanh": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -66.933
+            },
+            {
+              "frame": 0.5,
+              "value": -67.733
+            },
+            {
+              "frame": 1,
+              "value": -66.933
+            }
+          ]
+        }
+      },
+      "banh vang doi mau": {
+        "props": {
+          "color": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 155,
+                "b": 88,
+                "a": 255
+              }
+            },
+            {
+              "frame": 1,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ],
+          "y": [
+            {
+              "frame": 0,
+              "value": -6.187
+            },
+            {
+              "frame": 0.5,
+              "value": -4.087
+            },
+            {
+              "frame": 1,
+              "value": -6.187
+            }
+          ]
+        }
+      },
+      "vung trang cua banh vang": {
+        "props": {
+          "y": [
+            {
+              "frame": 0,
+              "value": -11.704
+            },
+            {
+              "frame": 0.5,
+              "value": -9.804
+            },
+            {
+              "frame": 1,
+              "value": -11.704
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

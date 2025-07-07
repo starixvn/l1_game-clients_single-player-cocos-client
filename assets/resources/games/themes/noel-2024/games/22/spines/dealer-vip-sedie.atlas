@@ -1,0 +1,104 @@
+
+dealer-vip-sedie.webp
+size: 751,157
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+abominal
+  rotate: false
+  xy: 652, 3
+  size: 84, 69
+  orig: 84, 69
+  offset: 0, 0
+  index: -1
+back-hair
+  rotate: false
+  xy: 2, 15
+  size: 156, 140
+  orig: 156, 140
+  offset: 0, 0
+  index: -1
+big-hair-1
+  rotate: true
+  xy: 574, 7
+  size: 30, 58
+  orig: 30, 58
+  offset: 0, 0
+  index: -1
+big-hair-2
+  rotate: false
+  xy: 720, 77
+  size: 29, 78
+  orig: 29, 78
+  offset: 0, 0
+  index: -1
+chest
+  rotate: false
+  xy: 438, 64
+  size: 91, 91
+  orig: 91, 93
+  offset: 0, 0
+  index: -1
+closed-eyes
+  rotate: false
+  xy: 160, 2
+  size: 43, 12
+  orig: 43, 12
+  offset: 0, 0
+  index: -1
+dealer-chair
+  rotate: false
+  xy: 160, 16
+  size: 139, 139
+  orig: 139, 139
+  offset: 0, 0
+  index: -1
+eyes
+  rotate: false
+  xy: 205, 2
+  size: 43, 12
+  orig: 43, 12
+  offset: 0, 0
+  index: -1
+face
+  rotate: false
+  xy: 517, 2
+  size: 55, 60
+  orig: 57, 60
+  offset: 1, 0
+  index: -1
+front-hair
+  rotate: false
+  xy: 438, 15
+  size: 77, 47
+  orig: 77, 47
+  offset: 0, 0
+  index: -1
+head-band
+  rotate: false
+  xy: 574, 39
+  size: 76, 30
+  orig: 76, 30
+  offset: 0, 0
+  index: -1
+left-hand
+  rotate: false
+  xy: 531, 71
+  size: 97, 84
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+neck-shoulder
+  rotate: true
+  xy: 301, 18
+  size: 137, 135
+  orig: 161, 225
+  offset: 10, 90
+  index: -1
+right-hand
+  rotate: false
+  xy: 630, 74
+  size: 88, 81
+  orig: 88, 82
+  offset: 0, 0
+  index: -1

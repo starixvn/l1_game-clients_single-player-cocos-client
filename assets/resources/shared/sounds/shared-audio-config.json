@@ -1,0 +1,38 @@
+{
+    "start-betting_en": {
+        "path": "shared/sounds/betting"
+    },
+    "stop-betting_en": {
+        "path": "shared/sounds/betting"
+    },
+    "start-betting_vi": {
+        "path": "shared/sounds/betting"
+    },
+    "stop-betting_vi": {
+        "path": "shared/sounds/betting"
+    },
+    "start-betting_id": {
+        "path": "shared/sounds/betting"
+    },
+    "stop-betting_id": {
+        "path": "shared/sounds/betting"
+    },
+    "start-betting_th": {
+        "path": "shared/sounds/betting"
+    },
+    "stop-betting_th": {
+        "path": "shared/sounds/betting"
+    },
+    "start-betting_zh_cn": {
+        "path": "shared/sounds/betting"
+    },
+    "stop-betting_zh_cn": {
+        "path": "shared/sounds/betting"
+    },
+    "start-betting_zh_tw": {
+        "path": "shared/sounds/betting"
+    },
+    "stop-betting_zh_tw": {
+        "path": "shared/sounds/betting"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "background-ui": {
+        "isOverride": true
+    },
+    "header": {
+        "isOverride": true
+    },
+    "category-container": {
+        "isOverride": true
+    }
+}

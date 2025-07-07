@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "d6697475-2bc4-44a7-bfa8-dc9c2f059d0f",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 199,
+  "height": 144,
+  "platformSettings": {},
+  "subMetas": {
+    "logo_vgaming": {
+      "ver": "1.0.6",
+      "uuid": "cee2f455-6fe2-42a5-945d-007df2208dd9",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "d6697475-2bc4-44a7-bfa8-dc9c2f059d0f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 199,
+      "height": 144,
+      "rawWidth": 199,
+      "rawHeight": 144,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "1164f221-a498-4976-8737-38d511f05b89",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 106,
+  "height": 35,
+  "platformSettings": {},
+  "subMetas": {
+    "vipbaccarat_playerPair": {
+      "ver": "1.0.6",
+      "uuid": "5caef3d4-de44-423a-9711-fb865053df81",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "1164f221-a498-4976-8737-38d511f05b89",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0.5,
+      "trimX": 2,
+      "trimY": 4,
+      "width": 102,
+      "height": 26,
+      "rawWidth": 106,
+      "rawHeight": 35,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

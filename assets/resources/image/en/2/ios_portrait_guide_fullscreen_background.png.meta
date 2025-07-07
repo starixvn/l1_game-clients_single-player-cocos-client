@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "06a45c54-7b25-48fd-b38a-7fa71538d91f",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 664,
+  "height": 48,
+  "platformSettings": {},
+  "subMetas": {
+    "ios_portrait_guide_fullscreen_background": {
+      "ver": "1.0.6",
+      "uuid": "4f89b051-f15d-4aac-ac2d-b4e794f6c11b",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "06a45c54-7b25-48fd-b38a-7fa71538d91f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 664,
+      "height": 48,
+      "rawWidth": 664,
+      "rawHeight": 48,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

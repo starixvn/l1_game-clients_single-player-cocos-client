@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "64385179-6c34-4259-ac15-5a058b00510d",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 106,
+  "height": 25,
+  "platformSettings": {},
+  "subMetas": {
+    "ticket_detail_ty_le_cuoc": {
+      "ver": "1.0.6",
+      "uuid": "9190c3c6-dbaf-4697-9345-9be435cf17bb",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "64385179-6c34-4259-ac15-5a058b00510d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 104,
+      "height": 23,
+      "rawWidth": 106,
+      "rawHeight": 25,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "c6c5249f-23db-4145-88d5-db9b949bf3d8",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 41,
+  "height": 30,
+  "platformSettings": {},
+  "subMetas": {
+    "vipbaccarat_small": {
+      "ver": "1.0.6",
+      "uuid": "4fca9eae-92ab-4d1d-9763-6e3b1a4fba58",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "c6c5249f-23db-4145-88d5-db9b949bf3d8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 8,
+      "trimY": 3,
+      "width": 25,
+      "height": 24,
+      "rawWidth": 41,
+      "rawHeight": 30,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

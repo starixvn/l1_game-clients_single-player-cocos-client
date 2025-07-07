@@ -1,0 +1,128 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "pull_card",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.3333333333333333,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "card": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                116.934,
+                129.127,
+                0
+              ]
+            },
+            {
+              "frame": 0.21666666666666667,
+              "value": [
+                61.855,
+                -5.418,
+                0
+              ]
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": [
+                0,
+                0
+              ],
+              "motionPath": []
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.5,
+                "y": 0.411,
+                "z": 0
+              },
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 0.21666666666666667,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.402,
+                "y": 0.411,
+                "z": 0
+              }
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.31,
+                "y": 0.41
+              }
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 76.035
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 72.81
+            }
+          ],
+          "skewX": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.21666666666666667,
+              "value": 2
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            }
+          ],
+          "skewY": [
+            {
+              "frame": 0,
+              "value": -15
+            },
+            {
+              "frame": 0.21666666666666667,
+              "value": -2
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "faceDown",
+      "params": []
+    }
+  ]
+}

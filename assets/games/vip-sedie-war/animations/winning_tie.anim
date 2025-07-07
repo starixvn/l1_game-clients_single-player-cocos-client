@@ -1,0 +1,191 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "o hoa",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.6666666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "Mask/Round 1": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.8333333333333334,
+              "value": 255
+            },
+            {
+              "frame": 0.85,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/left": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0.4166666666666667,
+              "value": 0
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 2.38
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/right": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0.4166666666666667,
+              "value": 0
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 2.38
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/top": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 5.3
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/bottom": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 5.3
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.8166666666666667,
+              "value": 0
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/left": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0.8333333333333334,
+              "value": 2.38
+            },
+            {
+              "frame": 1.25,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/right": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0.8333333333333334,
+              "value": 2.38
+            },
+            {
+              "frame": 1.25,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/top": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.8333333333333334,
+              "value": 0
+            },
+            {
+              "frame": 1.6666666666666667,
+              "value": 5.3
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/bottom": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.8333333333333334,
+              "value": 0
+            },
+            {
+              "frame": 1.6666666666666667,
+              "value": 5.3
+            }
+          ]
+        }
+      },
+      "o hoa highlight bottom up": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 0
+            },
+            {
+              "frame": 1.6666666666666667,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "o hoa highlight top down": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 255
+            },
+            {
+              "frame": 1.6666666666666667,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

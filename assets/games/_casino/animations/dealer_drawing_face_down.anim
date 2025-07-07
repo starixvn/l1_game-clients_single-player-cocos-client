@@ -1,0 +1,125 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "dealer_drawing_face_down",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "card": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.4,
+                "y": 0.4,
+                "z": 0
+              }
+            },
+            {
+              "frame": 1,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0
+              }
+            }
+          ],
+          "eulerAngles": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0,
+                "y": -180,
+                "z": 120
+              }
+            },
+            {
+              "frame": 1,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0,
+                "y": -180,
+                "z": 0
+              }
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 50
+            }
+          ],
+          "skewX": [],
+          "skewY": [],
+          "scale": [],
+          "angle": [
+            {
+              "frame": 0,
+              "value": -120
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": -77
+            },
+            {
+              "frame": 0.5,
+              "value": -75
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": -40
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": -9
+            },
+            {
+              "frame": 1,
+              "value": 0
+            }
+          ]
+        }
+      }
+    },
+    "props": {
+      "position": []
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "faceDown",
+      "params": []
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+
+Pumpkin left.webp
+size: 456,145
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/Ellipse 3
+  rotate: false
+  xy: 336, 25
+  size: 118, 118
+  orig: 120, 120
+  offset: 1, 1
+  index: -1
+images/Layer 1
+  rotate: false
+  xy: 2, 2
+  size: 209, 141
+  orig: 211, 143
+  offset: 1, 1
+  index: -1
+images/Layer 111 copy 3
+  rotate: true
+  xy: 213, 18
+  size: 125, 121
+  orig: 137, 126
+  offset: 6, 1
+  index: -1

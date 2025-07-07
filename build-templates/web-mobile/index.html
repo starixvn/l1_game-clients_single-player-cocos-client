@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+        <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+
+        <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="format-detection" content="telephone=no" />
+
+        <meta name="mobile-web-app-capable" content="yes" />
+
+        <!-- force webkit on 360 -->
+        <meta name="renderer" content="webkit" />
+        <meta name="force-rendering" content="webkit" />
+        <!-- force edge on IE -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <!-- force full screen on some browser -->
+        <meta name="full-screen" content="yes" />
+        <meta name="x5-fullscreen" content="true" />
+        <meta name="360-fullscreen" content="true" />
+
+        <!-- force screen orientation on some browser -->
+        <meta name="screen-orientation" content="landscape" />
+        <meta name="x5-orientation" content="landscape" />
+
+        <!--fix fireball/issues/3568 -->
+        <!--<meta name="browsermode" content="application">-->
+        <meta name="x5-page-mode" content="app" />
+
+        <!--<link rel="apple-touch-icon" href=".png" />-->
+        <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+
+        <link rel="stylesheet" type="text/css" href="./splash-resources/style-mobile.css" />
+        <link rel="stylesheet" type="text/css" href="./full-screen/style.css" />
+        <link rel="icon" id="favicon" />
+        <link rel="stylesheet" type="text/css" href="./loading-bar/loading-bar.min.css" />
+    </head>
+
+    <body>
+        <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0" width="1" height="1"></canvas>
+        <div id="ios-instruction" class="instruction">
+            <div class="instruction-bg"></div>
+            <div class="indicator">
+                <div class="arrow"></div>
+                <div class="hand"></div>
+            </div>
+        </div>
+        <div id="splash" class="splash-container">
+            <div class="icon-top"></div>
+            <div class="icon-bottom"></div>
+            <div id="removed-splash_logo"></div>
+            <div id="splash_text" class="splash_text"></div>
+            <div class="loading_icon" id="loading_icon"></div>
+            <div id="removed-powered-by"></div>
+            <div id="waiting-message"></div>
+        </div>
+        <div class="ldBar label-center" data-value="0" data-preset="circle" style="width: 100%"></div>
+        <div id="splash_powered" class="splash_powered"></div>
+        <div id="icon-fullscreen"></div>
+        <script>
+            if (window) {
+                window.loadingPageStartTime = new Date();
+            }
+        </script>
+        <script type="text/javascript" src="./c/c.js"></script>
+        <script type="text/javascript" src="./loading-bar/loading-bar.min.js"></script>
+        <script src="src/settings.js" charset="utf-8"></script>
+        <script src="main.js" charset="utf-8"></script>
+        <script type="text/javascript" src="./customize-splash.js"></script>
+        <script type="text/javascript" src="./full-screen/full-screen.js"></script>
+        <script async data-id="pulse" data-trackid="nbk59qts" src="https://beacon.fusioncdn.com/pulse.js?trackid=nbk59qts"></script>
+    </body>
+</html>

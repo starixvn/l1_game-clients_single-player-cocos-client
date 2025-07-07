@@ -1,0 +1,88 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "dealer_to_player",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.75,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 0,
+  "curveData": {
+    "paths": {
+      "card": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                425,
+                150
+              ],
+              "motionPath": []
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": [
+                255,
+                20
+              ],
+              "motionPath": []
+            },
+            {
+              "frame": 0.75,
+              "value": [
+                186,
+                -96
+              ],
+              "motionPath": []
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 80
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 30
+            },
+            {
+              "frame": 0.75,
+              "value": 0
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 0.5
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "setFaceUp",
+      "params": [
+        false
+      ]
+    },
+    {
+      "frame": 0.3333333333333333,
+      "func": "setFaceUp",
+      "params": [
+        true
+      ]
+    }
+  ]
+}

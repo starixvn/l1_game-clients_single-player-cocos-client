@@ -1,0 +1,167 @@
+
+dealer-baccarat.webp
+size: 491,205
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chest-abdominal
+  rotate: false
+  xy: 202, 111
+  size: 80, 92
+  orig: 80, 124
+  offset: 0, 32
+  index: -1
+chest-shadow
+  rotate: false
+  xy: 202, 7
+  size: 85, 34
+  orig: 85, 34
+  offset: 0, 0
+  index: -1
+christmas-choke
+  rotate: false
+  xy: 348, 25
+  size: 87, 32
+  orig: 87, 32
+  offset: 0, 0
+  index: -1
+dealer-chair
+  rotate: false
+  xy: 2, 4
+  size: 198, 199
+  orig: 198, 199
+  offset: 0, 0
+  index: -1
+ear-left
+  rotate: false
+  xy: 426, 6
+  size: 9, 17
+  orig: 9, 17
+  offset: 0, 0
+  index: -1
+ear-right
+  rotate: false
+  xy: 476, 186
+  size: 9, 17
+  orig: 9, 17
+  offset: 0, 0
+  index: -1
+eyebrow-left
+  rotate: true
+  xy: 284, 45
+  size: 15, 3
+  orig: 15, 3
+  offset: 0, 0
+  index: -1
+eyebrow-right
+  rotate: false
+  xy: 202, 2
+  size: 15, 3
+  orig: 15, 3
+  offset: 0, 0
+  index: -1
+face
+  rotate: true
+  xy: 289, 16
+  size: 44, 57
+  orig: 44, 58
+  offset: 0, 1
+  index: -1
+hair-back
+  rotate: false
+  xy: 284, 120
+  size: 89, 83
+  orig: 89, 83
+  offset: 0, 0
+  index: -1
+hair-bang
+  rotate: false
+  xy: 437, 20
+  size: 28, 37
+  orig: 28, 37
+  offset: 0, 0
+  index: -1
+hair-front-right-1
+  rotate: false
+  xy: 456, 65
+  size: 24, 47
+  orig: 24, 47
+  offset: 0, 0
+  index: -1
+hair-front-right-2
+  rotate: false
+  xy: 469, 119
+  size: 20, 39
+  orig: 20, 39
+  offset: 0, 0
+  index: -1
+left-eye
+  rotate: false
+  xy: 382, 8
+  size: 20, 15
+  orig: 20, 15
+  offset: 0, 0
+  index: -1
+left-eye-closed
+  rotate: false
+  xy: 467, 46
+  size: 22, 17
+  orig: 22, 17
+  offset: 0, 0
+  index: -1
+left-hand
+  rotate: true
+  xy: 375, 160
+  size: 43, 99
+  orig: 79, 160
+  offset: 1, 61
+  index: -1
+left-hand-2
+  rotate: false
+  xy: 371, 59
+  size: 83, 53
+  orig: 98, 56
+  offset: 0, 3
+  index: -1
+red-bow
+  rotate: true
+  xy: 348, 6
+  size: 17, 32
+  orig: 17, 32
+  offset: 0, 0
+  index: -1
+right-eye
+  rotate: false
+  xy: 404, 8
+  size: 20, 15
+  orig: 20, 15
+  offset: 0, 0
+  index: -1
+right-eye-closed
+  rotate: false
+  xy: 467, 27
+  size: 22, 17
+  orig: 22, 17
+  offset: 0, 0
+  index: -1
+right-hand
+  rotate: true
+  xy: 375, 114
+  size: 44, 92
+  orig: 81, 166
+  offset: 37, 74
+  index: -1
+right-hand-2
+  rotate: false
+  xy: 284, 62
+  size: 85, 56
+  orig: 85, 56
+  offset: 0, 0
+  index: -1
+shoulder
+  rotate: false
+  xy: 202, 43
+  size: 80, 66
+  orig: 80, 66
+  offset: 0, 0
+  index: -1
