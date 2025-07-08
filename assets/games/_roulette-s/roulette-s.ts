@@ -50,6 +50,9 @@ export default class RouletteS extends SoloGame {
     @property(cc.Prefab)
     statisticPrefab: cc.Prefab = null;
 
+    @property(cc.Node)
+    settlePopup: cc.Node = null;
+
     private singleBetControl: SingleBetControl = null;
 
     private rouletteBetItems: RouletteBetItem[] = [];
@@ -257,8 +260,10 @@ export default class RouletteS extends SoloGame {
         this.gameData.settlement.showStatus();
     }
 
-    handleAfterSettlementResult(settlement: any, animated: boolean) {
+    async handleAfterSettlementResult(settlement: any, animated: boolean) {
         super.handleAfterSettlementResult(settlement, animated);
+
+        console.log("handleAfterSettlementResult 1");
         this.rouletteBetItems.forEach((betItem) => {
             const choice = betItem.node.name;
             const type = getTypeFromChoice(choice);
@@ -269,6 +274,17 @@ export default class RouletteS extends SoloGame {
             betItem.setHighlight(isWin);
             this.roundHistoryComponent.setHighlight(true);
         });
+
+        await AnimationUtils.delayTime(2);
+        this.settlePopup.active = true;
+        console.log("handleAfterSettlementResult 2", this.settlePopup.active);
+
+        await AnimationUtils.delayTime(2);
+        this.settlePopup.active = false;
+        this.rouletteBetItems.forEach((betItem) => {
+            betItem.setInactive(false);
+        });
+        console.log("handleAfterSettlementResult 3", this.settlePopup.active);
     }
 
     showWheelResult(result: number) {
