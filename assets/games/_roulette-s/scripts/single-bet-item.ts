@@ -6,9 +6,6 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class SingleBetItem extends RouletteBetItem {
-    @property({ override: true })
-    isGroupBet = true;
-
     @property(SingleBetControl)
     singleBetControl: SingleBetControl = null;
 

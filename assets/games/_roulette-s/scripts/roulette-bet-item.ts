@@ -17,9 +17,6 @@ export default class RouletteBetItem extends cc.Component {
     @property(cc.Node)
     highlight: cc.Node = null;
 
-    @property
-    isGroupBet = false;
-
     public betCallback = (choice: string) => {};
 
     private setMoneyLabel(label: cc.Label, bet: number) {

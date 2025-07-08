@@ -92,13 +92,6 @@ export class SoloBetModel extends BetModel {
         return this.ownBets[choice] ?? 0;
     }
 
-    undoBet() {
-        if (this.queueBet.length > 0) {
-            this.queueBet.pop();
-            this.updateOwnBetAndChips();
-        }
-    }
-
     currentTotalBet() {
         return this.queueBet.reduce((acc, bet) => acc + bet.amount, 0);
     }

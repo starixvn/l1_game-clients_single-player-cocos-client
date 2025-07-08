@@ -967,7 +967,6 @@
     "highlight": {
       "__id__": 8
     },
-    "isGroupBet": true,
     "singleBetControl": {
       "__id__": 23
     },
@@ -1033,7 +1032,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        57.435,
         0,
         0,
         0,
@@ -1542,7 +1541,6 @@
     "highlight": {
       "__id__": 27
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -1999,7 +1997,6 @@
     "highlight": {
       "__id__": 39
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -2365,7 +2362,6 @@
     "highlight": {
       "__id__": 49
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -2731,7 +2727,6 @@
     "highlight": {
       "__id__": 59
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -3097,7 +3092,6 @@
     "highlight": {
       "__id__": 69
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -3463,7 +3457,6 @@
     "highlight": {
       "__id__": 79
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -3829,7 +3822,6 @@
     "highlight": {
       "__id__": 89
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -4195,7 +4187,6 @@
     "highlight": {
       "__id__": 99
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -4561,7 +4552,6 @@
     "highlight": {
       "__id__": 109
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -4927,7 +4917,6 @@
     "highlight": {
       "__id__": 119
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -5293,7 +5282,6 @@
     "highlight": {
       "__id__": 129
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -5659,7 +5647,6 @@
     "highlight": {
       "__id__": 139
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -6025,7 +6012,6 @@
     "highlight": {
       "__id__": 149
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -6391,7 +6377,6 @@
     "highlight": {
       "__id__": 159
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -6757,7 +6742,6 @@
     "highlight": {
       "__id__": 169
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -7123,7 +7107,6 @@
     "highlight": {
       "__id__": 179
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -7489,7 +7472,6 @@
     "highlight": {
       "__id__": 189
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -7855,7 +7837,6 @@
     "highlight": {
       "__id__": 199
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -8221,7 +8202,6 @@
     "highlight": {
       "__id__": 209
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -8587,7 +8567,6 @@
     "highlight": {
       "__id__": 219
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -8953,7 +8932,6 @@
     "highlight": {
       "__id__": 229
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -9319,7 +9297,6 @@
     "highlight": {
       "__id__": 239
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -9685,7 +9662,6 @@
     "highlight": {
       "__id__": 249
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -10051,7 +10027,6 @@
     "highlight": {
       "__id__": 259
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -10417,7 +10392,6 @@
     "highlight": {
       "__id__": 269
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -10783,7 +10757,6 @@
     "highlight": {
       "__id__": 279
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -11149,7 +11122,6 @@
     "highlight": {
       "__id__": 289
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -11515,7 +11487,6 @@
     "highlight": {
       "__id__": 299
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -11881,7 +11852,6 @@
     "highlight": {
       "__id__": 309
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -12247,7 +12217,6 @@
     "highlight": {
       "__id__": 319
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -12613,7 +12582,6 @@
     "highlight": {
       "__id__": 329
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -12979,7 +12947,6 @@
     "highlight": {
       "__id__": 339
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -13345,7 +13312,6 @@
     "highlight": {
       "__id__": 349
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -13711,7 +13677,6 @@
     "highlight": {
       "__id__": 359
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -14077,7 +14042,6 @@
     "highlight": {
       "__id__": 369
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -14443,7 +14407,6 @@
     "highlight": {
       "__id__": 379
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -14809,7 +14772,6 @@
     "highlight": {
       "__id__": 389
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -15722,7 +15684,6 @@
     "highlight": {
       "__id__": 411
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -16362,7 +16323,6 @@
     "highlight": {
       "__id__": 428
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -17002,7 +16962,6 @@
     "highlight": {
       "__id__": 445
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -17875,7 +17834,6 @@
     "highlight": {
       "__id__": 465
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -18515,7 +18473,6 @@
     "highlight": {
       "__id__": 485
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -19155,7 +19112,6 @@
     "highlight": {
       "__id__": 502
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {
@@ -19908,7 +19864,6 @@
     "highlight": {
       "__id__": 519
     },
-    "isGroupBet": false,
     "_id": ""
   },
   {

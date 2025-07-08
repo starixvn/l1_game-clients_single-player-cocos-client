@@ -1,6 +1,5 @@
 import _ = require("lodash");
 import { i18n } from "../../ClientModules";
-import ChipView from "../../common/bet-chips/view-models/ChipView";
 import { numberWithCommas } from "../../common/helpers/NumberHelper";
 import { InGameMenuEvents } from "../../common/in-game-menu/InGameMenu";
 import { userManager } from "../../common/user/UserManager";
@@ -39,12 +38,6 @@ export default class RouletteS extends SoloGame {
     @property(cc.Button)
     btnSpin: cc.Button = null;
 
-    @property(cc.Button)
-    btnClear: cc.Button = null;
-
-    @property(cc.Button)
-    btnUndo: cc.Button = null;
-
     @property(cc.Node)
     nodeInGameMenu: cc.Node = null;
 
@@ -56,9 +49,6 @@ export default class RouletteS extends SoloGame {
 
     @property(cc.Prefab)
     statisticPrefab: cc.Prefab = null;
-
-    @property(ChipView)
-    chipView: ChipView = null;
 
     private singleBetControl: SingleBetControl = null;
 
@@ -91,36 +81,10 @@ export default class RouletteS extends SoloGame {
         super.onLoad();
     }
 
-    initBetChipByLoader(node: cc.Node): void {
-        super.initBetChipByLoader(node);
-        this.betChipContainer = node.parent;
-        this.hideBetChip();
-        this.betChips.onClickBetCallback = this.hideBetChip.bind(this);
-    }
-
-    hideBetChip() {
-        this.betChipsShowing = false;
-        this.betChipContainer.position = cc.v3(0, this.BetChipsPositionHide, 0);
-    }
-
-    showBetChip() {
-        this.betChipsShowing = true;
-        this.betChipContainer.position = cc.v3(0, this.BetChipsPositionShow, 0);
-    }
-
-    clickOpenBetChip() {
-        if (this.betChipsShowing) {
-            this.hideBetChip();
-        } else {
-            this.showBetChip();
-        }
-    }
-
     protected onChangedBetChip(bet: number) {
         super.onChangedBetChip(bet);
         console.log("onChangedBetChip", bet);
         this.soloBetModel.setCurrentBet(bet);
-        this.betChips.updateChipView(this.chipView, bet);
     }
 
     initRouletteBetItems() {
@@ -214,13 +178,8 @@ export default class RouletteS extends SoloGame {
 
     onStateChange(state: string) {
         this.updateSpinButtonInteractable();
-        const preventChangeBet = state === SoloBetState.BETTING || state === SoloBetState.RESULT;
-        this.updateChangeBetButtons(!preventChangeBet);
 
         switch (state) {
-            case SoloBetState.READY:
-                this.rouletteBetItems.forEach((item) => item.clearBet());
-                break;
             case SoloBetState.BETTING:
                 this.rouletteBetItems.forEach((item) => item.setHighlight(false));
                 this.roundHistoryComponent.setHighlight(false);
@@ -232,11 +191,6 @@ export default class RouletteS extends SoloGame {
             default:
                 break;
         }
-    }
-
-    updateChangeBetButtons(enable: boolean) {
-        this.btnClear.interactable = enable;
-        this.btnUndo.interactable = enable;
     }
 
     updateSpinButtonInteractable() {
@@ -251,7 +205,7 @@ export default class RouletteS extends SoloGame {
         }
 
         this.soloBetModel.addBet(choice);
-        this.onPlaceBet({[choice]: this.currentBet});
+        this.onPlaceBet({ [choice]: this.currentBet });
     }
 
     protected createBetData(bet: any) {

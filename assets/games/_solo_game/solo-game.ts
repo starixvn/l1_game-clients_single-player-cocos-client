@@ -47,16 +47,8 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.soloBetModel.confirmBet();
     }
 
-    clickNewBet() {
-        this.soloBetModel.changeState(SoloBetState.READY);
-    }
-
     clickReBet() {
         this.soloBetModel.reBet();
-    }
-
-    clickUndoBet() {
-        this.soloBetModel.undoBet();
     }
 
     override showStatus(status: any) {
