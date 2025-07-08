@@ -184,7 +184,10 @@ export default class RouletteS extends SoloGame {
 
         switch (state) {
             case SoloBetState.BETTING:
-                this.rouletteBetItems.forEach((item) => item.setHighlight(false));
+                this.rouletteBetItems.forEach((item) => {
+                    item.setHighlight(false);
+                    item.setInactive(true);
+                });
                 this.roundHistoryComponent.setHighlight(false);
                 break;
             case SoloBetState.RESULT:
@@ -272,6 +275,7 @@ export default class RouletteS extends SoloGame {
             const isSpecial = type === "column" || type === "dozen";
             const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
             betItem.setHighlight(isWin);
+            betItem.setInactive(false);
             this.roundHistoryComponent.setHighlight(true);
         });
 
