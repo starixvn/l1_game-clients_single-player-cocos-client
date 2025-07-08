@@ -23,6 +23,7 @@ export class RouletteBetModel extends SoloBetModel {
             groupBets[type] = currentBet + ownBets[choice];
         });
         Object.assign(ownBets, groupBets);
+        console.log("ownBets", ownBets);
         this.changeOwnBets(ownBets);
     }
 }

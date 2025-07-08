@@ -17,10 +17,6 @@ export default class RouletteBetItem extends cc.Component {
     @property(cc.Node)
     highlight: cc.Node = null;
 
-    @property(cc.Node)
-    inactiveNode: cc.Node = null;
-
-   
     public betCallback = (choice: string) => {};
 
     private setMoneyLabel(label: cc.Label, bet: number) {
@@ -62,9 +58,5 @@ export default class RouletteBetItem extends cc.Component {
 
     setHighlight(highlight: boolean) {
         this.highlight.active = highlight;
-    }
-
-    setInactive(inactive: boolean) {
-        this.inactiveNode.active = inactive;
     }
 }
