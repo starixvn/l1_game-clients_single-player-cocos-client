@@ -18,15 +18,6 @@ export class SoloBetHandler extends BetHandler {
             }
         }
 
-        if (event.ownBets) {
-            this.gameData.betModel.changeOwnBets(event.ownBets);
-            const isInGamePackage = event.gameConfigs !== undefined;
-            if (isInGamePackage) {
-                this.gameData.betModel.changeOwnChipsFake(event.ownBets);
-                this.gameData.betModel.initOwnChipsByOwnBets(event.ownBets);
-            }
-        }
-
         if (event.betPercentage || event.userBetPercentage) {
             this.gameData.betModel.changeBetPercentage(event.betPercentage || event.userBetPercentage);
         }
