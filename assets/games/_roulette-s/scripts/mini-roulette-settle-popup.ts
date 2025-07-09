@@ -1,3 +1,4 @@
+import AnimationUtils from "../../../common/utils/AnimationUtils";
 
 
 const {ccclass, property} = cc._decorator;
@@ -6,15 +7,19 @@ const {ccclass, property} = cc._decorator;
 export default class NewClass extends cc.Component {
 
     @property(cc.Label)
-    label: cc.Label = null;
+    totalBetAmount: cc.Label = null;
 
-    @property
-    text: string = 'hello';
+    @property(cc.Label)
+    totalWinAmount: cc.Label = null;
 
+    showSettlementResult(betWinAmount: number, betAmount: number) {
+        this.totalBetAmount.string = betAmount.toString();
+        this.totalWinAmount.string = betWinAmount.toString();
 
-
-    start () {
-
+        this.node.active = true;
     }
 
+    hideSettlementResult() {
+        this.node.active = false;
+    }
 }

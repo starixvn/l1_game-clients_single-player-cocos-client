@@ -16,6 +16,7 @@ import RouletteBetItem from "./scripts/roulette-bet-item";
 import { getTypeFromChoice } from "./scripts/roulette-s-utils";
 import RouletteStatistics from "./scripts/roulette-statistics";
 import SingleBetControl from "./scripts/single-bet-control";
+import MiniRouletteSettlePopup from "./scripts/mini-roulette-settle-popup";
 
 const { ccclass, property } = cc._decorator;
 
@@ -65,6 +66,7 @@ export default class RouletteS extends SoloGame {
     private chipFlyingStamp = 0;
 
     protected betChipContainer: cc.Node = null;
+    private settlePopupComponent: MiniRouletteSettlePopup = null;
 
     constructor() {
         super();
@@ -81,6 +83,7 @@ export default class RouletteS extends SoloGame {
         this.initRoundHistory();
 
         this.singleBetControl = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetControl);
+        this.settlePopupComponent = this.settlePopup.getComponent(MiniRouletteSettlePopup);
         super.onLoad();
     }
 
@@ -247,6 +250,7 @@ export default class RouletteS extends SoloGame {
         this.singleBetControl.hideControl();
 
         const result = settlement.result;
+        console.log("result --- ", settlement);
         try {
             await this.showWheelResult(result);
             AnimationUtils.delayTime(4).then(() => {
@@ -266,7 +270,6 @@ export default class RouletteS extends SoloGame {
     async handleAfterSettlementResult(settlement: any, animated: boolean) {
         super.handleAfterSettlementResult(settlement, animated);
 
-        console.log("handleAfterSettlementResult 1");
         this.rouletteBetItems.forEach((betItem) => {
             const choice = betItem.node.name;
             const type = getTypeFromChoice(choice);
@@ -275,20 +278,19 @@ export default class RouletteS extends SoloGame {
             const isSpecial = type === "column" || type === "dozen";
             const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
             betItem.setHighlight(isWin);
-            betItem.setInactive(false);
             this.roundHistoryComponent.setHighlight(true);
         });
 
+        console.log("handleAfter", this.betWinAmount, this.soloBetModel.currentTotalBet());
         await AnimationUtils.delayTime(2);
-        this.settlePopup.active = true;
-        console.log("handleAfterSettlementResult 2", this.settlePopup.active);
-
-        await AnimationUtils.delayTime(2);
-        this.settlePopup.active = false;
-        this.rouletteBetItems.forEach((betItem) => {
-            betItem.setInactive(false);
+        this.settlePopupComponent.showSettlementResult( this.betWinAmount, this.soloBetModel.currentTotalBet());
+        
+        AnimationUtils.delayTime(2).then(() => {
+            this.settlePopupComponent.hideSettlementResult();
+            this.rouletteBetItems.forEach((betItem) => {
+                betItem.setInactive(false);
+            });
         });
-        console.log("handleAfterSettlementResult 3", this.settlePopup.active);
     }
 
     showWheelResult(result: number) {

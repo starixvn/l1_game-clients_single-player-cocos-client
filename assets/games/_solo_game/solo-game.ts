@@ -7,6 +7,8 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class SoloGame extends StandAloneTableGameBase {
+    betWinAmount = 0;
+
     get soloBetModel() {
         return this.gameData.betModel as SoloBetModel;
     }
@@ -57,6 +59,7 @@ export default class SoloGame extends StandAloneTableGameBase {
         if (win) {
             this.showWinningBet(bet);
             this.updateUserBalance();
+            this.betWinAmount = bet;
         }
     }
 }
