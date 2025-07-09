@@ -21,10 +21,10 @@ const { ccclass, property } = cc._decorator;
 
 export class RouletteSConfig implements GameConfigBase {
     minBetTime = 1;
-    fullTime = 59;
-    betTime = 45;
-    stopBetTime = 5;
-    waitTime = 15;
+    fullTime = 22;
+    betTime = 15;
+    stopBetTime = 2;
+    waitTime = 7;
 }
 
 @ccclass
@@ -58,10 +58,6 @@ export default class RouletteS extends SoloGame {
     private rouletteBetItems: RouletteBetItem[] = [];
     private roundHistoryComponent: MiniRouletteRoundHistory = null;
 
-    private readonly BetChipsPositionShow = 0;
-    private readonly BetChipsPositionHide = -300;
-
-    private betChipsShowing = false;
     private chipFlyingStamp = 0;
 
     protected betChipContainer: cc.Node = null;
@@ -149,6 +145,7 @@ export default class RouletteS extends SoloGame {
 
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CHANGE_STATE, () => (state) => {
             this.onStateChange(state);
+            this.showMainTime(false);
         });
         this.onStateChange(this.soloBetModel.state);
     }
@@ -183,6 +180,9 @@ export default class RouletteS extends SoloGame {
         this.updateSpinButtonInteractable();
 
         switch (state) {
+            case SoloBetState.READY:
+                this.showMainTime(true);
+                break;
             case SoloBetState.BETTING:
                 this.rouletteBetItems.forEach((item) => {
                     item.setHighlight(false);
@@ -243,6 +243,7 @@ export default class RouletteS extends SoloGame {
     }
 
     async showSettlementResult(settlement: any) {
+        this.showMainTime(false);
         this.wheel.hideResultNumber();
         this.singleBetControl.hideControl();
 
@@ -284,6 +285,7 @@ export default class RouletteS extends SoloGame {
         console.log("handleAfterSettlementResult 2", this.settlePopup.active);
 
         await AnimationUtils.delayTime(2);
+        this.soloBetModel.changeState(SoloBetState.READY);
         this.settlePopup.active = false;
         this.rouletteBetItems.forEach((betItem) => {
             betItem.setInactive(false);
