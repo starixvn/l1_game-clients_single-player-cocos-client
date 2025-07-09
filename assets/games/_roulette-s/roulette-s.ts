@@ -36,12 +36,6 @@ export default class RouletteS extends SoloGame {
     @property(cc.Node)
     rouletteBetItemsContainer: cc.Node = null;
 
-    @property(cc.Button)
-    btnSpin: cc.Button = null;
-
-    @property(cc.Node)
-    nodeInGameMenu: cc.Node = null;
-
     @property(cc.Prefab)
     roundHistoryPrefab: cc.Prefab = null;
 
@@ -63,6 +57,7 @@ export default class RouletteS extends SoloGame {
 
     protected betChipContainer: cc.Node = null;
     private settlePopupComponent: MiniRouletteSettlePopup = null;
+    private isStartRound = false;
 
     constructor() {
         super();
@@ -142,15 +137,6 @@ export default class RouletteS extends SoloGame {
             });
             this.updateSpinButtonInteractable();
         });
-        this.emitterListener(this.gameData.betModel, SoloBetModel.Events.PLACE_BET_FAILED, () => () => {
-            this.soloBetModel.changeState(SoloBetState.BETTING_FAILED);
-        });
-
-        this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CHANGE_STATE, () => (state) => {
-            this.onStateChange(state);
-            this.showMainTime(false);
-        });
-        this.onStateChange(this.soloBetModel.state);
     }
 
     updateRoundHistory() {
@@ -183,10 +169,13 @@ export default class RouletteS extends SoloGame {
         this.updateSpinButtonInteractable();
 
         switch (state) {
-            case SoloBetState.READY:
+            case SoloBetState.STARTING_ROUND:
                 this.showMainTime(true);
+                this.gameData.durations.remaining = this.config.betTime;
+                this.gameData.durations.start();
                 break;
             case SoloBetState.BETTING:
+                this.showMainTime(false);
                 this.rouletteBetItems.forEach((item) => {
                     item.setHighlight(false);
                     item.setInactive(true);
@@ -194,18 +183,13 @@ export default class RouletteS extends SoloGame {
                 this.roundHistoryComponent.setHighlight(false);
                 break;
             case SoloBetState.RESULT:
+                this.showMainTime(false);
                 break;
             case SoloBetState.SETTLEMENT:
                 break;
             default:
                 break;
         }
-    }
-
-    updateSpinButtonInteractable() {
-        const state = this.soloBetModel.state;
-        const isStateCanBet = state === SoloBetState.READY || state === SoloBetState.BETTING_FAILED || state === SoloBetState.SETTLEMENT;
-        this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet;
     }
 
     onRouletteBetClick(choice: string) {
@@ -215,6 +199,9 @@ export default class RouletteS extends SoloGame {
 
         this.soloBetModel.addBet(choice);
         this.onPlaceBet({ [choice]: this.currentBet });
+        !this.isStartRound && this.soloBetModel.changeState(SoloBetState.STARTING_ROUND);
+
+        this.isStartRound = true;
     }
 
     protected createBetData(bet: any) {
@@ -246,9 +233,10 @@ export default class RouletteS extends SoloGame {
     }
 
     async showSettlementResult(settlement: any) {
-        this.showMainTime(false);
         this.wheel.hideResultNumber();
         this.singleBetControl.hideControl();
+
+        this.soloBetModel.changeState(SoloBetState.RESULT);
 
         const result = settlement.result;
         console.log("result --- ", settlement);
@@ -292,6 +280,7 @@ export default class RouletteS extends SoloGame {
                 betItem.setInactive(false);
             });
             this.soloBetModel.changeState(SoloBetState.READY);
+            this.isStartRound = false;
         });
     }
 

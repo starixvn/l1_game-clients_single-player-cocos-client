@@ -2,12 +2,21 @@ import NewGameData from "../_base_new/models/NewGameData";
 import StandAloneTableGameBase from "../_base_new/view-models/StandAloneTableGameBase";
 import { SoloBetModel, SoloBetState } from "./solo-bet-model";
 import SoloGameData from "./solo-game-data";
+import { Durations } from "../_new/_base/game-data-management/models/durations";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class SoloGame extends StandAloneTableGameBase {
+    @property(cc.Button)
+    btnSpin: cc.Button = null;
+
     betWinAmount = 0;
+
+    onLoad() {
+        super.onLoad();
+        this.animatedTime.setAnimatedY(20, -10);
+    }
 
     get soloBetModel() {
         return this.gameData.betModel as SoloBetModel;
@@ -26,6 +35,34 @@ export default class SoloGame extends StandAloneTableGameBase {
     initGameDataEvents() {
         super.initGameDataEvents();
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CONFIRM_BET, () => (bet) => this.onConfirmBet(bet));
+
+        this.emitterListener(this.gameData.betModel, SoloBetModel.Events.PLACE_BET_FAILED, () => () => {
+            this.soloBetModel.changeState(SoloBetState.BETTING_FAILED);
+        });
+
+        this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CHANGE_STATE, () => (state) => {
+            this.onStateChange(state);
+        });
+
+        this.emitterListener(this.gameData.durations, Durations.Events.CHANGE_REMAINING_TIME, () => ({ remaining }) => {
+            if (remaining === 0) {
+                this.soloBetModel.confirmBet();
+            }
+        });
+
+        this.onStateChange(this.soloBetModel.state);
+    }
+
+    onStateChange(state: string) {
+        // override
+    }
+
+    updateSpinButtonInteractable() {
+        const state = this.soloBetModel.state;
+        console.log("----state --- ", state);
+        const isStateCanBet =
+            state === SoloBetState.BETTING_FAILED || state === SoloBetState.SETTLEMENT || state === SoloBetState.STARTING_ROUND;
+        this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet;
     }
 
     onConfirmBet(bet: any) {
@@ -46,6 +83,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     clickConfirmBet() {
+        this.gameData.durations.remaining = this.config.minBetTime;
         this.soloBetModel.confirmBet();
     }
 

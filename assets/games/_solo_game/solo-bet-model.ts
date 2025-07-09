@@ -7,6 +7,7 @@ export interface ChoiceBet {
 
 export enum SoloBetState {
     READY = "ready",
+    STARTING_ROUND = "startingRound",
     BETTING = "betting",
     BETTING_FAILED = "bettingFailed",
     RESULT = "result",

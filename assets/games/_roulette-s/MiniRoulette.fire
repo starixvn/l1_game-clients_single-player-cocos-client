@@ -4669,7 +4669,7 @@
       "ctor": "Float64Array",
       "array": [
         336.752,
-        212.332,
+        210.332,
         0,
         0,
         0,
@@ -4731,7 +4731,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -11.236,
+        -8.436,
         0,
         0,
         0,
@@ -4830,7 +4830,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -11.236,
+        -8.436,
         0,
         0,
         0,
@@ -4937,7 +4937,7 @@
       "ctor": "Float64Array",
       "array": [
         -11.04,
-        -4.003,
+        0,
         0,
         0,
         0,
@@ -5034,7 +5034,7 @@
       "ctor": "Float64Array",
       "array": [
         10.547,
-        -4.003,
+        0,
         0,
         0,
         0,
@@ -6782,7 +6782,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "e5f75f2c-2fb9-4d1e-aefd-2e79c8b8d99b"
+      "__uuid__": "74046830-c381-4950-bb98-04a8c368976d"
     },
     "_type": 0,
     "_sizeMode": 1,
