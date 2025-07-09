@@ -70,7 +70,7 @@ class AppManager {
     autoOpenLuckyWheel = true;
 
     get autoGenerateNickname() {
-        return this.isDirectMode || this.isAppMode || this.isPFF;
+        return true;
     }
 
     init() {
