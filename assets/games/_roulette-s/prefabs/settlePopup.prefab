@@ -126,7 +126,7 @@
       "ctor": "Float64Array",
       "array": [
         0.305,
-        131.777,
+        125.77699999999999,
         0,
         0,
         0,
@@ -171,7 +171,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "f7d4b939-3552-4223-9021-7341181f5bd3"
+      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -402,7 +402,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 51.37,
+      "width": 49.81,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -460,7 +460,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "f7d4b939-3552-4223-9021-7341181f5bd3"
+      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -519,7 +519,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 72.71000000000001,
+      "width": 76,
       "height": 200
     },
     "_anchorPoint": {
@@ -595,7 +595,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -59.71000000000001,
+        -63,
         10.535,
         0,
         0,
@@ -692,7 +692,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 41.71,
+      "width": 45,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -704,7 +704,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -20.855000000000008,
+        -22.5,
         10.637,
         0,
         0,
@@ -749,8 +749,10 @@
     "_fontSize": 25,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "6996c730-7dd3-4d28-8c12-c570df021fcb"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -783,7 +785,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 72.71000000000001,
+      "width": 76,
       "height": 200
     },
     "_resize": 1,
@@ -1033,7 +1035,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 28.11,
+      "width": 27.81,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1090,8 +1092,10 @@
     "_fontSize": 22,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -1100,7 +1104,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_N$cacheMode": 0,
+    "_N$cacheMode": 1,
     "_id": ""
   },
   {
@@ -1148,7 +1152,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 72.71000000000001,
+      "width": 76,
       "height": 200
     },
     "_anchorPoint": {
@@ -1224,7 +1228,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -59.71000000000001,
+        -63,
         -23.213,
         0,
         0,
@@ -1321,7 +1325,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 41.71,
+      "width": 45,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1333,7 +1337,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -20.855000000000008,
+        -22.5,
         -23.398,
         0,
         0,
@@ -1378,8 +1382,10 @@
     "_fontSize": 25,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "6996c730-7dd3-4d28-8c12-c570df021fcb"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -1412,7 +1418,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 72.71000000000001,
+      "width": 76,
       "height": 200
     },
     "_resize": 1,
