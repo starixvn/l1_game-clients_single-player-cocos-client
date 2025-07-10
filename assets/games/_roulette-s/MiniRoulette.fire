@@ -12207,7 +12207,7 @@
     "_dstBlendFactor": 771,
     "_string": "Spin",
     "_N$string": "Spin",
-    "_fontSize": 25,
+    "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": false,
     "_N$file": {
@@ -12655,7 +12655,7 @@
     "_dstBlendFactor": 771,
     "_string": "再下注",
     "_N$string": "再下注",
-    "_fontSize": 25,
+    "_fontSize": 28,
     "_lineHeight": 40,
     "_enableWrapText": false,
     "_N$file": {
