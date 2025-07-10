@@ -45,7 +45,8 @@ export default class SoloGame extends StandAloneTableGameBase {
         });
 
         this.emitterListener(this.gameData.durations, Durations.Events.CHANGE_REMAINING_TIME, () => ({ remaining }) => {
-            if (remaining === 0) {
+            const state = this.soloBetModel.state;
+            if (remaining === 0 && state !== SoloBetState.RESULT) {
                 this.soloBetModel.confirmBet();
             }
         });
