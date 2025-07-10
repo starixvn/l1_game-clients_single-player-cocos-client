@@ -206,7 +206,6 @@ export default class RouletteS extends SoloGame {
 
     protected createBetData(bet: any) {
         const betChoices = this.generateBetChoices(bet);
-        cc.log("betChoices --- ", betChoices);
         const betData = {
             betChoices,
             username: userManager.userName,
@@ -239,7 +238,6 @@ export default class RouletteS extends SoloGame {
         this.soloBetModel.changeState(SoloBetState.RESULT);
 
         const result = settlement.result;
-        console.log("result --- ", settlement);
         try {
             await this.showWheelResult(result);
             AnimationUtils.delayTime(4).then(() => {

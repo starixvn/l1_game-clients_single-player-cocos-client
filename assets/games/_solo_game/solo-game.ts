@@ -3,6 +3,8 @@ import StandAloneTableGameBase from "../_base_new/view-models/StandAloneTableGam
 import { SoloBetModel, SoloBetState } from "./solo-bet-model";
 import SoloGameData from "./solo-game-data";
 import { Durations } from "../_new/_base/game-data-management/models/durations";
+import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
+import { onAutoRebetDialogInitialized } from "../_base/action/GameRoomActions";
 
 const { ccclass, property } = cc._decorator;
 
@@ -12,6 +14,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     btnSpin: cc.Button = null;
 
     betWinAmount = 0;
+    autoRebetDialog: AutoRebetDialog = null;
 
     onLoad() {
         super.onLoad();
@@ -60,21 +63,16 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     updateSpinButtonInteractable() {
         const state = this.soloBetModel.state;
-        console.log("----state --- ", state);
         const isStateCanBet =
             state === SoloBetState.BETTING_FAILED || state === SoloBetState.SETTLEMENT || state === SoloBetState.STARTING_ROUND;
         this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet;
     }
 
     onConfirmBet(bet: any) {
-        console.log("onConfirmBet", bet);
-
         this.sendSocketData("spin", null);
     }
 
     onPlaceBet(bet: any) {
-        console.log("onPlaceBet", bet);
-
         const betData = this.createBetData(bet);
         this.sendSocketData("bet", betData);
     }
@@ -86,6 +84,10 @@ export default class SoloGame extends StandAloneTableGameBase {
     clickConfirmBet() {
         this.gameData.durations.remaining = this.config.minBetTime;
         this.soloBetModel.confirmBet();
+    }
+
+    clickAutoRebet() {
+        this.autoRebetDialog.node.active = true;
     }
 
     clickReBet() {
@@ -100,5 +102,9 @@ export default class SoloGame extends StandAloneTableGameBase {
             this.updateUserBalance();
             this.betWinAmount = bet;
         }
+    }
+
+    onAutoRebetDialogInitialized(node: cc.Node) {
+        onAutoRebetDialogInitialized(this)(node);
     }
 }

@@ -1,6 +1,7 @@
 import { appContainer } from "../../../Application";
 import MusicPlayer from "../../../common/audio/MusicPlayer";
 import * as sessionManager from "../../../common/auth/SessionManager";
+import AutoRebetDialog from "../../../common/auto-rebet-dialog/AutoRebetDialog";
 import GameUtils from "../../../common/GameUtils";
 import { truncateFixedDecimals } from "../../../common/helpers/NumberHelper";
 import Loading from "../../../common/loading/view-models/Loading";
@@ -65,6 +66,14 @@ export const onUserProfileInitialized = (game: any) => (node: cc.Node) => {
     const userProfile = node.getComponent(UserProfile);
     if (userProfile) {
         game.userProfile = userProfile;
+    }
+};
+
+export const onAutoRebetDialogInitialized = (game: any) => (node: cc.Node) => {
+    const autoReBetDialog = node.getComponent(AutoRebetDialog);
+    if (autoReBetDialog) {
+        game.autoRebetDialog = autoReBetDialog;
+        game.autoRebetDialog.node.active = false;
     }
 };
 
