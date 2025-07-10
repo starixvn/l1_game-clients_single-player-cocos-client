@@ -94,6 +94,24 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.soloBetModel.reBet();
     }
 
+    
+    clickTopUpBalance() {
+        const message = JSON.stringify({ type: "OPEN_TOPUP_POPUP" });
+
+        if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+            window.ReactNativeWebView.postMessage(message);
+            return;
+        }
+
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: "OPEN_TOPUP_POPUP" }, "*");
+            return;
+        }
+
+        alert("Open Top Up Balance Dialog");
+    }
+
+
     override showStatus(status: any) {
         const { win, bet } = status;
 
