@@ -13,6 +13,9 @@ export default class SoloGame extends StandAloneTableGameBase {
     @property(cc.Button)
     btnSpin: cc.Button = null;
 
+    @property(cc.Prefab)
+    autoRebetDialogPrefab: cc.Prefab = null;
+
     betWinAmount = 0;
     autoRebetDialog: AutoRebetDialog = null;
 
@@ -87,14 +90,16 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     clickAutoRebet() {
-        this.autoRebetDialog.node.active = true;
+        this.playClick();
+        const dialog = cc.instantiate(this.autoRebetDialogPrefab);
+
+        this.currentMiniPanel.node.addChild(dialog);
     }
 
     clickReBet() {
         this.soloBetModel.reBet();
     }
 
-    
     clickTopUpBalance() {
         const message = JSON.stringify({ type: "OPEN_TOPUP_POPUP" });
 
@@ -111,7 +116,6 @@ export default class SoloGame extends StandAloneTableGameBase {
         alert("Open Top Up Balance Dialog");
     }
 
-
     override showStatus(status: any) {
         const { win, bet } = status;
 
@@ -120,9 +124,5 @@ export default class SoloGame extends StandAloneTableGameBase {
             this.updateUserBalance();
             this.betWinAmount = bet;
         }
-    }
-
-    onAutoRebetDialogInitialized(node: cc.Node) {
-        onAutoRebetDialogInitialized(this)(node);
     }
 }

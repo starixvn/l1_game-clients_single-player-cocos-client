@@ -12785,10 +12785,12 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
+    "target": {
+      "__id__": 2
+    },
     "component": "",
     "_componentId": "3e6e8sSuFtMiJzzb3OkDr8E",
-    "handler": "clickConfirmBet",
+    "handler": "clickAutoRebet",
     "customEventData": ""
   },
   {
@@ -14325,6 +14327,9 @@
     "musicBg": null,
     "btnSpin": {
       "__id__": 312
+    },
+    "autoRebetDialogPrefab": {
+      "__uuid__": "a3ed514a-7979-4187-8da8-44e9f62d1221"
     },
     "wheel": {
       "__id__": 217
