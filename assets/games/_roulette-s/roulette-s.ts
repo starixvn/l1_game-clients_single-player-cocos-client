@@ -278,6 +278,8 @@ export default class RouletteS extends SoloGame {
             this.settlePopupComponent.hideSettlementResult();
             this.rouletteBetItems.forEach((betItem) => {
                 betItem.setInactive(false);
+                betItem.clearChips();
+                betItem.clearOwnBet();
             });
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;

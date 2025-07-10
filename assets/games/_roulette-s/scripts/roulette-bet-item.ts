@@ -1,21 +1,11 @@
 import AudioManager from "../../../common/audio/AudioManager";
 import { formatOdds, numberWithCommas } from "../../../common/helpers/NumberHelper";
+import BetItem from "../../_base/view-models/BetItem";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class RouletteBetItem extends cc.Component {
-    @property(cc.Label)
-    ownBet: cc.Label = null;
-
-    @property(cc.Label)
-    odds: cc.Label = null;
-
-    @property(cc.Node)
-    chipNode: cc.Node = null;
-
-    @property(cc.Node)
-    highlight: cc.Node = null;
+export default class RouletteBetItem extends BetItem {
 
     @property(cc.Node)
     inactiveNode: cc.Node = null;
@@ -23,11 +13,6 @@ export default class RouletteBetItem extends cc.Component {
    
     public betCallback = (choice: string) => {};
 
-    private setMoneyLabel(label: cc.Label, bet: number) {
-        if (label) {
-            label.string = bet > 0 ? numberWithCommas(bet, 1) : "";
-        }
-    }
 
     resetUI() {
         this.odds && (this.odds.string = "");
@@ -39,9 +24,13 @@ export default class RouletteBetItem extends cc.Component {
     }
 
     clearBet() {
-        this.ownBet && (this.ownBet.string = "");
+        this.clearOwnBet();
         this.highlight && (this.highlight.active = false);
         this.clearChips();
+    }
+
+    clearOwnBet() {
+        this.ownBet && (this.ownBet.string = "");
     }
 
     public setOwnBet(bet: number) {

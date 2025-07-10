@@ -17,9 +17,20 @@ export default class NewClass extends cc.Component {
         this.totalWinAmount.string = betWinAmount.toString();
 
         this.node.active = true;
+        this.node.scale = 0;
+        this.node.opacity = 0;
+        
+        cc.tween(this.node)
+            .to(0.5, { scale: 1, opacity: 255 }, { easing: "backOut" })
+            .start();
     }
 
     hideSettlementResult() {
-        this.node.active = false;
+        cc.tween(this.node)
+            .to(0.5, { scale: 0, opacity: 0 }, { easing: "backIn" })
+            .call(() => {
+                this.node.active = false;
+            })
+            .start();
     }
 }
