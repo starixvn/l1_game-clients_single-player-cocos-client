@@ -104,17 +104,36 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.betWinAmount = 0;
     }
 
-    clickTopUpBalance() {
-        const message = JSON.stringify({ type: "OPEN_TOPUP_BALANCE" });
-        if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
-            window.ReactNativeWebView.postMessage(message);
-            return;
+    notifyOpenRechargePanel() {
+        try {
+            if (typeof (window as any).openRechargePanel === "function") {
+                (window as any).openRechargePanel();
+                return;
+            }
+            if ((window as any).webkit && (window as any).webkit.messageHandlers && (window as any).webkit.messageHandlers.openRechargePanel) {
+                (window as any).webkit.messageHandlers.openRechargePanel.postMessage({});
+                return;
+            }
+        } catch (e) {
+            cc.log("Error calling openRechargePanel:", e);
         }
+    }
 
-        if (window.parent && window.parent !== window) {
-            window.parent.postMessage({ type: "OPEN_TOPUP_BALANCE" }, "*");
-            return;
-        }
+    clickTopUpBalance() {
+        // React Native WebView
+        // const message = JSON.stringify({ type: "OPEN_TOPUP_BALANCE" });
+        // if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+        //     window.ReactNativeWebView.postMessage(message);
+        //     return;
+        // }
+
+        // // Web
+        // if (window.parent && window.parent !== window) {
+        //     window.parent.postMessage({ type: "OPEN_TOPUP_BALANCE" }, "*");
+        //     return;
+        // }
+
+        this.notifyOpenRechargePanel();
     }
 
     override showStatus(status: any) {
