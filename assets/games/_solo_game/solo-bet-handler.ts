@@ -16,6 +16,9 @@ export class SoloBetHandler extends BetHandler {
             } else {
                 this.gameData.betModel.placeBetSuccess(event.endBet);
             }
+            if (event.roundId) {
+                this.gameData.changeRoundId(event.roundId);
+            }
         }
 
         if (event.betPercentage || event.userBetPercentage) {

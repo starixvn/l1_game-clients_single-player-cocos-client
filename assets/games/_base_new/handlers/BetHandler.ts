@@ -13,6 +13,7 @@ export type BetEventType = {
     playerChip?: any;
     rebet?: any;
     userBetPercentage: any;
+    roundId?: number;
 };
 
 export class BetHandler extends BaseEventHandler<BetEventType> {

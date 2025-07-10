@@ -27,20 +27,21 @@ export default class ChipStack extends cc.Component {
     }
 
     calcPositionX() {
-        if (this.skewX === 0) {
-            return lodash.random(-3, 3);
-        }
+        return 0;
+        // if (this.skewX === 0) {
+        //     return lodash.random(-3, 3);
+        // }
 
-        let positionX = 0;
+        // let positionX = 0;
 
-        if (this.skewX > 0) {
-            positionX = -this.node.childrenCount * this.ratioPosX;
-        }
+        // if (this.skewX > 0) {
+        //     positionX = -this.node.childrenCount * this.ratioPosX;
+        // }
 
-        if (this.skewX < 0) {
-            positionX = this.node.childrenCount * this.ratioPosX;
-        }
+        // if (this.skewX < 0) {
+        //     positionX = this.node.childrenCount * this.ratioPosX;
+        // }
 
-        return positionX;
+        // return positionX;
     }
 }
