@@ -100,6 +100,10 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.soloBetModel.reBet();
     }
 
+    resetBetWinAmount() {
+        this.betWinAmount = 0;
+    }
+
     clickTopUpBalance() {
         const message = JSON.stringify({ type: "OPEN_TOPUP_BALANCE" });
 
