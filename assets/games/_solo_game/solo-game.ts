@@ -5,6 +5,7 @@ import SoloGameData from "./solo-game-data";
 import { Durations } from "../_new/_base/game-data-management/models/durations";
 import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
 import { onAutoRebetDialogInitialized } from "../_base/action/GameRoomActions";
+import GameUtils from "../../common/GameUtils";
 
 const { ccclass, property } = cc._decorator;
 
@@ -104,42 +105,8 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.betWinAmount = 0;
     }
 
-    notifyOpenRechargePanel() {
-        try {
-            if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
-                window.ReactNativeWebView.postMessage(JSON.stringify({ type: "openRechargePanel" }));
-                return;
-            }
-            if ((window as any).Android && typeof (window as any).Android.openRechargePanel === "function") {
-                (window as any).Android.openRechargePanel();
-                return;
-            }
-    
-            if ((window as any).JSBridge && typeof (window as any).JSBridge.openRechargePanel === "function") {
-                (window as any).JSBridge.openRechargePanel();
-                return;
-            }
-    
-            if (
-                (window as any).webkit &&
-                (window as any).webkit.messageHandlers &&
-                (window as any).webkit.messageHandlers.openRechargePanel
-            ) {
-                (window as any).webkit.messageHandlers.openRechargePanel.postMessage({});
-                return;
-            }
-    
-            if (window.parent && window.parent !== window) {
-                window.parent.postMessage({ type: "openRechargePanel" }, "*");
-                return;
-            }
-        } catch (e) {
-            cc.log("Error calling openRechargePanel:", e);
-        }
-    }
-
     clickTopUpBalance() {
-        this.notifyOpenRechargePanel();
+        GameUtils.notifyNativeApp("openRechargePanel");
     }
 
     override showStatus(status: any) {

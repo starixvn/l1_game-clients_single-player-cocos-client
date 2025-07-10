@@ -17,6 +17,7 @@ import { getTypeFromChoice } from "./scripts/roulette-s-utils";
 import RouletteStatistics from "./scripts/roulette-statistics";
 import SingleBetControl from "./scripts/single-bet-control";
 import MiniRouletteSettlePopup from "./scripts/mini-roulette-settle-popup";
+import GameUtils from "../../common/GameUtils";
 
 const { ccclass, property } = cc._decorator;
 
@@ -76,6 +77,7 @@ export default class RouletteS extends SoloGame {
         this.singleBetControl = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetControl);
         this.settlePopupComponent = this.settlePopup.getComponent(MiniRouletteSettlePopup);
         super.onLoad();
+        GameUtils.notifyNativeApp("onGameLoaded");
     }
 
     protected onChangedBetChip(bet: number) {
@@ -386,5 +388,5 @@ export default class RouletteS extends SoloGame {
         this.historyComponent = dialog.getComponent(MiniRouletteBetHistory);
         this.historyComponent.init(this.socket);
         this.currentMiniPanel.node.addChild(dialog);
-    }
+    }    
 }

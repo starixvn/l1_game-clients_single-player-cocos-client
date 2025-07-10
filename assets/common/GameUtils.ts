@@ -1076,4 +1076,64 @@ export default class GameUtils {
             })
             .start();
     }
+
+    
+    public static notifyNativeApp(method: string, payload: any = {}) {
+        try {
+            // React Native WebView
+            if (window.ReactNativeWebView?.postMessage) {
+                window.ReactNativeWebView.postMessage(
+                    JSON.stringify({ type: method, ...payload })
+                );
+                return;
+            }
+        } catch (e) {
+            cc.log(`Error ReactNativeWebView (${method}):`, e);
+        }
+    
+        try {
+            // Android Native (Java/Kotlin)
+            const android = (window as any).Android;
+            if (android && typeof android[method] === "function") {
+                android[method]();
+                return;
+            }
+        } catch (e) {
+            cc.log(`Error Android.${method}:`, e);
+        }
+    
+        try {
+            // Android Flutter / Custom JSBridge
+            const jsbridge = (window as any).JSBridge;
+            if (jsbridge && typeof jsbridge[method] === "function") {
+                jsbridge[method]();
+                return;
+            }
+        } catch (e) {
+            cc.log(`Error JSBridge.${method}:`, e);
+        }
+    
+        try {
+            // iOS Native (WKWebView)
+            const webkitHandler = (window as any).webkit?.messageHandlers?.[method];
+            if (webkitHandler?.postMessage) {
+                webkitHandler.postMessage(payload);
+                return;
+            }
+        } catch (e) {
+            cc.log(`Error webkit.messageHandlers.${method}:`, e);
+        }
+    
+        try {
+            // iframe fallback
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type: method, ...payload }, "*");
+                return;
+            }
+        } catch (e) {
+            cc.log(`Error window.parent.postMessage (${method}):`, e);
+        }
+    
+        cc.warn(`notifyNativeApp: no valid bridge found for "${method}"`);
+    }
 }
