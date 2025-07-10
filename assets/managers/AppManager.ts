@@ -57,8 +57,22 @@ class AppManager {
 
     _isDirectMode = false;
     _appMode = false;
-
     _PFF = false;
+
+    // Direct mode properties
+    directModeRef = "";
+    directGameId = 0;
+
+    // App mode properties  
+    appModeRef = "";
+
+    // PFF properties
+    pffRef = "";
+
+    // Authorization retry properties
+    authorizeRetryCount = 0;
+    maxAuthorizeRetryCount = 3;
+    authorizeRetryDelay = 1000;
 
     registeredShowHideAppEvent = false;
 
@@ -74,26 +88,46 @@ class AppManager {
     }
 
     init() {
+        console.log("🔧 [AppManager] ===== init started =====");
+        const startTime = Date.now();
+
         console.log("🔧 [AppManager] Initializing AppManager...");
         this.urlParams = new URLSearchParams(window.location.search);
-        this.ssoGameId = +this.urlParams.get("gameId");
+        const gameId = this.urlParams.get("gameId");
+        this.ssoGameId = gameId ? +gameId : GameId.UNKNOWN;
         console.log("🔧 [AppManager] SSO Game ID:", this.ssoGameId);
+
         const urlParamsObj = {};
         this.urlParams.forEach((value, key) => {
             urlParamsObj[key] = value;
         });
         console.log("🔧 [AppManager] URL Params:", urlParamsObj);
+
+        console.log("🔧 [AppManager] Starting Sentry logger...");
         sentryLogger.start();
+
+        console.log("🔧 [AppManager] Initializing language...");
         this.initLanguage();
+
+        console.log("🔧 [AppManager] Storing operator...");
         this.storeOperator();
+
+        console.log("🔧 [AppManager] Initializing audio manager...");
         AudioManager.getInstance().init();
+
+        console.log("🔧 [AppManager] Initializing show/hide app events...");
         this.initShowHideAppEvent();
-        console.log("🔧 [AppManager] Initialization completed");
+
+        const endTime = Date.now();
+        console.log("🔧 [AppManager] ===== init completed in", (endTime - startTime), "ms =====");
     }
 
     clearSSOGameId() {
-        console.log("🔧 [AppManager] Clearing SSO Game ID from:", this.ssoGameId);
+        console.log("🔧 [AppManager] ===== clearSSOGameId called =====");
+        console.log("🔧 [AppManager] Clearing SSO game ID:", this.ssoGameId);
         this.ssoGameId = GameId.UNKNOWN;
+        console.log("🔧 [AppManager] SSO game ID cleared");
+        console.log("🔧 [AppManager] ===== clearSSOGameId completed =====");
     }
 
     async initNotificationService() {
@@ -133,19 +167,37 @@ class AppManager {
     get isAppMode() {
         return this._appMode;
     }
+
+    set isAppMode(value) {
+        this._appMode = value;
+    }
+
     get isPFF() {
         return this._PFF;
     }
 
-    get directGameId() {
+    set isPFF(value) {
+        this._PFF = value;
+    }
+
+    get directGameIdFromUrl() {
         return +this.urlInfo[UrlInfo.DirectGameId] || 0;
     }
 
     backToOperatorLobby() {
-        const url = appManager.urlInfo[UrlInfo.ReturnUrl];
-        if (url) {
-            window.location.replace(EncryptUtils.base64Decode(url));
+        console.log("🔧 [AppManager] ===== backToOperatorLobby started =====");
+
+        const directModeInfo = sessionManager.getDirectMode();
+        console.log("🔧 [AppManager] Direct mode info for return:", directModeInfo);
+
+        if (directModeInfo && directModeInfo.returnUrl) {
+            console.log("🔧 [AppManager] 🔄 Returning to operator lobby:", directModeInfo.returnUrl);
+            window.location.href = directModeInfo.returnUrl;
+        } else {
+            console.log("🔧 [AppManager] ❌ No return URL found, staying in current location");
         }
+
+        console.log("🔧 [AppManager] ===== backToOperatorLobby completed =====");
     }
 
     redirectToLobby() {
@@ -186,26 +238,46 @@ class AppManager {
     }
 
     async ssoAndAuthorize() {
+        console.log("🔧 [AppManager] ===== ssoAndAuthorize started =====");
+        const startTime = Date.now();
+
         console.log("🔧 [AppManager] Starting SSO and authorization process...");
+
+        console.log("🔧 [AppManager] Handling app mode...");
         this.handleAppMode();
         console.log("🔧 [AppManager] App mode handled - Direct Mode:", this.isDirectMode, "App Mode:", this.isAppMode, "PFF:", this.isPFF);
+
+        console.log("🔧 [AppManager] Handling currency group...");
         await this.handleCurrencyGroup();
         console.log("🔧 [AppManager] Currency group handled");
+
+        console.log("🔧 [AppManager] Requesting SSO...");
         await this.requestSSO();
         console.log("🔧 [AppManager] SSO request completed");
+
+        console.log("🔧 [AppManager] Getting lobby configs...");
         await getLobbyConfigs();
         console.log("🔧 [AppManager] Lobby configs loaded");
+
         if (window.authData && this.isDirectMode) {
             console.log("🔧 [AppManager] Direct mode detected, removing in-room game ID and saving direct mode info");
             sessionManager.removeInRoomGameId();
             this.saveDirectModeInfo();
         }
+
+        console.log("🔧 [AppManager] Loading direct mode info...");
         this.loadDirectModeInfo();
         console.log("🔧 [AppManager] Direct mode info loaded");
+
+        console.log("🔧 [AppManager] Authorizing by user service...");
         this.authorized = await this.authorizeByUserService();
         console.log("🔧 [AppManager] Authorization result:", this.authorized);
+
+        console.log("🔧 [AppManager] Initializing notification service...");
         await this.initNotificationService();
-        console.log("🔧 [AppManager] SSO and authorization process completed");
+
+        const endTime = Date.now();
+        console.log("🔧 [AppManager] ===== ssoAndAuthorize completed in", (endTime - startTime), "ms =====");
     }
 
     private async handleCurrencyGroup() {
@@ -226,51 +298,38 @@ class AppManager {
     }
 
     private handleAppMode() {
-        console.log("🔧 [AppManager] Handling app mode...");
+        console.log("🔧 [AppManager] ===== handleAppMode started =====");
+
         const urlParams = this.urlParams;
-        if (urlParams.has(UrlInfo.Ref) && urlParams.has("gameId") && urlParams.get("gameId") !== "0") {
-            const gameId = urlParams.get("gameId");
-            const refData = urlParams.get(UrlInfo.Ref);
-            console.log("🔧 [AppManager] Processing ref data:", refData, "for game ID:", gameId);
+        const ref = urlParams.get("ref");
+        console.log("🔧 [AppManager] App mode check - ref:", ref);
 
-            if (this.checkDirectModeRefData(refData)) {
-                console.log("🔧 [AppManager] Direct mode detected from ref data");
-                this.urlInfo[UrlInfo.Ref] = refData;
-                this.urlInfo[UrlInfo.DirectGameId] = gameId;
-                if (urlParams.has("rurl") && urlParams.get("rurl") !== "") {
-                    this.urlInfo[UrlInfo.ReturnUrl] = urlParams.get("rurl");
-                    console.log("🔧 [AppManager] Return URL set:", urlParams.get("rurl"));
-                }
+        if (ref) {
+            if (this.checkDirectModeRefData(ref)) {
+                console.log("🔧 [AppManager] 🔄 Direct mode detected from ref:", ref);
                 this.isDirectMode = true;
+                this.directModeRef = ref;
+            } else if (this.checkAppModeRefData(ref)) {
+                console.log("🔧 [AppManager] 📱 App mode detected from ref:", ref);
+                this.isAppMode = true;
+                this.appModeRef = ref;
+            } else if (this.checkPFFData(ref)) {
+                console.log("🔧 [AppManager] 🎮 PFF mode detected from ref:", ref);
+                this.isPFF = true;
+                this.pffRef = ref;
             }
-
-            if (this.checkPFFData(refData)) {
-                console.log("🔧 [AppManager] PFF mode detected from ref data");
-                this._PFF = true;
-            }
         }
 
-        if (urlParams.has(UrlInfo.Ref) && this.checkAppModeRefData(urlParams.get(UrlInfo.Ref))) {
-            console.log("🔧 [AppManager] App mode detected from ref data");
-            this._appMode = true;
-        }
+        console.log("🔧 [AppManager] Final app mode state:", {
+            isDirectMode: this.isDirectMode,
+            isAppMode: this.isAppMode,
+            isPFF: this.isPFF,
+            directModeRef: this.directModeRef,
+            appModeRef: this.appModeRef,
+            pffRef: this.pffRef
+        });
 
-        if (!urlParams.has(UrlInfo.params)) {
-            console.log("🔧 [AppManager] No params in URL, skipping session params handling");
-            return;
-        }
-
-        const params = UrlParamsService.getInstance().parseAndCache(UrlInfo.params) as ISessionParams;
-        console.log("🔧 [AppManager] Session params parsed:", params);
-
-        if (params?.isUserGesture !== undefined) {
-            AudioManager.getInstance().isUserGesture = params.isUserGesture;
-            window.isUserGesture = params.isUserGesture;
-            console.log("🔧 [AppManager] User gesture set:", params.isUserGesture);
-        }
-
-        this.handleForAudioSetting(params);
-        console.log("🔧 [AppManager] App mode handling completed");
+        console.log("🔧 [AppManager] ===== handleAppMode completed =====");
     }
 
     private handleForAudioSetting(params: ISessionParams) {
@@ -284,35 +343,49 @@ class AppManager {
     }
 
     private saveDirectModeInfo() {
-        console.log("🔧 [AppManager] Saving direct mode info...");
-        const ss = window.authData.ss;
-        const data = {
-            ss,
-            ref: this.urlInfo[UrlInfo.Ref],
-            returnUrl: this.urlInfo[UrlInfo.ReturnUrl],
-            directGameId: this.urlInfo[UrlInfo.DirectGameId]
-        };
-        console.log("🔧 [AppManager] Direct mode data to save:", data);
-        sessionManager.storeDirectMode(data);
+        console.log("🔧 [AppManager] ===== saveDirectModeInfo started =====");
+
+        if (this.isDirectMode && this.directModeRef) {
+            console.log("🔧 [AppManager] Saving direct mode info:", {
+                ref: this.directModeRef,
+                returnUrl: this.getReturnUrl()
+            });
+
+            const directModeInfo = {
+                ref: this.directModeRef,
+                returnUrl: this.getReturnUrl()
+            };
+
+            sessionManager.storeDirectMode(directModeInfo);
+            console.log("🔧 [AppManager] ✅ Direct mode info saved to session");
+        } else {
+            console.log("🔧 [AppManager] No direct mode info to save");
+        }
+
+        console.log("🔧 [AppManager] ===== saveDirectModeInfo completed =====");
     }
 
     private loadDirectModeInfo() {
-        console.log("🔧 [AppManager] Loading direct mode info...");
-        const data = sessionManager.getDirectMode();
-        if (data) {
-            console.log("🔧 [AppManager] Found direct mode data:", data);
-            if (window.authData.ss === data.ss) {
-                console.log("🔧 [AppManager] SS matches, restoring direct mode");
-                this.urlInfo[UrlInfo.Ref] = data[UrlInfo.Ref];
-                this.urlInfo[UrlInfo.ReturnUrl] = data[UrlInfo.ReturnUrl];
-                this.urlInfo[UrlInfo.DirectGameId] = data[UrlInfo.DirectGameId];
-                this.isDirectMode = true;
-            } else {
-                console.log("🔧 [AppManager] SS mismatch, not restoring direct mode");
-            }
+        console.log("🔧 [AppManager] ===== loadDirectModeInfo started =====");
+
+        const directModeInfo = sessionManager.getDirectMode();
+        console.log("🔧 [AppManager] Direct mode info from session:", directModeInfo);
+
+        if (directModeInfo) {
+            console.log("🔧 [AppManager] Loading direct mode info from session");
+            this.isDirectMode = true;
+            this.directModeRef = directModeInfo.ref;
+            this.directGameId = this.ssoGameId;
+            console.log("🔧 [AppManager] Direct mode restored:", {
+                isDirectMode: this.isDirectMode,
+                directModeRef: this.directModeRef,
+                directGameId: this.directGameId
+            });
         } else {
-            console.log("🔧 [AppManager] No direct mode data found");
+            console.log("🔧 [AppManager] No direct mode info found in session");
         }
+
+        console.log("🔧 [AppManager] ===== loadDirectModeInfo completed =====");
     }
 
     private async autoGenerateName() {
@@ -331,57 +404,102 @@ class AppManager {
         return response.authorized;
     }
 
-    async authorizeByUserService(retryCount = 1) {
-        console.log("🔧 [AppManager] Attempting authorization via UserService, retry:", retryCount);
+    private getReturnUrl(): string {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get("returnUrl") || "";
+    }
+
+    private async checkSSO() {
+        console.log("🔧 [AppManager] ===== checkSSO started =====");
+        const startTime = Date.now();
+
         try {
-            const { ss, username } = window.authData;
-            console.log("🔧 [AppManager] Auth data - SS:", ss ? "present" : "missing", "Username:", username);
-            const response: any = await UserService.getInstance().auth.authorize(ss, username);
-            console.log("🔧 [AppManager] Authorization response:", response);
+            console.log("🔧 [AppManager] Checking if user is already authenticated...");
 
-            if (authManager.checkUM(response)) {
-                console.log("🔧 [AppManager] UM check failed");
-                return false;
+            // Check if we already have valid auth data
+            if (window.authData && window.authData.isAuthenticated && window.authData.ss) {
+                console.log("🔧 [AppManager] ✅ User already authenticated with valid session");
+                const endTime = Date.now();
+                console.log("🔧 [AppManager] ===== checkSSO completed (already authenticated) in", endTime - startTime, "ms =====");
+                return true;
             }
 
-            if (response.isSuccessful !== undefined && !response.isSuccessful) {
-                console.log("🔧 [AppManager] Authorization unsuccessful, signing out");
-                uiManager.emitter.emit(InternalEvents.SIGN_OUT);
-                return false;
-            }
+            console.log("🔧 [AppManager] No valid session found, checking SSO...");
+            const result = await authManager.checkSSO(() => {
+                console.log("🔧 [AppManager] SSO success callback executed");
+            });
 
-            const result = await this.handleAuthorizedResponse(response);
-            console.log("🔧 [AppManager] Authorization result:", result);
+            console.log("🔧 [AppManager] SSO check completed, result:", result);
+
+            const endTime = Date.now();
+            console.log("🔧 [AppManager] ===== checkSSO completed in", endTime - startTime, "ms =====");
             return result;
         } catch (error) {
-            console.error("🔧 [AppManager] Authorization error:", error);
-            if (retryCount === 3) {
-                console.log("🔧 [AppManager] Max retries reached, emitting SSO error");
-                uiManager.emitter.emit(InternalEvents.SSO_ERROR);
-                throw new Error("Can not authorize by UserService " + error.message);
-            }
-            console.log("🔧 [AppManager] Retrying authorization in 3 seconds...");
-            await delayTime(3);
-            retryCount++;
-            return this.authorizeByUserService(retryCount);
+            console.error("🔧 [AppManager] ❌ Error in checkSSO:", error);
+            const endTime = Date.now();
+            console.log("🔧 [AppManager] ===== checkSSO completed (error) in", endTime - startTime, "ms =====");
+            throw error;
         }
     }
 
-    private async requestSSO() {
-        console.log("🔧 [AppManager] Requesting SSO...");
-        return new Promise<void>((resolve) => {
-            if (cc.sys.isBrowser && authManager) {
-                console.log("🔧 [AppManager] Browser environment detected, checking SSO");
-                authManager.checkSSO(() => {
-                    console.log("🔧 [AppManager] SSO check completed");
-                    authManager.setRecheckInInterval();
-                    resolve();
-                });
+    async authorizeByUserService() {
+        console.log("🔧 [AppManager] ===== authorizeByUserService started =====");
+        const startTime = Date.now();
+
+        console.log("🔧 [AppManager] Try authorizeByUserService attempt:", this.authorizeRetryCount);
+
+        try {
+            console.log("🔧 [AppManager] Checking SSO...");
+            const result = await this.checkSSO();
+            console.log("🔧 [AppManager] SSO check result:", result);
+
+            const endTime = Date.now();
+            console.log("🔧 [AppManager] ===== authorizeByUserService completed (success) in", (endTime - startTime), "ms =====");
+            return result;
+        } catch (error) {
+            console.error("🔧 [AppManager] ❌ SSO check failed:", error);
+
+            if (this.authorizeRetryCount < this.maxAuthorizeRetryCount) {
+                this.authorizeRetryCount++;
+                console.log("🔧 [AppManager] 🔄 Retrying authorization, attempt:", this.authorizeRetryCount);
+
+                const retryDelay = this.authorizeRetryDelay * this.authorizeRetryCount;
+                console.log("🔧 [AppManager] Waiting", retryDelay, "ms before retry...");
+
+                await new Promise(resolve => setTimeout(resolve, retryDelay));
+
+                const endTime = Date.now();
+                console.log("🔧 [AppManager] ===== authorizeByUserService completed (retry) in", (endTime - startTime), "ms =====");
+                return this.authorizeByUserService();
             } else {
-                console.log("🔧 [AppManager] Non-browser environment, skipping SSO check");
-                resolve();
+                console.error("🔧 [AppManager] ❌ Max retry attempts reached, authorization failed");
+                const endTime = Date.now();
+                console.log("🔧 [AppManager] ===== authorizeByUserService completed (failed) in", (endTime - startTime), "ms =====");
+                return false;
             }
-        });
+        }
+    }
+
+    async requestSSO() {
+        console.log("🔧 [AppManager] ===== requestSSO started =====");
+        const startTime = Date.now();
+
+        console.log("🔧 [AppManager] Requesting SSO authentication...");
+
+        try {
+            const result = await authManager.checkSSO();
+            console.log("🔧 [AppManager] SSO request result:", result);
+
+            const endTime = Date.now();
+            console.log("🔧 [AppManager] ===== requestSSO completed (success) in", (endTime - startTime), "ms =====");
+            return result;
+        } catch (error) {
+            console.error("🔧 [AppManager] ❌ SSO request failed:", error);
+
+            const endTime = Date.now();
+            console.log("🔧 [AppManager] ===== requestSSO completed (failed) in", (endTime - startTime), "ms =====");
+            throw error;
+        }
     }
 
     initLanguage() {
