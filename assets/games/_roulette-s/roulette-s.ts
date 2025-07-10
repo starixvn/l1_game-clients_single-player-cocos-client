@@ -90,6 +90,11 @@ export default class RouletteS extends SoloGame {
         this.rouletteBetItems.forEach((item) => {
             item.betCallback = this.onRouletteBetClick.bind(this);
             item.resetUI();
+
+            const choice = item.node.name;
+            if (parseInt(choice) > -1) {
+                item.clearOwnBetForStraightUp();
+            }
         });
     }
 
@@ -260,7 +265,7 @@ export default class RouletteS extends SoloGame {
         this.rouletteBetItems.forEach((betItem) => {
             const choice = betItem.node.name;
             const type = getTypeFromChoice(choice);
-
+            console.log("type --- ", choice, type);
             const settlementResult = settlement.settlementResult[type];
             const isSpecial = type === "column" || type === "dozen";
             const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
@@ -268,7 +273,6 @@ export default class RouletteS extends SoloGame {
             this.roundHistoryComponent.setHighlight(true);
         });
 
-        console.log("handleAfter", this.betWinAmount, this.soloBetModel.currentTotalBet());
         await AnimationUtils.delayTime(2);
         this.settlePopupComponent.showSettlementResult(this.betWinAmount, this.soloBetModel.currentTotalBet());
         this.resetBetWinAmount();
@@ -276,9 +280,15 @@ export default class RouletteS extends SoloGame {
         AnimationUtils.delayTime(2).then(() => {
             this.settlePopupComponent.hideSettlementResult();
             this.rouletteBetItems.forEach((betItem) => {
+                const choice = betItem.node.name;
+                
+                if (parseInt(choice) > 0) {
+                    betItem.clearOwnBetForStraightUp();
+                } else {
+                    betItem.clearOwnBet();
+                }
                 betItem.setInactive(false);
                 betItem.clearChips();
-                betItem.clearOwnBet();
             });
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;

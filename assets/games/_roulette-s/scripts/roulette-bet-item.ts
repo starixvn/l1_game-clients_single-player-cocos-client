@@ -1,5 +1,5 @@
 import AudioManager from "../../../common/audio/AudioManager";
-import { formatOdds, numberWithCommas } from "../../../common/helpers/NumberHelper";
+import { formatOdds, numberWithCommas, formatBetAmount } from "../../../common/helpers/NumberHelper";
 import BetItem from "../../_base/view-models/BetItem";
 
 const { ccclass, property } = cc._decorator;
@@ -30,11 +30,17 @@ export default class RouletteBetItem extends BetItem {
     }
 
     clearOwnBet() {
+        this.ownBet && (this.ownBet.string = "0");
+    }
+
+    clearOwnBetForStraightUp() {
         this.ownBet && (this.ownBet.string = "");
     }
 
     public setOwnBet(bet: number) {
-        this.setMoneyLabel(this.ownBet, bet);
+        if (this.ownBet) {
+            this.ownBet.string = bet > 0 ? formatBetAmount(bet) : "";
+        }
     }
 
     public setOdd(value: string) {

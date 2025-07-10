@@ -43,6 +43,13 @@ const nFormatter = (num, digits = 0) => {
     return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 };
 
+const formatBetAmount = (amount: number) => {
+    if (amount >= 1000) {
+        return nFormatter(amount, 1);
+    }
+    return numberWithCommas(amount, 1);
+};
+
 const getOnlyNumberInString = (t: string) => {
     const e = t.match(/\d+/g);
 
@@ -103,4 +110,4 @@ export const formatOdds = (value: number | string | undefined) => {
     return userManager.fractionalOddsFormat ? `${numberWithCommas(+value - 1, 2)}:1` : `1:${value}`;
 };
 
-export { numberWithCommas, getOnlyNumberInString, numberPad, numberTo, zeroPad, nFormatter, truncateFixedDecimals };
+export { numberWithCommas, getOnlyNumberInString, numberPad, numberTo, zeroPad, nFormatter, truncateFixedDecimals, formatBetAmount };
