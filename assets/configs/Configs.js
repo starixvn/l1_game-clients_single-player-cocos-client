@@ -15,8 +15,8 @@ const defaultConfig = {
         clientId: "093146669bf12df12eeedd2d57ddb469",
         secretKey: "f41dc948ed66a029406413327a68b6ae27fe4e6c"
     },
-    gatewaySubDomain: "l2-gw2",
-    subGuideDomain: "l1-guide1",
+    gatewaySubDomain: "l2-gw1",
+    subGuideDomain: "l2-guide-1",
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
     subPromotionDomain: "l2-promotion2",
