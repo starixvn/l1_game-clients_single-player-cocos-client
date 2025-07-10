@@ -79,33 +79,17 @@ export default class BaseMicrositeGame extends cc.Component {
 
     protected gameId = 0;
     protected onLoad(): void {
-        console.log("🌐 [BaseMicrositeGame] ===== onLoad started =====");
-        const startTime = Date.now();
-
         this.gameId = SessionManager.getMicrositeGameId();
-        console.log("🌐 [BaseMicrositeGame] Game ID from session:", this.gameId);
-
-        console.log("🌐 [BaseMicrositeGame] Stopping main action...");
         this.stopMainAction();
-
-        console.log("🌐 [BaseMicrositeGame] Loading microsite game...");
         this.loadMicrositeGame();
-
-        console.log("🌐 [BaseMicrositeGame] Setting up message event listener...");
         window.addEventListener("message", this.handleEventFromMicrosite);
-
-        console.log("🌐 [BaseMicrositeGame] Setting up webview loading event...");
         this.webview?.node.on(
             WebviewEventType.LOADING,
             () => {
-                console.log("🌐 [BaseMicrositeGame] Webview loading event triggered, setting iframe ID");
                 this.webview._impl._iframe.id = "microsite";
             },
             this
         );
-
-        const endTime = Date.now();
-        console.log("🌐 [BaseMicrositeGame] ===== onLoad completed in", (endTime - startTime), "ms =====");
     }
 
     setCanvasVisibilty(active: boolean) {
@@ -133,14 +117,8 @@ export default class BaseMicrositeGame extends cc.Component {
     }
 
     protected loadMicrositeGame() {
-        console.log("🌐 [BaseMicrositeGame] ===== loadMicrositeGame started =====");
-        const startTime = Date.now();
-
         this.micrositeUrl = buildMicrositeGameUrl(this.gameId);
-        console.log("🌐 [BaseMicrositeGame] Microsite URL built:", this.micrositeUrl);
-
         let queryString = this.getMicrositeGameQueryString();
-        console.log("🌐 [BaseMicrositeGame] Initial query string:", queryString);
 
         if (queryString && queryString.length > 0) {
             queryString += "&hideFullscreen=true";
@@ -148,133 +126,69 @@ export default class BaseMicrositeGame extends cc.Component {
             queryString = "?hideFullscreen=true";
         }
 
-        console.log("🌐 [BaseMicrositeGame] Final query string with hideFullscreen:", queryString);
-
-        const finalUrl = `${this.micrositeUrl}/${queryString}`;
-        console.log("🌐 [BaseMicrositeGame] Final microsite URL:", finalUrl);
-
-        if (this.webview) {
-            console.log("🌐 [BaseMicrositeGame] Setting webview URL...");
-            this.webview.url = finalUrl;
-        } else {
-            console.error("🌐 [BaseMicrositeGame] ❌ Webview component not found!");
-        }
-
-        const endTime = Date.now();
-        console.log("🌐 [BaseMicrositeGame] ===== loadMicrositeGame completed in", (endTime - startTime), "ms =====");
+        this.webview && (this.webview.url = `${this.micrositeUrl}/${queryString}`);
     }
 
     handleEventFromMicrosite = async ({ data }: { data: MicrositeGameParams }) => {
-        console.log("🌐 [BaseMicrositeGame] ===== handleEventFromMicrosite started =====");
-        const startTime = Date.now();
-
-        console.log("🌐 [BaseMicrositeGame] Received event data:", {
-            hasData: !!data,
-            dataKeys: data ? Object.keys(data) : [],
-            eventType: this.getEventType(data)
-        });
-
         if (data.replaceUrl) {
-            console.log("🌐 [BaseMicrositeGame] 🔄 Replace URL event:", data.replaceUrl);
             window.location.replace(data.replaceUrl);
-            return;
         }
-
         if (data.splashEnabled) {
-            console.log("🌐 [BaseMicrositeGame] 🎨 Splash enabled event");
             this.setCanvasVisibilty(false);
             this.handleUserGesturePage();
             this.handleClearStorage();
             const className = "microsite-iframe";
-            if (!this.webview?._impl?._iframe?.classList?.contains(className)) {
-                console.log("🌐 [BaseMicrositeGame] Adding microsite-iframe class to iframe");
-                this.webview?._impl?._iframe?.classList?.add(className);
-            }
+            !this.webview?._impl?._iframe?.classList?.contains(className) && this.webview?._impl?._iframe?.classList?.add(className);
+
             return;
         }
-
         if (data.hasSSO) {
-            console.log("🌐 [BaseMicrositeGame] 🔐 Has SSO event");
             window.microsite = { hasSSO: true };
             return;
         }
-
         if (data.sessionTimeout) {
-            console.log("🌐 [BaseMicrositeGame] ⏰ Session timeout event");
             this.handleSignOut();
             this.removeMicrositeListeners();
             return;
         }
 
         if (data.backLobby && !this.isLoadingLobby) {
-            console.log("🌐 [BaseMicrositeGame] 🏠 Back to lobby event");
             this.isLoadingLobby = true;
             this.setCanvasVisibilty(true);
             await this.handleBackToLobby(data);
             return;
         }
-
         if (data.getGameName) {
-            console.log("🌐 [BaseMicrositeGame] 🎮 Get game name event:", data.getGameName);
             this.getGameName(data.getGameName, data.language);
             return;
         }
-
         if (data.copyToClipboard) {
-            console.log("🌐 [BaseMicrositeGame] 📋 Copy to clipboard event:", data.copyToClipboard);
             this.handleCopyToClipboard(data.copyToClipboard);
             return;
         }
-
         if (data.clearQueryStringOnUrl) {
-            console.log("🌐 [BaseMicrositeGame] 🧹 Clear query string event");
             AuthManager.clearQueryStringOnUrl();
         }
-
         if (data.isUserGesture) {
-            console.log("🌐 [BaseMicrositeGame] 👆 User gesture event");
             AudioManager.getInstance().isUserGesture = true;
             window.isUserGesture = true;
         }
-
         if (data.loadStorage) {
-            console.log("🌐 [BaseMicrositeGame] 📥 Load storage event:", data.loadStorage);
             this.handleLoadStorage(data);
         }
 
         if (data.saveStorage) {
-            console.log("🌐 [BaseMicrositeGame] 📤 Save storage event:", data.saveStorage);
             this.handleSaveStorage(data);
         }
 
         if (data.syncSession) {
-            console.log("🌐 [BaseMicrositeGame] 🔄 Sync session event");
             this.syncSession(data.syncSession);
         }
 
-        console.log("🌐 [BaseMicrositeGame] Handling operator and audio changes...");
         this.handleOperator();
+
         this.handleChangeAudio(data);
-
-        const endTime = Date.now();
-        console.log("🌐 [BaseMicrositeGame] ===== handleEventFromMicrosite completed in", (endTime - startTime), "ms =====");
     };
-
-    private getEventType(data: MicrositeGameParams): string {
-        if (data.replaceUrl) return "replaceUrl";
-        if (data.splashEnabled) return "splashEnabled";
-        if (data.hasSSO) return "hasSSO";
-        if (data.sessionTimeout) return "sessionTimeout";
-        if (data.backLobby) return "backLobby";
-        if (data.getGameName) return "getGameName";
-        if (data.copyToClipboard) return "copyToClipboard";
-        if (data.clearQueryStringOnUrl) return "clearQueryStringOnUrl";
-        if (data.isUserGesture) return "isUserGesture";
-        if (data.loadStorage) return "loadStorage";
-        if (data.saveStorage) return "saveStorage";
-        if (data.syncSession) return "syncSession";
-        return "unknown";
-    }
 
     private syncSession(params: ISessionInfo) {
         if (!params) {

@@ -48,69 +48,61 @@ export function getChipSetting() {
 
 export function checkSSO(onSuccessFunc) {
     console.log("🔐 [AuthManager] Starting SSO check...");
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        console.log("🔐 [AuthManager] URL parameters:", Object.fromEntries(urlParams.entries()));
 
-    return new Promise((resolve, reject) => {
-        try {
-            const urlParams = new URLSearchParams(window.location.search);
-            console.log("🔐 [AuthManager] URL parameters:", Object.fromEntries(urlParams.entries()));
-
-            if (checkUMSSO(urlParams) || checkTimeOut(urlParams)) {
-                console.log("🔐 [AuthManager] UM SSO or timeout detected, stopping SSO check");
-                resolve(false);
-                return;
-            }
-
-            let session;
-            if (urlParams.has("params")) {
-                console.log("🔐 [AuthManager] Params found in URL, processing session data");
-                session = sessionManager.getSession() || {};
-                const params = UrlParamsService.getInstance().parseAndCache("params");
-                console.log("🔐 [AuthManager] Parsed params:", params);
-
-                if (params) {
-                    session.ss = params.ss;
-                    session.isAuthenticated = params.isAuthenticated ?? false;
-                    session.memberName = params.memberName;
-                    session.username = params.username;
-                    session.language = params.language;
-                    session.system = params.system;
-                    session.umInfo = params.umInfo;
-                    session.time = params.time;
-                    console.log("🔐 [AuthManager] Session data updated from params:", session);
-                    sessionManager.storeSessionData(session);
-                    clearQueryStringOnUrl();
-                }
-            } else {
-                console.log("🔐 [AuthManager] No params in URL, getting session from storage");
-                session = sessionManager.getSession();
-                console.log("🔐 [AuthManager] Session from storage:", session);
-            }
-
-            if (checkSignOut(urlParams, session)) {
-                console.log("🔐 [AuthManager] Sign out condition detected");
-                signOut();
-                resolve(false);
-                return;
-            }
-
-            if (urlParams.has("token")) {
-                console.log("🔐 [AuthManager] Token found in URL, processing SSO token");
-                checkHasTokenWithPromise(urlParams, onSuccessFunc, resolve, reject);
-            } else if (session?.isAuthenticated && session?.ss) {
-                console.log("🔐 [AuthManager] Valid session found, setting authorize info");
-                setAuthorizeInfo(session);
-                sessionManager.updateLanguage(session);
-                if (onSuccessFunc) onSuccessFunc();
-                resolve(true);
-            } else {
-                console.log("🔐 [AuthManager] No valid session or token found");
-                resolve(false);
-            }
-        } catch (error) {
-            console.error("🔐 [AuthManager] Error in checkSSO:", error);
-            reject(error);
+        if (checkUMSSO(urlParams) || checkTimeOut(urlParams)) {
+            console.log("🔐 [AuthManager] UM SSO or timeout detected, stopping SSO check");
+            return;
         }
-    });
+
+        let session;
+        if (urlParams.has("params")) {
+            console.log("🔐 [AuthManager] Params found in URL, processing session data");
+            session = sessionManager.getSession() || {};
+            const params = UrlParamsService.getInstance().parseAndCache("params");
+            console.log("🔐 [AuthManager] Parsed params:", params);
+
+            if (params) {
+                session.ss = params.ss;
+                session.isAuthenticated = params.isAuthenticated ?? false;
+                session.memberName = params.memberName;
+                session.username = params.username;
+                session.language = params.language;
+                session.system = params.system;
+                session.umInfo = params.umInfo;
+                session.time = params.time;
+                console.log("🔐 [AuthManager] Session data updated from params:", session);
+                sessionManager.storeSessionData(session);
+                clearQueryStringOnUrl();
+            }
+        } else {
+            console.log("🔐 [AuthManager] No params in URL, getting session from storage");
+            session = sessionManager.getSession();
+            console.log("🔐 [AuthManager] Session from storage:", session);
+        }
+
+        if (checkSignOut(urlParams, session)) {
+            console.log("🔐 [AuthManager] Sign out condition detected");
+            signOut();
+            return;
+        }
+
+        if (urlParams.has("token")) {
+            console.log("🔐 [AuthManager] Token found in URL, processing SSO token");
+            checkHasToken(urlParams, onSuccessFunc);
+        } else if (session?.isAuthenticated && session?.ss) {
+            console.log("🔐 [AuthManager] Valid session found, setting authorize info");
+            setAuthorizeInfo(session);
+            sessionManager.updateLanguage(session);
+            onSuccessFunc();
+        } else {
+            console.log("🔐 [AuthManager] No valid session or token found");
+        }
+    } catch (error) {
+        console.error("🔐 [AuthManager] Error in checkSSO:", error);
+    }
 }
 
 function checkUMSSO(urlParams) {
@@ -173,7 +165,7 @@ function checkHasToken(urlParams, onSuccessFunc) {
                 sessionManager.removeCheckedTournamentPromotionFirstSso();
                 sessionManager.removeCheckedFreeSpinsPromotionFirstSso();
                 clearQueryStringOnUrl();
-                if (onSuccessFunc) onSuccessFunc();
+                onSuccessFunc();
             } else {
                 console.log("🔐 [AuthManager] SSO authentication failed");
                 uiManager.emitter.emit(InternalEvents.SSO_FAILED);
@@ -183,50 +175,6 @@ function checkHasToken(urlParams, onSuccessFunc) {
             console.error("🔐 [AuthManager] SSO token processing error:", error);
             uiManager.emitter.emit(InternalEvents.SSO_ERROR);
             sentryLogger.logError(error);
-        });
-}
-
-function checkHasTokenWithPromise(urlParams, onSuccessFunc, resolve, reject) {
-    console.log("🔐 [AuthManager] Processing token-based SSO with Promise");
-    window.isSSO = true;
-    window.appType = getAppType(urlParams);
-    console.log("🔐 [AuthManager] App type:", window.appType);
-
-    UserService.getInstance()
-        .auth.sso(urlParams.get("token"), getAppType(urlParams))
-        .then((response) => {
-            console.log("🔐 [AuthManager] SSO response:", response);
-
-            if (checkUM(response)) {
-                console.log("🔐 [AuthManager] UM check failed in token processing");
-                resolve(false);
-                return;
-            }
-
-            if (response.isAuthenticated) {
-                console.log("🔐 [AuthManager] SSO authentication successful");
-                setAuthorizeInfo(response);
-                window.authData.time = new Date();
-
-                sessionManager.storeSessionData(response);
-                sessionManager.removeDirectMode();
-                sessionManager.removeMicrositeGameId();
-                sessionManager.removeCheckedTournamentPromotionFirstSso();
-                sessionManager.removeCheckedFreeSpinsPromotionFirstSso();
-                clearQueryStringOnUrl();
-                if (onSuccessFunc) onSuccessFunc();
-                resolve(true);
-            } else {
-                console.log("🔐 [AuthManager] SSO authentication failed");
-                uiManager.emitter.emit(InternalEvents.SSO_FAILED);
-                resolve(false);
-            }
-        })
-        .catch((error) => {
-            console.error("🔐 [AuthManager] SSO token processing error:", error);
-            uiManager.emitter.emit(InternalEvents.SSO_ERROR);
-            sentryLogger.logError(error);
-            reject(error);
         });
 }
 
