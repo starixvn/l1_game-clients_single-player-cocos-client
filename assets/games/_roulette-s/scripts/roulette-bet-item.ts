@@ -1,5 +1,5 @@
 import AudioManager from "../../../common/audio/AudioManager";
-import { formatOdds, numberWithCommas, formatBetAmount } from "../../../common/helpers/NumberHelper";
+import {  formatBetAmount, formatOddsWithX } from "../../../common/helpers/NumberHelper";
 import BetItem from "../../_base/view-models/BetItem";
 
 const { ccclass, property } = cc._decorator;
@@ -45,7 +45,7 @@ export default class RouletteBetItem extends BetItem {
 
     public setOdd(value: string) {
         if (this.odds) {
-            this.odds.string = formatOdds(value);
+            this.odds.string = formatOddsWithX(value);
         }
     }
 

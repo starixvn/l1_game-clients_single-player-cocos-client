@@ -265,7 +265,6 @@ export default class RouletteS extends SoloGame {
         this.rouletteBetItems.forEach((betItem) => {
             const choice = betItem.node.name;
             const type = getTypeFromChoice(choice);
-            console.log("type --- ", choice, type);
             const settlementResult = settlement.settlementResult[type];
             const isSpecial = type === "column" || type === "dozen";
             const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);

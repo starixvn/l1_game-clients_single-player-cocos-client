@@ -110,4 +110,8 @@ export const formatOdds = (value: number | string | undefined) => {
     return userManager.fractionalOddsFormat ? `${numberWithCommas(+value - 1, 2)}:1` : `1:${value}`;
 };
 
+export const formatOddsWithX = (value: number | string | undefined) => {
+    return userManager.fractionalOddsFormat ? `${numberWithCommas(+value - 1, 2)}:1` : `x${value}`;
+};
+
 export { numberWithCommas, getOnlyNumberInString, numberPad, numberTo, zeroPad, nFormatter, truncateFixedDecimals, formatBetAmount };
