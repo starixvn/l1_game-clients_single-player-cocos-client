@@ -106,12 +106,16 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     notifyOpenRechargePanel() {
         try {
-            if (typeof (window as any).openRechargePanel === "function") {
-                (window as any).openRechargePanel();
+            if (typeof (window as any).JSBridge !== "undefined" && typeof (window as any).JSBridge.openRechargePanel === "function") {
+                (window as any).JSBridge.openRechargePanel();
                 return;
             }
             if ((window as any).webkit && (window as any).webkit.messageHandlers && (window as any).webkit.messageHandlers.openRechargePanel) {
                 (window as any).webkit.messageHandlers.openRechargePanel.postMessage({});
+                return;
+            }
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type: "openRechargePanel" }, "*");
                 return;
             }
         } catch (e) {
@@ -120,19 +124,6 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     clickTopUpBalance() {
-        // React Native WebView
-        // const message = JSON.stringify({ type: "OPEN_TOPUP_BALANCE" });
-        // if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
-        //     window.ReactNativeWebView.postMessage(message);
-        //     return;
-        // }
-
-        // // Web
-        // if (window.parent && window.parent !== window) {
-        //     window.parent.postMessage({ type: "OPEN_TOPUP_BALANCE" }, "*");
-        //     return;
-        // }
-
         this.notifyOpenRechargePanel();
     }
 
