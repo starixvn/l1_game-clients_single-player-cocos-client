@@ -106,14 +106,29 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     notifyOpenRechargePanel() {
         try {
-            if (typeof (window as any).JSBridge !== "undefined" && typeof (window as any).JSBridge.openRechargePanel === "function") {
+            if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+                window.ReactNativeWebView.postMessage(JSON.stringify({ type: "openRechargePanel" }));
+                return;
+            }
+            if ((window as any).Android && typeof (window as any).Android.openRechargePanel === "function") {
+                (window as any).Android.openRechargePanel();
+                return;
+            }
+    
+            if ((window as any).JSBridge && typeof (window as any).JSBridge.openRechargePanel === "function") {
                 (window as any).JSBridge.openRechargePanel();
                 return;
             }
-            if ((window as any).webkit && (window as any).webkit.messageHandlers && (window as any).webkit.messageHandlers.openRechargePanel) {
+    
+            if (
+                (window as any).webkit &&
+                (window as any).webkit.messageHandlers &&
+                (window as any).webkit.messageHandlers.openRechargePanel
+            ) {
                 (window as any).webkit.messageHandlers.openRechargePanel.postMessage({});
                 return;
             }
+    
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({ type: "openRechargePanel" }, "*");
                 return;
