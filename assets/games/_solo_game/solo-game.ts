@@ -106,7 +106,6 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     clickTopUpBalance() {
         const message = JSON.stringify({ type: "OPEN_TOPUP_BALANCE" });
-
         if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
             window.ReactNativeWebView.postMessage(message);
             return;
@@ -116,8 +115,6 @@ export default class SoloGame extends StandAloneTableGameBase {
             window.parent.postMessage({ type: "OPEN_TOPUP_BALANCE" }, "*");
             return;
         }
-
-        alert("Open Top Up Balance Dialog");
     }
 
     override showStatus(status: any) {
