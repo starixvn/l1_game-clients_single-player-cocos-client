@@ -64,7 +64,10 @@ export class BetModel extends EventEmitterBase {
         const { betChoice, amount } = ownChip;
         this.updateOwnChips(betChoice, { [amount]: 1 });
         this.updateTotalChips(betChoice, userManager.rate, { [amount]: 1 });
-        this.emit(BetModel.Events.CHANGE_OWN_CHIP, this.ownChip);
+        this.emit(BetModel.Events.CHANGE_OWN_CHIP, {
+            betChoice: Object.keys(ownChip.betChoices)[0],
+            amount: amount
+        });
     }
 
     flyOwnChipFake(ownBet: any) {

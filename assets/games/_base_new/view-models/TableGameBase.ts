@@ -23,6 +23,7 @@ import PlayerModel from "../models/PlayerModel";
 import { Settlement } from "../models/Settlement";
 import MiniGameBase from "./MiniGameBase";
 import TableGameBaseInterface from "./TableGameBaseInterface";
+import { getTypeFromChoice } from "../../_roulette-s/scripts/roulette-s-utils";
 
 const { ccclass, property } = cc._decorator;
 
@@ -107,15 +108,20 @@ export default class TableGameBase extends MiniGameBase implements TableGameBase
         this.gameData.roundHistory.update();
         this.gameData.resultHash.updateUI();
         this.betItems.forEach((betItem) => betItem.setHighlight(settlement.settlementResult[betItem.node.name.toLowerCase()], true));
+        console.log("settlement.bet --- ", settlement);
         if (animated) {
-            this.handlePayChips(settlement);
+            const betChoices = this.generateBetChoice(settlement.settlementResult);
+            console.log("betChoices afterseettle ", betChoices);
+            Object.assign(settlement.settlementResult, betChoices);
+            console.log("settlement.settlementResult --- ", settlement);
+            this.handlePayChipss(settlement);
         } else {
             clearChipsForLostChoices(this, settlement.settlementResult);
             this.gameData.settlement.showStatus();
         }
     }
 
-    handlePayChips(settlement) {
+    handlePayChipss(settlement) {
         if (!this.showOtherPlayerChips) {
             clearChipsForLostChoices(this, settlement.settlementResult);
             return;
@@ -123,6 +129,36 @@ export default class TableGameBase extends MiniGameBase implements TableGameBase
         if (!!settlement) {
             payChips(this, settlement.settlementResult, settlement.winningPlayers, this.payChipFlyTime, this.WinningAnimationDuration);
         }
+    }
+
+    generateBetChoice(bet: any) {
+        const betChoices = {};
+        Object.keys(bet).forEach((choice) => {
+            let type = getTypeFromChoice(choice);
+            if(choice === "dozen") {
+                type = "dozen";
+            }
+            if(choice === "column") {
+                type = "column";
+            }
+
+            if (type === "column" || type === "dozen") {
+                if (Array.isArray(bet[choice])) {
+                    bet[choice].forEach((subChoice) => {
+                        const flatKey = `${type}${subChoice}`;
+                        betChoices[flatKey] = true;
+                        //delete bet[choice];
+                    });
+                } else {
+                    // Fallback cho trường hợp không phải array
+                    betChoices[choice] = bet[choice];
+                }
+            } else {
+                // Giữ nguyên cho các loại khác
+                betChoices[choice] = bet[choice];
+            }
+        });
+        return betChoices;
     }
 
     showStatus(status: any) {

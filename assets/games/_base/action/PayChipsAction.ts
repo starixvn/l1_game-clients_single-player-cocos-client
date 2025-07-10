@@ -5,6 +5,7 @@ import { getLowercaseObjectKeys } from "../../../common/helpers/ObjectHelper";
 import { appManager } from "../../../managers/AppManager";
 import TableGameBaseInterface from "../../_base_new/view-models/TableGameBaseInterface";
 import BetItem from "../view-models/BetItem";
+import { getTypeFromChoice } from "../../_roulette-s/scripts/roulette-s-utils";
 
 export interface PayChipInfo {
     mainRoomGame: TableGameBaseInterface;
@@ -30,9 +31,10 @@ export const payChips = (
         return;
     }
     const settlementResultKeys = getLowercaseObjectKeys(settlementResult);
+    console.log("settlementResultKeys --- ", settlementResultKeys);
     const lostBetItems = _.filter(main.betItems, (item) => !settlementResult[settlementResultKeys[item.node.name.toLowerCase()]]);
     const winBetItems = _.filter(main.betItems, (item) => !!settlementResult[settlementResultKeys[item.node.name.toLowerCase()]]);
-
+    console.log("winBetItems --- ", winBetItems, lostBetItems);
     const payChipInfo: PayChipInfo = {
         mainRoomGame,
         winBetItems,
@@ -149,18 +151,54 @@ const moveChipWithRandomAmountToLoginPlayer = (info: PayChipInfo, winningByChoic
 
 const moveChipWithAmountToLoginPlayer = (info: PayChipInfo, winningByChoices) => {
     const { mainRoomGame, winBetItems } = info;
-    const destNode = mainRoomGame?.userProfile?.userAvatar?.node;
+    const destNode = mainRoomGame?.userProfile?.node;
+    const betChoices = generateBetChoice(winningByChoices);
     if (!destNode) {
         return;
     }
-    const betItemLowercaseObjectKeys = getLowercaseObjectKeys(winningByChoices);
+    const betItemLowercaseObjectKeys = getLowercaseObjectKeys(betChoices);
     _.forEach(winBetItems, (item) => {
-        if (winningByChoices[betItemLowercaseObjectKeys[item.node.name.toLowerCase()]]) {
+        if (betChoices[betItemLowercaseObjectKeys[item.node.name.toLowerCase()]]) {
             const chipNode = !info.isChipStack ? item.chipNode : item.chipNode.children[0];
             chipNode && mainRoomGame.betChips.moveChips(chipNode, destNode);
         }
     });
 };
+
+const generateBetChoice = (bet: any) => {
+    const betChoices = {};
+    Object.keys(bet).forEach((choice) => {
+        let type = getTypeFromChoice(choice);
+        if(choice === "dozen") {
+            type = "dozen";
+        }
+        if(choice === "column") {
+            type = "column";
+        }
+
+        if (type === "column" || type === "dozen") {
+            if (Array.isArray(bet[choice])) {
+                bet[choice].forEach((subChoice) => {
+                    const flatKey = `${type}${subChoice}`;
+                    betChoices[flatKey] = true;
+                });
+            } else if (typeof bet[choice] === 'object' && bet[choice] !== null) {
+                Object.keys(bet[choice]).forEach((subChoice) => {
+                    const flatKey = `${type}${subChoice}`;
+                    betChoices[flatKey] = { [flatKey]: bet[choice[subChoice]] };
+                });
+            } else {
+                const flatKey = `${type}${bet[choice]}`;
+                console.log("flatKey --- ", flatKey, bet[choice]);
+                betChoices[flatKey] = bet[choice];
+            }
+        } else {
+            // Giữ nguyên cho các loại khác
+            betChoices[choice] = bet[choice];
+        }
+    });
+    return betChoices;
+}
 
 export const payChipsToOtherPlayers = (info: PayChipInfo) => {
     const { mainRoomGame, winBetItems } = info;

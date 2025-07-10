@@ -272,14 +272,14 @@ export default class RouletteS extends SoloGame {
 
         console.log("handleAfter", this.betWinAmount, this.soloBetModel.currentTotalBet());
         await AnimationUtils.delayTime(2);
-        this.settlePopupComponent.showSettlementResult(this.betWinAmount, this.soloBetModel.currentTotalBet());
+        //this.settlePopupComponent.showSettlementResult(this.betWinAmount, this.soloBetModel.currentTotalBet());
 
         AnimationUtils.delayTime(2).then(() => {
-            this.settlePopupComponent.hideSettlementResult();
+            //this.settlePopupComponent.hideSettlementResult();
             this.rouletteBetItems.forEach((betItem) => {
                 betItem.setInactive(false);
-                betItem.clearChips();
-                betItem.clearOwnBet();
+                //betItem.clearChips();
+                //betItem.clearOwnBet();
             });
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;
