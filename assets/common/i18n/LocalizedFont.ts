@@ -31,12 +31,12 @@ export default class LocalizedFont extends cc.Component {
 
     initData() {
         this.fontBases = {
-            vi: "NotoSerif-Regular",
-            id: "NotoSerif-Regular",
-            en: "NotoSerif-Regular",
-            th: "NotoSerifThai-Regular",
-            zh_cn: "NotoSerifZHCN-Regular",
-            zh_tw: "NotoSerifZHTW-Regular"
+            vi: "PingFang-Regular",
+            id: "PingFang-Regular",
+            en: "PingFang-Regular",
+            th: "PingFang-Regular",
+            zh_cn: "PingFangZHTW-Regular",
+            zh_tw: "PingFangZHTW-Regular"
         };
     }
 

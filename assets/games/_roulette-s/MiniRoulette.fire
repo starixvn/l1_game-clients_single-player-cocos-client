@@ -178,8 +178,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+      "width": 786,
+      "height": 772
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -14297,7 +14297,7 @@
       "__uuid__": "8c66482e-dd07-47da-a410-2c5d6f5215f9"
     },
     "historyPrefab": {
-      "__uuid__": "e0208ea4-71e3-4078-aed4-23b2cff15d69"
+      "__uuid__": "9f2b9194-e600-44d1-8afc-c41a07de63ad"
     },
     "betPercentage": [],
     "waitingDotsSubGame": null,

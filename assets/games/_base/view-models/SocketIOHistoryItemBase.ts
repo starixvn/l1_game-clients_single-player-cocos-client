@@ -29,7 +29,7 @@ export default class SocketIOHistoryItemBase extends cc.Component {
     public roundId = 0;
 
     start() {
-        GameUtils.setFontSizeLabelsInNode(this.node);
+        // GameUtils.setFontSizeLabelsInNode(this.node);
     }
 
     setBackground(index: number) {

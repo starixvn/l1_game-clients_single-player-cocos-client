@@ -8,7 +8,7 @@ import { GameConfigBase } from "../_base/view-models/GameConfigBase";
 import NewGameData from "../_base_new/models/NewGameData";
 import { SoloBetModel, SoloBetState } from "../_solo_game/solo-bet-model";
 import SoloGame from "../_solo_game/solo-game";
-import RouletteHistory from "../roulette/view-models/RouletteHistory";
+import MiniRouletteBetHistory from "./scripts/bet-history/mini-roulette-bet-history";
 import RouletteWheel from "../roulette/view-models/RouletteWheel";
 import MiniRouletteRoundHistory from "./scripts/mini-roulette-round-history";
 import { RouletteGameData } from "./scripts/roulette-bet-game-data";
@@ -383,7 +383,7 @@ export default class RouletteS extends SoloGame {
 
     public openHistory() {
         const dialog = cc.instantiate(this.historyPrefab);
-        this.historyComponent = dialog.getComponent(RouletteHistory);
+        this.historyComponent = dialog.getComponent(MiniRouletteBetHistory);
         this.historyComponent.init(this.socket);
         this.currentMiniPanel.node.addChild(dialog);
     }

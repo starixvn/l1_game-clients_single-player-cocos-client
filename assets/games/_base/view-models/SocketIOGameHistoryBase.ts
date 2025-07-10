@@ -111,10 +111,10 @@ export default abstract class SocketIOGameHistoryBase extends BaseComponent {
             this.setGameName();
         }
 
-        if (!this.isSlotGame) {
-            const header = this.wrapperContent.children[0];
-            GameUtils.setFontSizeLabelsInNode(header, true, 36, this.headerTitleColor);
-        }
+        // if (!this.isSlotGame) {
+        //     const header = this.wrapperContent.children[0];
+        //     GameUtils.setFontSizeLabelsInNode(header, true, 36, this.headerTitleColor);
+        // }
     }
 
     get_data(page = 1) {

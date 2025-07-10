@@ -8,7 +8,7 @@ export default class GameTicketDetailItemBase extends cc.Component {
     bg: cc.Node = null;
 
     start() {
-        GameUtils.setFontSizeLabelsInNode(this.node);
+        // GameUtils.setFontSizeLabelsInNode(this.node);
     }
 
     setBackground(index: number) {

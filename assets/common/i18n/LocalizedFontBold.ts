@@ -7,12 +7,12 @@ const { ccclass, menu } = cc._decorator;
 export default class LocalizedFontBold extends LocalizedFont {
     initData() {
         this.fontBases = {
-            vi: "NotoSerif-Bold",
-            id: "NotoSerif-Bold",
-            en: "NotoSerif-Bold",
-            th: "NotoSerifThai-Bold",
-            zh_cn: "NotoSerifZHCN-Bold",
-            zh_tw: "NotoSerifZHTW-Bold"
+            vi: "PingFang-Bold",
+            id: "PingFang-Bold",
+            en: "PingFang-Bold",
+            th: "PingFang-Bold",
+            zh_cn: "PingFangZHTW-Bold",
+            zh_tw: "PingFangZHTW-Bold"
         };
     }
 }

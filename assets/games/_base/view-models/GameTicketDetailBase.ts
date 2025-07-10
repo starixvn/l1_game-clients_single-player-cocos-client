@@ -36,7 +36,7 @@ export default class GameTicketDetailBase extends cc.Component {
     public WIDTH_BET_DETAIL_TABLE = 1000;
 
     onLoad() {
-        GameUtils.setFontSizeLabelsInNode(this.node);
+        // GameUtils.setFontSizeLabelsInNode(this.node);
         this.content.children.forEach((child) => child.destroy());
         this.updateTitle();
     }
@@ -82,8 +82,8 @@ export default class GameTicketDetailBase extends cc.Component {
     }
 
     updateTitle() {
-        this.titleTables.forEach((title) => {
-            GameUtils.setFontSizeLabelsInNode(title, true);
-        });
+        // this.titleTables.forEach((title) => {
+        //     GameUtils.setFontSizeLabelsInNode(title, true);
+        // });
     }
 }
