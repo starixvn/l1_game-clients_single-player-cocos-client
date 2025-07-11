@@ -247,7 +247,7 @@ export default class RouletteS extends SoloGame {
         const result = settlement.result;
         try {
             await this.showWheelResult(result);
-            AnimationUtils.delayTime(4).then(() => {
+            AnimationUtils.delayTime(5).then(() => {
                 this.wheel.hideResultNumber();
             });
             this.soloBetModel.changeState(SoloBetState.SETTLEMENT);
@@ -274,7 +274,7 @@ export default class RouletteS extends SoloGame {
             this.roundHistoryComponent.setHighlight(true);
         });
 
-        await AnimationUtils.delayTime(2);
+        await AnimationUtils.delayTime(3);
         this.settlePopupComponent.showSettlementResult(this.betWinAmount, this.soloBetModel.currentTotalBet());
         this.resetBetWinAmount();
 
@@ -283,7 +283,7 @@ export default class RouletteS extends SoloGame {
             this.rouletteBetItems.forEach((betItem) => {
                 const choice = betItem.node.name;
                 
-                if (parseInt(choice) > 0) {
+                if (parseInt(choice) > -1) {
                     betItem.clearOwnBetForStraightUp();
                 } else {
                     betItem.clearOwnBet();
