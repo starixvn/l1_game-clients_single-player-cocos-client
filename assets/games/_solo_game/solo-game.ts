@@ -82,7 +82,8 @@ export default class SoloGame extends StandAloneTableGameBase {
     updateSpinButtonInteractable() {
         const state = this.soloBetModel.state;
         const isStateCanBet =
-            state === SoloBetState.BETTING_FAILED || state === SoloBetState.SETTLEMENT || state === SoloBetState.STARTING_ROUND;
+            state === SoloBetState.BETTING_FAILED || state === SoloBetState.STARTING_ROUND || state === SoloBetState.READY;
+        console.log("updateSpinButtonInteractable", state);
         this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet;
     }
 
