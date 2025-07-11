@@ -32,6 +32,7 @@ export default class SoloGame extends StandAloneTableGameBase {
         super.onLoad();
         this.animatedTime.setAnimatedY(20, -10);
         this.hideAutoRebetMessage();
+        this.resetAutoRebetCount();
     }
 
     get soloBetModel() {
