@@ -37264,6 +37264,9 @@
     "statisticPrefab": {
       "__uuid__": "2af32c94-4c20-45a0-ac6e-4daa0d4eff1e"
     },
+    "leaderBoardsPrefab": {
+      "__uuid__": "191f71e7-4a2e-44d7-be65-e01258d13992"
+    },
     "settlePopup": {
       "__id__": 914
     },

@@ -17,6 +17,7 @@ import { getTypeFromChoice } from "./scripts/roulette-s-utils";
 import RouletteStatistics from "./scripts/roulette-statistics";
 import SingleBetControl from "./scripts/single-bet-control";
 import MiniRouletteSettlePopup from "./scripts/mini-roulette-settle-popup";
+import RouletteLeaderBoard from "./scripts/roulette-leader-board";
 import GameUtils from "../../common/GameUtils";
 
 const { ccclass, property } = cc._decorator;
@@ -46,6 +47,9 @@ export default class RouletteS extends SoloGame {
     @property(cc.Prefab)
     statisticPrefab: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    leaderBoardsPrefab: cc.Prefab = null;
+
     @property(cc.Node)
     settlePopup: cc.Node = null;
 
@@ -59,6 +63,8 @@ export default class RouletteS extends SoloGame {
     protected betChipContainer: cc.Node = null;
     private settlePopupComponent: MiniRouletteSettlePopup = null;
     private isStartRound = false;
+
+    private leaderBoardsComponent: RouletteLeaderBoard = null;
 
     constructor() {
         super();
@@ -383,6 +389,7 @@ export default class RouletteS extends SoloGame {
     override initEventForInGameMenu() {
         const node = super.initEventForInGameMenu();
         node.on(InGameMenuEvents.OPEN_STATISTIC, this.openStatistic, this);
+        node.on(InGameMenuEvents.OPEN_LEADER_BOARDS, this.openLeaderBoards, this);
         return node;
     }
 
@@ -400,6 +407,14 @@ export default class RouletteS extends SoloGame {
         const dialog = cc.instantiate(this.historyPrefab);
         this.historyComponent = dialog.getComponent(MiniRouletteBetHistory);
         this.historyComponent.init(this.socket);
+        this.currentMiniPanel.node.addChild(dialog);
+    }
+
+    public openLeaderBoards() {
+        this.playClick();
+        const dialog = cc.instantiate(this.leaderBoardsPrefab);
+        this.leaderBoardsComponent = dialog.getComponent(RouletteLeaderBoard);
+        this.leaderBoardsComponent.init(this.socket, this.gameName);
         this.currentMiniPanel.node.addChild(dialog);
     }
 }
