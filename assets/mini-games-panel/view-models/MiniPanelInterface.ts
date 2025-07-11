@@ -34,12 +34,6 @@ export default interface MiniPanelInterface {
 
     registerPromotionEvents();
 
-    createBoostedOddsNode();
-
-    updatePositionPromotionNode();
-
-    showBoostedOdds();
-
     onGeneralData(data: any);
 
     handleUmMessage(data, gameId);
@@ -77,10 +71,6 @@ export default interface MiniPanelInterface {
     createPromotionAnnouncementPrefab();
     showPromotionAnnouncements();
 
-    createPromotionTournamentPrefab();
-
-    showPromotionTournament();
-
     handleAPIError(error);
 
     showErrorNotice(error);
@@ -93,7 +83,6 @@ export default interface MiniPanelInterface {
 
     onConnectSocketFailed(gameName, gameId, isGameRoom);
 
-    redirectToLobby();
     addDialog(dialogNode: cc.Node);
     setIconOverMiniGame(over: boolean);
     setLoadingVisibility(status: boolean);

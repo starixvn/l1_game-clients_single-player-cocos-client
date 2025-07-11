@@ -255,57 +255,36 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
             return;
         }
 
-        const loadPromise = LobbyResourceManager.lobbyResourceManager?.hasCurrencyGroup()
-            ? ResourceLoader.themeResourceLoader?.loadPrefab("mini-game/popup-mini-game")
-            : GameUtils.loadResource(`minipanel/popup-mini-game/PopUpMiniGame`);
-
-        loadPromise
-            .then((prefab) => {
-                console.log("[MiniPanel] Popup mini game prefab loaded");
-                const popUpMiniGameNode = cc.instantiate(prefab);
-                this.popupMiniGame = popUpMiniGameNode.getComponent(PopupMinigames);
-                if (this.popupMiniGame) {
-                    const backgroundPopUpMiniGameNode = this.miniMenu.getChildByName("frame");
-                    const clickEventHandler = new cc.Component.EventHandler();
-                    clickEventHandler.target = popUpMiniGameNode;
-                    clickEventHandler.component = "PopupMinigames";
-                    clickEventHandler.handler = "toggle";
-                    backgroundPopUpMiniGameNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
-                    this.popupMiniGame.background = backgroundPopUpMiniGameNode;
-                    this.popupMiniGame.background.opacity = 0;
-                    console.log("[MiniPanel] Popup mini game component configured");
-                }
-                const gameMenu = popUpMiniGameNode.getChildByName("list")?.getComponent(CircleMenu);
-                if (gameMenu) {
-                    gameMenu.miniPanel = this;
-                }
-                this.miniMenu?.addChild(popUpMiniGameNode);
-            })
-            .catch((err) => cc.warn("Failed to init mini game icons - " + err));
+        try {
+            const prefab = await GameUtils.loadResource(`minipanel/popup-mini-game/PopUpMiniGame`);
+            console.log("[MiniPanel] Popup mini game prefab loaded");
+            const popUpMiniGameNode = cc.instantiate(prefab);
+            this.popupMiniGame = popUpMiniGameNode.getComponent(PopupMinigames);
+            if (this.popupMiniGame) {
+                const backgroundPopUpMiniGameNode = this.miniMenu.getChildByName("frame");
+                const clickEventHandler = new cc.Component.EventHandler();
+                clickEventHandler.target = popUpMiniGameNode;
+                clickEventHandler.component = "PopupMinigames";
+                clickEventHandler.handler = "toggle";
+                backgroundPopUpMiniGameNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
+                this.popupMiniGame.background = backgroundPopUpMiniGameNode;
+                this.popupMiniGame.background.opacity = 0;
+                console.log("[MiniPanel] Popup mini game component configured");
+            }
+            const gameMenu = popUpMiniGameNode.getChildByName("list")?.getComponent("CircleMenu");
+            if (gameMenu && (gameMenu as any).miniPanel !== undefined) {
+                (gameMenu as any).miniPanel = this;
+            }
+            this.miniMenu?.addChild(popUpMiniGameNode);
+        } catch (err) {
+            cc.warn("Failed to init mini game icons - " + err);
+        }
     }
 
     registerPromotionEvents() {
-        try {
-            PromotionNotificationsHandler.getInstance().on(
-                PromotionNotificationsHandler.PromotionNotificationsEvent.OPEN_ANNOUNCEMENT,
-                this.showPromotionAnnouncements.bind(this)
-            );
-            Promotions.getInstance().on(Promotions.PromotionsEvent.SHOW_BOOSTED_ODDS, () => this.showBoostedOdds());
-            PromotionTournamentHandler.promotionTournamentHandler.on(PromotionTournamentHandler.PromotionTournamentEvents.OPEN_PROMOTION_TOURNAMENT, () =>
-                LobbyDialogManager.getInstance().addDialog(this.showPromotionTournament.bind(this), "PromotionTournament")
-            );
-
-            FreeSpinsPromotionHandler.freeSpinsPromotionHandler.on(FreeSpinsPromotionHandler.FreeSpinsPromotionEvents.OPEN_FREE_SPINS_PROMOTION, () =>
-                LobbyDialogManager.getInstance().addDialog(this.showFreeSpinsPromotion.bind(this), "FreeSpinsPromotion")
-            );
-
-            PromotionTournamentHandler.promotionTournamentHandler.on(
-                PromotionTournamentHandler.PromotionTournamentEvents.OPEN_PROMOTION_TOURNAMENT_BY_ICON,
-                this.showPromotionTournament.bind(this)
-            );
-        } catch (error) {
-            cc.warn("Failed to init boosted odds - " + error);
-        }
+        console.log("[MiniPanel] Registering promotion events...");
+        // Promotion events removed - no longer needed without lobby
+        console.log("[MiniPanel] Promotion events registration skipped");
     }
 
     async createPromotionTournamentPrefab() {
@@ -363,7 +342,7 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
         const boostedOddsPrefab = await GameUtils.loadResource(`boosted-odds/BoostedOdds`);
         try {
             const boostedOddsNode = cc.instantiate(boostedOddsPrefab);
-            this.boostedOdds = boostedOddsNode.getComponent(BoostedOdds);
+            this.boostedOdds = boostedOddsNode.getComponent("BoostedOdds") as any;
             this.promotionContainer?.addChild(boostedOddsNode);
             this.updatePositionPromotionNode();
         } catch (error) {
@@ -376,7 +355,7 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
             return;
         }
         const popupMiniGameNode = this.popupMiniGame?.node;
-        const boostedOddsNode = this.boostedOdds?.node;
+        const boostedOddsNode = (this.boostedOdds as any)?.node;
         const wPosition = popupMiniGameNode.convertToWorldSpaceAR(cc.v2(0, 0));
         const localPosition = boostedOddsNode?.parent?.convertToNodeSpaceAR(wPosition);
         boostedOddsNode.position = cc.v3(localPosition?.x, localPosition?.y);
@@ -386,7 +365,7 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
         if (!this.boostedOdds) {
             await this.createBoostedOddsNode();
         }
-        this.boostedOdds?.handleBoostedOdds();
+        (this.boostedOdds as any)?.handleBoostedOdds();
     }
 
     onGeneralData(data: any) {
@@ -644,9 +623,9 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
         }
 
         const node = cc.instantiate(this.promotionAnnouncementPrefab);
-        this.promotionAnnouncement = node.getComponent(PromotionAnnouncements);
+        this.promotionAnnouncement = node.getComponent("PromotionAnnouncements") as any;
         if (this.promotionAnnouncement) {
-            this.promotionAnnouncement.miniPanel = this;
+            (this.promotionAnnouncement as any).miniPanel = this;
         }
 
         this.addDialog(node);
@@ -723,23 +702,18 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
         if (!this.isAlive()) {
             return;
         }
-        const handleCloseNotice = () => isGameRoom && this.redirectToLobby();
 
         this.showNotice(
             {
                 text: i18n.t("messages.lostGameConnection", { gameName: gameName })
             } as NoticeData,
-            handleCloseNotice,
-            handleCloseNotice
+            null, // No lobby redirect on close
+            null  // No lobby redirect on close
         );
 
         this.setLoadingVisibility(false);
         this.unCacheAndHideGameLoading(this.getGameLoadingComp(gameId), gameId);
         this.handleWhenNotJoinRoomGame(gameId);
-    }
-
-    redirectToLobby() {
-        appManager.redirectToLobby();
     }
 
     addDialog(dialogNode: cc.Node) {
