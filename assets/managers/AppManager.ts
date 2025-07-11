@@ -75,6 +75,13 @@ class AppManager {
 
     init() {
         this.urlParams = new URLSearchParams(window.location.search);
+
+        // Ensure direct mode is always used by adding ref=d_direct if not present
+        if (!this.urlParams.has(UrlInfo.Ref) || !this.checkDirectModeRefData(this.urlParams.get(UrlInfo.Ref))) {
+            console.log("🔧 [AppManager] Direct mode ref not found, adding ref=d_direct");
+            this.urlParams.set(UrlInfo.Ref, "d_direct");
+        }
+
         this.ssoGameId = +this.urlParams.get("gameId");
         cc.log("AppManager init ", this.ssoGameId);
         sentryLogger.start();
