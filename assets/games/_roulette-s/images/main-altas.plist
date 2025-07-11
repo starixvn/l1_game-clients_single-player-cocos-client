@@ -169,6 +169,21 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
+            <key>close-game-icon.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{64,64}</string>
+                <key>spriteSourceSize</key>
+                <string>{64,64}</string>
+                <key>textureRect</key>
+                <string>{{1371,1145},{64,64}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>count-down-timer-bg.png</key>
             <dict>
                 <key>aliases</key>
@@ -225,7 +240,7 @@
                 <key>spriteSourceSize</key>
                 <string>{64,64}</string>
                 <key>textureRect</key>
-                <string>{{1371,1145},{64,64}}</string>
+                <string>{{1505,1168},{64,64}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -255,7 +270,7 @@
                 <key>spriteSourceSize</key>
                 <string>{64,64}</string>
                 <key>textureRect</key>
-                <string>{{1505,1168},{64,64}}</string>
+                <string>{{1437,1207},{64,64}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -300,7 +315,7 @@
                 <key>spriteSourceSize</key>
                 <string>{58,58}</string>
                 <key>textureRect</key>
-                <string>{{1437,1207},{58,58}}</string>
+                <string>{{1371,1211},{58,58}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -1263,7 +1278,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:142a58e79802a68b47b079feab7dff34:5431c72fe28d6e118073d40d1d805c16:ef0ef156a355359910a67f53b8e8916b$</string>
+            <string>$TexturePacker:SmartUpdate:c6f20614d894d71bf9f87b39d00e9bc7:b25c2e43425cf4f10e4f9e1559518d92:ef0ef156a355359910a67f53b8e8916b$</string>
             <key>textureFileName</key>
             <string>main-altas.webp</string>
         </dict>

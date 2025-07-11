@@ -5,6 +5,7 @@ import SoloGameData from "./solo-game-data";
 import { Durations } from "../_new/_base/game-data-management/models/durations";
 import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
 import GameUtils from "../../common/GameUtils";
+import CloseGameDialog from "../../common/close-game-dialog/CloseGameDialog";
 
 const { ccclass, property } = cc._decorator;
 
@@ -24,6 +25,9 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     @property(cc.Label)
     lblAutoRebetCount: cc.Label = null;
+
+    @property(cc.Prefab)
+    closeGameDialogPrefab: cc.Prefab = null;
 
     betWinAmount = 0;
     autoRebetCount = 0;
@@ -190,6 +194,27 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     clickTopUpBalance() {
         GameUtils.notifyNativeApp("openRechargePanel");
+    }
+
+    clickCloseGame() {
+        cc.log("clickCloseGame");
+        GameUtils.notifyNativeApp("close");
+        this.playClick();
+        const dialog = cc.instantiate(this.closeGameDialogPrefab);
+        const comp = dialog.getComponent(CloseGameDialog);
+        this.currentMiniPanel.node.addChild(dialog);
+
+        let content = "";
+        if (this.soloBetModel.state === SoloBetState.SETTLEMENT) {
+            content = "是否要離開遊戲？";
+        } else {
+            content = "您已完成下注，離開仍會進行遊戲開獎喔";
+        }
+        comp.setContent(content);
+
+        comp.onConfirmCallback = () => {
+            GameUtils.notifyNativeApp("close");
+        };
     }
 
     override showStatus(status: any) {
