@@ -324,8 +324,7 @@ export default class RouletteS extends SoloGame {
     }
 
     checkAvailableBalance(amount: number): boolean {
-        const total = this.soloBetModel.currentTotalBet();
-        const available = total + amount <= userManager.balance;
+        const available = amount <= userManager.balance;
 
         !available && this.showMiniWarning(i18n.t("messages.notEnoughMoney"));
         return available;
