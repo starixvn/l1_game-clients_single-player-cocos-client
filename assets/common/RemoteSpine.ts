@@ -1,5 +1,5 @@
-import { IInfoShareResourceBanner, lobbyResourceManager } from "../lobby/main/view-models/LobbyResourceManager";
-import { themeResourceLoader } from "../lobby/main/view-models/theme/ResourceLoader";
+import { IInfoShareResourceBanner, lobbyResourceManager } from "./stubs/LobbyResourceManager";
+import { themeResourceLoader } from "./stubs/ResourceLoader";
 import { SkeletonCache } from "../managers/GameUIManager";
 import GameUtils from "./GameUtils";
 
@@ -66,7 +66,7 @@ export default class RemoteSpine extends cc.Component {
                     if (data) {
                         spineRes.push(data);
                     }
-                } catch (error) {}
+                } catch (error) { }
             }
             const skeletonData = this.createSkeletonData(spineRes);
             this.applySkeletonData(skeletonData);
@@ -101,7 +101,7 @@ export default class RemoteSpine extends cc.Component {
                     if (data) {
                         spineRes.push(data);
                     }
-                } catch (error) {}
+                } catch (error) { }
             }
             const skeletonData = this.createSkeletonData(spineRes);
             this.applySkeletonData(skeletonData);

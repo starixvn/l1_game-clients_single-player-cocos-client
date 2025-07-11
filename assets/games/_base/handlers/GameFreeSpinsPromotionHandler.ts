@@ -1,9 +1,9 @@
-import { freeSpinsPromotionHandler } from "../../../lobby/promotions/FreeSpinsPromotionHandler";
+import { freeSpinsPromotionHandler } from "../../../common/stubs/FreeSpinsPromotionHandler";
 import IGameBase from "../IGameBase";
 import DataHandler from "./DataHandler";
 
 export default class GameFreeSpinsPromotionHandler implements DataHandler {
-    constructor(protected readonly main: IGameBase) {}
+    constructor(protected readonly main: IGameBase) { }
 
     handle(data: any) {
         if (!data.promotionInfo) {
@@ -11,6 +11,6 @@ export default class GameFreeSpinsPromotionHandler implements DataHandler {
         }
 
         freeSpinsPromotionHandler.setPromotionInfoFromSso(data.promotionInfo);
-        
+
     }
 }

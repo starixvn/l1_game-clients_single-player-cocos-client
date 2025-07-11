@@ -1,6 +1,6 @@
 import GameUtils from "../../common/GameUtils";
-import { lobbyResourceManager } from "../../lobby/main/view-models/LobbyResourceManager";
-import { themeResourceLoader } from "../../lobby/main/view-models/theme/ResourceLoader";
+import { lobbyResourceManager } from "../../common/stubs/LobbyResourceManager";
+import { themeResourceLoader } from "../../common/stubs/ResourceLoader";
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
 import RoundTime from "./RoundTime";

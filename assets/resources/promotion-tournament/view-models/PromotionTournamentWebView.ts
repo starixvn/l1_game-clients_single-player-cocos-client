@@ -1,5 +1,5 @@
 import LoadWebView from "../../../common/LoadWebView";
-import { promotionTournamentHandler } from "../../../lobby/promotions/PromotionTournamentHandler";
+import { promotionTournamentHandler } from "../../../common/stubs/PromotionTournamentHandler";
 import PromotionTournamentDialog from "./PromotionTournamentDialog";
 
 const CLOSE_PROMOTION_EVENT = "closePromotionPopup";

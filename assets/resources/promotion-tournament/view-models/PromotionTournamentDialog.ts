@@ -1,5 +1,5 @@
 import CommonDialog from "../../../common/_base/view-models/CommonDialog";
-import PromotionTournamentHandler from "../../../lobby/promotions/PromotionTournamentHandler";
+import { PromotionTournamentHandler } from "../../../common/stubs/PromotionTournamentHandler";
 import LobbyDialogManager from "../../../managers/LobbyDialogManager";
 const { ccclass } = cc._decorator;
 
