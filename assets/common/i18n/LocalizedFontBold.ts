@@ -11,8 +11,8 @@ export default class LocalizedFontBold extends LocalizedFont {
             id: "PingFang-Bold",
             en: "PingFang-Bold",
             th: "PingFang-Bold",
-            zh_cn: "PingFangZHTW-Bold",
-            zh_tw: "PingFangZHTW-Bold"
+            zh_cn: "PingFang-Bold",
+            zh_tw: "PingFang-Bold"
         };
     }
 }

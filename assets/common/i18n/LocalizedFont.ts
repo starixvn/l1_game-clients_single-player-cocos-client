@@ -35,8 +35,8 @@ export default class LocalizedFont extends cc.Component {
             id: "PingFang-Regular",
             en: "PingFang-Regular",
             th: "PingFang-Regular",
-            zh_cn: "PingFangZHTW-Regular",
-            zh_tw: "PingFangZHTW-Regular"
+            zh_cn: "PingFangRegular",
+            zh_tw: "PingFang-Regular"
         };
     }
 
@@ -45,6 +45,7 @@ export default class LocalizedFont extends cc.Component {
         if (this.label) {
             this.loadFont(name).then((font) => {
                 if (this.label && this.label.isValid) {
+                    console.log(font);
                     this.label.font = font;
                     this.enableCacheMode && this.handleCacheMode();
                 }
