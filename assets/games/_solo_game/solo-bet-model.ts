@@ -29,9 +29,9 @@ export class SoloBetModel extends BetModel {
     changeState(state: string) {
         this.state = state;
         this.emit(SoloBetModel.Events.CHANGE_STATE, state);
-        // if (state === SoloBetState.READY) {
-        //     this.resetLastBet();
-        // }
+        if (state === SoloBetState.READY) {
+            this.resetLastBet();
+        }
     }
 
     setCurrentBet(bet: number) {

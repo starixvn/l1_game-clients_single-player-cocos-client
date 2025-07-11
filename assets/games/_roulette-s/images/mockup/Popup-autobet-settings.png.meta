@@ -1,6 +1,6 @@
 {
   "ver": "2.3.7",
-  "uuid": "57640afb-82fd-48d1-80b0-7cf5e4d706a3",
+  "uuid": "90313280-9673-4bb1-83a9-bd68e99fc31a",
   "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
@@ -12,11 +12,11 @@
   "height": 1704,
   "platformSettings": {},
   "subMetas": {
-    "Popup-autobet-settings-doing": {
+    "Popup-autobet-settings": {
       "ver": "1.0.6",
-      "uuid": "ff8aba25-7b0e-463b-8a86-2c05e35ad8af",
+      "uuid": "070f3573-7f4c-4563-8868-f87f307b3359",
       "importer": "sprite-frame",
-      "rawTextureUuid": "57640afb-82fd-48d1-80b0-7cf5e4d706a3",
+      "rawTextureUuid": "90313280-9673-4bb1-83a9-bd68e99fc31a",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
