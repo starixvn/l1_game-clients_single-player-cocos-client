@@ -37532,7 +37532,9 @@
     "lblAutoRebetCount": {
       "__id__": 845
     },
-    "closeGameDialogPrefab": null,
+    "closeGameDialogPrefab": {
+      "__uuid__": "5a572eec-27d7-4159-bdfe-ed44f1dbc414"
+    },
     "wheel": {
       "__id__": 811
     },

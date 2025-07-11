@@ -207,13 +207,14 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         let content = "";
         if (this.soloBetModel.state === SoloBetState.SETTLEMENT) {
-            content = "是否要離開遊戲？";
-        } else {
             content = "您已完成下注，離開仍會進行遊戲開獎喔";
+        } else {
+            content = "是否要離開遊戲";
         }
         comp.setContent(content);
 
         comp.onConfirmCallback = () => {
+            cc.log("Confirm Close, Send Message to Native App");
             GameUtils.notifyNativeApp("close");
         };
     }
