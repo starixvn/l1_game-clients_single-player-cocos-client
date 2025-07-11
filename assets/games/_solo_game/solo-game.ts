@@ -16,6 +16,9 @@ export default class SoloGame extends StandAloneTableGameBase {
     @property(cc.Button)
     btnAutoRebet: cc.Button = null;
 
+    @property(cc.Node)
+    nodeStopAutoRebet: cc.Node = null;
+
     @property(cc.Prefab)
     autoRebetDialogPrefab: cc.Prefab = null;
 
@@ -79,12 +82,12 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     onConfirmBet() {
-        this.sendSocketData("spin", null);
+        this.sendSocketData("settle", null);
     }
 
     onReBet(bet: any) {
         const betData = this.createBetData(bet);
-        this.sendSocketData("reBet", betData);
+        this.sendSocketData("rebet", betData);
     }
 
     onPlaceBet(bet: any) {
@@ -108,16 +111,22 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.currentMiniPanel.node.addChild(dialog);
 
         comp.onConfirmCallback = (autoRebetCount: number) => {
-            this.onConfirmCallBackAutoRebetDialog(autoRebetCount);
+            this.handleAutoRebet(autoRebetCount);
         };
     }
 
-    onConfirmCallBackAutoRebetDialog(autoRebetCount: number) {
+    clickStopAutoRebet() {
+        this.hideAutoRebetMessage();
+        this.resetAutoRebetCount();
+    }
+
+    handleAutoRebet(autoRebetCount: number) {
         const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
         this.onReBet(betObject);
         this.autoRebetCount = autoRebetCount - 1;
         this.updateAutoRebetCount();
         this.showAutoRebetMessage();
+        this.nodeStopAutoRebet.active = true;
     }
 
     convertBetQueueToBetObject(bets: ChoiceBet[]): { [choice: string]: number } {
@@ -143,6 +152,8 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     showAutoRebetMessage() {
+        this.nodeStopAutoRebet.active = true;
+
         const autoRebetMessage = this.lblAutoRebetCount.node.parent;
         autoRebetMessage.active = true;
         autoRebetMessage.scale = 0;
@@ -152,6 +163,8 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     hideAutoRebetMessage() {
+        this.nodeStopAutoRebet.active = false;
+
         const autoRebetMessage = this.lblAutoRebetCount.node.parent;
         cc.tween(autoRebetMessage)
             .to(0.5, { scale: 0, opacity: 0 }, { easing: "backIn" })
