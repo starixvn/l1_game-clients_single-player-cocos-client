@@ -1,3 +1,4 @@
+import { numberWithCommas } from "../../../common/helpers/NumberHelper";
 import AnimationUtils from "../../../common/utils/AnimationUtils";
 
 
@@ -13,8 +14,8 @@ export default class NewClass extends cc.Component {
     totalWinAmount: cc.Label = null;
 
     showSettlementResult(betWinAmount: number, betAmount: number) {
-        this.totalBetAmount.string = betAmount.toString();
-        this.totalWinAmount.string = betWinAmount.toString();
+        this.totalBetAmount.string = numberWithCommas(betAmount);
+        this.totalWinAmount.string = numberWithCommas(betWinAmount);
 
         this.node.active = true;
         this.node.scale = 0;
