@@ -6,6 +6,7 @@ import { Durations } from "../_new/_base/game-data-management/models/durations";
 import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
 import GameUtils from "../../common/GameUtils";
 import CloseGameDialog from "../../common/close-game-dialog/CloseGameDialog";
+import { WEBVIEW_MESSAGE } from "../../constants";
 
 const { ccclass, property } = cc._decorator;
 
@@ -38,7 +39,6 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.hideAutoRebetMessage();
         this.resetAutoRebetCount();
     }
-
     get soloBetModel() {
         return this.gameData.betModel as SoloBetModel;
     }
@@ -194,28 +194,28 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     clickTopUpBalance() {
-        GameUtils.notifyNativeApp("openRechargePanel");
+        GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL);
+    }
+
+    private getCloseGameDialogContent(): string {
+        const MSG_PLACED_BET = "您已完成下注，離開仍會進行遊戲開獎喔";
+        const MSG_NOT_PLACED_BET = "是否要離開遊戲？";
+        const hasBet = this.soloBetModel.existBet && this.soloBetModel.existBet();
+        const isRoundNotReady = this.soloBetModel.state !== SoloBetState.READY;
+        return (hasBet && isRoundNotReady) ? MSG_PLACED_BET : MSG_NOT_PLACED_BET;
     }
 
     clickCloseGame() {
-        cc.log("clickCloseGame");
-        GameUtils.notifyNativeApp("close");
         this.playClick();
         const dialog = cc.instantiate(this.closeGameDialogPrefab);
         const comp = dialog.getComponent(CloseGameDialog);
         this.currentMiniPanel.node.addChild(dialog);
-
-        let content = "";
-        if (this.soloBetModel.state === SoloBetState.SETTLEMENT) {
-            content = "您已完成下注，離開仍會進行遊戲開獎喔";
-        } else {
-            content = "是否要離開遊戲";
-        }
+        const content = this.getCloseGameDialogContent();
         comp.setContent(content);
 
         comp.onConfirmCallback = () => {
             cc.log("Confirm Close, Send Message to Native App");
-            GameUtils.notifyNativeApp("close");
+            GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.CLOSE);
         };
     }
 

@@ -19,6 +19,7 @@ import SingleBetControl from "./scripts/single-bet-control";
 import MiniRouletteSettlePopup from "./scripts/mini-roulette-settle-popup";
 import RouletteLeaderBoard from "./scripts/roulette-leader-board";
 import GameUtils from "../../common/GameUtils";
+import { WEBVIEW_MESSAGE } from "../../constants";
 
 const { ccclass, property } = cc._decorator;
 
@@ -83,7 +84,7 @@ export default class RouletteS extends SoloGame {
         this.singleBetControl = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetControl);
         this.settlePopupComponent = this.settlePopup.getComponent(MiniRouletteSettlePopup);
         super.onLoad();
-        GameUtils.notifyNativeApp("onGameLoaded");
+        GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.GAME_LOADED);
     }
 
     protected onChangedBetChip(bet: number) {
