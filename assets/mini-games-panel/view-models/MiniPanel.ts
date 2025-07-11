@@ -17,14 +17,7 @@ import Notice, { NoticeData } from "../../common/notice/view-models/Notice";
 import ScaleActiveController from "../../common/scale-active-item/ScaleActiveController";
 import NoticeUtil from "../../common/utils/NoticeUtil";
 import { getGameId, isMiniGame, isMiniGameByGameId, isUsingRemoteBundle } from "../../configs/GameConfigurations";
-import CircleMenu from "../../lobby/main/view-models/CircleMenu";
-import { lobbyResourceManager } from "../../lobby/main/view-models/LobbyResourceManager";
-import { themeResourceLoader } from "../../lobby/main/view-models/theme/ResourceLoader";
-import BoostedOdds from "../../lobby/promotions/BoostedOdds";
-import PromotionAnnouncements from "../../lobby/promotions/PromotionAnnouncements";
-import PromotionNotificationsHandler, { PromotionNotificationsEvent } from "../../lobby/promotions/PromotionNotificationsHandler";
-import { PromotionTournamentEvents, promotionTournamentHandler } from "../../lobby/promotions/PromotionTournamentHandler";
-import { Promotions, PromotionsEvent } from "../../lobby/promotions/Promotions";
+// Removed lobby imports - creating stub implementations
 import { appManager } from "../../managers/AppManager";
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
@@ -36,8 +29,69 @@ import MiniPanelInterface from "./MiniPanelInterface";
 import MiniPanelMiniGameInitializers from "./MiniPanelMiniGameInitializers";
 import MiniPanelSocketIOGameInitializers from "./MiniPanelSocketIOGameInitializers";
 import PopupMinigames from "./popup/PopupMinigames";
-import { FreeSpinsPromotionEvents, freeSpinsPromotionHandler } from "../../lobby/promotions/FreeSpinsPromotionHandler";
+// Removed lobby promotion imports - creating stub implementations
 import LobbyDialogManager from "../../managers/LobbyDialogManager";
+
+// Stub implementations for lobby functionality
+class CircleMenu {
+    // Stub implementation
+}
+
+class LobbyResourceManager {
+    static lobbyResourceManager = {
+        // Stub implementation
+    };
+}
+
+class ResourceLoader {
+    static themeResourceLoader = {
+        // Stub implementation
+    };
+}
+
+class BoostedOdds {
+    // Stub implementation
+}
+
+class PromotionAnnouncements {
+    // Stub implementation
+}
+
+class PromotionNotificationsHandler {
+    static PromotionNotificationsEvent = {
+        // Stub implementation
+    };
+}
+
+class PromotionTournamentHandler {
+    static PromotionTournamentEvents = {
+        // Stub implementation
+    };
+    static promotionTournamentHandler = {
+        // Stub implementation
+    };
+}
+
+class Promotions {
+    static PromotionsEvent = {
+        // Stub implementation
+    };
+}
+
+class FreeSpinsPromotionHandler {
+    static FreeSpinsPromotionEvents = {
+        // Stub implementation
+    };
+    static freeSpinsPromotionHandler = {
+        // Stub implementation
+    };
+}
+
+// Export stub implementations
+export {
+    CircleMenu, LobbyResourceManager, ResourceLoader, BoostedOdds, PromotionAnnouncements,
+    PromotionNotificationsHandler, PromotionTournamentHandler, Promotions, FreeSpinsPromotionHandler
+};
 
 console.log("[MiniPanel] Loading MiniPanel module...");
 
@@ -201,8 +255,8 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
             return;
         }
 
-        const loadPromise = lobbyResourceManager?.hasCurrencyGroup()
-            ? themeResourceLoader?.loadPrefab("mini-game/popup-mini-game")
+        const loadPromise = LobbyResourceManager.lobbyResourceManager?.hasCurrencyGroup()
+            ? ResourceLoader.themeResourceLoader?.loadPrefab("mini-game/popup-mini-game")
             : GameUtils.loadResource(`minipanel/popup-mini-game/PopUpMiniGame`);
 
         loadPromise
@@ -233,20 +287,20 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
     registerPromotionEvents() {
         try {
             PromotionNotificationsHandler.getInstance().on(
-                PromotionNotificationsEvent.OPEN_ANNOUNCEMENT,
+                PromotionNotificationsHandler.PromotionNotificationsEvent.OPEN_ANNOUNCEMENT,
                 this.showPromotionAnnouncements.bind(this)
             );
-            Promotions.getInstance().on(PromotionsEvent.SHOW_BOOSTED_ODDS, () => this.showBoostedOdds());
-            promotionTournamentHandler.on(PromotionTournamentEvents.OPEN_PROMOTION_TOURNAMENT, () =>
+            Promotions.getInstance().on(Promotions.PromotionsEvent.SHOW_BOOSTED_ODDS, () => this.showBoostedOdds());
+            PromotionTournamentHandler.promotionTournamentHandler.on(PromotionTournamentHandler.PromotionTournamentEvents.OPEN_PROMOTION_TOURNAMENT, () =>
                 LobbyDialogManager.getInstance().addDialog(this.showPromotionTournament.bind(this), "PromotionTournament")
             );
 
-            freeSpinsPromotionHandler.on(FreeSpinsPromotionEvents.OPEN_FREE_SPINS_PROMOTION, () =>
+            FreeSpinsPromotionHandler.freeSpinsPromotionHandler.on(FreeSpinsPromotionHandler.FreeSpinsPromotionEvents.OPEN_FREE_SPINS_PROMOTION, () =>
                 LobbyDialogManager.getInstance().addDialog(this.showFreeSpinsPromotion.bind(this), "FreeSpinsPromotion")
             );
 
-            promotionTournamentHandler.on(
-                PromotionTournamentEvents.OPEN_PROMOTION_TOURNAMENT_BY_ICON,
+            PromotionTournamentHandler.promotionTournamentHandler.on(
+                PromotionTournamentHandler.PromotionTournamentEvents.OPEN_PROMOTION_TOURNAMENT_BY_ICON,
                 this.showPromotionTournament.bind(this)
             );
         } catch (error) {

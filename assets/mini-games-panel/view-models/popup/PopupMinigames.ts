@@ -2,14 +2,39 @@ import { lazyInject } from "../../../Application";
 import AudioManager from "../../../common/audio/AudioManager";
 import GameUtils from "../../../common/GameUtils";
 import { userManager } from "../../../common/user/UserManager";
-import LobbyMenuConfig from "../../../lobby/main/view-models/LobbyMenuConfig";
-import { lobbyResourceManager } from "../../../lobby/main/view-models/LobbyResourceManager";
-import { themeResourceLoader } from "../../../lobby/main/view-models/theme/ResourceLoader";
+// Removed lobby imports - creating stub implementations
 import { appManager } from "../../../managers/AppManager";
 import { uiManager } from "../../../managers/GameUIManager";
 import { InternalEvents } from "../../../managers/InternalEvents";
 import JackpotWinner from "../JackpotWinner";
 import { roundTimerManager } from "../RoundTimerManager";
+
+// Stub implementations for lobby functionality
+class LobbyMenuConfig {
+    roundTimerGame = {
+        main: 0
+    };
+    // Stub implementation
+}
+
+class LobbyResourceManager {
+    static lobbyResourceManager = {
+        hasCurrencyGroup(): boolean {
+            return false;
+        }
+        // Stub implementation
+    };
+}
+
+class ResourceLoader {
+    static themeResourceLoader = {
+        async loadPrefab(path: string): Promise<cc.Prefab> {
+            // Stub implementation
+            return null;
+        }
+        // Stub implementation
+    };
+}
 
 const { ccclass, property } = cc._decorator;
 @ccclass
@@ -76,8 +101,8 @@ export default class PopupMinigames extends cc.Component {
     async initDefaultGameRoundTimer() {
         const mainGameId = this.lobbyMenuConfig.roundTimerGame?.main;
         let prefab: cc.Prefab;
-        if (lobbyResourceManager?.hasCurrencyGroup()) {
-            prefab = await themeResourceLoader?.loadPrefab(`mini-game/counters/${mainGameId}`);
+        if (LobbyResourceManager?.lobbyResourceManager?.hasCurrencyGroup()) {
+            prefab = await ResourceLoader?.themeResourceLoader?.loadPrefab(`mini-game/counters/${mainGameId}`);
         } else {
             prefab = await GameUtils.asyncExecute<cc.Prefab>(this.node, GameUtils.loadMiniPanelGameIcon(mainGameId));
         }

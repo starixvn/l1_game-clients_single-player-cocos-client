@@ -89,13 +89,13 @@ export default class MicrositeGame extends BaseMicrositeGame {
     }
 
     protected loadLobbyScene() {
-        console.log("[MicrositeGame] Loading lobby scene...");
-        cc.director.loadScene("Lobby", async () => {
-            console.log("[MicrositeGame] Lobby scene loaded, handling back from microsite game...");
+        console.log("[MicrositeGame] Lobby scene removed, redirecting to splash...");
+        cc.director.loadScene("Splash", async () => {
+            console.log("[MicrositeGame] Splash scene loaded, handling back from microsite game...");
             await this.handleBackFromMicrositeGame();
             console.log("[MicrositeGame] Back from microsite game handled");
         });
-        console.log("[MicrositeGame] Lobby scene load initiated");
+        console.log("[MicrositeGame] Splash scene load initiated");
     }
 
     onDestroy(): void {

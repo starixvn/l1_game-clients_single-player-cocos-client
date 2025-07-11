@@ -2,7 +2,7 @@ import { getLocale } from "../../common/auth/SessionManager";
 import CallbackAnimation from "../../common/CallbackAnimation";
 import GameUtils from "../../common/GameUtils";
 import WebViewGuide from "../../common/webview-guide/WebViewGuide";
-import JackpotPoolInfoBase from "../../lobby/main/view-models/JackpotPoolInfoBase";
+// Removed lobby import - creating stub implementation
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
 import { ClassicSlotSound } from "./ClassicSlotSound";
@@ -10,6 +10,14 @@ import JackpotGame from "./JackpotGame";
 import { paylines } from "./SlotGameBaseConfigs";
 import StandardSlotGame from "./StandardSlotGame";
 import StandarSlotGuide from "./StandarSlotGuide";
+
+// Stub implementation for JackpotPoolInfoBase
+class JackpotPoolInfoBase extends cc.Component {
+    // Stub implementation
+    setData(data: any, highlight: boolean) {
+        // Stub implementation
+    }
+}
 
 const { ccclass, property } = cc._decorator;
 
@@ -43,7 +51,9 @@ export default class StandardJackpotSlotGame extends StandardSlotGame {
         );
     }
 
-    protected lazyLoadResources() {}
+    protected lazyLoadResources() {
+        // Stub implementation - resources are loaded as needed
+    }
 
     protected getPrefabsList(): Record<string, string> {
         const normalPrefabs = super.getPrefabsList();

@@ -7,7 +7,6 @@ import ExpandableMenu from "../../common/expandable-menu/view-models/ExpandableM
 import GameUtils from "../../common/GameUtils";
 import { numberWithCommas } from "../../common/helpers/NumberHelper";
 import HoverItemBase from "../../common/HoverItemBase";
-import JackpotPoolInfoBase from "../../lobby/main/view-models/JackpotPoolInfoBase";
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
 import { GameState } from "../_base/GameState";
@@ -101,8 +100,7 @@ export default class SlotGameBase extends FeatureSlotGameBase {
     @property(cc.Prefab)
     effectJackpot: cc.Prefab = null;
 
-    @property(JackpotPoolInfoBase)
-    jackpotPoolInfo: JackpotPoolInfoBase = null;
+    // JackpotPoolInfoBase removed with lobby
 
     @property({ type: cc.AudioSource })
     soundSources: cc.AudioSource[] = [];
@@ -213,10 +211,10 @@ export default class SlotGameBase extends FeatureSlotGameBase {
     }
 
     protected showJackpotInfo() {
-        if (!this.jackpotPoolInfo || !this.jackpotPoolLabel) {
+        // JackpotPoolInfo removed with lobby
+        if (!this.jackpotPoolLabel) {
             return;
         }
-        this.jackpotPoolInfo.node.active = this.jackpotEnabled;
         this.jackpotPoolLabel.node.parent.active = this.jackpotEnabled;
     }
 
@@ -617,9 +615,7 @@ export default class SlotGameBase extends FeatureSlotGameBase {
         this.updateJackpotPool();
         this.updateStakeContainer();
         this.hideStakeContrainer();
-        if (this.jackpotPoolInfo && !this.isAccelerate) {
-            this.jackpotPoolInfo.setHighlight(this.findIndexStakeLevel());
-        }
+        // JackpotPoolInfo removed with lobby
     }
 
     protected generateRandomBoardData() {

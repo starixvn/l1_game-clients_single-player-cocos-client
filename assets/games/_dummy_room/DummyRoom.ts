@@ -8,7 +8,7 @@ import InGameMenu, { InGameMenuEvents } from "../../common/in-game-menu/InGameMe
 import { isSubMultiplayGame } from "../../common/mutliplay-utils";
 import UserProfile from "../../common/user-profile/UserProfile";
 import { userManager } from "../../common/user/UserManager";
-import PromotionTournamentHandler from "../../lobby/promotions/PromotionTournamentHandler";
+
 import { appManager } from "../../managers/AppManager";
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
@@ -47,7 +47,7 @@ export default class DummyRoom extends BaseComponent {
 
         this.loadUserData(userManager.user);
         MusicPlayer.getInstance().init();
-        PromotionTournamentHandler.getInstance().getPromotionTournament();
+        // Promotion handler removed with lobby
         this.loading.active = false;
     }
 
@@ -103,7 +103,8 @@ export default class DummyRoom extends BaseComponent {
     }
 
     private goToLobbyScene() {
-        appManager.redirectToLobby();
+        // Lobby scene removed, redirect to splash
+        cc.director.loadScene("Splash");
     }
 
     loadUserData(user) {

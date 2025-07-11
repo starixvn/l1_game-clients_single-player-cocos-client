@@ -1,9 +1,15 @@
 import { appContainer } from "../../Application";
-import LobbyMenuConfig from "../../lobby/main/view-models/LobbyMenuConfig";
+// Removed lobby import - creating stub implementation
 import { appManager } from "../../managers/AppManager";
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
 import { IUserStakeLevel, UserData } from "./UserManagerModel";
+
+// Stub implementation for LobbyMenuConfig
+class LobbyMenuConfig {
+    list: number[] = [];
+    // Stub implementation
+}
 
 console.log("[UserManager] Loading UserManager module...");
 
@@ -141,14 +147,9 @@ export default class UserManager {
         const offerGames = data.offerGames.map((game) => game.gameId);
         console.log("[UserManager] Extracted offer game IDs:", offerGames);
 
-        const menuConfig = appContainer.get(LobbyMenuConfig);
-        const list = [];
-        menuConfig.list.forEach((id) => {
-            if (offerGames.includes(id)) {
-                list.push(id);
-            }
-        });
-        console.log("[UserManager] Filtered offer games list:", list);
+        // Since lobby is removed, we'll use all offer games directly
+        const list = [...offerGames];
+        console.log("[UserManager] Using all offer games since lobby is removed:", list);
 
         userManager.updateOfferGamesIncludeSubGames(offerGames);
         userManager.updateOfferGames(list);

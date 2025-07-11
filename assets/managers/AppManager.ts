@@ -9,11 +9,7 @@ import NameGenerator from "../common/name-generator/NameGenerator";
 import { userManager } from "../common/user/UserManager";
 import EncryptUtils from "../common/utils/EncryptUtils";
 import UrlParamsService from "../common/utils/UrlParamsService";
-import { getLobbyConfigs } from "../lobby/main/view-models/LobbyManager";
-import { lobbyResourceManager } from "../lobby/main/view-models/LobbyResourceManager";
-import { freeSpinsPromotionHandler } from "../lobby/promotions/FreeSpinsPromotionHandler";
-import PromotionNotificationsHandler from "../lobby/promotions/PromotionNotificationsHandler";
-import { Promotions } from "../lobby/promotions/Promotions";
+
 import { delayTime } from "../utils";
 import { uiManager } from "./GameUIManager";
 import { InternalEvents } from "./InternalEvents";
@@ -141,8 +137,7 @@ class AppManager {
 
     clearPromotionObservers() {
         console.log("[AppManager] Clearing promotion observers...");
-        Promotions.getInstance().removeDataObserver();
-        PromotionNotificationsHandler.getInstance().removeDataObserver();
+        // Promotions removed with lobby
         console.log("[AppManager] Promotion observers cleared");
     }
 
@@ -150,13 +145,7 @@ class AppManager {
         console.log("[AppManager] Initializing promotions...");
         this.clearPromotionObservers();
 
-        console.log("[AppManager] Adding promotion data observers...");
-        Promotions.getInstance().addDataObserver();
-        PromotionNotificationsHandler.getInstance().addDataObserver();
-
-        console.log("[AppManager] Emitting promotion notifications event...");
-        NotificationService.getInstance().emitEvent("promotionNotifications", {});
-
+        console.log("[AppManager] Promotions removed with lobby");
         console.log("[AppManager] Promotions initialized");
     }
 
@@ -207,19 +196,12 @@ class AppManager {
     }
 
     redirectToLobby() {
-        console.log("[AppManager] Redirecting to lobby...");
-        const currentSceneName = cc.director.getScene().name;
-        console.log("[AppManager] Current scene:", currentSceneName);
-        if (currentSceneName !== "Lobby") {
-            if (appManager.isDirectMode) {
-                console.log("[AppManager] Direct mode active, returning to operator lobby");
-                appManager.backToOperatorLobby();
-            } else {
-                console.log("[AppManager] Loading Lobby scene");
-                cc.director.loadScene("Lobby");
-            }
+        console.log("[AppManager] Lobby redirection called - lobby scene removed");
+        if (appManager.isDirectMode) {
+            console.log("[AppManager] Direct mode active, returning to operator lobby");
+            appManager.backToOperatorLobby();
         } else {
-            console.log("[AppManager] Already in Lobby scene");
+            console.log("[AppManager] No lobby scene available, staying in current scene");
         }
     }
 
@@ -266,8 +248,7 @@ class AppManager {
         console.log("[AppManager] Currency group handled");
         await this.requestSSO();
         console.log("[AppManager] SSO request completed");
-        await getLobbyConfigs();
-        console.log("[AppManager] Lobby configs loaded");
+        console.log("[AppManager] Lobby configs removed");
         if (window.authData && this.isDirectMode) {
             console.log("[AppManager] Direct mode detected, removing in-room game ID and saving direct mode info");
             sessionManager.removeInRoomGameId();
@@ -294,7 +275,7 @@ class AppManager {
             console.log("[AppManager] Currency group from storage:", currencyGroup);
         }
 
-        await lobbyResourceManager.init(currencyGroup);
+        console.log("[AppManager] Lobby resource manager removed");
         console.log("[AppManager] Currency group handling completed");
     }
 
@@ -399,7 +380,7 @@ class AppManager {
         if (!response.authorized && (this.autoGenerateNickname || response.autoGenerateNickname)) {
             return this.autoGenerateName();
         }
-        response.promotionInfo && freeSpinsPromotionHandler.setPromotionInfoFromSso(response.promotionInfo);
+        // Promotion handler removed with lobby
         response.user && userManager.updateUser(response.user);
         return response.authorized;
     }

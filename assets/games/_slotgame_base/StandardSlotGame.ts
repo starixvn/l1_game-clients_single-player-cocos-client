@@ -5,7 +5,7 @@ import AudioManager from "../../common/audio/AudioManager";
 import CallbackAnimation from "../../common/CallbackAnimation";
 import GameUtils from "../../common/GameUtils";
 import LocalizedLoadSprite from "../../common/i18n/LocalizedLoadSprite";
-import JackpotPoolInfoBase from "../../lobby/main/view-models/JackpotPoolInfoBase";
+// Removed lobby import - creating stub implementation
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
 import BonusDialog from "./BonusDialog";
@@ -18,6 +18,14 @@ import StandardSlotBonusDialog from "./StandardSlotBonusDialog";
 import { StandardSlotGameConfigs } from "./StandardSlotGameConfigs";
 import StandardSlotGameHistory from "./StandardSlotGameHistory";
 import SymbolPreview from "./SymbolPreview";
+
+// Stub implementation for JackpotPoolInfoBase
+class JackpotPoolInfoBase extends cc.Component {
+    // Stub implementation
+    setData(data: any, highlight: boolean) {
+        // Stub implementation
+    }
+}
 
 const { ccclass, property } = cc._decorator;
 

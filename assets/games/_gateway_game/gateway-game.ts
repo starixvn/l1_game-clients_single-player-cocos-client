@@ -89,7 +89,7 @@ export default class GatewayGame extends BaseComponent {
             cc.game.on(cc.game.EVENT_SHOW, this.onGameShow, this);
 
             uiManager.emitterListener(InternalEvents.GATEWAY_OPEN_GAME, this.handleOpenGame.bind(this), this);
-        } catch (e) {}
+        } catch (e) { }
     }
 
     async getGatewayConfig() {
@@ -224,7 +224,8 @@ export default class GatewayGame extends BaseComponent {
     private goToLobbyScene() {
         this.loading.active = true;
         this.closeGame();
-        appManager.redirectToLobby();
+        // Lobby scene removed, redirect to splash
+        cc.director.loadScene("Splash");
     }
 
     initEventForInGameMenu() {

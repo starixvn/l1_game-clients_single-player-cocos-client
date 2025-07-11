@@ -6,7 +6,7 @@ import { lodash } from "../ClientModules";
 import * as SessionManager from "../common/auth/SessionManager";
 import { GameConfiguration, getGameConfiguration, isGatewayGame, isUsingRemoteBundle } from "../configs/GameConfigurations";
 import IGameBase from "../games/_base/IGameBase";
-import PromotionTournamentHandler from "../lobby/promotions/PromotionTournamentHandler";
+// Removed lobby import - creating stub implementation
 import { appManager } from "../managers/AppManager";
 import { uiManager } from "../managers/GameUIManager";
 import { InternalEvents } from "../managers/InternalEvents";
@@ -26,6 +26,11 @@ import { sentryLogger } from "./logger";
 import { preloadAssets } from "./PreloadRemoteAsset";
 import SetStaticFontSizeLabel from "./SetStaticFontSizeLabel";
 import { userManager } from "./user/UserManager";
+
+// Stub implementation for PromotionTournamentHandler
+class PromotionTournamentHandler {
+    // Stub implementation
+}
 
 console.log("[GameUtils] Loading GameUtils module...");
 

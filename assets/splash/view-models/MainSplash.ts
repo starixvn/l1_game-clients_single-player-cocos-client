@@ -3,13 +3,11 @@ import { i18n } from "../../ClientModules";
 import { OperatorAlias } from "../../ISystem";
 import SocketIOController from "../../SocketIOController";
 import GameUtils from "../../common/GameUtils";
-import LobbyUtils from "../../common/LobbyUtils";
 import * as sessionManager from "../../common/auth/SessionManager";
 import { sentryLogger } from "../../common/logger";
 import Notice from "../../common/notice/view-models/Notice";
 import NoticeUtil from "../../common/utils/NoticeUtil";
 import { isMiniGameByGameId } from "../../configs/GameConfigurations";
-import LobbyMenuConfig from "../../lobby/main/view-models/LobbyMenuConfig";
 import { appManager } from "../../managers/AppManager";
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
@@ -53,8 +51,7 @@ export default class MainSplash extends cc.Component {
     @property(cc.Node)
     noticeContainer: cc.Node = null;
 
-    @lazyInject(LobbyMenuConfig)
-    private readonly lobbyMenuConfig: LobbyMenuConfig;
+
 
     @lazyInject(SocketIOController)
     private readonly socketIOController: SocketIOController;
@@ -187,7 +184,10 @@ export default class MainSplash extends cc.Component {
         if (appManager.isDirectMode) {
             appManager.backToOperatorLobby();
         } else {
-            this.preloadLobbyScene();
+            // Since lobby is removed, show error message for no game available
+            this.messageComp.reset();
+            this.messageComp.setMessage(i18n.t("ui.no_game_available"));
+            uiManager.isPauseLoadingIcons = false;
         }
     }
 
@@ -207,8 +207,11 @@ export default class MainSplash extends cc.Component {
                 await this.loadGameDirectly(gameId);
                 appManager.clearSSOGameId();
             } else {
-                cc.log("Main Splash : Goto Lobby");
-                this.preloadLobbyScene();
+                cc.log("Main Splash : No game available");
+                // Since lobby is removed, show error message for no game available
+                this.messageComp.reset();
+                this.messageComp.setMessage(i18n.t("ui.no_game_available"));
+                uiManager.isPauseLoadingIcons = false;
             }
         } catch (error) {
             sentryLogger.logError(error);
@@ -229,9 +232,12 @@ export default class MainSplash extends cc.Component {
     }
 
     preloadLobbyScene() {
+        // Since lobby scene is removed, show error message for no game available
         this.loadSceneTimeout = setTimeout(
             function () {
-                LobbyUtils.gotoLobbyScene(this.onProgress.bind(this), this.lobbyMenuConfig, this.splashConfig);
+                this.messageComp.reset();
+                this.messageComp.setMessage(i18n.t("ui.no_game_available"));
+                uiManager.isPauseLoadingIcons = false;
             }.bind(this),
             100
         );
