@@ -63,6 +63,7 @@ export default class MiniRouletteTicketDetailItem extends GameTicketDetailItemBa
                 this.choice.string = choice;
         }
 
+        this.timeLabel.node.color = isWinning ? cc.Color.YELLOW : cc.Color.WHITE;
         this.choice.node.color = isWinning ? cc.Color.YELLOW : cc.Color.WHITE;
         this.stake.node.color = isWinning ? cc.Color.YELLOW : cc.Color.WHITE;
         this.win.node.color = isWinning ? cc.Color.YELLOW : cc.Color.WHITE;
