@@ -17,7 +17,6 @@ import Notice, { NoticeData } from "../../common/notice/view-models/Notice";
 import ScaleActiveController from "../../common/scale-active-item/ScaleActiveController";
 import NoticeUtil from "../../common/utils/NoticeUtil";
 import { getGameId, isMiniGame, isMiniGameByGameId, isUsingRemoteBundle } from "../../configs/GameConfigurations";
-// Removed lobby imports - creating stub implementations
 import { appManager } from "../../managers/AppManager";
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
@@ -29,69 +28,6 @@ import MiniPanelInterface from "./MiniPanelInterface";
 import MiniPanelMiniGameInitializers from "./MiniPanelMiniGameInitializers";
 import MiniPanelSocketIOGameInitializers from "./MiniPanelSocketIOGameInitializers";
 import PopupMinigames from "./popup/PopupMinigames";
-// Removed lobby promotion imports - creating stub implementations
-import LobbyDialogManager from "../../managers/LobbyDialogManager";
-
-// Stub implementations for lobby functionality
-class CircleMenu {
-    // Stub implementation
-}
-
-class LobbyResourceManager {
-    static lobbyResourceManager = {
-        // Stub implementation
-    };
-}
-
-class ResourceLoader {
-    static themeResourceLoader = {
-        // Stub implementation
-    };
-}
-
-class BoostedOdds {
-    // Stub implementation
-}
-
-class PromotionAnnouncements {
-    // Stub implementation
-}
-
-class PromotionNotificationsHandler {
-    static PromotionNotificationsEvent = {
-        // Stub implementation
-    };
-}
-
-class PromotionTournamentHandler {
-    static PromotionTournamentEvents = {
-        // Stub implementation
-    };
-    static promotionTournamentHandler = {
-        // Stub implementation
-    };
-}
-
-class Promotions {
-    static PromotionsEvent = {
-        // Stub implementation
-    };
-}
-
-class FreeSpinsPromotionHandler {
-    static FreeSpinsPromotionEvents = {
-        // Stub implementation
-    };
-    static freeSpinsPromotionHandler = {
-        // Stub implementation
-    };
-}
-
-// Export stub implementations
-export {
-    CircleMenu, LobbyResourceManager, ResourceLoader, BoostedOdds, PromotionAnnouncements,
-    PromotionNotificationsHandler, PromotionTournamentHandler, Promotions, FreeSpinsPromotionHandler
-};
 
 console.log("[MiniPanel] Loading MiniPanel module...");
 
@@ -151,8 +87,8 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
     private promotionAnnouncementPrefab: cc.Prefab;
     private promotionTournamentPrefab: cc.Prefab;
     private freeSpinsPromotionPrefab: cc.Prefab;
-    public boostedOdds: BoostedOdds;
-    public promotionAnnouncement: PromotionAnnouncements;
+    public boostedOdds: any;
+    public promotionAnnouncement: any;
     private readonly preloadFolderPercent = 25;
     private readonly preloadOthersPercent = 30;
 
@@ -196,13 +132,9 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
         this.socketIOGameInitializers = new MiniPanelSocketIOGameInitializers(this);
         console.log("[MiniPanel] Data handlers and initializers created");
 
-        // this.initPopUpMiniGames();
         this.registerPromotionEvents();
         console.log("[MiniPanel] Promotion events registered");
 
-        // this.miniGames.on(cc.Node.EventType.CHILD_ADDED, this.onGamesLayerChanged.bind(this));
-        // this.miniGames.on(cc.Node.EventType.CHILD_REMOVED, this.onGamesLayerChanged.bind(this));
-        // this.miniGames.on(cc.Node.EventType.CHILD_REORDER, this.onGamesLayerChanged.bind(this));
         this.noticeContainer.on(cc.Node.EventType.CHILD_ADDED, this.onGamesLayerChanged.bind(this));
         this.noticeContainer.on(cc.Node.EventType.CHILD_REMOVED, this.onGamesLayerChanged.bind(this));
         this.guideContainer.on(cc.Node.EventType.CHILD_ADDED, this.onGamesLayerChanged.bind(this));
@@ -283,7 +215,7 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
 
     registerPromotionEvents() {
         console.log("[MiniPanel] Registering promotion events...");
-        // Promotion events removed - no longer needed without lobby
+        // Direct mode only - no promotion events needed
         console.log("[MiniPanel] Promotion events registration skipped");
     }
 
@@ -707,8 +639,8 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
             {
                 text: i18n.t("messages.lostGameConnection", { gameName: gameName })
             } as NoticeData,
-            null, // No lobby redirect on close
-            null  // No lobby redirect on close
+            null,
+            null
         );
 
         this.setLoadingVisibility(false);

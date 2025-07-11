@@ -25,23 +25,17 @@ export default class MicrositeGame extends BaseMicrositeGame {
         const directMode = SessionManager.getDirectMode();
         const operator = SessionManager.getOperator();
         const audio = AudioManager.getInstance();
-        const validDirectMode = appManager.isDirectMode;
 
         console.log("[MicrositeGame] Direct mode:", directMode);
         console.log("[MicrositeGame] Operator:", operator);
-        console.log("[MicrositeGame] Valid direct mode:", validDirectMode);
-        cc.log("========================= validDirectMode     ", validDirectMode);
 
         const params = {
             ss: auData.ss,
             uname: auData.username,
             lang: auData.language,
             appType: auData.system,
-            ref: validDirectMode ? directMode?.ref : "",
-            rurl:
-                validDirectMode && appManager.checkDirectModeRefData(directMode?.ref)
-                    ? directMode?.returnUrl
-                    : EncryptUtils.base64Encode(window.location.href),
+            ref: directMode?.ref || "",
+            rurl: directMode?.returnUrl || EncryptUtils.base64Encode(window.location.href),
             purl: EncryptUtils.base64Encode(window.location.href),
             musicEnable: audio.musicEnabled,
             sfxEnable: audio.sfxEnabled,
@@ -89,7 +83,7 @@ export default class MicrositeGame extends BaseMicrositeGame {
     }
 
     protected loadLobbyScene() {
-        console.log("[MicrositeGame] Lobby scene removed, redirecting to splash...");
+        console.log("[MicrositeGame] Direct mode - redirecting to splash...");
         cc.director.loadScene("Splash", async () => {
             console.log("[MicrositeGame] Splash scene loaded, handling back from microsite game...");
             await this.handleBackFromMicrositeGame();

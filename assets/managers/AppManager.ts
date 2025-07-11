@@ -53,7 +53,7 @@ class AppManager {
     urlInfo = {};
     authorized = false;
 
-    _isDirectMode = false;
+    _isDirectMode = true; // Always direct mode
     _appMode = false;
 
     _PFF = false;
@@ -144,7 +144,7 @@ class AppManager {
 
     clearPromotionObservers() {
         console.log("[AppManager] Clearing promotion observers...");
-        // Promotions removed with lobby
+        // Direct mode only - no promotion observers needed
         console.log("[AppManager] Promotion observers cleared");
     }
 
@@ -152,23 +152,23 @@ class AppManager {
         console.log("[AppManager] Initializing promotions...");
         this.clearPromotionObservers();
 
-        console.log("[AppManager] Promotions removed with lobby");
+        console.log("[AppManager] Direct mode only - no promotions needed");
         console.log("[AppManager] Promotions initialized");
     }
 
     get isDirectMode() {
-        console.log("[AppManager] Getting isDirectMode:", this._isDirectMode);
-        return this._isDirectMode;
+        console.log("[AppManager] Getting isDirectMode: true");
+        return true; // Always direct mode
     }
 
     set isDirectMode(value) {
-        console.log("[AppManager] Setting isDirectMode to:", value);
-        this._isDirectMode = value;
+        console.log("[AppManager] Setting isDirectMode ignored - always direct mode");
+        // Ignore setting - always direct mode
     }
 
     get isDirectModeInRoomGame() {
         const roomGameId = sessionManager.getInRoomGameId(false);
-        const isDirectModeInRoom = this.isDirectMode && +roomGameId === appManager.directGameId;
+        const isDirectModeInRoom = +roomGameId === appManager.directGameId;
         console.log("[AppManager] Getting isDirectModeInRoomGame:", isDirectModeInRoom, "roomGameId:", roomGameId, "directGameId:", appManager.directGameId);
         return isDirectModeInRoom;
     }
@@ -203,13 +203,8 @@ class AppManager {
     }
 
     redirectToLobby() {
-        console.log("[AppManager] Lobby redirection called - lobby scene removed");
-        if (appManager.isDirectMode) {
-            console.log("[AppManager] Direct mode active, returning to operator lobby");
-            appManager.backToOperatorLobby();
-        } else {
-            console.log("[AppManager] No lobby scene available, staying in current scene");
-        }
+        console.log("[AppManager] Lobby redirection called - direct mode only");
+        appManager.backToOperatorLobby();
     }
 
     checkDirectModeRefData(refData: string) {
@@ -248,15 +243,15 @@ class AppManager {
         console.log("[AppManager] Starting SSO and authorization process...");
         console.log("[AppManager] Handling app mode...");
         this.handleAppMode();
-        console.log("[AppManager] App mode handled - Direct Mode:", this.isDirectMode, "App Mode:", this.isAppMode, "PFF:", this.isPFF);
+        console.log("[AppManager] App mode handled - Direct Mode: true, App Mode:", this.isAppMode, "PFF:", this.isPFF);
 
         console.log("[AppManager] Handling currency group...");
         await this.handleCurrencyGroup();
         console.log("[AppManager] Currency group handled");
         await this.requestSSO();
         console.log("[AppManager] SSO request completed");
-        console.log("[AppManager] Lobby configs removed");
-        if (window.authData && this.isDirectMode) {
+        console.log("[AppManager] Direct mode only - no lobby configs");
+        if (window.authData) {
             console.log("[AppManager] Direct mode detected, removing in-room game ID and saving direct mode info");
             sessionManager.removeInRoomGameId();
             this.saveDirectModeInfo();
@@ -282,7 +277,7 @@ class AppManager {
             console.log("[AppManager] Currency group from storage:", currencyGroup);
         }
 
-        console.log("[AppManager] Lobby resource manager removed");
+        console.log("[AppManager] Direct mode only - no lobby resource manager");
         console.log("[AppManager] Currency group handling completed");
     }
 
@@ -302,7 +297,6 @@ class AppManager {
                     this.urlInfo[UrlInfo.ReturnUrl] = urlParams.get("rurl");
                     console.log("[AppManager] Return URL set:", urlParams.get("rurl"));
                 }
-                this.isDirectMode = true;
             }
 
             if (this.checkPFFData(refData)) {
@@ -367,7 +361,6 @@ class AppManager {
                 this.urlInfo[UrlInfo.Ref] = data[UrlInfo.Ref];
                 this.urlInfo[UrlInfo.ReturnUrl] = data[UrlInfo.ReturnUrl];
                 this.urlInfo[UrlInfo.DirectGameId] = data[UrlInfo.DirectGameId];
-                this.isDirectMode = true;
             } else {
                 console.log("[AppManager] SS mismatch, not restoring direct mode");
             }
@@ -387,7 +380,7 @@ class AppManager {
         if (!response.authorized && (this.autoGenerateNickname || response.autoGenerateNickname)) {
             return this.autoGenerateName();
         }
-        // Promotion handler removed with lobby
+        // Direct mode only - no promotion handler needed
         response.user && userManager.updateUser(response.user);
         return response.authorized;
     }

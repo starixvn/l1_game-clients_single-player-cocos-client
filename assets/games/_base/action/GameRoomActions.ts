@@ -98,26 +98,10 @@ export const outRoomGame = (game: any) => () => {
     });
 };
 
-const handleGoToOtherScene = (game: any, isDirectMode: boolean, isGameShow: boolean) => {
-    if (isDirectMode) {
-        if (isGameShow && game?.closeGameByClick) {
-            appManager.backToOperatorLobby();
-        } else if (!game.openOtherScene) {
-            cc.director.loadScene("Splash");
-        }
-    } else {
-        uiManager.isPauseLoadingIcons = false;
-        const gameId = game.gameId;
-        if (isGatewayGame(gameId)) {
-            cc.log("Open gateway lobby from game V2");
-            const gameConfiguration = getGameConfiguration(gameId);
-            const mainId = gameConfiguration.gateway?.id;
-            GameUtils.openSocketGatewayGame(mainId, game.currentMiniPanel.socketIOController);
-            appManager.clearSSOGameId();
-            return;
-        }
-
-        // Lobby scene removed, redirect to splash
+const handleGoToOtherScene = (game: any, isGameShow: boolean) => {
+    if (isGameShow && game?.closeGameByClick) {
+        appManager.backToOperatorLobby();
+    } else if (!game.openOtherScene) {
         cc.director.loadScene("Splash");
     }
 };
@@ -137,12 +121,11 @@ export const closeGame = (game: any) => () => {
 
     const isGameShow = appManager.GAME_IS_SHOWED;
     game.outRoomGame().then(() => {
-        const isDirectMode = appManager.isDirectMode;
         if (!game.isGameHide) {
             sessionManager.removeInRoomGameId();
         }
 
-        handleGoToOtherScene(game, isDirectMode, isGameShow);
+        handleGoToOtherScene(game, isGameShow);
     });
 };
 

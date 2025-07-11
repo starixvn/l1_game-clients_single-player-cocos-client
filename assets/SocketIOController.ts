@@ -244,17 +244,7 @@ export default class SocketIOController implements SocketIOControllerInterface {
 
     private onCloseNoticeConnectionError() {
         console.log("[SocketIOController] Handling connection error notice close");
-        if (appManager.isDirectMode) {
-            console.log("[SocketIOController] Direct mode - backing to operator lobby");
-            appManager.backToOperatorLobby();
-        } else {
-            const currentSceneName = cc.director.getScene().name;
-            console.log("[SocketIOController] Current scene:", currentSceneName);
-            if (currentSceneName === "Splash") {
-                console.log("[SocketIOController] Emitting CAN_NOT_OPEN_GAME_AT_SPLASH event");
-                uiManager.emitter.emit(InternalEvents.CAN_NOT_OPEN_GAME_AT_SPLASH);
-            }
-        }
+        appManager.backToOperatorLobby();
     }
 
     private newInitListeners(socket, gameId: number, isMiniGame: boolean) {

@@ -51,8 +51,6 @@ export default class MainSplash extends cc.Component {
     @property(cc.Node)
     noticeContainer: cc.Node = null;
 
-
-
     @lazyInject(SocketIOController)
     private readonly socketIOController: SocketIOController;
 
@@ -180,15 +178,7 @@ export default class MainSplash extends cc.Component {
     canNotOpenGameAtSplash() {
         appManager.clearSSOGameId();
         sessionManager.removeInRoomGameId();
-
-        if (appManager.isDirectMode) {
-            appManager.backToOperatorLobby();
-        } else {
-            // Since lobby is removed, show error message for no game available
-            this.messageComp.reset();
-            this.messageComp.setMessage(i18n.t("ui.no_game_available"));
-            uiManager.isPauseLoadingIcons = false;
-        }
+        appManager.backToOperatorLobby();
     }
 
     private clearUIListeners() {
@@ -208,10 +198,7 @@ export default class MainSplash extends cc.Component {
                 appManager.clearSSOGameId();
             } else {
                 cc.log("Main Splash : No game available");
-                // Since lobby is removed, show error message for no game available
-                this.messageComp.reset();
-                this.messageComp.setMessage(i18n.t("ui.no_game_available"));
-                uiManager.isPauseLoadingIcons = false;
+                appManager.backToOperatorLobby();
             }
         } catch (error) {
             sentryLogger.logError(error);
@@ -232,12 +219,10 @@ export default class MainSplash extends cc.Component {
     }
 
     preloadLobbyScene() {
-        // Since lobby scene is removed, show error message for no game available
+        // Direct mode only - no lobby scene needed
         this.loadSceneTimeout = setTimeout(
             function () {
-                this.messageComp.reset();
-                this.messageComp.setMessage(i18n.t("ui.no_game_available"));
-                uiManager.isPauseLoadingIcons = false;
+                appManager.backToOperatorLobby();
             }.bind(this),
             100
         );

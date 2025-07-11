@@ -19,13 +19,12 @@ export default class DirectModeVisibility extends cc.Component {
 
     private getVisibility(type: NodeType): boolean {
         let visible = false;
-        const isDirectMode = appManager.isDirectMode;
         switch (type) {
             case NodeType.Lobby:
-                visible = !isDirectMode || appManager.urlInfo[UrlInfo.ReturnUrl];
+                visible = !!appManager.urlInfo[UrlInfo.ReturnUrl];
                 break;
             case NodeType.Back:
-                visible = isDirectMode && appManager.urlInfo[UrlInfo.ReturnUrl];
+                visible = !!appManager.urlInfo[UrlInfo.ReturnUrl];
                 break;
         }
 
