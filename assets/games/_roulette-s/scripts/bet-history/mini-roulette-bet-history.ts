@@ -14,6 +14,9 @@ export default class MiniRouletteBetHistory extends SocketIOGameHistoryBase {
     @property(cc.Prefab)
     loadingPrefab: cc.Prefab = null;
 
+    @property(cc.Label)
+    noDataLabel: cc.Label = null;
+
     loadingNode: cc.Node = null;
 
     currentPage = 0;
@@ -51,6 +54,7 @@ export default class MiniRouletteBetHistory extends SocketIOGameHistoryBase {
 
     onData(data) {
         const { page, pageSize, total, betLogs } = data;
+        this.noDataLabel.node.active = total === 0;
         this.currentPage = page;
         this.totalData = total;
         this.pageSize = pageSize;
