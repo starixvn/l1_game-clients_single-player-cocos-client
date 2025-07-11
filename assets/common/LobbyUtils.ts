@@ -110,7 +110,7 @@ export default class LobbyUtils {
             skeletonData.textures = [await loadRemoteIconData(`icon-game.${atlasExt}`)];
             skeletonData["textureNames"] = [`icon-game.${atlasExt}`];
 
-            uiManager.remoteIconCache[gameId] = { skeletonData: skeletonData, configFile};
+            uiManager.remoteIconCache[gameId] = { skeletonData: skeletonData, configFile };
         } catch (error) {
             console.log("preloadRemoteIcon error", error.message);
         }
@@ -232,7 +232,7 @@ export default class LobbyUtils {
 
         try {
             const startLoadTime = Date.now();
-            console.log(`SplashScreen - Start i&b: ${new Date(startLoadTime).toLocaleString()}`);
+            // console.log(`SplashScreen - Start i&b: ${new Date(startLoadTime).toLocaleString()}`);
             await Promise.all([
                 LobbyUtils.preLoadBanner(lobbyMenuConfig, (finish, total) => updateProgressKey("banner", finish, total)),
                 LobbyUtils.preLoadGameIcons(lobbyMenuConfig, splashConfig, (finish, total) => updateProgressKey("gameIcon", finish, total)),
@@ -243,10 +243,10 @@ export default class LobbyUtils {
                 LobbyUtils.preloadSceneLobby((finish, total) => updateProgressKey("sceneLobby", finish, total))
             ]);
             const endLoadTime = Date.now();
-            console.log(
-                `SplashScreen - End i&b: ${new Date(endLoadTime).toLocaleString()}`,
-                `Total time: ${(endLoadTime - startLoadTime) / 1000}`
-            );
+            // console.log(
+            //     `SplashScreen - End i&b: ${new Date(endLoadTime).toLocaleString()}`,
+            //     `Total time: ${(endLoadTime - startLoadTime) / 1000}`
+            // );
             LobbyUtils.preloadedLobby = true;
             cc.director.loadScene("Lobby");
         } catch (e) {
@@ -298,12 +298,12 @@ export default class LobbyUtils {
                     onProgress(index + 1, total);
                 }
 
-                console.log(`SplashScreen - Completed load game icons`, [
-                    {
-                        name: "main",
-                        ids: preloadGameInMain.join(",")
-                    }
-                ]);
+                // console.log(`SplashScreen - Completed load game icons`, [
+                //     {
+                //         name: "main",
+                //         ids: preloadGameInMain.join(",")
+                //     }
+                // ]);
 
                 return;
             }
@@ -331,20 +331,20 @@ export default class LobbyUtils {
                 onProgress(index + 1, total);
             }
 
-            console.log(`SplashScreen - Completed load game icons`, [
-                {
-                    name: "main",
-                    ids: preloadGameInMain.join(",")
-                },
-                {
-                    name: "custom-by-system",
-                    ids: preLoadGameBySystemIds.join(",")
-                },
-                {
-                    name: "remote",
-                    ids: preloadRemoteGameIds.join(",")
-                }
-            ]);
+            // console.log(`SplashScreen - Completed load game icons`, [
+            //     {
+            //         name: "main",
+            //         ids: preloadGameInMain.join(",")
+            //     },
+            //     {
+            //         name: "custom-by-system",
+            //         ids: preLoadGameBySystemIds.join(",")
+            //     },
+            //     {
+            //         name: "remote",
+            //         ids: preloadRemoteGameIds.join(",")
+            //     }
+            // ]);
         } catch (ex) {
             console.log(ex);
         }

@@ -82,7 +82,6 @@ export default class RouletteS extends SoloGame {
 
     protected onChangedBetChip(bet: number) {
         super.onChangedBetChip(bet);
-        console.log("onChangedBetChip", bet);
         this.soloBetModel.setCurrentBet(bet);
     }
 
