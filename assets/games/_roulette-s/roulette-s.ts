@@ -200,6 +200,7 @@ export default class RouletteS extends SoloGame {
     }
 
     onRouletteBetClick(choice: string) {
+        this.resetAutoRebetCount();
         if (!this.checkAvailableBetChoices(choice, this.currentBet) || !this.checkAvailableBalance(this.currentBet)) {
             return;
         }
@@ -294,7 +295,7 @@ export default class RouletteS extends SoloGame {
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;
 
-            this.btnAutoRebet.interactable = true;
+            this.setAutoRebetInteractable(true);
 
             if (this.autoRebetCount > 0) {
                 console.log("-----------after Settlement autoRebetCount", this.autoRebetCount);
@@ -304,7 +305,7 @@ export default class RouletteS extends SoloGame {
                 this.autoRebetCount--;
                 this.updateAutoRebetCount();
             } else {
-                this.setAutoRebetMessageVisibility(false);
+                this.hideAutoRebetMessage();
             }
         });
     }

@@ -28,8 +28,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     onLoad() {
         super.onLoad();
         this.animatedTime.setAnimatedY(20, -10);
-        this.btnAutoRebet.interactable = false;
-        this.setAutoRebetMessageVisibility(false);
+        this.hideAutoRebetMessage();
     }
 
     get soloBetModel() {
@@ -118,7 +117,7 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.onReBet(betObject);
         this.autoRebetCount = autoRebetCount - 1;
         this.updateAutoRebetCount();
-        this.setAutoRebetMessageVisibility(true);
+        this.showAutoRebetMessage();
     }
 
     convertBetQueueToBetObject(bets: ChoiceBet[]): { [choice: string]: number } {
@@ -134,22 +133,32 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.lblAutoRebetCount.string = this.autoRebetCount.toString();
     }
 
-    setAutoRebetMessageVisibility(isVisible: boolean) {
-        const autoRebetMessage = this.lblAutoRebetCount.node.parent;
+    resetAutoRebetCount() {
+        this.autoRebetCount = 0;
+        this.setAutoRebetInteractable(false);
+    }
 
-        if (isVisible) {
-            autoRebetMessage.active = isVisible;
-            autoRebetMessage.scale = 0;
-            autoRebetMessage.opacity = 0;
-            cc.tween(autoRebetMessage).to(0.5, { scale: 1, opacity: 255 }, { easing: "backOut" }).start();
-        } else {
-            cc.tween(autoRebetMessage)
-                .to(0.5, { scale: 0, opacity: 0 }, { easing: "backIn" })
-                .call(() => {
-                    autoRebetMessage.active = isVisible;
-                })
-                .start();
-        }
+    setAutoRebetInteractable(isInteractable: boolean) {
+        this.btnAutoRebet.interactable = isInteractable;
+    }
+
+    showAutoRebetMessage() {
+        const autoRebetMessage = this.lblAutoRebetCount.node.parent;
+        autoRebetMessage.active = true;
+        autoRebetMessage.scale = 0;
+        autoRebetMessage.opacity = 0;
+
+        cc.tween(autoRebetMessage).to(0.5, { scale: 1, opacity: 255 }, { easing: "backOut" }).start();
+    }
+
+    hideAutoRebetMessage() {
+        const autoRebetMessage = this.lblAutoRebetCount.node.parent;
+        cc.tween(autoRebetMessage)
+            .to(0.5, { scale: 0, opacity: 0 }, { easing: "backIn" })
+            .call(() => {
+                autoRebetMessage.active = false;
+            })
+            .start();
     }
 
     clickReBet() {
