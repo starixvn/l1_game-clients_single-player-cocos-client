@@ -33,6 +33,8 @@ import LobbyManager from "./LobbyManager";
 import FreeSpinsPromotionHandler from "../../promotions/FreeSpinsPromotionHandler";
 import LobbyDialogManager from "../../../managers/LobbyDialogManager";
 
+console.log("[Lobby] Loading Lobby module...");
+
 const socketIOController = appContainer.get(SocketIOController);
 const sentryLogger = logger();
 
@@ -96,54 +98,85 @@ export default class Lobby extends cc.Component {
     signNamePrefab: cc.Prefab = null;
 
     onDestroy() {
+        console.log("[Lobby] Lobby onDestroy called");
         appManager.miniPanel = null;
         appManager.currentScene = null;
         window.isSSO = false;
         PromotionNotificationsHandler.getInstance().setJoinGameId(0);
         this.removeGameUIEvent();
         LobbyDialogManager.getInstance().clearQueue();
+        console.log("[Lobby] Lobby destroyed successfully");
     }
 
     async onLoad() {
+        console.log("[Lobby] Lobby onLoad started");
         document.cookie = "redT=1702;path=/";
+        console.log("[Lobby] Cookie set: redT=1702");
+
         this.trackOnLoadEvents();
+        console.log("[Lobby] OnLoad events tracked");
 
         appManager.currentScene = this;
         uiManager.isPauseLoadingIcons = false;
+        console.log("[Lobby] App manager and UI manager configured");
+
         this.initGameUIEvents();
+        console.log("[Lobby] Game UI events initialized");
+
         await this.initUIs();
+        console.log("[Lobby] UIs initialized");
+
         this.checkToShowSignName();
+        console.log("[Lobby] Sign name check completed");
+
         MusicPlayer.getInstance().init();
+        console.log("[Lobby] Music player initialized");
+        console.log("[Lobby] Lobby onLoad completed");
     }
 
     showCenterBanner() {
+        console.log("[Lobby] Showing center banner");
         cc.log("Lobby show center banner");
         // call in schedule to fix bug, not yet register listener in child's onLoad
         this.scheduleOnce(() => {
+            console.log("[Lobby] Emitting CENTER_BANNER_SHOW event");
             uiManager.emitter.emit(InternalEvents.CENTER_BANNER_SHOW);
         }, 0.3);
     }
 
     async initUIs() {
+        console.log("[Lobby] Initializing UIs...");
         this.initMiniPanel();
+        console.log("[Lobby] Mini panel initialized");
+
         await Promise.all([this.loadBackgroundUI(), this.loadPrefabByThemeCategoryContainer(), this.loadLobbyCenterContainer()]);
+        console.log("[Lobby] Background UI, category container, and lobby center loaded");
+
         Promise.all([this.loadHeader(), this.loadButtonArrow(), this.loadButtons(), this.loadMarquee()]);
+        console.log("[Lobby] Header, button arrow, buttons, and marquee loading initiated");
     }
 
     async loadBackgroundUI() {
+        console.log("[Lobby] Loading background UI...");
         try {
             if (!this.backgroundUIPrefab) {
+                console.log("[Lobby] Loading background UI prefab from theme");
                 this.backgroundUIPrefab = await themeResourceLoader?.loadPrefabByTheme("background-ui");
             }
 
             const backgroundUI = cc.instantiate(this.backgroundUIPrefab);
             backgroundUI && this.backgroundUIContainer?.addChild(backgroundUI);
-        } catch (err) {}
+            console.log("[Lobby] Background UI loaded successfully");
+        } catch (err) {
+            console.error("[Lobby] Error loading background UI:", err);
+        }
     }
 
     async loadHeader() {
+        console.log("[Lobby] Loading header...");
         try {
             if (!this.headerPrefab) {
+                console.log("[Lobby] Loading header prefab from theme");
                 this.headerPrefab = await themeResourceLoader?.loadPrefabByTheme("header");
             }
 
@@ -152,13 +185,18 @@ export default class Lobby extends cc.Component {
                 this.headerComp = header?.getComponent(Header);
                 this.headerContainer?.addChild(header);
                 this.onLoadLobby();
+                console.log("[Lobby] Header loaded successfully");
             }
-        } catch (err) {}
+        } catch (err) {
+            console.error("[Lobby] Error loading header:", err);
+        }
     }
 
     async loadMarquee() {
+        console.log("[Lobby] Loading marquee...");
         try {
             if (!this.marqueePrefab) {
+                console.log("[Lobby] Loading marquee prefab from theme");
                 this.marqueePrefab = await themeResourceLoader?.loadPrefabByTheme("marquee");
             }
 
@@ -166,13 +204,18 @@ export default class Lobby extends cc.Component {
             if (marquee) {
                 this.newsContentsComp = marquee?.getComponent(NewsContent);
                 this.marqueeContainer?.addChild(marquee);
+                console.log("[Lobby] Marquee loaded successfully");
             }
-        } catch (err) {}
+        } catch (err) {
+            console.error("[Lobby] Error loading marquee:", err);
+        }
     }
 
     async loadLobbyCenterContainer() {
+        console.log("[Lobby] Loading lobby center container...");
         try {
             if (!this.lobbyCenterPrefab) {
+                console.log("[Lobby] Loading lobby center prefab from theme");
                 this.lobbyCenterPrefab = await themeResourceLoader?.loadPrefabByTheme("lobby-center");
             }
 
@@ -183,13 +226,18 @@ export default class Lobby extends cc.Component {
                 this.lobbyCenterComp.initScrollListener();
 
                 this.lobbyCenterContainer?.addChild(lobbyCenter);
+                console.log("[Lobby] Lobby center container loaded successfully");
             }
-        } catch (err) {}
+        } catch (err) {
+            console.error("[Lobby] Error loading lobby center container:", err);
+        }
     }
 
     async loadButtonArrow() {
+        console.log("[Lobby] Loading button arrow...");
         try {
             if (!this.buttonArrowPrefab) {
+                console.log("[Lobby] Loading button arrow prefab from theme");
                 this.buttonArrowPrefab = await themeResourceLoader?.loadPrefabByTheme("button-arrow");
             }
 
@@ -201,13 +249,18 @@ export default class Lobby extends cc.Component {
                     this.lobbyCenterComp?.onFastScrollClick();
                 });
                 this.buttonArrowContainer?.addChild(buttonArrow);
+                console.log("[Lobby] Button arrow loaded successfully");
             }
-        } catch (err) {}
+        } catch (err) {
+            console.error("[Lobby] Error loading button arrow:", err);
+        }
     }
 
     async loadButtons() {
+        console.log("[Lobby] Loading buttons...");
         try {
             if (!this.containerButtonsPrefabs) {
+                console.log("[Lobby] Loading buttons prefab from theme");
                 this.containerButtonsPrefabs = await themeResourceLoader?.loadPrefabByTheme("buttons");
             }
 
@@ -217,13 +270,18 @@ export default class Lobby extends cc.Component {
                 compButtonsLobby.initClickEven(compButtonsLobby.downloadApp, this.node, "Lobby", "redirectToDownloadPage");
                 compButtonsLobby.initClickEven(compButtonsLobby.settingMenu, this.node, "Lobby", "openSettingMenu");
                 this.buttonsContainer.addChild(buttons);
+                console.log("[Lobby] Buttons loaded successfully");
             }
-        } catch (err) {}
+        } catch (err) {
+            console.error("[Lobby] Error loading buttons:", err);
+        }
     }
 
     async loadPrefabByThemeCategoryContainer() {
+        console.log("[Lobby] Loading category container...");
         try {
             if (!this.categoryContainerPrefab) {
+                console.log("[Lobby] Loading category container prefab from theme");
                 this.categoryContainerPrefab = await themeResourceLoader?.loadPrefabByTheme("category-container");
             }
 
@@ -235,14 +293,19 @@ export default class Lobby extends cc.Component {
                 };
                 this.categoryContainer.addChild(categoryContainer);
                 this.categoryListComp?.loadCategory();
+                console.log("[Lobby] Category container loaded successfully");
             }
-        } catch (err) {}
+        } catch (err) {
+            console.error("[Lobby] Error loading category container:", err);
+        }
     }
 
     async openSettingMenu() {
+        console.log("[Lobby] Opening setting menu...");
         try {
             AudioManager.getInstance().playClick();
             if (!this.settingMenuPrefab) {
+                console.log("[Lobby] Loading setting menu prefab from theme");
                 this.settingMenuPrefab = await themeResourceLoader?.loadPrefabByTheme("setting-menu");
             }
 
@@ -250,15 +313,22 @@ export default class Lobby extends cc.Component {
             settingMenu.on(SettingMenuEvents.LOGOUT, async () => {
                 try {
                     if (!this.logoutPrefab) {
+                        console.log("[Lobby] Loading logout prefab");
                         this.logoutPrefab = await GameUtils.loadResource("prefabs/LogoutPopup");
                     }
 
                     const dialog = cc.instantiate(this.logoutPrefab);
                     this.miniPanel.addDialog(dialog);
-                } catch (err) {}
+                    console.log("[Lobby] Logout dialog added");
+                } catch (err) {
+                    console.error("[Lobby] Error adding logout dialog:", err);
+                }
             });
             this.miniPanel.addDialog(settingMenu);
-        } catch (err) {}
+            console.log("[Lobby] Setting menu loaded and added");
+        } catch (err) {
+            console.error("[Lobby] Error opening setting menu:", err);
+        }
     }
 
     private trackOnLoadEvents() {
@@ -293,7 +363,7 @@ export default class Lobby extends cc.Component {
                 ).toLocaleString()}. Total loading time in splash screen: ${totalLoadPageTimeInSeconds}`
             );
             window["dontWritePageLoadingTimeLog"] = true;
-        } catch {}
+        } catch { }
     }
 
     initGameUIEvents() {
@@ -307,25 +377,31 @@ export default class Lobby extends cc.Component {
         );
         uiManager.emitterListener(InternalEvents.NOT_EXIST_MINI_GAMES, this.handleSsoLobby.bind(this), this);
         uiManager.emitterListener(InternalEvents.CLOSE_GAME, this.checkExistGameMini.bind(this), this);
+        console.log("[Lobby] Game UI events listeners registered");
     }
 
     openGameFromCenterBanner(gameId: number) {
+        console.log("[Lobby] Opening game from center banner:", gameId);
         AudioManager.getInstance().playClick();
         GameUtils.openGame(gameId, this.miniPanel, null, true);
     }
 
     removeGameUIEvent() {
         uiManager.removeListenersWithTarget(this);
+        console.log("[Lobby] Game UI events listeners removed");
     }
 
     initMiniPanel() {
+        console.log("[Lobby] Initializing mini panel...");
         const miniPanelNode = cc.instantiate(this.miniPanelPrefab);
         this.miniPanel = miniPanelNode.getComponent(MiniPanel);
         appManager.miniPanel = this.miniPanel;
         this.redhat?.insertChild(miniPanelNode, 1);
+        console.log("[Lobby] Mini panel initialized successfully");
     }
 
     checkToShowSignName() {
+        console.log("[Lobby] Checking to show sign name...");
         if (!appManager.authorized) {
             this.showSignName();
         } else {
@@ -335,6 +411,7 @@ export default class Lobby extends cc.Component {
     }
 
     onLoadLobby() {
+        console.log("[Lobby] onLoadLobby called");
         if (appManager.authorized) {
             this.headerComp.active();
             this.headerComp.setUserName(userManager.userName);
@@ -345,14 +422,14 @@ export default class Lobby extends cc.Component {
     }
 
     onSignIn() {
-        cc.log("Lobby onSignIn");
+        console.log("[Lobby] onSignIn called");
         this.isSSOToGame = appManager.ssoGameId > 0;
         if (this.isSSOToGame) {
             try {
                 const offerGames = LobbyManager.getInstance().getAllGameIds();
 
                 if (offerGames.includes(appManager.ssoGameId)) {
-                    cc.log("Lobby onSignIn - isSSOToGame");
+                    console.log("[Lobby] onSignIn - isSSOToGame");
                     this.loadLobby(false);
                     this.openGameSSO();
                     return;
@@ -363,7 +440,7 @@ export default class Lobby extends cc.Component {
         }
 
         if (sessionManager.getInRoomGameId()) {
-            cc.log("Lobby onSignIn - reload game room");
+            console.log("[Lobby] onSignIn - reload game room");
             this.loadLobby(false);
             this.reloadCurrentRoomGame();
             return;
@@ -375,6 +452,7 @@ export default class Lobby extends cc.Component {
     }
 
     handleSsoLobby() {
+        console.log("[Lobby] handleSsoLobby called");
         if (appManager.didSsoLobby) {
             return;
         }
@@ -383,6 +461,7 @@ export default class Lobby extends cc.Component {
         this.openLuckyWheel();
     }
     checkExistGameMini() {
+        console.log("[Lobby] Checking if game mini exists...");
         const activeMiniGame = this.miniPanel?.miniGames?.children.find((child) => child.active);
         if (!activeMiniGame) {
             uiManager.emitter.emit(InternalEvents.NOT_EXIST_MINI_GAMES);
@@ -390,12 +469,14 @@ export default class Lobby extends cc.Component {
     }
 
     loadLobby(loadAllBanners: boolean) {
+        console.log("[Lobby] Loading lobby...");
         if (!this.initializedLobby) {
             this.initLobbyCategoryBanner(loadAllBanners);
         }
     }
 
     initLobbyCategoryBanner(loadAllBanners: boolean) {
+        console.log("[Lobby] Initializing lobby category banner...");
         if (userManager.offerGames.length === 0) {
             this.showNotice({ text: i18n.t("messages.noGameOffer") });
         }
@@ -409,6 +490,7 @@ export default class Lobby extends cc.Component {
         this.lobbyCenterComp?.initBanners(loadAllBanners);
 
         this.initializedLobby = true;
+        console.log("[Lobby] Lobby category banner initialized");
     }
 
     outRoomGame() {
@@ -420,6 +502,7 @@ export default class Lobby extends cc.Component {
     }
 
     serviceAuthorized(Authorized) {
+        console.log("[Lobby] Service authorized:", Authorized);
         this.loading.active = false;
 
         if (!Authorized) {
@@ -430,6 +513,7 @@ export default class Lobby extends cc.Component {
     }
 
     handleUserData(user) {
+        console.log("[Lobby] Handling user data:", user);
         userManager.updateUser(user);
         try {
             if (user.name) {
@@ -446,12 +530,14 @@ export default class Lobby extends cc.Component {
     }
 
     formatUserCurrency(red, currency = null, isDisplayPlayerCurrency = false) {
+        console.log("[Lobby] Formatting user currency:", red, currency, isDisplayPlayerCurrency);
         const userCurrency = isDisplayPlayerCurrency || userManager.isDisplayPlayerCurrency ? this.getUserCurrency(currency) : "";
 
         return `${truncateFixedDecimals(red, 2)} ${userCurrency}`;
     }
 
     getUserCurrency(currency = null) {
+        console.log("[Lobby] Getting user currency:", currency);
         if (userManager.currency) {
             return userManager.currency.toUpperCase();
         } else {
@@ -460,10 +546,12 @@ export default class Lobby extends cc.Component {
     }
 
     showNotice(noticeData: any, onClickButton: () => void = null, onClose: () => void = null) {
+        console.log("[Lobby] Showing notice:", noticeData);
         this.miniPanel.showNotice(noticeData, onClickButton, onClose);
     }
 
     loadUserData(data: any) {
+        console.log("[Lobby] Loading user data:", data);
         if (void 0 !== data.red && this.headerComp && this.headerComp.userRed) {
             this.headerComp.setBalance(this.formatUserCurrency(data.red, data.currency, data.isDisplayPlayerCurrency));
         }
@@ -487,16 +575,19 @@ export default class Lobby extends cc.Component {
     }
 
     signOut() {
+        console.log("[Lobby] Signing out...");
         userManager.updateUser({});
         this.allReset();
         authManager.signOut();
     }
 
     onDisconnected() {
+        console.log("[Lobby] On disconnected called");
         this.allReset();
     }
 
     signIn() {
+        console.log("[Lobby] Signing in...");
         if (this.signName && this.signName.node) {
             const commonDialog = this.signName.dialogNode.getComponent(CommonDialog);
             commonDialog.closeDialog(false);
@@ -506,6 +597,7 @@ export default class Lobby extends cc.Component {
     }
 
     openGameSSO(onComplete?: () => void) {
+        console.log("[Lobby] Opening SSO game:", appManager.ssoGameId);
         const gameId = appManager.ssoGameId;
         GameUtils.clearGameSetting(gameId);
         GameUtils.openGame(gameId, this.miniPanel, onComplete, true);
@@ -514,6 +606,7 @@ export default class Lobby extends cc.Component {
     }
 
     reloadCurrentRoomGame() {
+        console.log("[Lobby] Reloading current room game:", sessionManager.getInRoomGameId());
         const inRoomGameId = sessionManager.getInRoomGameId();
         if (inRoomGameId) {
             GameUtils.openGame(+inRoomGameId, this.miniPanel, null, true);
@@ -521,23 +614,28 @@ export default class Lobby extends cc.Component {
     }
 
     allReset() {
+        console.log("[Lobby] Resetting all...");
         this.loading.active = false;
         this.newsContentsComp.reset();
     }
 
     playMusic() {
+        console.log("[Lobby] Playing music...");
         this.audioBG.play();
     }
 
     pauseMusic() {
+        console.log("[Lobby] Pausing music...");
         this.audioBG.pause();
     }
 
     audioClick() {
+        console.log("[Lobby] Audio click...");
         AudioManager.getInstance().playClick();
     }
 
     onGameResultClick() {
+        console.log("[Lobby] Game result clicked");
         AnalyticsManager.Instance.trackEvent(TrackingEvent.Button, {
             location: cc.director.getScene().name,
             action: TrackingAction.Click,
@@ -547,11 +645,12 @@ export default class Lobby extends cc.Component {
     }
 
     async renderLuckyWheelIcon() {
+        console.log("[Lobby] Rendering lucky wheel icon...");
         try {
             if (!this.luckyWheelIcon && userManager.availSpins > 0) {
-                cc.log("download lucky wheel");
+                console.log("[Lobby] Downloading lucky wheel icon");
                 const prefab = await GameUtils.loadResource(`games/lucky-wheel/LuckyWheelIcon`);
-                cc.log("download lucky wheel END");
+                console.log("[Lobby] Downloading lucky wheel icon END");
                 if (!this.luckyWheelIcon) {
                     const node = cc.instantiate(prefab);
                     this.redhat?.insertChild(node, 0);
@@ -559,13 +658,16 @@ export default class Lobby extends cc.Component {
                     this.luckyWheelIcon.init(this.miniPanel);
                 }
             }
-        } catch (e) {}
+        } catch (e) {
+            console.error("[Lobby] Error rendering lucky wheel icon:", e);
+        }
     }
 
     async openLuckyWheel() {
+        console.log("[Lobby] Opening lucky wheel...");
         try {
             if (userManager.userName && userManager.availSpins) {
-                cc.log("openLuckyWheel ----------------------------");
+                console.log("[Lobby] Opening lucky wheel ----------------------------");
                 await GameUtils.waitUntil(() => this.luckyWheelIcon, 100, 60000);
                 if (this.luckyWheelIcon && appManager.autoOpenLuckyWheel) {
                     this.luckyWheelIcon.openGame();
@@ -573,13 +675,17 @@ export default class Lobby extends cc.Component {
                 }
             }
             this.showCenterBanner();
-        } catch (e) {}
+        } catch (e) {
+            console.error("[Lobby] Error opening lucky wheel:", e);
+        }
     }
 
     async showSignName() {
+        console.log("[Lobby] Showing sign name...");
         if (!this.signName) {
             try {
                 if (!this.signNamePrefab) {
+                    console.log("[Lobby] Loading sign name prefab");
                     this.signNamePrefab = await GameUtils.loadResource("prefabs/SignName");
                 }
 
@@ -588,12 +694,16 @@ export default class Lobby extends cc.Component {
                     this.signName = node.getComponent("SignName");
                     this.signName.init(this.handleSignName.bind(this));
                     this.miniPanel.addDialog(node);
+                    console.log("[Lobby] Sign name dialog added");
                 }
-            } catch (err) {}
+            } catch (err) {
+                console.error("[Lobby] Error showing sign name:", err);
+            }
         }
     }
 
     handleSignName(response) {
+        console.log("[Lobby] Handling sign name response:", response);
         if (response.authorized) {
             this.headerComp.active();
             appManager.authorized = true;
@@ -609,6 +719,7 @@ export default class Lobby extends cc.Component {
     }
 
     redirectToDownloadPage() {
+        console.log("[Lobby] Redirecting to download page...");
         AudioManager.getInstance().playClick();
         window.open(`${Configs.AppDownloadSubDomain}?language=${window.i18n.curLang}`, "_blank");
     }

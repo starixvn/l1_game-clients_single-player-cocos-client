@@ -11,6 +11,8 @@ import { StorageManager } from "../managers/StorageManager";
 import GameUtils from "./GameUtils";
 import { userManager } from "./user/UserManager";
 
+console.log("[LobbyUtils] Loading LobbyUtils module...");
+
 export const MICRO_GAMES_NOT_OFFER_BANNER = [9, 48, 49, 50];
 export enum BannerType {
     SingleImage = "singleImage",
@@ -19,16 +21,21 @@ export enum BannerType {
 
 export default class LobbyUtils {
     public static cachedGameIcon(gameId: number) {
+        console.log("[LobbyUtils] Getting cached game icon for gameId:", gameId);
         const gameConfiguration = getGameConfiguration(gameId);
         const isMicrosite = GameUtils.isMicroSite(gameConfiguration);
-        return !!isMicrosite ? uiManager.remoteIconCache[gameId] : uiManager.prefabCache.lobbyIcons[gameId];
+        const cachedIcon = !!isMicrosite ? uiManager.remoteIconCache[gameId] : uiManager.prefabCache.lobbyIcons[gameId];
+        console.log("[LobbyUtils] Cached icon found:", !!cachedIcon, "isMicrosite:", isMicrosite);
+        return cachedIcon;
     }
 
     public static async getBannerPrefab(data: { id: number; remoteBundle; systemPath: string }) {
+        console.log("[LobbyUtils] Getting banner prefab for data:", data);
         const { id, remoteBundle, systemPath } = data;
         let banner: cc.Prefab;
 
         if (!!remoteBundle && !MICRO_GAMES_NOT_OFFER_BANNER.includes(id)) {
+            console.log("[LobbyUtils] Loading remote banner for game:", id);
             const path =
                 systemPath === ""
                     ? `banners/${GameUtils.getCurrentLanguage()}/banner`
@@ -39,10 +46,13 @@ export default class LobbyUtils {
                     path: path,
                     type: cc.Asset
                 });
+                console.log("[LobbyUtils] Remote banner loaded successfully");
             } catch (error) {
+                console.error("[LobbyUtils] Error loading remote banner:", error);
                 cc.log(this.getErrorMessageBanner(id));
             }
         } else {
+            console.log("[LobbyUtils] Using local banner for game:", id);
             cc.log(this.getErrorMessageBanner(id));
         }
 
@@ -50,37 +60,46 @@ export default class LobbyUtils {
     }
 
     public static async loadGameIcon(gameId: number, systemPath = ""): Promise<cc.Prefab> {
+        console.log("[LobbyUtils] Loading game icon for gameId:", gameId, "systemPath:", systemPath);
         const category = StorageManager.get("current_game_category") ?? 0;
         const gameConfiguration = getGameConfiguration(gameId);
         const gameSetting = LobbyManager.getInstance().getGame(gameId, category);
+        console.log("[LobbyUtils] Game configuration:", gameConfiguration, "gameSetting:", gameSetting);
 
         let prefab: cc.Prefab;
         if (!!gameConfiguration?.remoteBundle) {
+            console.log("[LobbyUtils] Loading remote game icon");
             const directory = systemPath === "" ? "icons" : `icons/${systemPath}`;
-            const path = `${GameUtils.isMicroSite(gameConfiguration) ? gameId + "/" : ""}${directory}/${
-                gameSetting?.bigSize ? "Big" : "Small"
-            }`;
+            const path = `${GameUtils.isMicroSite(gameConfiguration) ? gameId + "/" : ""}${directory}/${gameSetting?.bigSize ? "Big" : "Small"
+                }`;
+            console.log("[LobbyUtils] Remote icon path:", path);
             prefab = await BundleManager.getInstance().loadAsset<cc.Prefab>({
                 bundleId: gameId.toString(),
                 path: path,
                 type: cc.Prefab
             });
         } else {
+            console.log("[LobbyUtils] Loading local game icon");
             const directory = systemPath === "" ? "lobby/games" : `lobby/games/${systemPath}`;
             const path = `${directory}/${gameId}`;
+            console.log("[LobbyUtils] Local icon path:", path);
             prefab = await GameUtils.loadResource(path);
         }
 
         uiManager.prefabCache.lobbyIcons[gameId] = prefab;
+        console.log("[LobbyUtils] Game icon loaded and cached for gameId:", gameId);
         return prefab;
     }
 
     public static async getStaticBanner(id: number, systemPath = "") {
+        console.log("[LobbyUtils] Getting static banner for id:", id, "systemPath:", systemPath);
         const gameConfiguration = getGameConfiguration(id);
         if (GameUtils.isMicroSite(gameConfiguration)) {
+            console.log("[LobbyUtils] Getting remote banner for microsite game");
             return this.getRemoteBanner(id);
         }
 
+        console.log("[LobbyUtils] Getting resource banner for local game");
         return this.getResourceBanner({
             id,
             remoteBundle: gameConfiguration.remoteBundle,
@@ -89,20 +108,28 @@ export default class LobbyUtils {
     }
 
     protected static getErrorMessageBanner(id: number) {
-        return `No banner for game ${id}`;
+        const message = `No banner for game ${id}`;
+        console.log("[LobbyUtils] Banner error message:", message);
+        return message;
     }
 
     private static async preloadRemoteIcon(gameId: number) {
+        console.log("[LobbyUtils] Preloading remote icon for gameId:", gameId);
         try {
             const versions = await GameUtils.getRemoteVersion(gameId);
+            console.log("[LobbyUtils] Remote versions:", versions);
+
             const loadRemoteIconData = async (resource) => {
                 const url = `${GameUtils.remoteGameResourceUrl(gameId, "icon")}/${resource}?v=${versions?.icon}`;
+                console.log("[LobbyUtils] Loading remote icon data from URL:", url);
                 const data: any = await GameUtils.loadRemote(url);
                 return data;
             };
 
             const configFile = await loadRemoteIconData("config.json");
             const useWebp = configFile?.json?.useWebp ?? false;
+            console.log("[LobbyUtils] Config file loaded, useWebp:", useWebp);
+
             const skeletonData = new sp.SkeletonData();
             const atlasExt = useWebp ? "webp" : "png";
             skeletonData.skeletonJson = (await loadRemoteIconData("icon-game.json")).json;
@@ -110,13 +137,16 @@ export default class LobbyUtils {
             skeletonData.textures = [await loadRemoteIconData(`icon-game.${atlasExt}`)];
             skeletonData["textureNames"] = [`icon-game.${atlasExt}`];
 
-            uiManager.remoteIconCache[gameId] = { skeletonData: skeletonData, configFile};
+            uiManager.remoteIconCache[gameId] = { skeletonData: skeletonData, configFile };
+            console.log("[LobbyUtils] Remote icon preloaded successfully for gameId:", gameId);
         } catch (error) {
+            console.error("[LobbyUtils] Error preloading remote icon:", error.message);
             console.log("preloadRemoteIcon error", error.message);
         }
     }
 
     private static async getSpineRemoteBanner(id: number) {
+        console.log("[LobbyUtils] Getting spine remote banner for id:", id);
         const spineAssets = [];
 
         try {
@@ -127,26 +157,36 @@ export default class LobbyUtils {
             const spineName = "banner-game";
             const resourceExts = ["atlas", "json", "png"];
             const versions = await GameUtils.getRemoteVersion(id);
+            console.log("[LobbyUtils] Loading spine assets for banner, versions:", versions);
+
             for (const ext of resourceExts) {
                 try {
                     const resName = `${spineName}.${ext}?v=${versions?.banner}`;
                     const url = `${host}/${resName}`;
+                    console.log("[LobbyUtils] Loading spine asset:", url);
                     const asset = await GameUtils.loadRemote<cc.Asset>(url);
                     spineAssets.push(asset);
-                } catch (error) {}
+                } catch (error) {
+                    console.error("[LobbyUtils] Error loading spine asset:", error);
+                }
             }
+            console.log("[LobbyUtils] Spine remote banner loaded, assets count:", spineAssets.length);
         } catch (error) {
+            console.error("[LobbyUtils] Error getting spine remote banner:", error);
             cc.log(this.getErrorMessageBanner(id));
         }
         return spineAssets;
     }
 
     private static async getAnimationBanner(id: number, systemPath = "") {
+        console.log("[LobbyUtils] Getting animation banner for id:", id, "systemPath:", systemPath);
         const gameConfiguration = getGameConfiguration(id);
         if (GameUtils.isMicroSite(gameConfiguration)) {
+            console.log("[LobbyUtils] Getting spine remote banner for microsite");
             return this.getSpineRemoteBanner(id);
         }
 
+        console.log("[LobbyUtils] Getting banner prefab for local game");
         return this.getBannerPrefab({
             id,
             remoteBundle: gameConfiguration.remoteBundle,
@@ -155,44 +195,60 @@ export default class LobbyUtils {
     }
 
     public static getBannerTypeByGameId(id: number | string): string {
+        console.log("[LobbyUtils] Getting banner type for gameId:", id);
         const gameConfiguration = getGameConfiguration(id);
-        return gameConfiguration?.bannerType;
+        const bannerType = gameConfiguration?.bannerType;
+        console.log("[LobbyUtils] Banner type:", bannerType);
+        return bannerType;
     }
 
     private static createBannerNameOptions(id: number, isMicrosite: boolean): string[] {
+        console.log("[LobbyUtils] Creating banner name options for id:", id, "isMicrosite:", isMicrosite);
         const currentLang = GameUtils.getCurrentLanguage();
         if (isMicrosite) {
             const name1 = `${currentLang}`;
             const defaultName = `en`;
-
-            return [name1, defaultName];
+            const options = [name1, defaultName];
+            console.log("[LobbyUtils] Microsite banner name options:", options);
+            return options;
         } else {
             const suffix = currentLang !== "vi" ? `_${currentLang}` : "";
             const name1 = `${id}${suffix}`;
             const name2 = `${id}`;
-
-            return [name1, name2];
+            const options = [name1, name2];
+            console.log("[LobbyUtils] Local banner name options:", options);
+            return options;
         }
     }
 
     private static async getRemoteBanner(gameId: number) {
+        console.log("[LobbyUtils] Getting remote banner for gameId:", gameId);
         const bannerNames = this.createBannerNameOptions(gameId, true);
         let remoteTexture: cc.Texture2D;
         const versions = await GameUtils.getRemoteVersion(gameId);
+        console.log("[LobbyUtils] Remote versions for banner:", versions);
+
         for (const bannerName of bannerNames) {
             try {
+                console.log("[LobbyUtils] Trying banner name:", bannerName);
                 remoteTexture = await GameUtils.loadRemoteGameResource<cc.Texture2D>(
                     gameId,
                     `banner/${bannerName}.png?v=${versions?.banner}`
                 );
                 if (remoteTexture) {
+                    console.log("[LobbyUtils] Remote texture loaded successfully for banner name:", bannerName);
                     break;
                 }
-            } catch (error) {}
+            } catch (error) {
+                console.error("[LobbyUtils] Error loading remote texture for banner name:", bannerName, error);
+            }
         }
         if (remoteTexture) {
-            return new cc.SpriteFrame(remoteTexture);
+            const spriteFrame = new cc.SpriteFrame(remoteTexture);
+            console.log("[LobbyUtils] Remote banner sprite frame created");
+            return spriteFrame;
         }
+        console.warn("[LobbyUtils] No remote texture found for gameId:", gameId);
         cc.log(this.getErrorMessageBanner(gameId));
         return null;
     }

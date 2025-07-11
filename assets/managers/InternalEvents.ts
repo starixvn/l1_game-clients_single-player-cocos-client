@@ -1,3 +1,5 @@
+console.log("[InternalEvents] Loading InternalEvents module...");
+
 export enum InternalEvents {
     LOAD_OTHER_ICONS_AND_BANNERS = "lobby= load other icons and banners",
     OPEN_GAME_MINI = "lobby= open game mini",
@@ -52,3 +54,6 @@ export enum InternalEvents {
     NOT_EXIST_MINI_GAMES = "NOT_EXIST_MINI_GAMES",
     CLOSE_GAME = "CLOSE_GAME"
 }
+
+console.log("[InternalEvents] InternalEvents enum defined with", Object.keys(InternalEvents).length, "events");
+console.log("[InternalEvents] InternalEvents module loaded successfully");

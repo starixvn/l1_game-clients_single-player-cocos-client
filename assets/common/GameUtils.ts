@@ -27,6 +27,8 @@ import { preloadAssets } from "./PreloadRemoteAsset";
 import SetStaticFontSizeLabel from "./SetStaticFontSizeLabel";
 import { userManager } from "./user/UserManager";
 
+console.log("[GameUtils] Loading GameUtils module...");
+
 export const MINI_GAMES_SCALE_ON_DESKTOP = 0.8;
 
 declare global {
@@ -39,6 +41,7 @@ export default class GameUtils {
     static versionsCache = {};
 
     public static addFlyingText(parent: cc.Node, win: boolean, value: number, duration = 1, startY = 0, destY = 100) {
+        console.log("[GameUtils] Adding flying text - win:", win, "value:", value, "duration:", duration);
         const temp = new cc.Node().addComponent(cc.Label);
         temp.string = (win ? "+" : "-") + numberWithCommas(value, 2);
         temp.font = win ? appManager.font.increaseMoney : appManager.font.decreaseMoney;
@@ -54,115 +57,162 @@ export default class GameUtils {
                 }, temp)
             )
         );
+        console.log("[GameUtils] Flying text added successfully");
         return temp.node;
     }
 
     public static getText(key: string, opt: any = {}) {
-        return i18n.t(key, opt);
+        console.log("[GameUtils] Getting text for key:", key, "options:", opt);
+        const text = i18n.t(key, opt);
+        console.log("[GameUtils] Text resolved:", text);
+        return text;
     }
 
     public static getBetChoiceString(choice: string): string {
-        return i18n.t(`ui.choice_${choice}`);
+        console.log("[GameUtils] Getting bet choice string for:", choice);
+        const choiceString = i18n.t(`ui.choice_${choice}`);
+        console.log("[GameUtils] Bet choice string:", choiceString);
+        return choiceString;
     }
 
     public static capitalizeWords(str: string) {
-        return str.replace(/\w\S*/g, function (txt) {
+        console.log("[GameUtils] Capitalizing words in:", str);
+        const result = str.replace(/\w\S*/g, function (txt) {
             return txt.charAt(0).toUpperCase() + txt.slice(0, 1).toLowerCase();
         });
+        console.log("[GameUtils] Capitalized result:", result);
+        return result;
     }
 
     public static capitalizeWordIntoString(str: string) {
+        console.log("[GameUtils] Capitalizing word into string:", str);
         const words = str.split(" ");
-        return words.map((word) => word[0] + word.substring(1).toLowerCase()).join(" ");
+        const result = words.map((word) => word[0] + word.substring(1).toLowerCase()).join(" ");
+        console.log("[GameUtils] Capitalized result:", result);
+        return result;
     }
 
     public static remoteGameResourceUrl(gameId: number, pathResource: string) {
+        console.log("[GameUtils] Getting remote game resource URL for gameId:", gameId, "path:", pathResource);
         const url = buildMicrositeGameUrl(gameId);
-        return `${url}/remote/${pathResource}`;
+        const fullUrl = `${url}/remote/${pathResource}`;
+        console.log("[GameUtils] Remote game resource URL:", fullUrl);
+        return fullUrl;
     }
 
     public static loadRemoteGameResource<T>(gameId: number, pathResource: string) {
+        console.log("[GameUtils] Loading remote game resource for gameId:", gameId, "path:", pathResource);
         return this.loadRemote<T>(this.remoteGameResourceUrl(gameId, pathResource));
     }
 
     public static loadRemoteFromSharedResource<T>(pathResource: string, latest = false) {
+        console.log("[GameUtils] Loading remote from shared resource:", pathResource, "latest:", latest);
         let rawUrl = buildSharedResourceUrl(pathResource);
         if (latest) {
             rawUrl += `?v=${Date.now()}`;
         }
+        console.log("[GameUtils] Shared resource URL:", rawUrl);
         return this.loadRemote<T>(rawUrl);
     }
 
     public static loadRemote<T>(url: string, options = { maxRetryCount: 3 }): Promise<T> {
+        console.log("[GameUtils] Loading remote asset from URL:", url, "options:", options);
         return new Promise((resolve, reject) => {
             cc.assetManager.loadRemote(url, options, (err, asset) => {
                 if (err) {
+                    console.error("[GameUtils] Failed to load remote asset:", err);
                     reject(err);
                     return;
                 }
+                console.log("[GameUtils] Remote asset loaded successfully");
                 resolve(asset as T);
             });
         });
     }
 
     public static loadResource(path: string): Promise<cc.Prefab> {
+        console.log("[GameUtils] Loading resource from path:", path);
         return new Promise((resolve) => {
             cc.resources.load(path, (err, prefab: cc.Prefab) => {
+                if (err) {
+                    console.error("[GameUtils] Failed to load resource:", err);
+                } else {
+                    console.log("[GameUtils] Resource loaded successfully");
+                }
                 resolve(prefab);
             });
         });
     }
 
     public static async getRemoteVersion(gameId: number) {
+        console.log("[GameUtils] Getting remote version for gameId:", gameId);
         if (!this.versionsCache[gameId]) {
+            console.log("[GameUtils] Version not cached, loading from remote");
             const versions: any = await GameUtils.loadRemote(`${GameUtils.remoteGameResourceUrl(gameId, "versions.json")}?v=${Date.now()}`);
             this.versionsCache[gameId] = versions?.json;
+            console.log("[GameUtils] Version cached:", this.versionsCache[gameId]);
+        } else {
+            console.log("[GameUtils] Using cached version:", this.versionsCache[gameId]);
         }
         return this.versionsCache[gameId];
     }
 
     public static async loadMiniPanelGameIcon(gameId: number): Promise<cc.Prefab> {
+        console.log("[GameUtils] Loading mini panel game icon for gameId:", gameId);
         const gameConfiguration = getGameConfiguration(gameId);
 
         if (!!gameConfiguration?.remoteBundle) {
+            console.log("[GameUtils] Loading from remote bundle");
             const path = `icons/SmallMiniPanel`;
             const devPath = `../games/*/${path}`;
             try {
-                return await BundleManager.getInstance().loadAsset<cc.Prefab>({
+                const prefab = await BundleManager.getInstance().loadAsset<cc.Prefab>({
                     bundleId: gameId.toString(),
                     path: path,
                     pathForDevMode: devPath,
                     type: cc.Prefab
                 });
+                console.log("[GameUtils] Mini panel game icon loaded from bundle successfully");
+                return prefab;
             } catch (e) {
-                cc.warn(`Missing prefab for ${path} `, e);
+                console.warn("[GameUtils] Missing prefab for", path, e);
                 return null;
             }
         } else {
-            return GameUtils.loadResource(`minipanel/games/${gameId}`);
+            console.log("[GameUtils] Loading from local resources");
+            const prefab = await GameUtils.loadResource(`minipanel/games/${gameId}`);
+            console.log("[GameUtils] Mini panel game icon loaded from resources successfully");
+            return prefab;
         }
     }
 
     public static async loadMiniGamePrefab(gameId: number, onProgress: (completed: number, total: number, item?: unknown) => void) {
+        console.log("[GameUtils] Loading mini game prefab for gameId:", gameId);
         const gameConfiguration = getGameConfiguration(gameId);
 
         if (!!gameConfiguration?.remoteBundle) {
+            console.log("[GameUtils] Loading from remote bundle");
             const prefabPath = `views/${gameConfiguration.key}`;
 
-            return BundleManager.getInstance().loadAsset<cc.Prefab>({
+            const prefab = await BundleManager.getInstance().loadAsset<cc.Prefab>({
                 bundleId: gameId.toString(),
                 path: prefabPath,
                 type: cc.Prefab,
                 onProgress
             });
+            console.log("[GameUtils] Mini game prefab loaded from bundle successfully");
+            return prefab;
         } else {
+            console.log("[GameUtils] Loading from local resources");
             const prefabPath = `games/minigame/${gameConfiguration.key}`;
 
             return new Promise<cc.Prefab>((resolve, reject) => {
                 cc.resources.load<cc.Prefab>(prefabPath, cc.Prefab, onProgress, (error, prefab) => {
                     if (error || !prefab) {
+                        console.error("[GameUtils] Failed to load mini game prefab:", error);
                         reject(error);
                     } else {
+                        console.log("[GameUtils] Mini game prefab loaded from resources successfully");
                         resolve(prefab);
                     }
                 });
@@ -299,33 +349,47 @@ export default class GameUtils {
     }
 
     public static async openGameDirect(gameId: number, socketIOController: SocketIOControllerInterface) {
+        console.log("[GameUtils] Opening game direct for gameId:", gameId);
         const gameConfiguration = getGameConfiguration(gameId);
         if (GameUtils.isMicroSite(gameConfiguration)) {
+            console.log("[GameUtils] Game is microsite, opening microsite game");
             this.openGameMicrosite(gameId);
             return;
         }
+        console.log("[GameUtils] Game is not microsite, trying to open direct");
         await this.tryOpenGameDirect(gameId, socketIOController);
         await this.loadSceneGame(gameId, socketIOController);
+        console.log("[GameUtils] Game opened directly successfully");
     }
 
     public static async tryOpenGameDirect(gameId: number, socketIOController: SocketIOControllerInterface) {
+        console.log("[GameUtils] Trying to open game direct for gameId:", gameId);
         try {
+            console.log("[GameUtils] Opening game socket...");
             await socketIOController.openGameSocket(gameId);
+            console.log("[GameUtils] Preloading game room...");
             await this.preloadGameRoom(gameId);
+            console.log("[GameUtils] Game direct opened successfully");
         } catch (error) {
+            console.error("[GameUtils] An error occurred in tryOpenGameDirect:", error);
             cc.error("An error occurred in tryOpenGameDirect:", error);
             throw error;
         }
     }
 
     public static async openGameMicrosite(gameId: number, loading: Loading = null) {
+        console.log("[GameUtils] Opening game microsite for gameId:", gameId);
         try {
+            console.log("[GameUtils] Checking microsite game health...");
             const available = await this.healthCheckMicrositeGame(gameId);
             if (available) {
+                console.log("[GameUtils] Microsite game is available, storing game ID and loading scene");
                 SessionManager.storeMicrositeGameId(gameId);
                 const sceneName = "microsite-game";
                 await this.loadScene(gameId, sceneName);
+                console.log("[GameUtils] Microsite game opened successfully");
             } else {
+                console.log("[GameUtils] Microsite game is not available, showing error");
                 loading?.setLoadingVisibility(false);
                 const data = {
                     text: i18n.t("messages.lostGameConnection", { gameName: await this.getDisplayGameName(gameId) }),
@@ -334,6 +398,7 @@ export default class GameUtils {
                 uiManager.emitter.emit(InternalEvents.LOST_CONNECTION, data);
             }
         } catch (error) {
+            console.error("[GameUtils] An error occurred in openGameMicrosite:", error);
             cc.error("An error occurred in openGameMicrosite:", error);
         }
     }
@@ -794,7 +859,7 @@ export default class GameUtils {
 
     public static waitUntil = async (condition, interval = 1000, maxWait = 10000) => {
         const startTime = new Date().getTime();
-        for (;;) {
+        for (; ;) {
             try {
                 if (await condition()) {
                     return true;
@@ -1077,7 +1142,7 @@ export default class GameUtils {
             .start();
     }
 
-    
+
     public static notifyNativeApp(method: string, payload: any = {}) {
         try {
             // React Native WebView
@@ -1090,7 +1155,7 @@ export default class GameUtils {
         } catch (e) {
             cc.log(`Error ReactNativeWebView (${method}):`, e);
         }
-    
+
         try {
             // Android Native (Java/Kotlin)
             const android = (window as any).Android;
@@ -1101,7 +1166,7 @@ export default class GameUtils {
         } catch (e) {
             cc.log(`Error Android.${method}:`, e);
         }
-    
+
         try {
             // Android Flutter / Custom JSBridge
             const jsbridge = (window as any).JSBridge;
@@ -1112,7 +1177,7 @@ export default class GameUtils {
         } catch (e) {
             cc.log(`Error JSBridge.${method}:`, e);
         }
-    
+
         try {
             // iOS Native (WKWebView)
             const webkitHandler = (window as any).webkit?.messageHandlers?.[method];
@@ -1123,7 +1188,7 @@ export default class GameUtils {
         } catch (e) {
             cc.log(`Error webkit.messageHandlers.${method}:`, e);
         }
-    
+
         try {
             // iframe fallback
             if (window.parent && window.parent !== window) {
@@ -1133,7 +1198,9 @@ export default class GameUtils {
         } catch (e) {
             cc.log(`Error window.parent.postMessage (${method}):`, e);
         }
-    
+
         cc.warn(`notifyNativeApp: no valid bridge found for "${method}"`);
     }
 }
+
+console.log("[GameUtils] GameUtils module loaded successfully");
