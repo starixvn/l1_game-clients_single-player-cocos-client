@@ -81,6 +81,13 @@ class AppManager {
         this.urlParams = new URLSearchParams(window.location.search);
         console.log("[AppManager] URL params initialized");
 
+        // Store current URL as ReturnUrl if no ReturnUrl is present (first entry URL)
+        if (!this.urlParams.has("rurl") || this.urlParams.get("rurl") === "") {
+            const currentUrl = window.location.href;
+            console.log("[AppManager] No ReturnUrl found, storing current URL as first entry URL:", currentUrl);
+            this.urlInfo[UrlInfo.ReturnUrl] = EncryptUtils.base64Encode(currentUrl);
+        }
+
         // Ensure direct mode is always used by adding ref=d_direct if not present
         if (!this.urlParams.has(UrlInfo.Ref) || !this.checkDirectModeRefData(this.urlParams.get(UrlInfo.Ref))) {
             console.log("[AppManager] Direct mode ref not found, adding ref=d_direct");
