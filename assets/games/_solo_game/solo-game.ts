@@ -1,10 +1,9 @@
 import NewGameData from "../_base_new/models/NewGameData";
 import StandAloneTableGameBase from "../_base_new/view-models/StandAloneTableGameBase";
-import { SoloBetModel, SoloBetState } from "./solo-bet-model";
+import { ChoiceBet, SoloBetModel, SoloBetState } from "./solo-bet-model";
 import SoloGameData from "./solo-game-data";
 import { Durations } from "../_new/_base/game-data-management/models/durations";
 import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
-import { onAutoRebetDialogInitialized } from "../_base/action/GameRoomActions";
 import GameUtils from "../../common/GameUtils";
 
 const { ccclass, property } = cc._decorator;
@@ -14,15 +13,23 @@ export default class SoloGame extends StandAloneTableGameBase {
     @property(cc.Button)
     btnSpin: cc.Button = null;
 
+    @property(cc.Button)
+    btnAutoRebet: cc.Button = null;
+
     @property(cc.Prefab)
     autoRebetDialogPrefab: cc.Prefab = null;
 
+    @property(cc.Label)
+    lblAutoRebetCount: cc.Label = null;
+
     betWinAmount = 0;
-    autoRebetDialog: AutoRebetDialog = null;
+    autoRebetCount = 0;
 
     onLoad() {
         super.onLoad();
         this.animatedTime.setAnimatedY(20, -10);
+        this.btnAutoRebet.interactable = false;
+        this.setAutoRebetMessageVisibility(false);
     }
 
     get soloBetModel() {
@@ -41,7 +48,7 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     initGameDataEvents() {
         super.initGameDataEvents();
-        this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CONFIRM_BET, () => (bet) => this.onConfirmBet(bet));
+        this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CONFIRM_BET, () => () => this.onConfirmBet());
 
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.PLACE_BET_FAILED, () => () => {
             this.soloBetModel.changeState(SoloBetState.BETTING_FAILED);
@@ -72,8 +79,13 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet;
     }
 
-    onConfirmBet(bet: any) {
+    onConfirmBet() {
         this.sendSocketData("spin", null);
+    }
+
+    onReBet(bet: any) {
+        const betData = this.createBetData(bet);
+        this.sendSocketData("reBet", betData);
     }
 
     onPlaceBet(bet: any) {
@@ -93,8 +105,51 @@ export default class SoloGame extends StandAloneTableGameBase {
     clickAutoRebet() {
         this.playClick();
         const dialog = cc.instantiate(this.autoRebetDialogPrefab);
-
+        const comp = dialog.getComponent(AutoRebetDialog);
         this.currentMiniPanel.node.addChild(dialog);
+
+        comp.onConfirmCallback = (autoRebetCount: number) => {
+            this.onConfirmCallBackAutoRebetDialog(autoRebetCount);
+        };
+    }
+
+    onConfirmCallBackAutoRebetDialog(autoRebetCount: number) {
+        const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
+        this.onReBet(betObject);
+        this.autoRebetCount = autoRebetCount - 1;
+        this.updateAutoRebetCount();
+        this.setAutoRebetMessageVisibility(true);
+    }
+
+    convertBetQueueToBetObject(bets: ChoiceBet[]): { [choice: string]: number } {
+        const consolidated = {};
+        bets.forEach((bet) => {
+            const currentBet = consolidated[bet.choice] ?? 0;
+            consolidated[bet.choice] = currentBet + bet.amount;
+        });
+        return consolidated;
+    }
+
+    updateAutoRebetCount() {
+        this.lblAutoRebetCount.string = this.autoRebetCount.toString();
+    }
+
+    setAutoRebetMessageVisibility(isVisible: boolean) {
+        const autoRebetMessage = this.lblAutoRebetCount.node.parent;
+
+        if (isVisible) {
+            autoRebetMessage.active = isVisible;
+            autoRebetMessage.scale = 0;
+            autoRebetMessage.opacity = 0;
+            cc.tween(autoRebetMessage).to(0.5, { scale: 1, opacity: 255 }, { easing: "backOut" }).start();
+        } else {
+            cc.tween(autoRebetMessage)
+                .to(0.5, { scale: 0, opacity: 0 }, { easing: "backIn" })
+                .call(() => {
+                    autoRebetMessage.active = isVisible;
+                })
+                .start();
+        }
     }
 
     clickReBet() {

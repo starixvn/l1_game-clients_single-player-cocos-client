@@ -25,7 +25,7 @@ export class RouletteSConfig implements GameConfigBase {
     minBetTime = 1;
     fullTime = 22;
     betTime = 15;
-    stopBetTime = 2;
+    stopBetTime = 0;
     waitTime = 7;
 }
 
@@ -282,7 +282,7 @@ export default class RouletteS extends SoloGame {
             this.settlePopupComponent.hideSettlementResult();
             this.rouletteBetItems.forEach((betItem) => {
                 const choice = betItem.node.name;
-                
+
                 if (parseInt(choice) > -1) {
                     betItem.clearOwnBetForStraightUp();
                 } else {
@@ -293,6 +293,19 @@ export default class RouletteS extends SoloGame {
             });
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;
+
+            this.btnAutoRebet.interactable = true;
+
+            if (this.autoRebetCount > 0) {
+                console.log("-----------after Settlement autoRebetCount", this.autoRebetCount);
+                console.log("-----------after Settlement ownBets", this.soloBetModel.lastQueueBet);
+                const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
+                this.onReBet(betObject);
+                this.autoRebetCount--;
+                this.updateAutoRebetCount();
+            } else {
+                this.setAutoRebetMessageVisibility(false);
+            }
         });
     }
 
@@ -388,5 +401,5 @@ export default class RouletteS extends SoloGame {
         this.historyComponent = dialog.getComponent(MiniRouletteBetHistory);
         this.historyComponent.init(this.socket);
         this.currentMiniPanel.node.addChild(dialog);
-    }    
+    }
 }

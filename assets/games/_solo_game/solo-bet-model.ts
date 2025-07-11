@@ -22,16 +22,16 @@ export class SoloBetModel extends BetModel {
     };
 
     protected queueBet: ChoiceBet[] = [];
-    protected lastQueueBet: ChoiceBet[] = [];
     protected currentBet = 0;
+    lastQueueBet: ChoiceBet[] = [];
     state: string = SoloBetState.READY;
 
     changeState(state: string) {
         this.state = state;
         this.emit(SoloBetModel.Events.CHANGE_STATE, state);
-        if (state === SoloBetState.READY) {
-            this.resetLastBet();
-        }
+        // if (state === SoloBetState.READY) {
+        //     this.resetLastBet();
+        // }
     }
 
     setCurrentBet(bet: number) {
@@ -66,13 +66,7 @@ export class SoloBetModel extends BetModel {
         this.changeState(SoloBetState.BETTING);
         this.lastQueueBet = this.queueBet;
 
-        const confirmBet = {};
-        this.queueBet.forEach((bet) => {
-            const currentBet = confirmBet[bet.choice] ?? 0;
-            confirmBet[bet.choice] = currentBet + bet.amount;
-        });
-
-        this.emit(SoloBetModel.Events.CONFIRM_BET, confirmBet);
+        this.emit(SoloBetModel.Events.CONFIRM_BET);
     }
 
     reBet() {
