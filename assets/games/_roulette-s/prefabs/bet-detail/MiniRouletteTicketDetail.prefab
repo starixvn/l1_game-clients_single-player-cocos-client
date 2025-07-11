@@ -841,7 +841,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 308.96,
-      "height": 50.4
+      "height": 68.04
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -895,7 +895,7 @@
     "_string": "UI.BET_DETAILS",
     "_N$string": "UI.BET_DETAILS",
     "_fontSize": 40,
-    "_lineHeight": 40,
+    "_lineHeight": 54,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
@@ -906,7 +906,7 @@
     "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
+    "_N$verticalAlign": 2,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
@@ -1315,7 +1315,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 116.31,
-      "height": 50.4
+      "height": 55.44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1382,7 +1382,7 @@
     "_string": "Ui.round:",
     "_N$string": "Ui.round:",
     "_fontSize": 28,
-    "_lineHeight": 40,
+    "_lineHeight": 44,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
@@ -1504,7 +1504,7 @@
     "_string": "",
     "_N$string": "",
     "_fontSize": 28,
-    "_lineHeight": 40,
+    "_lineHeight": 44,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "bbb837e4-89ce-47e2-ae61-858f93e222ac"
@@ -1680,7 +1680,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 114.04,
-      "height": 50.4
+      "height": 55.44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1747,7 +1747,7 @@
     "_string": "Ui.result:",
     "_N$string": "Ui.result:",
     "_fontSize": 28,
-    "_lineHeight": 40,
+    "_lineHeight": 44,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
@@ -1869,7 +1869,7 @@
     "_string": "",
     "_N$string": "",
     "_fontSize": 28,
-    "_lineHeight": 40,
+    "_lineHeight": 44,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "bbb837e4-89ce-47e2-ae61-858f93e222ac"
@@ -2163,7 +2163,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 100.52,
-      "height": 37.8
+      "height": 55.44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2230,7 +2230,7 @@
     "_string": "UI.TIME",
     "_N$string": "UI.TIME",
     "_fontSize": 28,
-    "_lineHeight": 30,
+    "_lineHeight": 44,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
@@ -2304,7 +2304,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 195.02,
-      "height": 37.8
+      "height": 55.44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2358,7 +2358,7 @@
     "_string": "UI.BETCHOICE",
     "_N$string": "UI.BETCHOICE",
     "_fontSize": 28,
-    "_lineHeight": 30,
+    "_lineHeight": 44,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
@@ -2445,7 +2445,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 215.6,
-      "height": 37.8
+      "height": 55.44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2499,7 +2499,7 @@
     "_string": "UI.TOTALSTAKE",
     "_N$string": "UI.TOTALSTAKE",
     "_fontSize": 28,
-    "_lineHeight": 30,
+    "_lineHeight": 44,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
@@ -2586,7 +2586,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 86.83,
-      "height": 37.8
+      "height": 55.44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2640,7 +2640,7 @@
     "_string": "UI.WIN",
     "_N$string": "UI.WIN",
     "_fontSize": 28,
-    "_lineHeight": 30,
+    "_lineHeight": 44,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
@@ -3520,7 +3520,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 168,
-      "height": 37.8
+      "height": 55.44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3574,7 +3574,7 @@
     "_string": "全部輸贏結果",
     "_N$string": "全部輸贏結果",
     "_fontSize": 28,
-    "_lineHeight": 30,
+    "_lineHeight": 44,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "bbb837e4-89ce-47e2-ae61-858f93e222ac"

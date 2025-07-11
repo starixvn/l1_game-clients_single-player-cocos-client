@@ -114,7 +114,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 56,
-      "height": 37.8
+      "height": 60.48
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -168,7 +168,7 @@
     "_string": "全部",
     "_N$string": "全部",
     "_fontSize": 28,
-    "_lineHeight": 30,
+    "_lineHeight": 48,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "bbb837e4-89ce-47e2-ae61-858f93e222ac"
