@@ -87,6 +87,12 @@ class AppManager {
             this.urlParams.set(UrlInfo.Ref, "d_direct");
         }
 
+        // Check if gameId is missing or equals 0, and set it to 134 if needed
+        if (!this.urlParams.has("gameId") || this.urlParams.get("gameId") === "0") {
+            console.log("[AppManager] GameId missing or equals 0, setting gameId=134");
+            this.urlParams.set("gameId", "134");
+        }
+
         this.ssoGameId = +this.urlParams.get("gameId");
         console.log("[AppManager] SSO Game ID:", this.ssoGameId);
         const urlParamsObj = {};
