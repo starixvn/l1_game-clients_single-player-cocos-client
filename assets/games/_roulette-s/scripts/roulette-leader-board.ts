@@ -53,8 +53,8 @@ export default class RouletteLeaderBoard extends BaseComponent {
 
     onData(data) {
         if (data.leaderboard) {
-            const { leaderboard, time} = data.leaderboard;
-            this.lblTime.string = time;
+            const { leaderboard, time } = data.leaderboard;
+            this.lblTime.string = new Date(time).toISOString().replace("T", " ").slice(0, 19).replace(/-/g, "/");
             leaderboard.forEach((item) => {
                 this.bindItemRowData(item);
             });

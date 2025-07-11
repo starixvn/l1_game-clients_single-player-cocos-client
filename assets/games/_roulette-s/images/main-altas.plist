@@ -34,6 +34,21 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
+            <key>avatar-default.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{44,44}</string>
+                <key>spriteSourceSize</key>
+                <string>{44,44}</string>
+                <key>textureRect</key>
+                <string>{{723,1972},{44,44}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>bethistory-border.png</key>
             <dict>
                 <key>aliases</key>
@@ -288,6 +303,21 @@
                 <string>{{53,2041},{742,2}}</string>
                 <key>textureRotated</key>
                 <false/>
+            </dict>
+            <key>highlight-player.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{684,72}</string>
+                <key>spriteSourceSize</key>
+                <string>{684,72}</string>
+                <key>textureRect</key>
+                <string>{{688,1286},{684,72}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>history-area-bg.png</key>
             <dict>
@@ -1278,7 +1308,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c6f20614d894d71bf9f87b39d00e9bc7:b25c2e43425cf4f10e4f9e1559518d92:ef0ef156a355359910a67f53b8e8916b$</string>
+            <string>$TexturePacker:SmartUpdate:8c7c1d8d16f014db6b3d338175966030:0a4a13bb8c399d614d41424715f71128:ef0ef156a355359910a67f53b8e8916b$</string>
             <key>textureFileName</key>
             <string>main-altas.webp</string>
         </dict>
