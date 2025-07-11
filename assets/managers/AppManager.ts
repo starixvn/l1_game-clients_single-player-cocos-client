@@ -23,7 +23,8 @@ import { UrlInfo } from "./UrlInfo";
 
 const sentryLogger = logger();
 enum GameId {
-    UNKNOWN = -9999
+    UNKNOWN = -9999,
+    DEFAULT = 134
 }
 
 export interface ISessionParams {
@@ -78,16 +79,28 @@ class AppManager {
 
         // Ensure direct mode is always used by adding ref=d_direct if not present
         if (!this.urlParams.has(UrlInfo.Ref) || !this.checkDirectModeRefData(this.urlParams.get(UrlInfo.Ref))) {
-            console.log("🔧 [AppManager] Direct mode ref not found, adding ref=d_direct");
             this.urlParams.set(UrlInfo.Ref, "d_direct");
         }
 
-        this.ssoGameId = +this.urlParams.get("gameId");
-        cc.log("AppManager init ", this.ssoGameId);
+        const gameIdParam = this.urlParams.get("gameId");
+        if (gameIdParam && gameIdParam !== "0") {
+            this.ssoGameId = +gameIdParam;
+        } else {
+            this.ssoGameId = GameId.DEFAULT; // Default game ID when gameId is missing or equals 0
+        }
+        const urlParamsObj = {};
+        this.urlParams.forEach((value, key) => {
+            urlParamsObj[key] = value;
+        });
+
         sentryLogger.start();
+
         this.initLanguage();
+
         this.storeOperator();
+
         AudioManager.getInstance().init();
+
         this.initShowHideAppEvent();
     }
 
@@ -96,9 +109,10 @@ class AppManager {
     }
 
     async initNotificationService() {
-        cc.log("initNotificationService -----------------------------------");
         jackpotManager.initEvents();
+
         await NotificationService.getInstance().forceConnect();
+
         appManager.initPromotions();
     }
 
@@ -112,6 +126,7 @@ class AppManager {
 
         Promotions.getInstance().addDataObserver();
         PromotionNotificationsHandler.getInstance().addDataObserver();
+
         NotificationService.getInstance().emitEvent("promotionNotifications", {});
     }
 
@@ -125,24 +140,28 @@ class AppManager {
 
     get isDirectModeInRoomGame() {
         const roomGameId = sessionManager.getInRoomGameId(false);
-        return this.isDirectMode && +roomGameId === appManager.directGameId;
+        const isDirectModeInRoom = this.isDirectMode && +roomGameId === appManager.directGameId;
+        return isDirectModeInRoom;
     }
 
     get isAppMode() {
         return this._appMode;
     }
+
     get isPFF() {
         return this._PFF;
     }
 
     get directGameId() {
-        return +this.urlInfo[UrlInfo.DirectGameId] || 0;
+        const directGameId = +this.urlInfo[UrlInfo.DirectGameId] || 0;
+        return directGameId;
     }
 
     backToOperatorLobby() {
         const url = appManager.urlInfo[UrlInfo.ReturnUrl];
         if (url) {
-            window.location.replace(EncryptUtils.base64Decode(url));
+            const decodedUrl = EncryptUtils.base64Decode(url);
+            window.location.replace(decodedUrl);
         }
     }
 
@@ -159,17 +178,20 @@ class AppManager {
 
     checkDirectModeRefData(refData: string) {
         const directRef = ["d_direct", "m_direct"];
-        return directRef.some((data) => data === refData);
+        const isDirectMode = directRef.some((data) => data === refData);
+        return isDirectMode;
     }
 
     checkAppModeRefData(refData) {
         const appModeRef = ["m_connect"];
-        return appModeRef.some((data) => data === refData);
+        const isAppMode = appModeRef.some((data) => data === refData);
+        return isAppMode;
     }
 
     checkPFFData(refData) {
         const playFFRef = ["d_operator_opendirectly", "m_operator_opendirectly"];
-        return playFFRef.some((data) => data === refData);
+        const isPFF = playFFRef.some((data) => data === refData);
+        return isPFF;
     }
 
     forceKickedOut() {
@@ -179,6 +201,7 @@ class AppManager {
 
     async ssoAndAuthorize() {
         this.handleAppMode();
+
         await this.handleCurrencyGroup();
         await this.requestSSO();
         await getLobbyConfigs();
@@ -292,10 +315,10 @@ class AppManager {
     }
 
     async authorizeByUserService(retryCount = 1) {
-        cc.log("Try authorizeByUserService ", retryCount);
         try {
             const { ss, username } = window.authData;
             const response: any = await UserService.getInstance().auth.authorize(ss, username);
+
             if (authManager.checkUM(response)) {
                 return false;
             }
@@ -305,7 +328,8 @@ class AppManager {
                 return false;
             }
 
-            return await this.handleAuthorizedResponse(response);
+            const result = await this.handleAuthorizedResponse(response);
+            return result;
         } catch (error) {
             if (retryCount === 3) {
                 uiManager.emitter.emit(InternalEvents.SSO_ERROR);
@@ -317,7 +341,7 @@ class AppManager {
         }
     }
 
-    private requestSSO() {
+    private async requestSSO() {
         return new Promise<void>((resolve) => {
             if (cc.sys.isBrowser && authManager) {
                 authManager.checkSSO(() => {
