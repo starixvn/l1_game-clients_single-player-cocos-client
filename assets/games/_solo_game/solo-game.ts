@@ -124,10 +124,15 @@ export default class SoloGame extends StandAloneTableGameBase {
     handleAutoRebet(autoRebetCount: number) {
         const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
         this.onReBet(betObject);
+
         this.autoRebetCount = autoRebetCount - 1;
-        this.updateAutoRebetCount();
-        this.showAutoRebetMessage();
-        this.nodeStopAutoRebet.active = true;
+        this.setAutoRebetInteractable(false);
+
+        if (this.autoRebetCount > 0) {
+            this.updateAutoRebetCount();
+            this.showAutoRebetMessage();
+            this.nodeStopAutoRebet.active = true;
+        }
     }
 
     convertBetQueueToBetObject(bets: ChoiceBet[]): { [choice: string]: number } {
