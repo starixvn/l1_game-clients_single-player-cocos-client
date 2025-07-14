@@ -77,6 +77,8 @@ export default class RouletteWheel extends cc.Component {
     WHEEL_DEGREE_STEP = 45;
     BALL_HIT_OUT_DEGREE_STEP = 45;
 
+    private onBallLandedCallback: (() => void) | null = null;
+
     onLoad() {
         this.initWheel();
         this.resultNumber.hide();
@@ -116,14 +118,16 @@ export default class RouletteWheel extends cc.Component {
         this.prepareWheelSpinAnimation();
         const t = { resultNumber: result + 1 };
         this.onWheelUpdateResultNumber(t);
-        cc.tween(this.node)
-            .delay(9)
-            .call(() => {
-                this.showResultNumber(result);
-            })
-            .delay(this.durationShowResult)
-            .call(onComplete)
-            .start();
+        
+        this.onBallLandedCallback = () => {
+            this.showResultNumber(result);
+            cc.tween(this.node)
+                .delay(this.durationShowResult)
+                .call(onComplete)
+                .start();
+        };
+        
+        this.startBallAnimation();
     }
 
     setResult(result: number) {
@@ -670,6 +674,13 @@ export default class RouletteWheel extends cc.Component {
             },
             complete: (t) => {
                 this.resultReceived = !1;
+                
+                // Gọi callback khi trái banh đã rớt vào ô kết quả
+                if (this.onBallLandedCallback) {
+                    this.onBallLandedCallback();
+                    this.onBallLandedCallback = null; // Reset callback
+                }
+                
                 //     this.hasToSkipAnimation = this.isTurboActive,
                 //     this.wheelResultController.show(),
                 //     this.broadcastAction(d.RWheelDecoratorBroadcastActionNames.WHEEL_RESULT_APPEARED, {
@@ -698,6 +709,11 @@ export default class RouletteWheel extends cc.Component {
                     this.stopSound(WheelAudio.BALL_ROLLING);
                     this.rotateBallBone.rotation = -this.numberRotationDegree;
                     this.resultReceived = !1;
+                    
+                    if (this.onBallLandedCallback) {
+                        this.onBallLandedCallback();
+                        this.onBallLandedCallback = null;
+                    }
                 }
             });
     }
