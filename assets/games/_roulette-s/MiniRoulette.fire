@@ -1959,6 +1959,7 @@
     "inactiveNode": {
       "__id__": 35
     },
+    "interval": 0.4,
     "singleBetControl": {
       "__id__": 42
     },
@@ -2732,6 +2733,7 @@
     "inactiveNode": {
       "__id__": 54
     },
+    "interval": 0.4,
     "_id": "b3p800Q/ZJAaEZ12sm6VNp"
   },
   {
@@ -3387,6 +3389,7 @@
     "inactiveNode": {
       "__id__": 71
     },
+    "interval": 0.4,
     "_id": "e2ml3hUL9AT63b24xEdxki"
   },
   {
@@ -3951,6 +3954,7 @@
     "inactiveNode": {
       "__id__": 86
     },
+    "interval": 0.4,
     "_id": "1bGiizNcBH6It+2G/Gswet"
   },
   {
@@ -4515,6 +4519,7 @@
     "inactiveNode": {
       "__id__": 101
     },
+    "interval": 0.4,
     "_id": "92TfMjd4lGp7z8CwHGd3/C"
   },
   {
@@ -5079,6 +5084,7 @@
     "inactiveNode": {
       "__id__": 116
     },
+    "interval": 0.4,
     "_id": "55oT3lEoZJf5/G30+AzWAn"
   },
   {
@@ -5643,6 +5649,7 @@
     "inactiveNode": {
       "__id__": 131
     },
+    "interval": 0.4,
     "_id": "c4BRLbdl1KaJ0oKkLCL+VF"
   },
   {
@@ -6207,6 +6214,7 @@
     "inactiveNode": {
       "__id__": 146
     },
+    "interval": 0.4,
     "_id": "78h91qc7lB/KEgjmsyPYKB"
   },
   {
@@ -6771,6 +6779,7 @@
     "inactiveNode": {
       "__id__": 161
     },
+    "interval": 0.4,
     "_id": "1f2c04bolO+7uoqYYPnFT8"
   },
   {
@@ -7335,6 +7344,7 @@
     "inactiveNode": {
       "__id__": 176
     },
+    "interval": 0.4,
     "_id": "84YmD8obRDsYI/wl+zkKN0"
   },
   {
@@ -7913,6 +7923,7 @@
     "inactiveNode": {
       "__id__": 191
     },
+    "interval": 0.4,
     "_id": "d3lvhUaQdDDKvZXJ9Uyswu"
   },
   {
@@ -8491,6 +8502,7 @@
     "inactiveNode": {
       "__id__": 207
     },
+    "interval": 0.4,
     "_id": "bf+UED9wBHBZCWQts6n9Gb"
   },
   {
@@ -9069,6 +9081,7 @@
     "inactiveNode": {
       "__id__": 223
     },
+    "interval": 0.4,
     "_id": "b2SE8HzhVDbavbZdyyYzuD"
   },
   {
@@ -9647,6 +9660,7 @@
     "inactiveNode": {
       "__id__": 239
     },
+    "interval": 0.4,
     "_id": "29PxTWuitGBrqHh2UVAmdo"
   },
   {
@@ -10225,6 +10239,7 @@
     "inactiveNode": {
       "__id__": 255
     },
+    "interval": 0.4,
     "_id": "67l295An9NGYGJJ9ppIDMy"
   },
   {
@@ -10803,6 +10818,7 @@
     "inactiveNode": {
       "__id__": 271
     },
+    "interval": 0.4,
     "_id": "28QvAfpbdL1px29DR4007J"
   },
   {
@@ -11381,6 +11397,7 @@
     "inactiveNode": {
       "__id__": 287
     },
+    "interval": 0.4,
     "_id": "5b7Twm7oVMHqW6ur5tnheb"
   },
   {
@@ -11959,6 +11976,7 @@
     "inactiveNode": {
       "__id__": 303
     },
+    "interval": 0.4,
     "_id": "a9MsUXYDRI6ZJykiNcBqLM"
   },
   {
@@ -12537,6 +12555,7 @@
     "inactiveNode": {
       "__id__": 319
     },
+    "interval": 0.4,
     "_id": "b8MGCJhp9H2JnZNY7YQgbS"
   },
   {
@@ -13115,6 +13134,7 @@
     "inactiveNode": {
       "__id__": 335
     },
+    "interval": 0.4,
     "_id": "21UI0B6QpJvp7XAhGdCXwJ"
   },
   {
@@ -13693,6 +13713,7 @@
     "inactiveNode": {
       "__id__": 351
     },
+    "interval": 0.4,
     "_id": "7d8+3JCO9MgZJcmvVGnh3f"
   },
   {
@@ -14271,6 +14292,7 @@
     "inactiveNode": {
       "__id__": 367
     },
+    "interval": 0.4,
     "_id": "ff08/Cl4VMZKnMvwHCxHij"
   },
   {
@@ -14849,6 +14871,7 @@
     "inactiveNode": {
       "__id__": 383
     },
+    "interval": 0.4,
     "_id": "54r4grxmBOtKaGK9o37eAl"
   },
   {
@@ -15427,6 +15450,7 @@
     "inactiveNode": {
       "__id__": 399
     },
+    "interval": 0.4,
     "_id": "84kxjVMVhL65djHfrQt4+G"
   },
   {
@@ -16005,6 +16029,7 @@
     "inactiveNode": {
       "__id__": 415
     },
+    "interval": 0.4,
     "_id": "dcf/TFDk5MzLCBdtI1hzPB"
   },
   {
@@ -16583,6 +16608,7 @@
     "inactiveNode": {
       "__id__": 431
     },
+    "interval": 0.4,
     "_id": "aeIgslz0JIG6dxn9RwTXQc"
   },
   {
@@ -17161,6 +17187,7 @@
     "inactiveNode": {
       "__id__": 447
     },
+    "interval": 0.4,
     "_id": "a0wCEZyRxGg6UdrYgjRHHS"
   },
   {
@@ -17739,6 +17766,7 @@
     "inactiveNode": {
       "__id__": 463
     },
+    "interval": 0.4,
     "_id": "7ckhy5jvZAH5CmeU6kfVpR"
   },
   {
@@ -18317,6 +18345,7 @@
     "inactiveNode": {
       "__id__": 479
     },
+    "interval": 0.4,
     "_id": "7fIQRiIOVKE6y2FEIJ0yF2"
   },
   {
@@ -18895,6 +18924,7 @@
     "inactiveNode": {
       "__id__": 495
     },
+    "interval": 0.4,
     "_id": "1er+cPa4lK2YZmG1oPd947"
   },
   {
@@ -19473,6 +19503,7 @@
     "inactiveNode": {
       "__id__": 511
     },
+    "interval": 0.4,
     "_id": "59JLOTWHZJf4RV+Mth2GFv"
   },
   {
@@ -20051,6 +20082,7 @@
     "inactiveNode": {
       "__id__": 527
     },
+    "interval": 0.4,
     "_id": "f55b1cJYVPN4K6zl9GmIuv"
   },
   {
@@ -20629,6 +20661,7 @@
     "inactiveNode": {
       "__id__": 543
     },
+    "interval": 0.4,
     "_id": "b0XSTpyEtC3aYoZ2DZJdcK"
   },
   {
@@ -21207,6 +21240,7 @@
     "inactiveNode": {
       "__id__": 559
     },
+    "interval": 0.4,
     "_id": "a5h4urfWtI7b7yICQ4L3RW"
   },
   {
@@ -21785,6 +21819,7 @@
     "inactiveNode": {
       "__id__": 575
     },
+    "interval": 0.4,
     "_id": "71fgmVTbNOx7Wo4aZ+f7zJ"
   },
   {
@@ -22363,6 +22398,7 @@
     "inactiveNode": {
       "__id__": 591
     },
+    "interval": 0.4,
     "_id": "b7PFnZlXNHdqf6brLCSK/E"
   },
   {
@@ -22941,6 +22977,7 @@
     "inactiveNode": {
       "__id__": 607
     },
+    "interval": 0.4,
     "_id": "212vmN2vZGTa8AOlWO+/4v"
   },
   {
@@ -23519,6 +23556,7 @@
     "inactiveNode": {
       "__id__": 623
     },
+    "interval": 0.4,
     "_id": "32PwJw0lFGm4JQLwRo5VS3"
   },
   {
@@ -24529,6 +24567,7 @@
     "inactiveNode": {
       "__id__": 654
     },
+    "interval": 0.4,
     "_id": "cfHVz8tPxBxonZCZolYVTu"
   },
   {
@@ -25266,6 +25305,7 @@
     "inactiveNode": {
       "__id__": 674
     },
+    "interval": 0.4,
     "_id": "931lorw2NBLpxutiWCh7yz"
   },
   {
@@ -26003,6 +26043,7 @@
     "inactiveNode": {
       "__id__": 694
     },
+    "interval": 0.4,
     "_id": "79UR0JtUxOPZWBJxRMOLuO"
   },
   {
@@ -26973,6 +27014,7 @@
     "inactiveNode": {
       "__id__": 720
     },
+    "interval": 0.4,
     "_id": "d5dPZQZqtNt49w9sUW4bmT"
   },
   {
@@ -27710,6 +27752,7 @@
     "inactiveNode": {
       "__id__": 740
     },
+    "interval": 0.4,
     "_id": "e4wlGfRPZOtpZ+cyMP08zM"
   },
   {
@@ -28447,6 +28490,7 @@
     "inactiveNode": {
       "__id__": 760
     },
+    "interval": 0.4,
     "_id": "d3J6aWWUtMyJCwopLIXUmw"
   },
   {
@@ -29297,6 +29341,7 @@
     "inactiveNode": {
       "__id__": 783
     },
+    "interval": 0.4,
     "_id": "ba/fKLjEFNC47+T0Y0Nrhs"
   },
   {
@@ -32274,7 +32319,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -32417,7 +32462,7 @@
     "_id": "714Jl3bc5HRp721+kNnOIm"
   },
   {
-    "__type__": "cc.Button",
+    "__type__": "f8022VsoFVNMbVfjiK619U9",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -32427,7 +32472,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 866
@@ -32435,27 +32480,27 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 2,
-    "transition": 2,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
-      "r": 230,
-      "g": 230,
-      "b": 230,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_N$pressedColor": {
       "__type__": "cc.Color",
-      "r": 200,
-      "g": 200,
-      "b": 200,
+      "r": 211,
+      "g": 211,
+      "b": 211,
       "a": 255
     },
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 200,
-      "g": 200,
-      "b": 200,
+      "r": 211,
+      "g": 211,
+      "b": 211,
       "a": 255
     },
     "_N$hoverColor": {
@@ -32474,10 +32519,10 @@
     },
     "_N$disabledColor": {
       "__type__": "cc.Color",
-      "r": 120,
-      "g": 120,
-      "b": 120,
-      "a": 200
+      "r": 124,
+      "g": 124,
+      "b": 124,
+      "a": 255
     },
     "_N$normalSprite": {
       "__uuid__": "a99ae670-9787-4275-92d7-c75aca03438e"
@@ -32486,13 +32531,11 @@
     "pressedSprite": null,
     "_N$hoverSprite": null,
     "hoverSprite": null,
-    "_N$disabledSprite": {
-      "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
-    },
-    "_N$target": {
-      "__id__": 862
-    },
-    "_id": "fdtkq0EohF+L/9Scl4poub"
+    "_N$disabledSprite": null,
+    "_N$target": null,
+    "disableNode": null,
+    "activeNode": null,
+    "_id": "83uE5X7hJNrrq2YrhT1Lj4"
   },
   {
     "__type__": "cc.ClickEvent",
