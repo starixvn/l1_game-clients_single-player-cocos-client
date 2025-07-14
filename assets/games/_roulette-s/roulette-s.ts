@@ -68,7 +68,6 @@ export default class RouletteS extends SoloGame {
 
     protected betChipContainer: cc.Node = null;
     private settlePopupComponent: MiniRouletteSettlePopup = null;
-    private isStartRound = false;
 
     private leaderBoardsComponent: RouletteLeaderBoard = null;
     private settingsComponent: RouletteSettings = null;
@@ -101,7 +100,7 @@ export default class RouletteS extends SoloGame {
         this.rouletteBetItems = this.rouletteBetItemsContainer.getComponentsInChildren(RouletteBetItem);
 
         this.rouletteBetItems.forEach((item) => {
-            item.betCallback = this.onRouletteBetClick.bind(this);
+            item.betCallback = this.onBetClick.bind(this);
             item.resetUI();
 
             const choice = item.node.name;
@@ -226,18 +225,6 @@ export default class RouletteS extends SoloGame {
         }
     }
 
-    onRouletteBetClick(choice: string) {
-        this.resetAutoRebetCount();
-        if (!this.checkAvailableBetChoices(choice, this.currentBet) || !this.checkAvailableBalance(this.currentBet)) {
-            return;
-        }
-
-        this.onPlaceBet({ [choice]: this.currentBet });
-        !this.isStartRound && this.soloBetModel.changeState(SoloBetState.STARTING_ROUND);
-
-        this.isStartRound = true;
-    }
-
     protected createBetData(bet: any) {
         const betChoices = this.generateBetChoices(bet);
         const betData = {
@@ -342,15 +329,13 @@ export default class RouletteS extends SoloGame {
         });
     }
 
-    checkAvailableBalance(amount: number): boolean {
-        const available = amount <= userManager.balance;
-
-        if (!available) {
-            this.showMiniWarning(i18n.t("messages.notEnoughMoney"));
-            GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL);
+    checkExceedMaxBet(total: number): boolean {
+        const maxBet = this.getMaxBet();
+        if (total > maxBet) {
+            this.showMiniWarning(i18n.t("messages.maxBetNotice", { maxBet: numberWithCommas(maxBet) }));
+            return true;
         }
-
-        return available;
+        return false;
     }
 
     checkAvailableBetChoices(choice: string, amount: number): boolean {
@@ -374,15 +359,6 @@ export default class RouletteS extends SoloGame {
         }
 
         return true;
-    }
-
-    checkExceedMaxBet(total: number): boolean {
-        const maxBet = this.getMaxBet();
-        if (total > maxBet) {
-            this.showMiniWarning(i18n.t("messages.maxBetNotice", { maxBet: numberWithCommas(maxBet) }));
-            return true;
-        }
-        return false;
     }
 
     checkExceedMaxBetChoice(amount: number, type: string, isMultiChoices: boolean): boolean {

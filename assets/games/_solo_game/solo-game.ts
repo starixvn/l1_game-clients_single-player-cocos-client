@@ -7,6 +7,8 @@ import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
 import GameUtils from "../../common/GameUtils";
 import CloseGameDialog from "../../common/close-game-dialog/CloseGameDialog";
 import { WEBVIEW_MESSAGE } from "../../constants";
+import { userManager } from "../../common/user/UserManager";
+import { i18n } from "../../ClientModules";
 
 const { ccclass, property } = cc._decorator;
 
@@ -29,6 +31,8 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     @property(cc.Prefab)
     closeGameDialogPrefab: cc.Prefab = null;
+
+    protected isStartRound = false;
 
     betWinAmount = 0;
     autoRebetCount = 0;
@@ -202,7 +206,7 @@ export default class SoloGame extends StandAloneTableGameBase {
         const MSG_CLOSE_NOT_PLACED_BET = "是否要離開遊戲？";
         const hasBet = this.soloBetModel.existBet && this.soloBetModel.existBet();
         const isRoundNotReady = this.soloBetModel.state !== SoloBetState.READY;
-        return (hasBet && isRoundNotReady) ? MSG_CLOSE_PLACED_BET : MSG_CLOSE_NOT_PLACED_BET;
+        return hasBet && isRoundNotReady ? MSG_CLOSE_PLACED_BET : MSG_CLOSE_NOT_PLACED_BET;
     }
 
     clickCloseGame() {
@@ -227,5 +231,38 @@ export default class SoloGame extends StandAloneTableGameBase {
             this.updateUserBalance();
             this.betWinAmount = bet;
         }
+    }
+
+    onBetClick(choice: string) {
+        if (this.isStartRound && this.soloBetModel.state !== SoloBetState.RECEIVE_END_BET) {
+            this.showProcessingWarning(true);
+            return;
+        }
+
+        this.soloBetModel.changeState(SoloBetState.START_BET);
+        this.resetAutoRebetCount();
+        if (!this.checkAvailableBetChoices(choice, this.currentBet) || !this.checkAvailableBalance(this.currentBet)) {
+            return;
+        }
+
+        this.onPlaceBet({ [choice]: this.currentBet });
+        !this.isStartRound && this.soloBetModel.changeState(SoloBetState.STARTING_ROUND);
+
+        this.isStartRound = true;
+    }
+
+    checkAvailableBetChoices(choice: string, amount: number): boolean {
+        return true;
+    }
+
+    checkAvailableBalance(amount: number): boolean {
+        const available = amount <= userManager.balance;
+
+        if (!available) {
+            this.showMiniWarning(i18n.t("messages.notEnoughMoney"));
+            GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL);
+        }
+
+        return available;
     }
 }

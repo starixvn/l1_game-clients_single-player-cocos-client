@@ -11,7 +11,10 @@ export enum SoloBetState {
     BETTING = "betting",
     BETTING_FAILED = "bettingFailed",
     RESULT = "result",
-    SETTLEMENT = "settlement"
+    SETTLEMENT = "settlement",
+    PLACE_BET_FAILED = "placeBetFailed",
+    RECEIVE_END_BET = "receiveEndBet",
+    START_BET = "startBet"
 }
 
 export class SoloBetModel extends BetModel {
@@ -31,7 +34,7 @@ export class SoloBetModel extends BetModel {
         if (state === SoloBetState.READY) {
             this.resetLastBet();
         }
-        
+
         this.emit(SoloBetModel.Events.CHANGE_STATE, state);
     }
 

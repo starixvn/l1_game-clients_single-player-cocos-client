@@ -1,5 +1,6 @@
 import { BetEventType, BetHandler } from "../_base_new/handlers/BetHandler";
 import SoloGameData from "./solo-game-data";
+import { SoloBetState } from "./solo-bet-model";
 
 export class SoloBetHandler extends BetHandler {
     protected readonly gameData: SoloGameData;
@@ -19,6 +20,7 @@ export class SoloBetHandler extends BetHandler {
             if (event.roundId) {
                 this.gameData.changeRoundId(event.roundId);
             }
+            this.gameData.betModel.changeState(SoloBetState.RECEIVE_END_BET);
         }
 
         if (event.betPercentage || event.userBetPercentage) {
