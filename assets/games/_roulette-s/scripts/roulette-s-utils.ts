@@ -44,28 +44,6 @@ export const getTypeFromChoice = (choice: string) => {
     return "line";
 };
 
-export const convertOwnBetsToFlattened = (ownBets: any): { betChoice: string; endBet: number } => {
-    let flattenedBets: { betChoice: string; endBet: number } = { betChoice: "", endBet: 0 };
-
-    Object.keys(ownBets).forEach((type) => {
-        const typeData = ownBets[type];
-
-        if (typeof typeData === "object" && typeData !== null) {
-            // Handle nested structure like {"dozen": {"3": 100}}
-            Object.keys(typeData).forEach((subChoice) => {
-                const amount = typeData[subChoice];
-                const choice = `${type}${subChoice}`;
-                flattenedBets = { betChoice: choice, endBet: amount };
-            });
-        } else if (typeof typeData === "number") {
-            // Handle direct structure like {"red": 100}
-            flattenedBets = { betChoice: type, endBet: typeData };
-        }
-    });
-
-    return flattenedBets;
-};
-
 export const convertOwnBetsToTempBet = (ownBets: any): { choice: string; amount: number } => {
     let flattenedBets: { choice: string; amount: number } = { choice: "", amount: 0 };
 

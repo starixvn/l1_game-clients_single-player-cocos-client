@@ -118,6 +118,14 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     clickAutoRebet() {
         this.playClick();
+
+        const lastBestAmount = this.calculateLastBets(this.soloBetModel.lastQueueBet);
+        const isBalanceEnough = this.checkAvailableBalance(lastBestAmount);
+        this.setAutoRebetInteractable(isBalanceEnough);
+        if (!isBalanceEnough) {
+            return;
+        }
+
         const dialog = cc.instantiate(this.autoRebetDialogPrefab);
         const comp = dialog.getComponent(AutoRebetDialog);
         this.currentMiniPanel.node.addChild(dialog);
@@ -270,5 +278,9 @@ export default class SoloGame extends StandAloneTableGameBase {
         }
 
         return available;
+    }
+
+    calculateLastBets(bets: ChoiceBet[]): number {
+        return bets.reduce((acc, bet) => acc + bet.amount, 0);
     }
 }
