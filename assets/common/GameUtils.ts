@@ -26,6 +26,7 @@ import { sentryLogger } from "./logger";
 import { preloadAssets } from "./PreloadRemoteAsset";
 import SetStaticFontSizeLabel from "./SetStaticFontSizeLabel";
 import { userManager } from "./user/UserManager";
+import { WEBVIEW_MESSAGE } from "../constants";
 
 export const MINI_GAMES_SCALE_ON_DESKTOP = 0.8;
 
@@ -1077,7 +1078,24 @@ export default class GameUtils {
             .start();
     }
 
-    
+    private static callGlobalFunction(method: string) {
+        const globalFunctions = {
+            [WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL]: "openRechargePanel",
+            [WEBVIEW_MESSAGE.ON_GAME_LOADED]: "onGameLoaded",
+            [WEBVIEW_MESSAGE.CLOSE]: "close"
+        };
+
+        const functionName = globalFunctions[method];
+        if (functionName && typeof (window as any)[functionName] === "function") {
+            (window as any)[functionName]();
+        }
+    }
+
+    private static logError(message: string, error?: any) {
+        console.error(message, error);
+        sentryLogger.error(message, error);
+    }
+
     public static notifyNativeApp(method: string, payload: any = {}) {
         try {
             // React Native WebView
@@ -1085,55 +1103,60 @@ export default class GameUtils {
                 window.ReactNativeWebView.postMessage(
                     JSON.stringify({ type: method, ...payload })
                 );
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error ReactNativeWebView (${method}):`, e);
+            this.logError(`Error ReactNativeWebView (${method}):`, e);
         }
-    
+
         try {
             // Android Native (Java/Kotlin)
             const android = (window as any).Android;
             if (android && typeof android[method] === "function") {
                 android[method]();
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error Android.${method}:`, e);
+            this.logError(`Error Android.${method}:`, e);
         }
-    
+
         try {
             // Android Flutter / Custom JSBridge
             const jsbridge = (window as any).JSBridge;
             if (jsbridge && typeof jsbridge[method] === "function") {
                 jsbridge[method]();
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error JSBridge.${method}:`, e);
+            this.logError(`Error JSBridge.${method}:`, e);
         }
-    
+
         try {
             // iOS Native (WKWebView)
             const webkitHandler = (window as any).webkit?.messageHandlers?.[method];
             if (webkitHandler?.postMessage) {
                 webkitHandler.postMessage(payload);
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error webkit.messageHandlers.${method}:`, e);
+            this.logError(`Error webkit.messageHandlers.${method}:`, e);
         }
-    
+
         try {
             // iframe fallback
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({ type: method, ...payload }, "*");
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error window.parent.postMessage (${method}):`, e);
+            this.logError(`Error window.parent.postMessage (${method}):`, e);
         }
-    
-        cc.warn(`notifyNativeApp: no valid bridge found for "${method}"`);
+
+        this.logError(`notifyNativeApp: no valid bridge found for "${method}"`);
     }
 }
