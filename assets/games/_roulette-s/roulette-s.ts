@@ -13,13 +13,14 @@ import RouletteWheel from "../roulette/view-models/RouletteWheel";
 import MiniRouletteRoundHistory from "./scripts/mini-roulette-round-history";
 import { RouletteGameData } from "./scripts/roulette-bet-game-data";
 import RouletteBetItem from "./scripts/roulette-bet-item";
-import { getTypeFromChoice } from "./scripts/roulette-s-utils";
+import { convertOwnChipToFlattened, convertOwnChipToTempBet, getTypeFromChoice } from "./scripts/roulette-s-utils";
 import RouletteStatistics from "./scripts/roulette-statistics";
 import SingleBetControl from "./scripts/single-bet-control";
 import MiniRouletteSettlePopup from "./scripts/mini-roulette-settle-popup";
 import RouletteLeaderBoard from "./scripts/roulette-leader-board";
 import GameUtils from "../../common/GameUtils";
 import { WEBVIEW_MESSAGE } from "../../constants";
+import { BetModel } from "../_base_new/models/BetModel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -150,6 +151,22 @@ export default class RouletteS extends SoloGame {
             });
             this.updateSpinButtonInteractable();
         });
+
+        this.emitterListener(this.gameData.betModel, BetModel.Events.CHANGE_OWN_CHIP, () => (ownChip) => {
+            if (!ownChip || typeof ownChip !== "object") {
+                return;
+            }
+
+            Object.keys(ownChip).forEach((subChoice) => {
+                if (ownChip[subChoice] === undefined) {
+                    return;
+                }
+            });
+
+            const convertedOwnBets = convertOwnChipToFlattened(ownChip);
+            const convertedTempBets = convertOwnChipToTempBet(ownChip);
+            this.soloBetModel.receiveOwnBets(convertedTempBets, convertedOwnBets);
+        });
     }
 
     updateRoundHistory() {
@@ -211,7 +228,6 @@ export default class RouletteS extends SoloGame {
             return;
         }
 
-        this.soloBetModel.addBet(choice);
         this.onPlaceBet({ [choice]: this.currentBet });
         !this.isStartRound && this.soloBetModel.changeState(SoloBetState.STARTING_ROUND);
 
@@ -304,8 +320,6 @@ export default class RouletteS extends SoloGame {
             this.setAutoRebetInteractable(true);
 
             if (this.autoRebetCount > 0) {
-                console.log("-----------after Settlement autoRebetCount", this.autoRebetCount);
-                console.log("-----------after Settlement ownBets", this.soloBetModel.lastQueueBet);
                 const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
                 this.onReBet(betObject);
                 this.autoRebetCount--;

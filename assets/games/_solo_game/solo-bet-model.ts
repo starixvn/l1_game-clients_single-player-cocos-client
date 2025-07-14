@@ -48,8 +48,18 @@ export class SoloBetModel extends BetModel {
     }
 
     addBet(choice: string) {
-        this.addTempBet({ choice, amount: this.currentBet });
-        this.flyOwnChipFake({ endBet: this.currentBet, betChoice: choice });
+        const tempBet = { choice, amount: this.currentBet };
+        console.log("---------- solo-bet-model - addBet - tempBet", tempBet);
+        this.addTempBet(tempBet);
+        const ownBets = { endBet: this.currentBet, betChoice: choice };
+        console.log("---------- solo-bet-model - addBet - ownBets", ownBets);
+        this.flyOwnChipFake(ownBets);
+        this.updateOwnbets();
+    }
+
+    receiveOwnBets(tempBets: any, ownBets: any) {
+        this.addTempBet(tempBets);
+        this.flyOwnChipFake(ownBets);
         this.updateOwnbets();
     }
 
@@ -84,7 +94,7 @@ export class SoloBetModel extends BetModel {
     }
 
     getTotalBetOnChoice(choice: string) {
-        return this.ownBets[choice] ?? 0;
+        return this.ownBets?.[choice] ?? 0;
     }
 
     currentTotalBet() {
