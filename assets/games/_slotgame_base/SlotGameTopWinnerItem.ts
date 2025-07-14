@@ -1,0 +1,59 @@
+import { shortenName } from "../../common/helpers/NicknameHelper";
+import { userManager } from "../../common/user/UserManager";
+import { getStringDateByTime } from "./../../common/helpers/DateTimeHelper";
+import { numberWithCommas } from "./../../common/helpers/NumberHelper";
+
+const { ccclass, property } = cc._decorator;
+
+@ccclass
+export default class SlotGameTopWinnerItem extends cc.Component {
+    @property(cc.Node)
+    bg: cc.Node = null;
+
+    @property(cc.Label)
+    time: cc.Label = null;
+
+    @property(cc.Label)
+    player: cc.Label = null;
+
+    @property(cc.Label)
+    amount: cc.Label = null;
+
+    @property(cc.Label)
+    win: cc.Label = null;
+
+    @property(cc.Color)
+    highlightColor: cc.Color = null;
+
+    public gameConfigs;
+
+    setData(player: any, index: number, showBigWin: boolean) {
+        const isLoginUser = userManager.isLoginUser(player.name);
+        this.bg.active = index % 2 > 0;
+        this.time.string = getStringDateByTime(player.time);
+        this.player.string = isLoginUser ? player.name : shortenName(player.name);
+        this.setOtherValues(player, showBigWin);
+        if (isLoginUser) {
+            this.setTextColor(this.highlightColor ? this.highlightColor : cc.Color.YELLOW);
+        }
+    }
+
+    setTextColor(color: cc.Color) {
+        this.time.node.color = color;
+        this.player.node.color = color;
+        this.amount.node.color = color;
+        this.win.node.color = color;
+    }
+
+    setOtherValues(player: any, showBigWin: boolean) {
+        const { freeSpin, totalAmount, winningAmount, bet } = player;
+
+        if (showBigWin) {
+            this.amount.string = freeSpin ? "Free Spin" : numberWithCommas(totalAmount, 1);
+        } else {
+            this.amount.string = bet;
+        }
+
+        this.win.string = numberWithCommas(winningAmount, 2);
+    }
+}
