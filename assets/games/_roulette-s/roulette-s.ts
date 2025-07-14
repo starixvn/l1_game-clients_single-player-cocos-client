@@ -18,6 +18,7 @@ import RouletteStatistics from "./scripts/roulette-statistics";
 import SingleBetControl from "./scripts/single-bet-control";
 import MiniRouletteSettlePopup from "./scripts/mini-roulette-settle-popup";
 import RouletteLeaderBoard from "./scripts/roulette-leader-board";
+import RouletteSettings from "./scripts/roulette-settings";
 import GameUtils from "../../common/GameUtils";
 import { WEBVIEW_MESSAGE } from "../../constants";
 import { BetModel } from "../_base_new/models/BetModel";
@@ -52,6 +53,9 @@ export default class RouletteS extends SoloGame {
     @property(cc.Prefab)
     leaderBoardsPrefab: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    settingsPrefab: cc.Prefab = null;
+
     @property(cc.Node)
     settlePopup: cc.Node = null;
 
@@ -67,7 +71,7 @@ export default class RouletteS extends SoloGame {
     private isStartRound = false;
 
     private leaderBoardsComponent: RouletteLeaderBoard = null;
-
+    private settingsComponent: RouletteSettings = null;
     constructor() {
         super();
         this.gameId = 134;
@@ -406,6 +410,7 @@ export default class RouletteS extends SoloGame {
 
     override initEventForInGameMenu() {
         const node = super.initEventForInGameMenu();
+        node.on(InGameMenuEvents.OPEN_SETTINGS, this.openSettings, this);
         node.on(InGameMenuEvents.OPEN_STATISTIC, this.openStatistic, this);
         node.on(InGameMenuEvents.OPEN_LEADER_BOARDS, this.openLeaderBoards, this);
         return node;
@@ -433,6 +438,14 @@ export default class RouletteS extends SoloGame {
         const dialog = cc.instantiate(this.leaderBoardsPrefab);
         this.leaderBoardsComponent = dialog.getComponent(RouletteLeaderBoard);
         this.leaderBoardsComponent.init(this.socket, this.gameName);
+        this.currentMiniPanel.node.addChild(dialog);
+    }
+
+    public openSettings() {
+        this.playClick();
+        const dialog = cc.instantiate(this.settingsPrefab);
+        this.settingsComponent = dialog.getComponent(RouletteSettings);
+
         this.currentMiniPanel.node.addChild(dialog);
     }
 }

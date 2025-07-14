@@ -17,6 +17,8 @@ export default class AudioManager {
     private touchStart = false;
     private readonly MusicStorageKey = "SOUND_BACKGROUND";
     private readonly SFXStorageKey = "SOUND_GAME";
+    private readonly MusicVolumeKey = "MUSIC_VOLUME";
+    private readonly SFXVolumeKey = "SFX_VOLUME";
 
     // The AudioContext was not allowed to start.
     // It must be resumed (or created) after a user gesture on the page
@@ -24,6 +26,7 @@ export default class AudioManager {
 
     init() {
         this.initDefaultStorage();
+        this.initVolumeSettings();
         this.initTouchBinded();
     }
 
@@ -98,6 +101,14 @@ export default class AudioManager {
     initDefaultStorage() {
         this.musicEnabled = StorageManager.get(this.MusicStorageKey) ?? true;
         this.sfxEnabled = StorageManager.get(this.SFXStorageKey) ?? true;
+    }
+
+    private initVolumeSettings() {
+        const musicVolume = StorageManager.get(this.MusicVolumeKey) ?? 1;
+        const sfxVolume = StorageManager.get(this.SFXVolumeKey) ?? 1;
+
+        cc.audioEngine.setMusicVolume(musicVolume);
+        cc.audioEngine.setEffectsVolume(sfxVolume);
     }
 
     addMusicChanged(key: string, observer: (changed: boolean) => void) {

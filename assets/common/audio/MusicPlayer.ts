@@ -183,7 +183,7 @@ export default class MusicPlayer {
     playAudioClip(audioClip: cc.AudioClip) {
         this.bgMusicId && cc.audioEngine.stop(this.bgMusicId);
         this.bgMusicId = this.audioManager.playMusic(audioClip, false);
-        cc.audioEngine.setVolume(this.bgMusicId, this.volumeDefault);
+        // cc.audioEngine.setVolume(this.bgMusicId, this.volumeDefault);
         cc.audioEngine.setFinishCallback(this.bgMusicId, () => {
             this.stopBackgroundAudio();
             this.playBgAudio(true);

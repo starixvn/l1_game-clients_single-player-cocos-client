@@ -13,7 +13,8 @@ export enum InGameMenuEvents {
     CHANGE_SWAP_CARD = "change_swap_card",
     CHANGE_WINNING_NOTIFICATION = "change_winning_notification",
     OPEN_PROVABLY_FAIR = "open_provably_fair",
-    OPEN_LEADER_BOARDS = "open_leader_boards"
+    OPEN_LEADER_BOARDS = "open_leader_boards",
+    OPEN_SETTINGS = "open_settings"
 }
 
 @ccclass
@@ -56,6 +57,11 @@ export default class InGameMenu extends cc.Component {
     onClickChangeOrientation() {
         this.doCommons();
         this.node.emit(InGameMenuEvents.CHANGE_ORIENTATION);
+    }
+
+    onClickSettings() {
+        this.doCommons();
+        this.node.emit(InGameMenuEvents.OPEN_SETTINGS);
     }
 
     onClickStatistics() {

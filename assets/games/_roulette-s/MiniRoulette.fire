@@ -37553,6 +37553,9 @@
     "leaderBoardsPrefab": {
       "__uuid__": "191f71e7-4a2e-44d7-be65-e01258d13992"
     },
+    "settingsPrefab": {
+      "__uuid__": "27f0b904-535f-49e2-b810-6c03268f73fa"
+    },
     "settlePopup": {
       "__id__": 920
     },
