@@ -36,6 +36,7 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     betWinAmount = 0;
     autoRebetCount = 0;
+    hasAcceptedBets = false;
 
     onLoad() {
         super.onLoad();
@@ -65,6 +66,10 @@ export default class SoloGame extends StandAloneTableGameBase {
             this.soloBetModel.changeState(SoloBetState.BETTING_FAILED);
         });
 
+        this.emitterListener(this.gameData.betModel, SoloBetModel.Events.PLACE_BET_SUCCESS, () => () => {
+            this.hasAcceptedBets = true;
+        });
+
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CHANGE_STATE, () => (state) => {
             this.onStateChange(state);
         });
@@ -89,8 +94,9 @@ export default class SoloGame extends StandAloneTableGameBase {
             state === SoloBetState.BETTING_FAILED ||
             state === SoloBetState.STARTING_ROUND ||
             state === SoloBetState.READY ||
+            state === SoloBetState.PLACE_BET_FAILED ||
             state === SoloBetState.PLACE_BET_SUCCESS;
-        this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet;
+        this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet && this.hasAcceptedBets;
     }
 
     onConfirmBet() {
@@ -244,11 +250,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     onBetClick(choice: string) {
-        if (
-            this.isStartRound &&
-            this.soloBetModel.state !== SoloBetState.RECEIVE_END_BET &&
-            this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS
-        ) {
+        if (this.isStartRound && this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS) {
             this.showProcessingWarning(true);
             return;
         }

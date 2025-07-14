@@ -87,9 +87,9 @@ export default class RouletteS extends SoloGame {
 
         this.singleBetControl = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetControl);
         this.settlePopupComponent = this.settlePopup.getComponent(MiniRouletteSettlePopup);
-        
+
         this.wheel.setOnBallLandedWithSettlementCallback(this.highlightBetItemsBySettlement.bind(this));
-        
+
         super.onLoad();
         GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.ON_GAME_LOADED);
     }
@@ -312,6 +312,7 @@ export default class RouletteS extends SoloGame {
             });
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;
+            this.hasAcceptedBets = false;
 
             this.setAutoRebetInteractable(true);
 
@@ -342,7 +343,7 @@ export default class RouletteS extends SoloGame {
             const isSpecial = type === "column" || type === "dozen";
             const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
 
-            betItem.setHighlight(isWin);           
+            betItem.setHighlight(isWin);
         });
         this.roundHistoryComponent.setHighlight(true);
     }

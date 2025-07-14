@@ -12,7 +12,7 @@ export enum SoloBetState {
     BETTING_FAILED = "bettingFailed",
     RESULT = "result",
     SETTLEMENT = "settlement",
-    RECEIVE_END_BET = "receiveEndBet",
+    PLACE_BET_FAILED = "placeBetFailed",
     PLACE_BET_SUCCESS = "placeBetSuccess",
     START_BET = "startBet"
 }

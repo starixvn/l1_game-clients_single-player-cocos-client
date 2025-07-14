@@ -12,10 +12,9 @@ export class SoloBetHandler extends BetHandler {
 
     protected handle(event: BetEventType) {
         if (event.endBet) {
-            this.gameData.betModel.changeState(SoloBetState.RECEIVE_END_BET);
-
             if (event.endBet === -1) {
                 this.gameData.betModel.placeBetFailed();
+                this.gameData.betModel.changeState(SoloBetState.PLACE_BET_FAILED);
             } else {
                 this.gameData.betModel.placeBetSuccess(event.endBet);
                 this.gameData.betModel.changeState(SoloBetState.PLACE_BET_SUCCESS);
