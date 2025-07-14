@@ -27,6 +27,7 @@ import { preloadAssets } from "./PreloadRemoteAsset";
 import SetStaticFontSizeLabel from "./SetStaticFontSizeLabel";
 import { userManager } from "./user/UserManager";
 import { WEBVIEW_MESSAGE } from "../constants";
+import configs = require("../configs/Configs");
 
 export const MINI_GAMES_SCALE_ON_DESKTOP = 0.8;
 
@@ -1088,21 +1089,22 @@ export default class GameUtils {
         const functionName = globalFunctions[method];
         if (functionName && typeof (window as any)[functionName] === "function") {
             (window as any)[functionName]();
+            return true;
         }
+        return false;
     }
 
     private static logError(message: string, error?: any) {
         console.error(message, error);
-        sentryLogger.error(message, error);
+        const errorMessage = error ? `${message} ${error}` : message;
+        sentryLogger.log(errorMessage);
     }
 
     public static notifyNativeApp(method: string, payload: any = {}) {
         try {
             // React Native WebView
             if (window.ReactNativeWebView?.postMessage) {
-                window.ReactNativeWebView.postMessage(
-                    JSON.stringify({ type: method, ...payload })
-                );
+                window.ReactNativeWebView.postMessage(JSON.stringify({ type: method, ...payload }));
                 this.callGlobalFunction(method);
                 return;
             }
@@ -1147,7 +1149,7 @@ export default class GameUtils {
         }
 
         try {
-            // iframe fallback
+            // iframe
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({ type: method, ...payload }, "*");
                 this.callGlobalFunction(method);
@@ -1157,6 +1159,13 @@ export default class GameUtils {
             this.logError(`Error window.parent.postMessage (${method}):`, e);
         }
 
-        this.logError(`notifyNativeApp: no valid bridge found for "${method}"`);
+        const environments = ["sit", "uat", "prod"];
+
+        if (environments.includes(configs.env)) {
+            const called = this.callGlobalFunction(method);
+            if (!called) {
+                this.logError(`notifyNativeApp: no valid bridge found for "${method}"`);
+            }
+        }
     }
 }
