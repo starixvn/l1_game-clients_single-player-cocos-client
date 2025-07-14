@@ -84,7 +84,7 @@ export default class RouletteS extends SoloGame {
         this.singleBetControl = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetControl);
         this.settlePopupComponent = this.settlePopup.getComponent(MiniRouletteSettlePopup);
         super.onLoad();
-        GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.GAME_LOADED);
+        GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.ON_GAME_LOADED);
     }
 
     protected onChangedBetChip(bet: number) {
@@ -327,7 +327,11 @@ export default class RouletteS extends SoloGame {
     checkAvailableBalance(amount: number): boolean {
         const available = amount <= userManager.balance;
 
-        !available && this.showMiniWarning(i18n.t("messages.notEnoughMoney"));
+        if (!available) {
+            this.showMiniWarning(i18n.t("messages.notEnoughMoney"));
+            GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL);
+        }
+
         return available;
     }
 

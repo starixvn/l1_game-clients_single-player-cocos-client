@@ -198,11 +198,11 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     private getCloseGameDialogContent(): string {
-        const MSG_PLACED_BET = "您已完成下注，離開仍會進行遊戲開獎喔";
-        const MSG_NOT_PLACED_BET = "是否要離開遊戲？";
+        const MSG_CLOSE_PLACED_BET = "您已完成下注，離開仍會進行遊戲開獎喔";
+        const MSG_CLOSE_NOT_PLACED_BET = "是否要離開遊戲？";
         const hasBet = this.soloBetModel.existBet && this.soloBetModel.existBet();
         const isRoundNotReady = this.soloBetModel.state !== SoloBetState.READY;
-        return (hasBet && isRoundNotReady) ? MSG_PLACED_BET : MSG_NOT_PLACED_BET;
+        return (hasBet && isRoundNotReady) ? MSG_CLOSE_PLACED_BET : MSG_CLOSE_NOT_PLACED_BET;
     }
 
     clickCloseGame() {
