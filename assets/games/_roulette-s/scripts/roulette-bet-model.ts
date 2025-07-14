@@ -9,6 +9,23 @@ export class RouletteBetModel extends SoloBetModel {
         this.flyOwnChipFake({ endBet: this.currentBet, betChoice: type });
     }
 
+    updateOwnbets() {
+        const ownBets = {};
+        this.queueBet.forEach((bet) => {
+            const currentBet = ownBets[bet.choice] ?? 0;
+            ownBets[bet.choice] = currentBet + bet.amount;
+        });
+
+        const groupBets = {};
+        Object.keys(ownBets).forEach((choice) => {
+            const type = getTypeFromChoice(choice);
+            const currentBet = groupBets[type] ?? 0;
+            groupBets[type] = currentBet + ownBets[choice];
+        });
+        Object.assign(ownBets, groupBets);
+        this.changeOwnBets(ownBets);
+    }
+
     getTotalBetOnChoice(choice: string) {
         const convertedOwnBets = convertOwnBetsToTempBet(this.ownBets);
         return convertedOwnBets.amount ?? 0;
