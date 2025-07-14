@@ -87,6 +87,9 @@ export default class RouletteS extends SoloGame {
 
         this.singleBetControl = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetControl);
         this.settlePopupComponent = this.settlePopup.getComponent(MiniRouletteSettlePopup);
+        
+        this.wheel.setOnBallLandedWithSettlementCallback(this.highlightBetItemsBySettlement.bind(this));
+        
         super.onLoad();
         GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.ON_GAME_LOADED);
     }
@@ -260,7 +263,7 @@ export default class RouletteS extends SoloGame {
 
         const result = settlement.result;
         try {
-            await this.showWheelResult(result);
+            await this.showWheelResult(settlement);
             AnimationUtils.delayTime(5).then(() => {
                 this.wheel.hideResultNumber();
             });
@@ -278,15 +281,16 @@ export default class RouletteS extends SoloGame {
     async handleAfterSettlementResult(settlement: any, animated: boolean) {
         super.handleAfterSettlementResult(settlement, animated);
 
-        this.rouletteBetItems.forEach((betItem) => {
-            const choice = betItem.node.name;
-            const type = getTypeFromChoice(choice);
-            const settlementResult = settlement.settlementResult[type];
-            const isSpecial = type === "column" || type === "dozen";
-            const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
-            betItem.setHighlight(isWin);
-            this.roundHistoryComponent.setHighlight(true);
-        });
+        // Xóa phần highlight bet items vì đã được gọi sớm hơn khi viên bi rớt
+        // this.rouletteBetItems.forEach((betItem) => {
+        //     const choice = betItem.node.name;
+        //     const type = getTypeFromChoice(choice);
+        //     const settlementResult = settlement.settlementResult[type];
+        //     const isSpecial = type === "column" || type === "dozen";
+        //     const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
+        //     betItem.setHighlight(isWin);
+        //     this.roundHistoryComponent.setHighlight(true);
+        // });
 
         await AnimationUtils.delayTime(3);
         this.settlePopupComponent.showSettlementResult(this.betWinAmount, this.soloBetModel.currentTotalBet());
@@ -304,6 +308,7 @@ export default class RouletteS extends SoloGame {
                 }
                 betItem.setInactive(false);
                 betItem.clearChips();
+                betItem.setHighlight(false);
             });
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;
@@ -321,12 +326,25 @@ export default class RouletteS extends SoloGame {
         });
     }
 
-    showWheelResult(result: number) {
+    showWheelResult(settlement: any) {
         return new Promise<void>((resolve) => {
-            this.wheel.showResult(result, () => {
+            this.wheel.showResult(settlement, () => {
                 resolve();
             });
         });
+    }
+
+    highlightBetItemsBySettlement(settlement: any) {
+        this.rouletteBetItems.forEach((betItem) => {
+            const choice = betItem.node.name;
+            const type = getTypeFromChoice(choice);
+            const settlementResult = settlement.settlementResult[type];
+            const isSpecial = type === "column" || type === "dozen";
+            const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
+
+            betItem.setHighlight(isWin);           
+        });
+        this.roundHistoryComponent.setHighlight(true);
     }
 
     checkExceedMaxBet(total: number): boolean {

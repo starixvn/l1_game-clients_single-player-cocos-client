@@ -2,6 +2,7 @@ import * as _ from "lodash";
 
 import AudioManager from "../../../common/audio/AudioManager";
 import RouletteResultNumber from "./RouletteResultNumber";
+import AnimationUtils from "../../../common/utils/AnimationUtils";
 
 const { ccclass, property } = cc._decorator;
 enum WheelAnimation {
@@ -77,7 +78,14 @@ export default class RouletteWheel extends cc.Component {
     WHEEL_DEGREE_STEP = 45;
     BALL_HIT_OUT_DEGREE_STEP = 45;
 
+    // Thêm callback để biết khi nào trái banh rớt
     private onBallLandedCallback: (() => void) | null = null;
+
+    // Thêm callback để highlight bet item ngay khi viên bi rớt
+    private onBallLandedWithSettlementCallback: ((settlement: any) => void) | null = null;
+
+    // Thêm settlement data để truyền vào callback
+    private currentSettlement: any = null;
 
     onLoad() {
         this.initWheel();
@@ -114,19 +122,29 @@ export default class RouletteWheel extends cc.Component {
             .start();
     }
 
-    showResult(result: number, onComplete: () => void) {
+    setOnBallLandedWithSettlementCallback(callback: (settlement: any) => void) {
+        this.onBallLandedWithSettlementCallback = callback;
+    }
+
+    showResult(settlement: any, onComplete: () => void) {
         this.prepareWheelSpinAnimation();
+        const result = settlement.result;
         const t = { resultNumber: result + 1 };
         this.onWheelUpdateResultNumber(t);
-        
+
+        // Lưu settlement data để truyền vào callback
+        this.currentSettlement = settlement;
+
         this.onBallLandedCallback = () => {
+            // Gọi callback highlight bet item và hiển thị kết quả cùng lúc
+            if (this.onBallLandedWithSettlementCallback && this.currentSettlement) {
+                this.onBallLandedWithSettlementCallback(this.currentSettlement);
+            }
+            
             this.showResultNumber(result);
-            cc.tween(this.node)
-                .delay(this.durationShowResult)
-                .call(onComplete)
-                .start();
+            cc.tween(this.node).delay(this.durationShowResult).call(onComplete).start();
         };
-        
+
         this.startBallAnimation();
     }
 
@@ -622,11 +640,13 @@ export default class RouletteWheel extends cc.Component {
 
     onWheelUpdateResultNumber(t) {
         const e = t.resultNumber;
+
         if (-1 != e) {
             const i = this.getWheelNumber(e);
             (this.numberRotationDegree = this.wheelNumbersRotations[i]),
                 (this.resultReceived = !0),
                 (this.currentNumberColorVO = this.getNumberColorVO(e));
+
             const n = {
                 value: this.currentNumberColorVO.value,
                 color: this.currentNumberColorVO.color
@@ -671,16 +691,22 @@ export default class RouletteWheel extends cc.Component {
                 this.landingAnimationGroup.stopAnimation == WheelAnimation.BALL_STOP_TARGET_SECTOR_0_2 &&
                     this.playSound(WheelAudio.BALL_JUMPING_NORMAL),
                     (this.rotateBallBone.rotation = -this.sectorInitialAngle);
+
+                if (this.onBallLandedWithSettlementCallback && this.currentSettlement) {
+                    AnimationUtils.delayTime(2.1).then(() => {
+                        this.onBallLandedWithSettlementCallback(this.currentSettlement);
+                    });
+                }
             },
             complete: (t) => {
                 this.resultReceived = !1;
-                
-                // Gọi callback khi trái banh đã rớt vào ô kết quả
+
                 if (this.onBallLandedCallback) {
                     this.onBallLandedCallback();
                     this.onBallLandedCallback = null; // Reset callback
                 }
-                
+
+
                 //     this.hasToSkipAnimation = this.isTurboActive,
                 //     this.wheelResultController.show(),
                 //     this.broadcastAction(d.RWheelDecoratorBroadcastActionNames.WHEEL_RESULT_APPEARED, {
@@ -709,10 +735,14 @@ export default class RouletteWheel extends cc.Component {
                     this.stopSound(WheelAudio.BALL_ROLLING);
                     this.rotateBallBone.rotation = -this.numberRotationDegree;
                     this.resultReceived = !1;
-                    
+
                     if (this.onBallLandedCallback) {
                         this.onBallLandedCallback();
                         this.onBallLandedCallback = null;
+                    }
+                    // Gọi callback highlight bet item khi skip
+                    if (this.onBallLandedWithSettlementCallback && this.currentSettlement) {
+                        this.onBallLandedWithSettlementCallback(this.currentSettlement);
                     }
                 }
             });
