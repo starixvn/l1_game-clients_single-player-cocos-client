@@ -99,6 +99,7 @@ export default class MiniRouletteBetHistory extends SocketIOGameHistoryBase {
 
     get_data(page = 1) {
         if (this.loadingPrefab && this.currentPage < this.totalData / this.pageSize) {
+            this.loadingNode?.destroy();
             this.loadingNode = cc.instantiate(this.loadingPrefab);
             this.content.addChild(this.loadingNode);
         }
