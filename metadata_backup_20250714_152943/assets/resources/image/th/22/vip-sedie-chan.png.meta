@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "58bb7b94-8a9d-45e9-af5b-39ce1ee45528",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 46,
+  "height": 89,
+  "platformSettings": {},
+  "subMetas": {
+    "vip-sedie-chan": {
+      "ver": "1.0.6",
+      "uuid": "4a820df9-cd60-44bb-81f9-7699e75f7700",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "58bb7b94-8a9d-45e9-af5b-39ce1ee45528",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0.5,
+      "trimX": 4,
+      "trimY": 2,
+      "width": 38,
+      "height": 84,
+      "rawWidth": 46,
+      "rawHeight": 89,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "42695b98-2c08-4e0e-b328-6d76de3c1f47",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1903,
+  "height": 1306,
+  "platformSettings": {},
+  "subMetas": {
+    "vip-sedie-decoration": {
+      "ver": "1.0.6",
+      "uuid": "3eddc853-c026-4b25-8bca-73ee9139b477",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "42695b98-2c08-4e0e-b328-6d76de3c1f47",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 1899,
+      "height": 1302,
+      "rawWidth": 1903,
+      "rawHeight": 1306,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

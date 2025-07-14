@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "df5e8743-5498-46af-a7a6-fc5fe719be45",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 157,
+  "height": 35,
+  "platformSettings": {},
+  "subMetas": {
+    "ticket_detail_bieu_tuong": {
+      "ver": "1.0.6",
+      "uuid": "fb88b444-c625-463f-abcc-ccfea53d5bfd",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "df5e8743-5498-46af-a7a6-fc5fe719be45",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 155,
+      "height": 33,
+      "rawWidth": 157,
+      "rawHeight": 35,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

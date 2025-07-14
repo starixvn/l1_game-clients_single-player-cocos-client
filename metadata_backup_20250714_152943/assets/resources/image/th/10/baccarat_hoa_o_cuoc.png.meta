@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "7892c5ea-e22e-4f96-aab2-6339a83f6e73",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 77,
+  "height": 44,
+  "platformSettings": {},
+  "subMetas": {
+    "baccarat_hoa_o_cuoc": {
+      "ver": "1.0.6",
+      "uuid": "11aae600-43d4-4c4a-ba11-ada14ecd0842",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "7892c5ea-e22e-4f96-aab2-6339a83f6e73",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -1,
+      "trimX": 1,
+      "trimY": 10,
+      "width": 76,
+      "height": 26,
+      "rawWidth": 77,
+      "rawHeight": 44,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

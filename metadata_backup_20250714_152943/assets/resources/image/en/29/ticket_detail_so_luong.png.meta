@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "b6a2989e-e6e5-4ba3-8ee6-4d11bba6b2e7",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 194,
+  "height": 25,
+  "platformSettings": {},
+  "subMetas": {
+    "ticket_detail_so_luong": {
+      "ver": "1.0.6",
+      "uuid": "28cfaa79-0e33-47b8-8177-4a5ae3112f20",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "b6a2989e-e6e5-4ba3-8ee6-4d11bba6b2e7",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 192,
+      "height": 23,
+      "rawWidth": 194,
+      "rawHeight": 25,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "7a2efe23-e25f-4b34-b797-0a968f17aca6",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 79,
+  "height": 32,
+  "platformSettings": {},
+  "subMetas": {
+    "top_winner_tong_cuoc": {
+      "ver": "1.0.6",
+      "uuid": "cb38f5e7-b3dd-4ae6-a0e4-968a01c9c77d",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "7a2efe23-e25f-4b34-b797-0a968f17aca6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 77,
+      "height": 30,
+      "rawWidth": 79,
+      "rawHeight": 32,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
