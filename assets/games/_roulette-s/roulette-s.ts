@@ -246,7 +246,7 @@ export default class RouletteS extends SoloGame {
     }
 
     async showSettlementResult(settlement: any) {
-        this.wheel.hideResultNumber();
+        //this.wheel.hideResultNumber();
         this.singleBetControl.hideControl();
 
         this.soloBetModel.changeState(SoloBetState.RESULT);
