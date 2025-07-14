@@ -1,0 +1,124 @@
+{
+    "isDeadSpin": false,
+    "multiplier": 1,
+    "generations": [
+        {
+            "runningTotal": 0,
+            "removedSymbols": [
+                {
+                    "x": 1,
+                    "y": 1
+                },
+                {
+                    "x": 1,
+                    "y": 2
+                },
+                {
+                    "x": 1,
+                    "y": 3
+                }
+            ],
+            "multiplier": 1,
+            "offsetsBefore": [
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5]
+            ],
+            "wildReels": [0],
+            "winnings": [
+                [
+                    "normal",
+                    0,
+                    2,
+                    [
+                        {
+                            "x": 1,
+                            "y": 1
+                        },
+                        {
+                            "x": 1,
+                            "y": 2
+                        },
+                        {
+                            "x": 1,
+                            "y": 3
+                        }
+                    ],
+                    "L5",
+                    1
+                ]
+            ],
+            "offsetsAfter": [
+                [-4, -3, -2, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5]
+            ],
+            "symbols": [
+                ["L5", "L5", "L5", "H1", "NB", "NB", "NB"],
+                ["M4", "H1", "H1", "L6", "NB", "NB", "NB"],
+                ["H1", "L6", "M3", "H1", "NB", "NB", "DB"],
+                ["M3", "M4", "H2", "L6", "NB", "NB", "NB"],
+                ["M3", "M4", "H2", "L6", "NB", "NB", "NB"]
+            ]
+        },
+        {
+            "runningTotal": 2,
+            "removedSymbols": [],
+            "multiplier": 1,
+            "offsetsBefore": [
+                [-4, -3, -2, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5]
+            ],
+            "wildReels": [0],
+            "winnings": [],
+            "offsetsAfter": [
+                [-4, -3, -2, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5],
+                [-1, 0, 1, 2, 3, 4, 5]
+            ],
+            "symbols": [
+                ["M3", "WR", "M4", "H1", "NB", "NB", "NB"],
+                ["M4", "H1", "H1", "L6", "NB", "NB", "NB"],
+                ["H1", "L6", "M3", "H1", "NB", "NB", "DB"],
+                ["M3", "M4", "H2", "L6", "NB", "NB", "NB"],
+                ["M3", "M4", "H2", "L6", "NB", "NB", "NB"]
+            ]
+        }
+    ],
+    "stats": {
+        "b": 500012,
+        "fm": 100000,
+        "currency": "FUN",
+        "tokens": 0,
+        "realityCheck": {
+            "result": 0,
+            "sessionMinutes": 100,
+            "lossLimit": null,
+            "winSum": 0,
+            "resetedResult": 0,
+            "hardErrors": false,
+            "totalSessionMinutes": 100,
+            "sessionLimitSeconds": null,
+            "betSum": 0,
+            "status": "ok"
+        }
+    },
+    "ended": true,
+    "subgameTriggered": false,
+    "stops": [539, 218, 306, 113, 997],
+    "roundType": "demo",
+    "buyFeature": false,
+    "roundId": 0,
+    "win": 2,
+    "wildStops": [37, 68, 18, 117, 100],
+    "ba": 10
+}
