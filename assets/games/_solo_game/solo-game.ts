@@ -86,8 +86,10 @@ export default class SoloGame extends StandAloneTableGameBase {
     updateSpinButtonInteractable() {
         const state = this.soloBetModel.state;
         const isStateCanBet =
-            state === SoloBetState.BETTING_FAILED || state === SoloBetState.STARTING_ROUND || state === SoloBetState.READY;
-        console.log("updateSpinButtonInteractable", state);
+            state === SoloBetState.BETTING_FAILED ||
+            state === SoloBetState.STARTING_ROUND ||
+            state === SoloBetState.READY ||
+            state === SoloBetState.PLACE_BET_SUCCESS;
         this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet;
     }
 
@@ -234,7 +236,11 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     onBetClick(choice: string) {
-        if (this.isStartRound && this.soloBetModel.state !== SoloBetState.RECEIVE_END_BET) {
+        if (
+            this.isStartRound &&
+            this.soloBetModel.state !== SoloBetState.RECEIVE_END_BET &&
+            this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS
+        ) {
             this.showProcessingWarning(true);
             return;
         }
