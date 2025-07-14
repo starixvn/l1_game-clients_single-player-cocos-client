@@ -1,6 +1,6 @@
 {
   "ver": "2.3.7",
-  "uuid": "a5e7b1b2-b957-486f-837c-10bd36023ff3",
+  "uuid": "6189874a-4db6-420a-89ae-5b3f17a6e881",
   "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
@@ -14,9 +14,9 @@
   "subMetas": {
     "Mask Screen": {
       "ver": "1.0.6",
-      "uuid": "9c26aafd-743b-4bf2-9936-e2fa1849a82d",
+      "uuid": "ec0ae0df-7f54-4dad-abfc-7b1ab1c8b18c",
       "importer": "sprite-frame",
-      "rawTextureUuid": "a5e7b1b2-b957-486f-837c-10bd36023ff3",
+      "rawTextureUuid": "6189874a-4db6-420a-89ae-5b3f17a6e881",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

@@ -1,6 +1,6 @@
 {
   "ver": "2.3.7",
-  "uuid": "8f8a30e8-cb6d-4870-8220-f4f0c587acd2",
+  "uuid": "37c50f96-cc06-4e1f-9365-4b558c396438",
   "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
@@ -14,9 +14,9 @@
   "subMetas": {
     "BG_maingame": {
       "ver": "1.0.6",
-      "uuid": "d8f72b11-5bd7-4a99-978e-3ded47601dae",
+      "uuid": "94e371e7-6f11-4692-affa-f1b1ee4996d7",
       "importer": "sprite-frame",
-      "rawTextureUuid": "8f8a30e8-cb6d-4870-8220-f4f0c587acd2",
+      "rawTextureUuid": "37c50f96-cc06-4e1f-9365-4b558c396438",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

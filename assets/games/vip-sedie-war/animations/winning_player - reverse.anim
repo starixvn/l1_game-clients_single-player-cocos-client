@@ -1,0 +1,191 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "winning_player - reverse",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 2,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 38,
+  "curveData": {
+    "paths": {
+      "Mask/Round 1": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 1,
+              "value": 255
+            },
+            {
+              "frame": 1.0166666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/left": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 2.5
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/right": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 2.5
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/top": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 8.92
+            },
+            {
+              "frame": 1,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/bottom": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 8.92
+            },
+            {
+              "frame": 1,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.9833333333333333,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/left": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 1,
+              "value": 2.5
+            },
+            {
+              "frame": 1.5,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/right": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 1,
+              "value": 2.5
+            },
+            {
+              "frame": 1.5,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/top": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 1,
+              "value": 0
+            },
+            {
+              "frame": 2,
+              "value": 8.92
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/bottom": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 1,
+              "value": 0
+            },
+            {
+              "frame": 2,
+              "value": 8.92
+            }
+          ]
+        }
+      },
+      "nha con nha cai highlight bottom up": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 0
+            },
+            {
+              "frame": 2,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "nha con nha cai mask top down": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            },
+            {
+              "frame": 2,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,202 @@
+
+dealer-vip.png
+size: 870,205
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm-L
+  rotate: true
+  xy: 618, 2
+  size: 63, 135
+  orig: 65, 137
+  offset: 1, 1
+  index: -1
+arm-R
+  rotate: false
+  xy: 591, 67
+  size: 71, 136
+  orig: 73, 138
+  offset: 1, 1
+  index: -1
+body
+  rotate: false
+  xy: 141, 32
+  size: 168, 171
+  orig: 173, 208
+  offset: 3, 37
+  index: -1
+bracelet L
+  rotate: false
+  xy: 220, 6
+  size: 21, 24
+  orig: 21, 26
+  offset: 0, 1
+  index: -1
+bracelet R
+  rotate: false
+  xy: 199, 4
+  size: 19, 26
+  orig: 21, 26
+  offset: 0, 0
+  index: -1
+earring-L
+  rotate: true
+  xy: 71, 2
+  size: 11, 27
+  orig: 11, 27
+  offset: 0, 0
+  index: -1
+earring-R
+  rotate: true
+  xy: 41, 2
+  size: 11, 28
+  orig: 11, 28
+  offset: 0, 0
+  index: -1
+eye-close
+  rotate: false
+  xy: 755, 126
+  size: 64, 18
+  orig: 66, 21
+  offset: 1, 1
+  index: -1
+face
+  rotate: true
+  xy: 664, 117
+  size: 86, 89
+  orig: 88, 91
+  offset: 1, 1
+  index: -1
+finger-R
+  rotate: false
+  xy: 2, 2
+  size: 37, 11
+  orig: 37, 11
+  offset: 0, 0
+  index: -1
+ghe
+  rotate: true
+  xy: 2, 15
+  size: 188, 137
+  orig: 188, 150
+  offset: 0, 13
+  index: -1
+hair-R-1
+  rotate: true
+  xy: 317, 3
+  size: 40, 84
+  orig: 40, 84
+  offset: 0, 0
+  index: -1
+hair-R-2
+  rotate: true
+  xy: 755, 146
+  size: 57, 113
+  orig: 57, 159
+  offset: 0, 0
+  index: -1
+hair-back
+  rotate: false
+  xy: 384, 53
+  size: 97, 150
+  orig: 99, 152
+  offset: 1, 1
+  index: -1
+hair-side-R-1
+  rotate: false
+  xy: 483, 59
+  size: 52, 144
+  orig: 52, 144
+  offset: 0, 0
+  index: -1
+hair-side-R-2
+  rotate: true
+  xy: 472, 8
+  size: 43, 144
+  orig: 43, 144
+  offset: 0, 0
+  index: -1
+hair-side-R-3
+  rotate: false
+  xy: 311, 45
+  size: 71, 158
+  orig: 71, 158
+  offset: 0, 0
+  index: -1
+hair-top-1
+  rotate: true
+  xy: 141, 4
+  size: 26, 56
+  orig: 26, 56
+  offset: 0, 0
+  index: -1
+hair-top-2
+  rotate: false
+  xy: 832, 8
+  size: 31, 58
+  orig: 31, 58
+  offset: 0, 0
+  index: -1
+hair-top-3
+  rotate: true
+  xy: 259, 10
+  size: 20, 56
+  orig: 21, 56
+  offset: 0, 0
+  index: -1
+hair-top-4
+  rotate: false
+  xy: 832, 68
+  size: 33, 60
+  orig: 33, 60
+  offset: 0, 0
+  index: -1
+hair-top-5
+  rotate: true
+  xy: 403, 6
+  size: 45, 67
+  orig: 45, 67
+  offset: 0, 0
+  index: -1
+hair-top-6
+  rotate: true
+  xy: 719, 78
+  size: 37, 54
+  orig: 37, 54
+  offset: 0, 0
+  index: -1
+hair-top-7
+  rotate: true
+  xy: 664, 77
+  size: 38, 53
+  orig: 38, 53
+  offset: 0, 0
+  index: -1
+hand-L
+  rotate: true
+  xy: 775, 4
+  size: 120, 55
+  orig: 120, 55
+  offset: 0, 0
+  index: -1
+hand-R
+  rotate: true
+  xy: 537, 59
+  size: 144, 52
+  orig: 144, 52
+  offset: 0, 0
+  index: -1
+red-flower-1
+  rotate: false
+  xy: 243, 6
+  size: 14, 24
+  orig: 14, 24
+  offset: 0, 0
+  index: -1
+red-flower-2
+  rotate: true
+  xy: 821, 130
+  size: 14, 31
+  orig: 14, 31
+  offset: 0, 0
+  index: -1

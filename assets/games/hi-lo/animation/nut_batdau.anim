@@ -1,0 +1,38 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "nut_batdau",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.6181818181818182,
+  "sample": 55,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "buton_batdau": {
+        "props": {
+          "scale": []
+        }
+      },
+      "outer": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.3090909090909091,
+              "value": 255
+            },
+            {
+              "frame": 0.6181818181818182,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

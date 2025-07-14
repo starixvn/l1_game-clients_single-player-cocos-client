@@ -1,8 +1,8 @@
 {
   "ver": "1.2.6",
-  "uuid": "cc8c6913-d07c-46ee-bbfb-550abcd26152",
+  "uuid": "3e245686-88a4-4126-aa3e-6811d3b7b224",
   "importer": "asset",
-  "rawTextureUuid": "34e835c8-1beb-428e-8b23-461784ebe028",
+  "rawTextureUuid": "2da53185-684b-48df-a392-14cd7697ba44",
   "size": {
     "width": 68,
     "height": 36
@@ -11,9 +11,9 @@
   "subMetas": {
     "chip_do.png": {
       "ver": "1.0.6",
-      "uuid": "0fa22a4f-244e-4ee6-8992-f83ea4ff8662",
+      "uuid": "00e9b728-aa1e-407c-8c94-3939cc9fea73",
       "importer": "sprite-frame",
-      "rawTextureUuid": "34e835c8-1beb-428e-8b23-461784ebe028",
+      "rawTextureUuid": "2da53185-684b-48df-a392-14cd7697ba44",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -34,9 +34,9 @@
     },
     "chip_trang.png": {
       "ver": "1.0.6",
-      "uuid": "797b97ff-febf-4eb4-ad77-efc467231f28",
+      "uuid": "21851cc1-717c-41bf-a6b2-b1fa408e9155",
       "importer": "sprite-frame",
-      "rawTextureUuid": "34e835c8-1beb-428e-8b23-461784ebe028",
+      "rawTextureUuid": "2da53185-684b-48df-a392-14cd7697ba44",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

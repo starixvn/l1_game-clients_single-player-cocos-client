@@ -1,6 +1,6 @@
 {
   "ver": "2.3.7",
-  "uuid": "4cb4223c-943b-4f81-bc60-ff4aa10c3e8d",
+  "uuid": "d0c38207-f8e0-4b10-9fab-5192b4f46a01",
   "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
@@ -14,9 +14,9 @@
   "subMetas": {
     "Phone Information": {
       "ver": "1.0.6",
-      "uuid": "26cd3b40-8f85-4676-ad72-ce22e51f132f",
+      "uuid": "f4fa008f-7725-4f9e-a23d-640eaa1cf247",
       "importer": "sprite-frame",
-      "rawTextureUuid": "4cb4223c-943b-4f81-bc60-ff4aa10c3e8d",
+      "rawTextureUuid": "d0c38207-f8e0-4b10-9fab-5192b4f46a01",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

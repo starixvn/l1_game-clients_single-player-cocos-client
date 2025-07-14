@@ -1,0 +1,62 @@
+import { reloadLanguageData } from "../../../../common/i18n/CustomLanguageData";
+
+export const phrases = {
+    BaccaratX: {
+        Header_fairness_settings: "公平性設置",
+        average: "平均值",
+        banker_win: "莊家贏",
+        button_home: "主頁",
+        button_music: "音樂",
+        button_reconnect: "重新連接",
+        button_settings: "設置",
+        button_sfx: "SFX",
+        "calculate_final_cut-card_index": "計算最終的切牌指數",
+        "cut-card_index_note": "切牌指數是所有提交玩家的伺服器種子和客戶端種子的組合。",
+        "don't_show_again": "不再顯示",
+        fainess_settings_para_2: "切牌指數是透過將伺服器種子與客戶端種子結合而產生的。",
+        fairness_settings_client_seed_note: "(插入切牌的位置)",
+        fairness_settings_para_1: "玩家可以輸入自己的客戶種子值，並在牌盒結束時從投注歷史記錄中驗證遊戲的公平性。",
+        "final_cut-card_index": "最終切牌指數",
+        final_shoe_result: "最終牌盒結果",
+        game_icon_name: "幸運百家樂",
+        game_name: "百家乐X",
+        glossary_banker: "莊家",
+        glossary_banker_pair: "莊家一對",
+        glossary_player: "閒家",
+        glossary_player_pair: "閒家一對",
+        glossary_tie: "和",
+        "header_cut-card_index": "切牌 指數",
+        header_fairness_verification: "公平性驗證",
+        "input_cut-card_button": "輸入切牌指數",
+        multiplierpayouts_fee: "附加費",
+        multiplierpayouts_lucky_card: "幸運卡",
+        multiplierpayouts_multiplier: "乘數",
+        player_win: "閒家獲勝",
+        scoreboard_banker_pair: "莊對子",
+        scoreboard_player_pair: "閒對子",
+        shoe_result: "牌盒結果",
+        "shoe_result SHA256": "牌盒結果 SHA256",
+        show_cut_card_index: "切牌指數為 %{cut_card_index}",
+        shuffling_cards: "洗牌",
+        submission_fail: "提交失敗，請重試。",
+        submission_failed_time_expired: "提交失敗。",
+        submission_sucessful: "提交成功！",
+        submit_button: "提交",
+        submit_notes: "（請注意，只有提交的值才會用於計算最終的切牌指數）",
+        table: "桌子",
+        tag_classic: "經典",
+        tag_lucky: "幸運",
+        tag_speed: "速度",
+        tie_win: "和",
+        "title_cut-card_index": "切牌指數",
+        "title_cut-card_index_settings": "切牌指數設定",
+        title_fairness_guides: "公平指南",
+        "waiting screen_para_2": "如果您想為切牌指數產生做出貢獻，請點擊下面的按鈕",
+        waiting_screen_para_1: "產生切牌指數"
+    },
+    gameNames: {
+        "102": "百家乐X"
+    }
+};
+
+reloadLanguageData("zh_tw", phrases);

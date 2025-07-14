@@ -1,0 +1,74 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "nut_batdau_light",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 3.8181818181818183,
+  "sample": 55,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "hieuung": {
+        "comps": {},
+        "props": {
+          "position": [
+            {
+              "frame": 0.6181818181818182,
+              "value": [
+                -138.626,
+                1.105,
+                0
+              ]
+            },
+            {
+              "frame": 1.7818181818181817,
+              "value": [
+                146.583,
+                8.843,
+                0
+              ]
+            },
+            {
+              "frame": 3.8181818181818183,
+              "value": [
+                146.583,
+                8.843,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.6181818181818182,
+              "value": 0
+            },
+            {
+              "frame": 1.7818181818181817,
+              "value": 250
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.6181818181818182,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 1.7818181818181817,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 3,
+                "y": 1
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

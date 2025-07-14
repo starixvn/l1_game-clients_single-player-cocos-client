@@ -1,0 +1,191 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "chanledoc",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 2,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "Mask/Round 1": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 1,
+              "value": 255
+            },
+            {
+              "frame": 1.0166666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/left": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 4.32
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/right": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 4.32
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/top": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 2.6
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 1/bottom": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 2.6
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.9833333333333333,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/left": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 1,
+              "value": 4.32
+            },
+            {
+              "frame": 2,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/right": {
+        "props": {
+          "scaleY": [
+            {
+              "frame": 1,
+              "value": 4.32
+            },
+            {
+              "frame": 2,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/top": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 1.3333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 2,
+              "value": 2.6
+            }
+          ]
+        }
+      },
+      "Mask/Round 2/bottom": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 1.3333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 2,
+              "value": 2.6
+            }
+          ]
+        }
+      },
+      "chan le doc highlight bottom up": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 0
+            },
+            {
+              "frame": 2,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "chan le doc highlight top down": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            },
+            {
+              "frame": 2,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

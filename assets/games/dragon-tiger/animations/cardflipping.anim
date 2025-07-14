@@ -1,0 +1,123 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "cardflipping",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.8,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "Rong/front": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.03333333333333333,
+              "value": 0.2
+            },
+            {
+              "frame": 0.06666666666666667,
+              "value": 0.4
+            },
+            {
+              "frame": 0.1,
+              "value": 0.6
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": 0.8
+            },
+            {
+              "frame": 0.16666666666666666,
+              "value": 1
+            }
+          ],
+          "active": [
+            {
+              "frame": 0,
+              "value": true
+            }
+          ]
+        }
+      },
+      "Ho/front": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.31666666666666665,
+              "value": 0
+            },
+            {
+              "frame": 0.36666666666666664,
+              "value": 0.2
+            },
+            {
+              "frame": 0.4,
+              "value": 0.4
+            },
+            {
+              "frame": 0.43333333333333335,
+              "value": 0.6
+            },
+            {
+              "frame": 0.4666666666666667,
+              "value": 0.8
+            },
+            {
+              "frame": 0.5,
+              "value": 1
+            },
+            {
+              "frame": 0.8,
+              "value": 1
+            }
+          ],
+          "active": [
+            {
+              "frame": 0,
+              "value": true
+            }
+          ]
+        }
+      },
+      "Rong/back": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Ho/back": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 1
+            },
+            {
+              "frame": 0.31666666666666665,
+              "value": 1
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 0.35,
+              "value": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

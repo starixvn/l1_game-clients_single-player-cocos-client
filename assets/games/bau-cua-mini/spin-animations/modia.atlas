@@ -1,0 +1,27 @@
+
+modia.png
+size: 413,189
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dia
+  rotate: false
+  xy: 2, 2
+  size: 185, 185
+  orig: 187, 187
+  offset: 1, 1
+  index: -1
+dia_open_big
+  rotate: false
+  xy: 189, 16
+  size: 169, 171
+  orig: 172, 171
+  offset: 1, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 360, 131
+  size: 56, 51
+  orig: 58, 53
+  offset: 1, 1
+  index: -1
