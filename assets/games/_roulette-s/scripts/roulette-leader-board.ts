@@ -53,18 +53,36 @@ export default class RouletteLeaderBoard extends BaseComponent {
 
     onData(data) {
         if (data.leaderboard) {
-            const { leaderboard, time } = data.leaderboard;
+            const { leaderboard, time, currentPlayer } = data.leaderboard;
             this.lblTime.string = new Date(time).toISOString().replace("T", " ").slice(0, 19).replace(/-/g, "/");
             leaderboard.forEach((item) => {
-                this.bindItemRowData(item);
+                const isCurrentPlayer = item.rank === currentPlayer.rank;
+                this.bindItemRowData(item, isCurrentPlayer);
             });
+
+            if (currentPlayer.rank === -1 || currentPlayer.rank > 30) {
+                const newCurrentPlayer = this.getCurrentPlayer(currentPlayer);
+                this.bindItemRowData(newCurrentPlayer, true);
+            }
         }
     }
 
-    bindItemRowData(leaderboardItem) {
+    bindItemRowData(leaderboardItem, isCurrentPlayer = false) {
         const leaderboardItemPrefab = cc.instantiate(this.leaderBoardItemPrefab);
         const item = leaderboardItemPrefab.getComponent(RouletteLeaderBoardItem);
         this.bodyContent.addChild(leaderboardItemPrefab);
-        item.setData(leaderboardItem);
+        item.setData(leaderboardItem, isCurrentPlayer);
+    }
+
+    getCurrentPlayer(currentPlayer: any) {
+        const newCurrentPlayer = {
+            rank: "-",
+            nickname: currentPlayer.currentPlayerSettings.nickname,
+            totalWin: currentPlayer.totalWin,
+            avatarUrl: currentPlayer.currentPlayerSettings.avatarUrl,
+        };
+
+        
+        return newCurrentPlayer;
     }
 }

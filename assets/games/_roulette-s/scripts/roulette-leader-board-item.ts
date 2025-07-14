@@ -1,4 +1,5 @@
 import GameUtils from "../../../common/GameUtils";
+import { numberWithCommas } from "../../../common/helpers/NumberHelper";
 
 const { ccclass, property } = cc._decorator;
 
@@ -12,11 +13,16 @@ export default class RouletteLeaderBoardItem extends cc.Component {
     playerName: cc.Label = null;
     @property(cc.Label)
     winAmount: cc.Label = null;
+    @property(cc.Node)
+    background: cc.Node = null;
 
-    setData(leaderBoardItem: any) {
+    setData(leaderBoardItem: any, isCurrentPlayer = false) {
         this.rank.string = leaderBoardItem.rank?.toString();
-        this.playerName.string = leaderBoardItem.nickname?.toString() || "***";
-        this.winAmount.string = leaderBoardItem.totalWin?.toString();
+        this.playerName.string = leaderBoardItem.nickname?.toString();
+        this.winAmount.string = numberWithCommas(leaderBoardItem.totalWin, 2);
+        if (isCurrentPlayer) {
+            this.background.active = true;
+        }
 
         if (leaderBoardItem.avatarUrl) {
             this.setGameAvartar(leaderBoardItem.avatarUrl);
@@ -33,7 +39,7 @@ export default class RouletteLeaderBoardItem extends cc.Component {
     }
 
     public loadRemoteSharedResource<T>(pathResource: string, options = { maxRetryCount: 3 }) {
-        return GameUtils.loadRemote<T>("https://l2-proxy2.lumigame.com/shared-resources/operator-logo/x2/sp.png", options);
+        return GameUtils.loadRemote<T>(pathResource, options);
     }
 
     assignSpriteFrame(texture2D: cc.Texture2D) {
@@ -41,8 +47,6 @@ export default class RouletteLeaderBoardItem extends cc.Component {
         if (sprite) {
             const spriteFrame = new cc.SpriteFrame(texture2D);
             sprite.spriteFrame = spriteFrame;
-            sprite.node.width = 44;
-            sprite.node.height = 44;
         }
     }
 }

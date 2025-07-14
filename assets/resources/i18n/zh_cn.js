@@ -452,7 +452,11 @@ const data = {
         back: "回",
         titleGuidePF: "可证明公平指南",
         hot: "热",
-        bet_details_classic_slot_non_winning_payline: "未获胜支付线"
+        bet_details_classic_slot_non_winning_payline: "未获胜支付线",
+        game_ranking_updated: "更新時間",
+        game_ranking_player: "玩家",
+        game_ranking_win: "贏得浪花",
+        game_ranking: "遊戲排名"
     },
     termsPromotion: {
         first: "- 所有新的和现有的投注者都有资格参加促销活动并抓住机会赢得更大的奖品。 \n- 中奖金额根据促销规则和奖金支付。 \n- 促销适用于公司规定的特定时期。 促销期满后，投注赔率将恢复为之前的值。\n- 公司保留随时更改适用于此促销活动的任何参赛条款或修改、终止、暂停或重新安排此促销活动的权利。\n- 因本推广活动引起或与之相关的任何争议均由本公司决定。"
