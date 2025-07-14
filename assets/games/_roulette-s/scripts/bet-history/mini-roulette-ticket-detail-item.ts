@@ -1,5 +1,3 @@
-import * as _ from "lodash";
-
 import GameUtils from "../../../../common/GameUtils";
 import { numberWithCommas } from "../../../../common/helpers/NumberHelper";
 import GameTicketDetailItemBase from "../../../_base/view-models/GameTicketDetailItemBase";

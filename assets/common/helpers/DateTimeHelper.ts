@@ -1,11 +1,11 @@
 import * as moment from "moment";
 
 const getStringDateByTime = (t) => {
-    return moment(new Date(t)).format("HH:mm DD/MM/YYYY");
+    return moment(new Date(t)).format("HH:mm YYYY/MM/DD");
 };
 
 const formatDateTime = (t) => {
-    return moment(new Date(t)).format("HH:mm:ss DD/MM/YYYY");
+    return moment(new Date(t)).format("HH:mm:ss YYYY/MM/DD");
 };
 
 const getStringHourByTime = (t) => {
@@ -13,7 +13,7 @@ const getStringHourByTime = (t) => {
 };
 
 const getStringDate = (t) => {
-    return moment(new Date(t)).format("DD/MM/YYYY");
+    return moment(new Date(t)).format("YYYY/MM/DD");
 };
 
 export const getStringDate1 = (time: string) => {

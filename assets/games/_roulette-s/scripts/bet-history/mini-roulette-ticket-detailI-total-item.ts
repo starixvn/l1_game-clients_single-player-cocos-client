@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import { numberWithCommas } from "../../../../common/helpers/NumberHelper";
 
 const { ccclass, property } = cc._decorator;
