@@ -3,14 +3,7 @@ import { StorageManager } from "../../../managers/StorageManager";
 
 const {ccclass, property} = cc._decorator;
 
-const SliderType = {
-    MUSIC: "MUSIC",
-    SFX: "SFX"
-} as const;
-
-type SliderType = typeof SliderType[keyof typeof SliderType];
-
-enum SliderTypeEnum {
+export enum RouletteSliderType {
     SFX = 0,
     MUSIC = 1
 }
@@ -28,10 +21,10 @@ export default class RouletteSlider extends cc.Component {
     dragButton: cc.Button = null;
 
     @property({
-        type: cc.Enum(SliderTypeEnum),
+        type: cc.Enum(RouletteSliderType),
         displayName: "Slider Type"
     })
-    sliderTypeEnum: SliderTypeEnum = SliderTypeEnum.SFX;
+    sliderType: RouletteSliderType = RouletteSliderType.SFX;
 
     @property({
         displayName: "Default Volume",
@@ -48,10 +41,6 @@ export default class RouletteSlider extends cc.Component {
     private currentVolume = 1.0;
     private dragStartX = 0;
     private initialHandleX = 0;
-
-    private get sliderType(): string {
-        return this.sliderTypeEnum === SliderTypeEnum.MUSIC ? SliderType.MUSIC : SliderType.SFX;
-    }
 
     onLoad() {
         this.initializeSlider();
@@ -109,7 +98,7 @@ export default class RouletteSlider extends cc.Component {
         this.saveVolume(this.currentVolume);
         
         // Provide audio feedback for SFX slider
-        if (this.sliderType === SliderType.SFX && this.currentVolume > 0) {
+        if (this.sliderType === RouletteSliderType.SFX && this.currentVolume > 0) {
             AudioManager.getInstance().playClick();
         }
     }
@@ -160,7 +149,7 @@ export default class RouletteSlider extends cc.Component {
     }
 
     private setAudioVolume(volume: number) {
-        if (this.sliderType === SliderType.MUSIC) {
+        if (this.sliderType === RouletteSliderType.MUSIC) {
             cc.audioEngine.setMusicVolume(volume);
         } else {
             cc.audioEngine.setEffectsVolume(volume);
@@ -168,12 +157,12 @@ export default class RouletteSlider extends cc.Component {
     }
 
     private saveVolume(volume: number) {
-        const key = this.sliderType === SliderType.MUSIC ? this.MUSIC_VOLUME_KEY : this.SFX_VOLUME_KEY;
+        const key = this.sliderType === RouletteSliderType.MUSIC ? this.MUSIC_VOLUME_KEY : this.SFX_VOLUME_KEY;
         StorageManager.set(key, volume);
     }
 
     private getCurrentVolume(): number {
-        const key = this.sliderType === SliderType.MUSIC ? this.MUSIC_VOLUME_KEY : this.SFX_VOLUME_KEY;
+        const key = this.sliderType === RouletteSliderType.MUSIC ? this.MUSIC_VOLUME_KEY : this.SFX_VOLUME_KEY;
         return StorageManager.get(key) ?? this.defaultVolume;
     }
 
@@ -186,7 +175,7 @@ export default class RouletteSlider extends cc.Component {
         this.setAudioVolume(volume);
         this.saveVolume(volume);
         
-        if (this.sliderType === SliderType.SFX && volume > 0) {
+        if (this.sliderType === RouletteSliderType.SFX && volume > 0) {
             AudioManager.getInstance().playClick();
         }
     }

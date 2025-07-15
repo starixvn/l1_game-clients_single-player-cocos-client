@@ -431,6 +431,7 @@ export default class RouletteS extends SoloGame {
         this.playClick();
         const dialog = cc.instantiate(this.settingsPrefab);
         this.settingsComponent = dialog.getComponent(RouletteSettings);
+        this.settingsComponent.init(this.socket, this.gameName);
 
         this.currentMiniPanel.node.addChild(dialog);
     }
