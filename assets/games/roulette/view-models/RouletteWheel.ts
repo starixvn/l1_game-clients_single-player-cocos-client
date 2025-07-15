@@ -78,13 +78,12 @@ export default class RouletteWheel extends cc.Component {
     WHEEL_DEGREE_STEP = 45;
     BALL_HIT_OUT_DEGREE_STEP = 45;
 
-    // Thêm callback để biết khi nào trái banh rớt
+    // Callback to know when the ball lands
     private onBallLandedCallback: (() => void) | null = null;
 
-    // Thêm callback để highlight bet item ngay khi viên bi rớt
+    // Callback to highlight bet item when the ball lands
     private onBallLandedWithSettlementCallback: ((settlement: any) => void) | null = null;
 
-    // Thêm settlement data để truyền vào callback
     private currentSettlement: any = null;
 
     onLoad() {
@@ -109,15 +108,28 @@ export default class RouletteWheel extends cc.Component {
         this.resultNumber.show();
 
         const node = this.resultNumber.node;
+        node.opacity = 0;
         node.scale = 0;
 
-        cc.tween(node).to(0.5, { scale: 1 }, { easing: "backOut" }).start();
+        cc.tween(node)
+            .to(0.5, { 
+                opacity: 255, 
+                scale: 1 
+            }, { 
+                easing: "easeIn" 
+            })
+            .start();
     }
 
     hideResultNumber() {
         const node = this.resultNumber.node;
         cc.tween(node)
-            .to(0.5, { scale: 0 }, { easing: "backIn" })
+            .to(0.5, { 
+                opacity: 0, 
+                scale: 0 
+            }, { 
+                easing: "easeOut" 
+            })
             .call(() => this.resultNumber.hide())
             .start();
     }
@@ -132,11 +144,9 @@ export default class RouletteWheel extends cc.Component {
         const t = { resultNumber: result + 1 };
         this.onWheelUpdateResultNumber(t);
 
-        // Lưu settlement data để truyền vào callback
         this.currentSettlement = settlement;
 
         this.onBallLandedCallback = () => {
-            // Gọi callback highlight bet item và hiển thị kết quả cùng lúc
             if (this.onBallLandedWithSettlementCallback && this.currentSettlement) {
                 this.onBallLandedWithSettlementCallback(this.currentSettlement);
             }

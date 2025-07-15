@@ -60,7 +60,7 @@ export default class RouletteBetItem extends BetItem {
     setHighlight(highlight: boolean) {
         this.highlight.active = highlight;
         const action = cc.sequence(cc.fadeOut(this.interval), cc.fadeIn(this.interval));
-        const repeat = cc.repeatForever(action);
+        const repeat = cc.repeat(action, 5);
         this.highlight.runAction(repeat);
     }
 

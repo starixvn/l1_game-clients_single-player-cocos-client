@@ -264,7 +264,7 @@ export default class RouletteS extends SoloGame {
         const result = settlement.result;
         try {
             await this.showWheelResult(settlement);
-            AnimationUtils.delayTime(5).then(() => {
+            AnimationUtils.delayTime(4).then(() => {
                 this.wheel.hideResultNumber();
             });
             this.soloBetModel.changeState(SoloBetState.SETTLEMENT);
@@ -280,23 +280,13 @@ export default class RouletteS extends SoloGame {
 
     async handleAfterSettlementResult(settlement: any, animated: boolean) {
         super.handleAfterSettlementResult(settlement, animated);
-
-        // Xóa phần highlight bet items vì đã được gọi sớm hơn khi viên bi rớt
-        // this.rouletteBetItems.forEach((betItem) => {
-        //     const choice = betItem.node.name;
-        //     const type = getTypeFromChoice(choice);
-        //     const settlementResult = settlement.settlementResult[type];
-        //     const isSpecial = type === "column" || type === "dozen";
-        //     const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
-        //     betItem.setHighlight(isWin);
-        //     this.roundHistoryComponent.setHighlight(true);
-        // });
+        this.roundHistoryComponent.setHighlight(true);
 
         await AnimationUtils.delayTime(3);
         this.settlePopupComponent.showSettlementResult(this.betWinAmount, this.soloBetModel.currentTotalBet());
         this.resetBetWinAmount();
 
-        AnimationUtils.delayTime(2).then(() => {
+        AnimationUtils.delayTime(2).then(async () => {
             this.settlePopupComponent.hideSettlementResult();
             this.rouletteBetItems.forEach((betItem) => {
                 const choice = betItem.node.name;
@@ -308,8 +298,10 @@ export default class RouletteS extends SoloGame {
                 }
                 betItem.setInactive(false);
                 betItem.clearChips();
-                betItem.setHighlight(false);
             });
+
+            await AnimationUtils.delayTime(0.5);
+
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;
             this.hasAcceptedBets = false;
@@ -345,7 +337,6 @@ export default class RouletteS extends SoloGame {
 
             betItem.setHighlight(isWin);
         });
-        this.roundHistoryComponent.setHighlight(true);
     }
 
     checkExceedMaxBet(total: number): boolean {
