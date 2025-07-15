@@ -266,7 +266,10 @@ export const playWinningEffect = (mainRoomGame: TableGameBaseInterface, playerNo
     winningEffect.runAction(
         cc.sequence(
             cc.callFunc(() => {
-                animation.play();
+                // Only play animation if it exists and has clips
+                if (animation && animation.defaultClip) {
+                    animation.play();
+                }
             }),
             cc.delayTime(duration), // 2 * animation.defaultClip.duration, should be multiple of duration to fix animation disappear suddenly
             cc.callFunc(() => {

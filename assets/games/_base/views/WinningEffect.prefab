@@ -436,14 +436,8 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_defaultClip": {
-      "__uuid__": "84916903-d07a-4723-97bb-2712a6d7db32"
-    },
-    "_clips": [
-      {
-        "__uuid__": "84916903-d07a-4723-97bb-2712a6d7db32"
-      }
-    ],
+    "_defaultClip": null,
+    "_clips": [],
     "playOnLoad": false,
     "_id": ""
   },
