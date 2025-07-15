@@ -83,7 +83,7 @@ export default class RouletteLeaderBoard extends BaseComponent {
     getCurrentPlayer(currentPlayer: any) {
         const newCurrentPlayer = {
             rank: "-",
-            nickname: currentPlayer.currentPlayerSettings.hideName ? "" : currentPlayer.nickname,
+            nickname: currentPlayer.currentPlayerSettings.hideName ? "" : currentPlayer.currentPlayerSettings.nickname,
             totalWin: currentPlayer.totalWin,
             avatarUrl: currentPlayer.currentPlayerSettings.hideAvatar ? "" : currentPlayer.currentPlayerSettings.avatarUrl,
         };
