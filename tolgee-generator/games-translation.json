@@ -2,7 +2,7 @@
     "Configs": [
         {
             "id": 134,
-            "namespaces": ["MiniRoulette", "Common"],
+            "namespaces": ["MiniRoulette", "Common", "ui"],
             "gameNameFolder": "_roulette-s"
         }
     ]
