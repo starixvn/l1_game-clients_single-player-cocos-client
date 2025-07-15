@@ -1,7 +1,23 @@
 import { reloadLanguageData } from "../../../../common/i18n/CustomLanguageData";
 
 export const phrases = {
-    "MiniRoulette": {},
+    "MiniRoulette": {
+        "balance": "余额",
+        "button_rebet": "再投注",
+        "button_spin": "Spin",
+        "button_stop": "停止",
+        "cold_number": "冷门号码",
+        "game_name": "迷你轮盘",
+        "glossary_black": "黑",
+        "glossary_dozen": "一打",
+        "glossary_odd": "单",
+        "glossary_odd_even": "单双",
+        "glossary_red": "红色",
+        "glossary_red_black": "红/黑",
+        "glossary_straight_up": "直线上升",
+        "hot_number": "热门号码",
+        "win": "赢"
+    },
     "Common": {
         "back": "回",
         "bet_amount_of_any_choice_incorrect": "投注金额无效",
@@ -516,7 +532,7 @@ export const phrases = {
     },
     "lobbyNames": {},
     "gameNames": {
-        "134": "Mini Roulette"
+        "134": "迷你轮盘"
     }
 };
 

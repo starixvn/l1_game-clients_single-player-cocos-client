@@ -11,6 +11,7 @@ export const phrases = {
         "button_confirm": "Confirm",
         "button_rebet": "Rebet",
         "button_spin": "Spin",
+        "button_stop": "Stop",
         "cold_number": "Least Hit Number",
         "game_name": "Mini Roulette",
         "game_ranking": "Game Ranking",
