@@ -1,4 +1,4 @@
-console.log("[SocketIOControllerInterface] Loading SocketIOControllerInterface module...");
+
 
 export default interface SocketIOControllerInterface {
     gameScene: any;
@@ -8,4 +8,4 @@ export default interface SocketIOControllerInterface {
     initBaseListenersForSocketUrl(socket, gameId, onConnectSocketFailed, onConnectCallback);
 }
 
-console.log("[SocketIOControllerInterface] SocketIOControllerInterface module loaded successfully");
+

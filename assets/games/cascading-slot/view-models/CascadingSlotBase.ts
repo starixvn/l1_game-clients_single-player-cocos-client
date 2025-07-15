@@ -557,8 +557,7 @@ export default class CascadingSlotBase extends FeatureSlotGameBase {
             .setAmountSlow(betWin, () => {
                 this.soundEndForBigWin();
                 callbackAnim.closeLater();
-            })
-            .catch((reason) => console.log(reason));
+            });
     }
 
     protected skipCallbackBigWin(betWin: number, bigWinAnimation: BigWinAnimation) {

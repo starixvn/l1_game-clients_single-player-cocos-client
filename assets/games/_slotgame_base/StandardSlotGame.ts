@@ -533,7 +533,7 @@ export default class StandardSlotGame extends SlotGameBase {
             [9, 7, 5, 4, 6, 5, 10, 3, 1, 9, 8, 6, 2, 0, 8]
         ];
         const randomIndex = _.random(samples.length - 1);
-        console.log(`B${randomIndex}`);
+        
         return samples[randomIndex];
     }
 
@@ -630,6 +630,6 @@ export default class StandardSlotGame extends SlotGameBase {
     }
 
     closeBetLevel() {
-        console.log("close bet level");
+        
     }
 }

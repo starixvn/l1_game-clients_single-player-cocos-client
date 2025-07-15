@@ -40,7 +40,7 @@ export const getMainMultiplayGame = (gameId: number) => {
     if (key) {
         return +key;
     } else {
-        console.log("Can not get main multiplay for game ", gameId);
+        
         return -1;
     }
 };

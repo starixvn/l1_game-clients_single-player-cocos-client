@@ -1,5 +1,3 @@
-console.log("[Configs] Loading Configs module...");
-
 const defaultConfig = {
     systemType: "SC2",
     ssl: true,
@@ -29,19 +27,11 @@ const defaultConfig = {
     // clientSubDomain: "l1-client" // Turn on when new proxy for client && aws
 };
 
-console.log("[Configs] Default config loaded:", defaultConfig);
-
 const domainMapper = window.envConfig ? undefined : defaultConfig.serverDomainMapper;
-console.log("[Configs] Domain mapper:", domainMapper);
-console.log("[Configs] Window envConfig:", window.envConfig);
 
 const configs =
     window.envConfig && window.envConfig.isDev
         ? defaultConfig
         : { ...defaultConfig, serverDomainMapper: domainMapper, ...window.envConfig };
 
-console.log("[Configs] Final configs resolved:", configs);
-
 module.exports = configs;
-
-console.log("[Configs] Configs module loaded successfully");

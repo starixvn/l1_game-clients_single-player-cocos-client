@@ -89,7 +89,7 @@ export default class JackpotGame extends cc.Component {
             this.initJackpotWinningAmount(data, delayTime);
             this.checkFinishJackpot();
         } catch (error) {
-            console.log("open jackpot error");
+            
         }
     }
 
@@ -129,7 +129,7 @@ export default class JackpotGame extends cc.Component {
             this.onJackpotGameFinished();
             this.node.destroy();
         } catch (error) {
-            console.log(error);
+            
         }
     }
 
@@ -144,7 +144,7 @@ export default class JackpotGame extends cc.Component {
             const frame = await GameUtils.loadResourceAsset<cc.SpriteFrame>(`shared/slot-game/textures/jackpot/${title}`, cc.SpriteFrame);
             this.sprTitle.spriteFrame = frame;
         } catch (error) {
-            console.log("Failed to load jackpot title image");
+            
         }
     }
 }

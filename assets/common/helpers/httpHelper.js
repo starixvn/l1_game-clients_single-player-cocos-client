@@ -19,7 +19,7 @@ function makeCorsRequest(url, callback, alsoExecuteError) {
     // This is a sample server that supports CORS.
     var xhr = createCORSRequest("GET", url);
     if (!xhr) {
-        console.log("CORS not supported");
+        
         return;
     }
 
@@ -29,7 +29,7 @@ function makeCorsRequest(url, callback, alsoExecuteError) {
     };
 
     xhr.onerror = function () {
-        console.log("Woops, there was an error making the request.");
+        
         if (alsoExecuteError) {
             callback();
         }

@@ -435,8 +435,7 @@ export default class StandardCascadingSlotGame extends CascadingSlotBase {
             .showWinAmountForBigWinAnim(betWin, totalBet, coinValue, () => {
                 this.soundEndForBigWinStandard(this.bigWinAudioId, this.incrementAudioId);
                 callbackAnim.closeLater();
-            })
-            .catch((reason) => console.log(reason));
+            });
     }
 
     protected skipCallbackBigWin(betWin: number, bigWinAnimation: CascadingBigWinAnimation) {

@@ -17,7 +17,7 @@ export default class JackpotWinningAmount extends BigWinAnimation {
             );
             this.poolSprite.spriteFrame = frame;
         } catch (error) {
-            console.log("Failed to load pool image");
+            
         }
     }
 }

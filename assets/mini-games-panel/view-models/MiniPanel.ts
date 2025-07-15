@@ -29,7 +29,7 @@ import MiniPanelMiniGameInitializers from "./MiniPanelMiniGameInitializers";
 import MiniPanelSocketIOGameInitializers from "./MiniPanelSocketIOGameInitializers";
 import PopupMinigames from "./popup/PopupMinigames";
 
-console.log("[MiniPanel] Loading MiniPanel module...");
+
 
 type NewLayerCallback = () => void;
 
@@ -96,44 +96,44 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
     public readonly socketIOController: SocketIOController;
 
     addNewLayerCallback(key: string, callback: NewLayerCallback) {
-        console.log("[MiniPanel] Adding new layer callback for key:", key);
+        
         this.newLayerCallbacks[key] = callback;
     }
 
     removeNewLayerCallback(key: string) {
-        console.log("[MiniPanel] Removing new layer callback for key:", key);
+        
         delete this.newLayerCallbacks[key];
     }
 
     removeChartsWebView(key: string) {
-        console.log("[MiniPanel] Removing charts web view for key:", key);
+        
         delete this.chartsWebView[key];
     }
 
     onGamesLayerChanged() {
-        console.log("[MiniPanel] Games layer changed, executing callbacks");
+        
         Object.values(this.newLayerCallbacks).forEach((callback: NewLayerCallback) => callback());
     }
 
     onLoad() {
-        console.log("[MiniPanel] MiniPanel onLoad started");
+        
         appManager.font.increaseMoney = this.fontCong;
         appManager.font.decreaseMoney = this.fontTru;
-        console.log("[MiniPanel] Fonts configured");
+        
 
         const loadingNode = cc.instantiate(this.loadingPrefab);
         this.loading = loadingNode.getComponent("Loading") as Loading;
         loadingNode.active = false;
         this.node?.addChild(loadingNode);
-        console.log("[MiniPanel] Loading component initialized");
+        
 
         this.dataHandlers = new MiniPanelDataHandlers(this);
         this.gameMiniInitializers = new MiniPanelMiniGameInitializers(this);
         this.socketIOGameInitializers = new MiniPanelSocketIOGameInitializers(this);
-        console.log("[MiniPanel] Data handlers and initializers created");
+        
 
         this.registerPromotionEvents();
-        console.log("[MiniPanel] Promotion events registered");
+        
 
         this.noticeContainer.on(cc.Node.EventType.CHILD_ADDED, this.onGamesLayerChanged.bind(this));
         this.noticeContainer.on(cc.Node.EventType.CHILD_REMOVED, this.onGamesLayerChanged.bind(this));
@@ -141,47 +141,47 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
         this.guideContainer.on(cc.Node.EventType.CHILD_REMOVED, this.onGamesLayerChanged.bind(this));
         this.dialog.on(cc.Node.EventType.CHILD_ADDED, this.onGamesLayerChanged.bind(this));
         this.dialog.on(cc.Node.EventType.CHILD_REMOVED, this.onGamesLayerChanged.bind(this));
-        console.log("[MiniPanel] Event listeners registered");
+        
 
         NotificationService.getInstance().addDataObserver(this.kickedOutKey, this.kickedOutKey, (data) =>
             this.dataHandlers.handleDataKickedOut(data)
         );
         NotificationService.getInstance().addDataObserver(this.authKey, this.authKey, (data) => this.dataHandlers.handleAuth(data));
         NotificationService.getInstance().addDataObserver(this.reloadKey, this.reloadKey, this.onForceReload.bind(this));
-        console.log("[MiniPanel] Notification service observers added");
+        
 
         uiManager.emitterListener(InternalEvents.MINI_PANEL_GAME_UM, this.handleUmMessage.bind(this), this);
         uiManager.emitterListener(InternalEvents.MINI_PANEL_GAME_CONNECT_FAILED, this.onConnectSocketFailed.bind(this), this);
         uiManager.emitterListener(InternalEvents.MINI_PANEL_OPEN_TABLE_GAME, this.openNewSocketTableGame.bind(this), this);
         uiManager.emitterListener(InternalEvents.MINI_PANEL_OPEN_MINI_GAME, this.openNewSocketMiniGame.bind(this), this);
         uiManager.emitterListener(InternalEvents.LOADING_GAME, this.updateLoadingGameProgress.bind(this), this);
-        console.log("[MiniPanel] UI manager event listeners registered");
-        console.log("[MiniPanel] MiniPanel onLoad completed");
+        
+        
     }
 
     updateLoadingGameProgress(data: { gameId; progress; total }) {
-        console.log("[MiniPanel] Updating loading game progress:", data);
+        
         const { gameId, progress, total } = data;
         const loading = this.getGameLoadingComp(gameId);
         if (loading) {
             loading.onProgress(progress, total);
-            console.log("[MiniPanel] Loading progress updated for game:", gameId, "progress:", progress, "/", total);
+            
         } else {
             console.warn("[MiniPanel] Loading component not found for game:", gameId);
         }
     }
 
     onDestroy() {
-        console.log("[MiniPanel] MiniPanel onDestroy called");
+        
         NotificationService.getInstance().removeDataObserver(this.kickedOutKey, this.kickedOutKey);
         NotificationService.getInstance().removeDataObserver(this.authKey, this.authKey);
         NotificationService.getInstance().removeDataObserver(this.reloadKey, this.reloadKey);
         uiManager.removeListenersWithTarget(this);
-        console.log("[MiniPanel] MiniPanel destroyed successfully");
+        
     }
 
     async initPopUpMiniGames() {
-        console.log("[MiniPanel] Initializing popup mini games...");
+        
         if (!this.miniMenu) {
             console.warn("[MiniPanel] Mini menu not available");
             return;
@@ -189,7 +189,7 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
 
         try {
             const prefab = await GameUtils.loadResource(`minipanel/popup-mini-game/PopUpMiniGame`);
-            console.log("[MiniPanel] Popup mini game prefab loaded");
+            
             const popUpMiniGameNode = cc.instantiate(prefab);
             this.popupMiniGame = popUpMiniGameNode.getComponent(PopupMinigames);
             if (this.popupMiniGame) {
@@ -201,7 +201,7 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
                 backgroundPopUpMiniGameNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
                 this.popupMiniGame.background = backgroundPopUpMiniGameNode;
                 this.popupMiniGame.background.opacity = 0;
-                console.log("[MiniPanel] Popup mini game component configured");
+                
             }
             const gameMenu = popUpMiniGameNode.getChildByName("list")?.getComponent("CircleMenu");
             if (gameMenu && (gameMenu as any).miniPanel !== undefined) {
@@ -214,9 +214,9 @@ export default class MiniPanel extends BaseComponent implements MiniPanelInterfa
     }
 
     registerPromotionEvents() {
-        console.log("[MiniPanel] Registering promotion events...");
+        
         // Direct mode only - no promotion events needed
-        console.log("[MiniPanel] Promotion events registration skipped");
+        
     }
 
     async createPromotionTournamentPrefab() {

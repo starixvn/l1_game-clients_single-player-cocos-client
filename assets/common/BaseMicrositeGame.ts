@@ -266,7 +266,7 @@ export default class BaseMicrositeGame extends cc.Component {
 
     protected loadLobbyScene() {
         // Since lobby scene is removed, redirect to splash
-        console.log("[BaseMicrositeGame] Lobby scene removed, redirecting to splash...");
+        
         cc.director.loadScene("Splash");
     }
 
@@ -307,7 +307,7 @@ export default class BaseMicrositeGame extends cc.Component {
         const joinGameHelper = new JoinGameHelper();
         if (GameUtils.isMiniGame(gameId.toString())) {
             // Since lobby scene is removed, open game directly
-            console.log("[BaseMicrositeGame] Lobby scene removed, opening mini game directly");
+            
             GameUtils.openGame(joinGameHelper.getGameId(gameId), appManager.miniPanel);
         } else {
             await joinGameHelper.joinGameIsNotMiniGame(gameId, this.socketIOControler);

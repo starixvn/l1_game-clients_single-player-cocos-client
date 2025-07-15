@@ -76,7 +76,7 @@ export default class InGameMenu extends cc.Component {
 
     onClickLeaderBoards() {
         this.doCommons();
-        console.log("onClickLeaderBoards");
+        
         this.node.emit(InGameMenuEvents.OPEN_LEADER_BOARDS);
     }
 }

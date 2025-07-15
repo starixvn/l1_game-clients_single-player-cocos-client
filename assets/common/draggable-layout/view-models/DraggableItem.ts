@@ -48,7 +48,7 @@ export default class DraggableItem extends cc.Component {
 
     onTouchStart(e) {
         if (!this.checkCollider(e)) {
-            console.log("not touch in collider");
+            
             return;
         }
         this.isTouchStarted = true;

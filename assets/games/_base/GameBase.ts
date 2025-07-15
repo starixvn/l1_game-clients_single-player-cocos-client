@@ -62,7 +62,7 @@ import RebetButton from "./view-models/RebetButton";
 import SocketIOGameHistoryBase from "./view-models/SocketIOGameHistoryBase";
 import ProvablyFairComponent from "./view-models/provably-fair/ProvablyFairComponent";
 
-console.log("[GameBase] Loading GameBase module...");
+
 
 const { ccclass, property } = cc._decorator;
 
@@ -161,7 +161,7 @@ export default class GameBase extends GameViewBase implements IGameBase {
     public get gameName() {
         const gameConfiguration = getGameConfiguration(this.gameId);
         const gameName = gameConfiguration?.key;
-        console.log("[GameBase] Getting game name for gameId:", this.gameId, "name:", gameName);
+        
         return gameName;
     }
 
@@ -169,12 +169,12 @@ export default class GameBase extends GameViewBase implements IGameBase {
     public gameState = GameState.None;
     public get isStopGame() {
         const isStop = this.gameState === GameState.Stopped;
-        console.log("[GameBase] Checking isStopGame:", isStop, "gameState:", this.gameState);
+        
         return isStop;
     }
     public get isDisableGame() {
         const isDisable = this.gameState === GameState.Disabled;
-        console.log("[GameBase] Checking isDisableGame:", isDisable, "gameState:", this.gameState);
+        
         return isDisable;
     }
     public waitingProcessing = false;
@@ -251,39 +251,39 @@ export default class GameBase extends GameViewBase implements IGameBase {
     }
 
     onLoad() {
-        console.log("[GameBase] onLoad called for gameId:", this.gameId);
+        
         super.onLoad();
-        console.log("[GameBase] Setting up handlers...");
+        
         this.setUpHandlers();
-        console.log("[GameBase] Initializing bet chips...");
+        
         this.initBetChips();
-        console.log("[GameBase] Initializing game audios...");
+        
         this.initGameAudios();
-        console.log("[GameBase] Setting game round to 0...");
+        
         this.setGameRound(0);
-        console.log("[GameBase] Resetting data and UI...");
+        
         this.resetDataAndUI();
         if (this.animatedTime) {
-            console.log("[GameBase] Setting animated time red time:", this.config?.stopBetTime);
+            
             this.animatedTime.setRedTime(this.config?.stopBetTime);
         }
-        console.log("[GameBase] onLoad completed");
+        
     }
 
     onDestroy() {
-        console.log("[GameBase] onDestroy called for gameId:", this.gameId);
+        
         super.onDestroy();
-        console.log("[GameBase] Clearing MD5 component...");
+        
         this.md5Component = null;
-        console.log("[GameBase] Clearing provably fair component...");
+        
         this.provablyFairComponent = null;
-        console.log("[GameBase] onDestroy completed");
+        
     }
 
     setUpHandlers() {
-        console.log("[GameBase] Setting up handlers for gameId:", this.gameId);
+        
         this.initHandlers();
-        console.log("[GameBase] Adding handlers...");
+        
         this.addHandlers(
             this.umHandler,
             this.timeHandler,
@@ -300,14 +300,14 @@ export default class GameBase extends GameViewBase implements IGameBase {
             this.voidTicketHandler,
             this.winnersHandler
         );
-        console.log("[GameBase] Handlers setup completed");
+        
     }
 
     joinGame() {
-        console.log("[GameBase] Joining game for gameId:", this.gameId);
+        
         this.startGame();
         this.registerViewGame();
-        console.log("[GameBase] Game joined successfully");
+        
     }
 
     clearRoundHistory() {
@@ -329,61 +329,61 @@ export default class GameBase extends GameViewBase implements IGameBase {
     }
 
     onData(data: any) {
-        console.log("[GameBase] Processing data for gameId:", this.gameId, "data:", data);
+        
         for (let index = 0; index < this.dataHandlers.length; index++) {
             const handler = this.dataHandlers[index];
             if (handler) {
-                console.log("[GameBase] Handling data with handler:", handler.constructor.name, "index:", index);
+                
                 handler.handle(data);
             }
             if (index === 0 && this.isShowingUM(data)) {
-                console.log("[GameBase] UM data detected, breaking handler loop");
+                
                 break;
             }
         }
-        console.log("[GameBase] Data processing completed");
+        
     }
 
     closeGame() {
-        console.log("[GameBase] Closing game for gameId:", this.gameId);
+        
         uiManager.emitter.emit(InternalEvents.CLOSE_GAME, this.gameId);
         this.playClick();
         this.node.active = false;
         if (this.md5Component) {
-            console.log("[GameBase] Resetting MD5 component");
+            
             this.md5Component.resetMd5();
         }
-        console.log("[GameBase] Game closed successfully");
+        
     }
 
     /** Clear all intervals and timeouts in game */
     stopGame() {
-        console.log("[GameBase] Stopping game for gameId:", this.gameId);
+        
         this.gameState = GameState.Stopped;
-        console.log("[GameBase] Game state set to Stopped");
+        
         this.clearIntervalAndTimeout();
         this.resetDataAndUI();
         if (this.md5Component) {
-            console.log("[GameBase] Resetting MD5 component");
+            
             this.md5Component.resetMd5();
         }
-        console.log("[GameBase] Game stopped successfully");
+        
     }
 
     disableGame() {
-        console.log("[GameBase] Disabling game for gameId:", this.gameId);
+        
         this.gameState = GameState.Disabled;
-        console.log("[GameBase] Game state set to Disabled");
+        
         this.clearIntervalAndTimeout();
         this.resetDataAndUI();
-        console.log("[GameBase] Game disabled successfully");
+        
     }
 
     startGame() {
-        console.log("[GameBase] Starting game for gameId:", this.gameId);
+        
         this.gameState = GameState.Started;
-        console.log("[GameBase] Game state set to Started");
-        console.log("[GameBase] Game started successfully");
+        
+        
     }
 
     /** Register with game on server */
@@ -1092,14 +1092,14 @@ export default class GameBase extends GameViewBase implements IGameBase {
     }
 
     getPromptMessageComponent() {
-        console.log("[GameBase] Getting prompt message component");
+        
         if (!this.promptMessageComponent) {
-            console.log("[GameBase] Creating new prompt message component");
+            
             const node = GameUtils.createNodeFromPrefab(this.promptMessagePrefab);
             if (node) {
                 this.promptMessageContainer.addChild(node);
                 this.promptMessageComponent = node.getComponent(PromptMessageComponent);
-                console.log("[GameBase] Prompt message component created successfully");
+                
             }
         }
 
@@ -1107,4 +1107,4 @@ export default class GameBase extends GameViewBase implements IGameBase {
     }
 }
 
-console.log("[GameBase] GameBase module loaded successfully");
+

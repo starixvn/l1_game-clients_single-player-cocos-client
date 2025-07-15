@@ -46,7 +46,7 @@ export default class StandardCascadingSlotBoard extends CascadeSlotBoard {
         ];
         const multipliers = [[3], [8], [12], [15], [18]];
         const randomIndex = _.random(samples.length - 1);
-        console.log(`B${randomIndex}`);
+        
         return { symbols: samples[randomIndex], multipliers: multipliers[randomIndex] };
     }
 

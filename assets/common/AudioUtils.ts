@@ -15,7 +15,7 @@ export default class AudioUtils {
 
             return loadedClip;
         } catch (error) {
-            console.log(`Failed to load audio clip from bundle: ${error}`);
+            
             return null;
         }
     };

@@ -53,10 +53,10 @@ export class SoloBetModel extends BetModel {
 
     addBet(choice: string) {
         const tempBet = { choice, amount: this.currentBet };
-        console.log("---------- solo-bet-model - addBet - tempBet", tempBet);
+        
         this.addTempBet(tempBet);
         const ownBets = { endBet: this.currentBet, betChoice: choice };
-        console.log("---------- solo-bet-model - addBet - ownBets", ownBets);
+        
         this.flyOwnChipFake(ownBets);
         this.updateOwnbets();
     }

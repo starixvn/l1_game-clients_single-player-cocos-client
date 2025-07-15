@@ -18,7 +18,7 @@ import * as sessionManager from "./SessionManager";
 import UserService from "./UserService";
 import UrlParamsService from "../utils/UrlParamsService";
 
-console.log("[AuthManager] Loading AuthManager module...");
+
 
 const sentryLogger = logger();
 const sessionExpiredTimeoutMinutes = 19.8;
@@ -29,26 +29,26 @@ export const AppTypes = {
 };
 
 export function getChipSetting() {
-    console.log("[AuthManager] Getting chip settings...");
+    
     const request = {
         session: window.authData.ss,
         username: window.authData.username,
         browserUserAgent: window.navigator.userAgent
     };
-    console.log("[AuthManager] Chip settings request:", request);
+    
 
     const path = configs.env === "" ? "/user" : `/${configs.env}/user`;
     const userServiceUrl = buildUrlWithPath(path);
-    console.log("[AuthManager] User service URL for chip settings:", userServiceUrl);
+    
 
     axios
         .post(`${userServiceUrl}/settings`, request)
         .then((response) => {
-            console.log("[AuthManager] Chip settings response received");
+            
             if (response.data.chips) {
-                console.log("[AuthManager] Setting chip config data");
+                
                 ChipConfig.getInstance().setData(response.data.chips);
-                console.log("[AuthManager] Chip config data set successfully");
+                
             } else {
                 console.warn("[AuthManager] No chips data in response");
             }
@@ -111,7 +111,7 @@ function checkUMSSO(urlParams) {
             startTime: new Date(),
             endTime: new Date()
         };
-        console.log("[AuthManager] Loading UM scene");
+        
         cc.director.loadScene("um");
         return true;
     }
@@ -129,7 +129,7 @@ function checkTimeOut(urlParams) {
 
 function getAppType(urlParams) {
     const appType = parseInt(urlParams.get("appType"));
-    console.log("[AuthManager] Getting app type:", appType);
+    
     return appType;
 }
 
@@ -191,16 +191,16 @@ export function setAuthorizeInfo(session) {
 export function clearQueryStringOnUrl() {
     try {
         history.pushState(null, "", location.href.split("?")[0]);
-        console.log("🔐 [AuthManager] Query string cleared successfully");
+        
     } catch (ex) {
-        console.log(ex);
+        
     }
 }
 
 export function signOut() {
     redirectToTimeOutPage();
     sessionManager.removeSession();
-    console.log("🔐 [AuthManager] User signed out successfully");
+    
 }
 
 function redirectToTimeOutPage() {
@@ -255,15 +255,15 @@ export function setRecheckInInterval() {
     window.reCheckInId = setInterval(() => {
         reCheckIn();
     }, 60 * 1000);
-    console.log("🔐 [AuthManager] Recheck-in interval set successfully");
+    
 }
 
 export function removeRecheckInInterval() {
     if (window.reCheckInId) {
         clearInterval(window.reCheckInId);
-        console.log("🔐 [AuthManager] Recheck-in interval removed successfully");
+        
     } else {
-        console.log("🔐 [AuthManager] No recheck-in interval to remove");
+        
     }
 }
 
@@ -294,7 +294,7 @@ export function reCheckIn() {
 function handleResponse(session, response) {
     session.time = new Date();
     sessionManager.storeSessionData(session);
-    console.log("🔐 [AuthManager] Session time updated and stored");
+    
 
     if (response.apiError) {
         const errorCode = response.apiError.errorCode.toString();
@@ -313,10 +313,10 @@ function handleResponse(session, response) {
 }
 
 function parseBalanceToRed(data) {
-    console.log("🔐 [AuthManager] Parsing balance to red:", data);
+    
     if (data.balance) {
         data.red = data.balance;
-        console.log("🔐 [AuthManager] Balance parsed to red:", data.red);
+        
     }
     return data;
 }
@@ -324,11 +324,11 @@ function parseBalanceToRed(data) {
 export function updateUserBalance(data) {
     const parsedData = parseBalanceToRed(data);
     userManager.updateUser(parsedData);
-    console.log("🔐 [AuthManager] User balance updated successfully");
+    
 }
 
 export function showMessageForAccountClosed(errorCode) {
-    console.log("🔐 [AuthManager] Showing account closed message for error code:", errorCode);
+    
     const noticeData = {
         text: i18n.t("messages.accountClosed", { errorCode: errorCode })
     };
@@ -336,7 +336,7 @@ export function showMessageForAccountClosed(errorCode) {
 }
 
 export function showMessageForExpiredToken(errorCode) {
-    console.log("🔐 [AuthManager] Showing expired token message for error code:", errorCode);
+    
     let text = `${i18n.t("messages.sessionTimeout")} (${errorCode})`;
 
     if (window.authData?.system === AppTypes.SabaApp) {
@@ -349,11 +349,11 @@ export function showMessageForExpiredToken(errorCode) {
 }
 
 function showMessageAndAutoSignOut(noticeData) {
-    console.log("🔐 [AuthManager] Showing message and auto sign out:", noticeData);
+    
     appManager.currentScene?.showNotice(noticeData, () => {
-        console.log("🔐 [AuthManager] Auto sign out triggered from notice");
+        
         signOut();
     });
 }
 
-console.log("[AuthManager] AuthManager module loaded successfully");
+

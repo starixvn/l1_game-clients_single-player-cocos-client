@@ -45,7 +45,7 @@ export default class LocalizedFont extends cc.Component {
         if (this.label) {
             this.loadFont(name).then((font) => {
                 if (this.label && this.label.isValid) {
-                    console.log(font);
+                    
                     this.label.font = font;
                     this.enableCacheMode && this.handleCacheMode();
                 }

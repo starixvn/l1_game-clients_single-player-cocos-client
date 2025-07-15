@@ -1,4 +1,4 @@
-console.log("[ErrorCodeDictionary] Loading ErrorCodeDictionary module...");
+
 
 const ErrorCodeDictionary = {
     "1000": "errorOccurred",
@@ -96,8 +96,6 @@ const ErrorCodeDictionary = {
     SB1943: "openedJackpot"
 };
 
-console.log("[ErrorCodeDictionary] Error code dictionary loaded with", Object.keys(ErrorCodeDictionary).length, "entries");
-
 export const CommonErrorCodeList = [
     "errorOccurred",
     "sessionTimeout",
@@ -111,8 +109,8 @@ export const CommonErrorCodeList = [
     "networkError"
 ];
 
-console.log("[ErrorCodeDictionary] Common error code list loaded with", CommonErrorCodeList.length, "entries");
+
 
 export default ErrorCodeDictionary;
 
-console.log("[ErrorCodeDictionary] ErrorCodeDictionary module loaded successfully");
+
