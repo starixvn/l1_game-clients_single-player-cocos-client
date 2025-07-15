@@ -18,8 +18,8 @@ export default class RouletteLeaderBoardItem extends cc.Component {
 
     setData(leaderBoardItem: any, isCurrentPlayer = false) {
         this.rank.string = leaderBoardItem.rank?.toString();
-        this.playerName.string = leaderBoardItem.nickname?.toString();
-        this.winAmount.string = numberWithCommas(leaderBoardItem.totalWin, 2);
+        this.playerName.string = this.getNickname(leaderBoardItem.nickname?.toString());
+        this.winAmount.string = this.formatText(numberWithCommas(leaderBoardItem.totalWin, 2), 11);
         if (isCurrentPlayer) {
             this.background.active = true;
         }
@@ -27,6 +27,20 @@ export default class RouletteLeaderBoardItem extends cc.Component {
         if (leaderBoardItem.avatarUrl) {
             this.setGameAvartar(leaderBoardItem.avatarUrl);
         }
+    }
+
+    getNickname(nickname: string) {
+        if (!nickname || nickname.trim().length === 0) {
+            return '******';
+        }
+        return this.formatText(nickname, 12);
+    }
+
+    private formatText(text: string, maxLength: number): string {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + "...";
+        }
+        return text;
     }
 
     protected async setGameAvartar(avatarUrl: string) {
