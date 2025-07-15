@@ -13,11 +13,15 @@ import RouletteWheel from "../roulette/view-models/RouletteWheel";
 import MiniRouletteRoundHistory from "./scripts/mini-roulette-round-history";
 import { RouletteGameData } from "./scripts/roulette-bet-game-data";
 import RouletteBetItem from "./scripts/roulette-bet-item";
-import { getTypeFromChoice } from "./scripts/roulette-s-utils";
+import { convertOwnChipToFlattened, convertOwnChipToTempBet, getTypeFromChoice } from "./scripts/roulette-s-utils";
 import RouletteStatistics from "./scripts/roulette-statistics";
 import SingleBetControl from "./scripts/single-bet-control";
 import MiniRouletteSettlePopup from "./scripts/mini-roulette-settle-popup";
+import RouletteLeaderBoard from "./scripts/roulette-leader-board";
+import RouletteSettings from "./scripts/roulette-settings";
 import GameUtils from "../../common/GameUtils";
+import { WEBVIEW_MESSAGE } from "../../constants";
+import { BetModel } from "../_base_new/models/BetModel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -46,6 +50,12 @@ export default class RouletteS extends SoloGame {
     @property(cc.Prefab)
     statisticPrefab: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    leaderBoardsPrefab: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    settingsPrefab: cc.Prefab = null;
+
     @property(cc.Node)
     settlePopup: cc.Node = null;
 
@@ -58,8 +68,9 @@ export default class RouletteS extends SoloGame {
 
     protected betChipContainer: cc.Node = null;
     private settlePopupComponent: MiniRouletteSettlePopup = null;
-    private isStartRound = false;
 
+    private leaderBoardsComponent: RouletteLeaderBoard = null;
+    private settingsComponent: RouletteSettings = null;
     constructor() {
         super();
         this.gameId = 134;
@@ -76,13 +87,15 @@ export default class RouletteS extends SoloGame {
 
         this.singleBetControl = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetControl);
         this.settlePopupComponent = this.settlePopup.getComponent(MiniRouletteSettlePopup);
+
+        this.wheel.setOnBallLandedWithSettlementCallback(this.highlightBetItemsBySettlement.bind(this));
+
         super.onLoad();
-        GameUtils.notifyNativeApp("onGameLoaded");
+        GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.ON_GAME_LOADED);
     }
 
     protected onChangedBetChip(bet: number) {
         super.onChangedBetChip(bet);
-        console.log("onChangedBetChip", bet);
         this.soloBetModel.setCurrentBet(bet);
     }
 
@@ -90,7 +103,7 @@ export default class RouletteS extends SoloGame {
         this.rouletteBetItems = this.rouletteBetItemsContainer.getComponentsInChildren(RouletteBetItem);
 
         this.rouletteBetItems.forEach((item) => {
-            item.betCallback = this.onRouletteBetClick.bind(this);
+            item.betCallback = this.onBetClick.bind(this);
             item.resetUI();
 
             const choice = item.node.name;
@@ -143,6 +156,22 @@ export default class RouletteS extends SoloGame {
                 }
             });
             this.updateSpinButtonInteractable();
+        });
+
+        this.emitterListener(this.gameData.betModel, BetModel.Events.CHANGE_OWN_CHIP, () => (ownChip) => {
+            if (!ownChip || typeof ownChip !== "object") {
+                return;
+            }
+
+            Object.keys(ownChip).forEach((subChoice) => {
+                if (ownChip[subChoice] === undefined) {
+                    return;
+                }
+            });
+
+            const convertedOwnBets = convertOwnChipToFlattened(ownChip);
+            const convertedTempBets = convertOwnChipToTempBet(ownChip);
+            this.soloBetModel.receiveOwnBets(convertedTempBets, convertedOwnBets);
         });
     }
 
@@ -199,19 +228,6 @@ export default class RouletteS extends SoloGame {
         }
     }
 
-    onRouletteBetClick(choice: string) {
-        this.resetAutoRebetCount();
-        if (!this.checkAvailableBetChoices(choice, this.currentBet) || !this.checkAvailableBalance(this.currentBet)) {
-            return;
-        }
-
-        this.soloBetModel.addBet(choice);
-        this.onPlaceBet({ [choice]: this.currentBet });
-        !this.isStartRound && this.soloBetModel.changeState(SoloBetState.STARTING_ROUND);
-
-        this.isStartRound = true;
-    }
-
     protected createBetData(bet: any) {
         const betChoices = this.generateBetChoices(bet);
         const betData = {
@@ -240,15 +256,15 @@ export default class RouletteS extends SoloGame {
     }
 
     async showSettlementResult(settlement: any) {
-        this.wheel.hideResultNumber();
+        //this.wheel.hideResultNumber();
         this.singleBetControl.hideControl();
 
         this.soloBetModel.changeState(SoloBetState.RESULT);
 
         const result = settlement.result;
         try {
-            await this.showWheelResult(result);
-            AnimationUtils.delayTime(5).then(() => {
+            await this.showWheelResult(settlement);
+            AnimationUtils.delayTime(6).then(() => {
                 this.wheel.hideResultNumber();
             });
             this.soloBetModel.changeState(SoloBetState.SETTLEMENT);
@@ -264,22 +280,13 @@ export default class RouletteS extends SoloGame {
 
     async handleAfterSettlementResult(settlement: any, animated: boolean) {
         super.handleAfterSettlementResult(settlement, animated);
-
-        this.rouletteBetItems.forEach((betItem) => {
-            const choice = betItem.node.name;
-            const type = getTypeFromChoice(choice);
-            const settlementResult = settlement.settlementResult[type];
-            const isSpecial = type === "column" || type === "dozen";
-            const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
-            betItem.setHighlight(isWin);
-            this.roundHistoryComponent.setHighlight(true);
-        });
+        this.roundHistoryComponent.setHighlight(true);
 
         await AnimationUtils.delayTime(3);
         this.settlePopupComponent.showSettlementResult(this.betWinAmount, this.soloBetModel.currentTotalBet());
         this.resetBetWinAmount();
 
-        AnimationUtils.delayTime(2).then(() => {
+        AnimationUtils.delayTime(2).then(async () => {
             this.settlePopupComponent.hideSettlementResult();
             this.rouletteBetItems.forEach((betItem) => {
                 const choice = betItem.node.name;
@@ -292,14 +299,16 @@ export default class RouletteS extends SoloGame {
                 betItem.setInactive(false);
                 betItem.clearChips();
             });
+
+            await AnimationUtils.delayTime(0.5);
+
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;
+            this.hasAcceptedBets = false;
 
             this.setAutoRebetInteractable(true);
 
             if (this.autoRebetCount > 0) {
-                console.log("-----------after Settlement autoRebetCount", this.autoRebetCount);
-                console.log("-----------after Settlement ownBets", this.soloBetModel.lastQueueBet);
                 const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
                 this.onReBet(betObject);
                 this.autoRebetCount--;
@@ -310,20 +319,33 @@ export default class RouletteS extends SoloGame {
         });
     }
 
-    showWheelResult(result: number) {
+    showWheelResult(settlement: any) {
         return new Promise<void>((resolve) => {
-            this.wheel.showResult(result, () => {
+            this.wheel.showResult(settlement, () => {
                 resolve();
             });
         });
     }
 
-    checkAvailableBalance(amount: number): boolean {
-        const total = this.soloBetModel.currentTotalBet();
-        const available = total + amount <= userManager.balance;
+    highlightBetItemsBySettlement(settlement: any) {
+        this.rouletteBetItems.forEach((betItem) => {
+            const choice = betItem.node.name;
+            const type = getTypeFromChoice(choice);
+            const settlementResult = settlement.settlementResult[type];
+            const isSpecial = type === "column" || type === "dozen";
+            const isWin = isSpecial ? settlementResult.includes(choice.slice(-1)) : settlementResult.includes(choice);
 
-        !available && this.showMiniWarning(i18n.t("messages.notEnoughMoney"));
-        return available;
+            betItem.setHighlight(isWin);
+        });
+    }
+
+    checkExceedMaxBet(total: number): boolean {
+        const maxBet = this.getMaxBet();
+        if (total > maxBet) {
+            this.showMiniWarning(i18n.t("messages.maxBetNotice", { maxBet: numberWithCommas(maxBet) }));
+            return true;
+        }
+        return false;
     }
 
     checkAvailableBetChoices(choice: string, amount: number): boolean {
@@ -347,15 +369,6 @@ export default class RouletteS extends SoloGame {
         }
 
         return true;
-    }
-
-    checkExceedMaxBet(total: number): boolean {
-        const maxBet = this.getMaxBet();
-        if (total > maxBet) {
-            this.showMiniWarning(i18n.t("messages.maxBetNotice", { maxBet: numberWithCommas(maxBet) }));
-            return true;
-        }
-        return false;
     }
 
     checkExceedMaxBetChoice(amount: number, type: string, isMultiChoices: boolean): boolean {
@@ -383,7 +396,9 @@ export default class RouletteS extends SoloGame {
 
     override initEventForInGameMenu() {
         const node = super.initEventForInGameMenu();
+        node.on(InGameMenuEvents.OPEN_SETTINGS, this.openSettings, this);
         node.on(InGameMenuEvents.OPEN_STATISTIC, this.openStatistic, this);
+        node.on(InGameMenuEvents.OPEN_LEADER_BOARDS, this.openLeaderBoards, this);
         return node;
     }
 
@@ -401,6 +416,22 @@ export default class RouletteS extends SoloGame {
         const dialog = cc.instantiate(this.historyPrefab);
         this.historyComponent = dialog.getComponent(MiniRouletteBetHistory);
         this.historyComponent.init(this.socket);
+        this.currentMiniPanel.node.addChild(dialog);
+    }
+
+    public openLeaderBoards() {
+        this.playClick();
+        const dialog = cc.instantiate(this.leaderBoardsPrefab);
+        this.leaderBoardsComponent = dialog.getComponent(RouletteLeaderBoard);
+        this.leaderBoardsComponent.init(this.socket, this.gameName);
+        this.currentMiniPanel.node.addChild(dialog);
+    }
+
+    public openSettings() {
+        this.playClick();
+        const dialog = cc.instantiate(this.settingsPrefab);
+        this.settingsComponent = dialog.getComponent(RouletteSettings);
+
         this.currentMiniPanel.node.addChild(dialog);
     }
 }

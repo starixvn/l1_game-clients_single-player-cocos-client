@@ -2,6 +2,7 @@ import * as _ from "lodash";
 
 import AudioManager from "../../../common/audio/AudioManager";
 import RouletteResultNumber from "./RouletteResultNumber";
+import AnimationUtils from "../../../common/utils/AnimationUtils";
 
 const { ccclass, property } = cc._decorator;
 enum WheelAnimation {
@@ -77,6 +78,14 @@ export default class RouletteWheel extends cc.Component {
     WHEEL_DEGREE_STEP = 45;
     BALL_HIT_OUT_DEGREE_STEP = 45;
 
+    // Callback to know when the ball lands
+    private onBallLandedCallback: (() => void) | null = null;
+
+    // Callback to highlight bet item when the ball lands
+    private onBallLandedWithSettlementCallback: ((settlement: any) => void) | null = null;
+
+    private currentSettlement: any = null;
+
     onLoad() {
         this.initWheel();
         this.resultNumber.hide();
@@ -99,31 +108,54 @@ export default class RouletteWheel extends cc.Component {
         this.resultNumber.show();
 
         const node = this.resultNumber.node;
+        node.opacity = 0;
         node.scale = 0;
 
-        cc.tween(node).to(0.5, { scale: 1 }, { easing: "backOut" }).start();
+        cc.tween(node)
+            .to(0.5, { 
+                opacity: 255, 
+                scale: 1 
+            }, { 
+                easing: "easeIn" 
+            })
+            .start();
     }
 
     hideResultNumber() {
         const node = this.resultNumber.node;
         cc.tween(node)
-            .to(0.5, { scale: 0 }, { easing: "backIn" })
+            .to(0.5, { 
+                opacity: 0, 
+                scale: 0 
+            }, { 
+                easing: "easeOut" 
+            })
             .call(() => this.resultNumber.hide())
             .start();
     }
 
-    showResult(result: number, onComplete: () => void) {
+    setOnBallLandedWithSettlementCallback(callback: (settlement: any) => void) {
+        this.onBallLandedWithSettlementCallback = callback;
+    }
+
+    showResult(settlement: any, onComplete: () => void) {
         this.prepareWheelSpinAnimation();
+        const result = settlement.result;
         const t = { resultNumber: result + 1 };
         this.onWheelUpdateResultNumber(t);
-        cc.tween(this.node)
-            .delay(9)
-            .call(() => {
-                this.showResultNumber(result);
-            })
-            .delay(this.durationShowResult)
-            .call(onComplete)
-            .start();
+
+        this.currentSettlement = settlement;
+
+        this.onBallLandedCallback = () => {
+            if (this.onBallLandedWithSettlementCallback && this.currentSettlement) {
+                this.onBallLandedWithSettlementCallback(this.currentSettlement);
+            }
+            
+            this.showResultNumber(result);
+            cc.tween(this.node).delay(this.durationShowResult).call(onComplete).start();
+        };
+
+        this.startBallAnimation();
     }
 
     setResult(result: number) {
@@ -618,11 +650,13 @@ export default class RouletteWheel extends cc.Component {
 
     onWheelUpdateResultNumber(t) {
         const e = t.resultNumber;
+
         if (-1 != e) {
             const i = this.getWheelNumber(e);
             (this.numberRotationDegree = this.wheelNumbersRotations[i]),
                 (this.resultReceived = !0),
                 (this.currentNumberColorVO = this.getNumberColorVO(e));
+
             const n = {
                 value: this.currentNumberColorVO.value,
                 color: this.currentNumberColorVO.color
@@ -667,9 +701,22 @@ export default class RouletteWheel extends cc.Component {
                 this.landingAnimationGroup.stopAnimation == WheelAnimation.BALL_STOP_TARGET_SECTOR_0_2 &&
                     this.playSound(WheelAudio.BALL_JUMPING_NORMAL),
                     (this.rotateBallBone.rotation = -this.sectorInitialAngle);
+
+                if (this.onBallLandedWithSettlementCallback && this.currentSettlement) {
+                    AnimationUtils.delayTime(2.1).then(() => {
+                        this.onBallLandedWithSettlementCallback(this.currentSettlement);
+                    });
+                }
             },
             complete: (t) => {
                 this.resultReceived = !1;
+
+                if (this.onBallLandedCallback) {
+                    this.onBallLandedCallback();
+                    this.onBallLandedCallback = null; // Reset callback
+                }
+
+
                 //     this.hasToSkipAnimation = this.isTurboActive,
                 //     this.wheelResultController.show(),
                 //     this.broadcastAction(d.RWheelDecoratorBroadcastActionNames.WHEEL_RESULT_APPEARED, {
@@ -698,6 +745,15 @@ export default class RouletteWheel extends cc.Component {
                     this.stopSound(WheelAudio.BALL_ROLLING);
                     this.rotateBallBone.rotation = -this.numberRotationDegree;
                     this.resultReceived = !1;
+
+                    if (this.onBallLandedCallback) {
+                        this.onBallLandedCallback();
+                        this.onBallLandedCallback = null;
+                    }
+                    // Gọi callback highlight bet item khi skip
+                    if (this.onBallLandedWithSettlementCallback && this.currentSettlement) {
+                        this.onBallLandedWithSettlementCallback(this.currentSettlement);
+                    }
                 }
             });
     }

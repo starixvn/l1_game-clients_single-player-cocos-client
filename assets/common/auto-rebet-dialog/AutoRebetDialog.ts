@@ -38,12 +38,17 @@ export default class AutoRebetDialog extends cc.Component {
     }
 
     updateAutoRebetCount(value: string) {
-        this.lblRoundNumber.string = value;
+        const currentValue = this.lblRoundNumber.string;
+
+        if (currentValue === "" && value === "0") {
+            return;
+        }
         this.autoRebetCount = Number(value);
-        this.nodeConfirmDisabled.active = this.disabledSaveBtn(value);
+        this.lblRoundNumber.string = value;
+        this.nodeConfirmDisabled.active = this.disabledConfirmBtn(value);
     }
 
-    disabledSaveBtn(newCS: string) {
+    disabledConfirmBtn(newCS: string) {
         return newCS === "";
     }
 

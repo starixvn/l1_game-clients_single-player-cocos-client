@@ -5,6 +5,10 @@ import SoloGameData from "./solo-game-data";
 import { Durations } from "../_new/_base/game-data-management/models/durations";
 import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
 import GameUtils from "../../common/GameUtils";
+import CloseGameDialog from "../../common/close-game-dialog/CloseGameDialog";
+import { WEBVIEW_MESSAGE } from "../../constants";
+import { userManager } from "../../common/user/UserManager";
+import { i18n } from "../../ClientModules";
 
 const { ccclass, property } = cc._decorator;
 
@@ -16,21 +20,30 @@ export default class SoloGame extends StandAloneTableGameBase {
     @property(cc.Button)
     btnAutoRebet: cc.Button = null;
 
+    @property(cc.Node)
+    nodeStopAutoRebet: cc.Node = null;
+
     @property(cc.Prefab)
     autoRebetDialogPrefab: cc.Prefab = null;
 
     @property(cc.Label)
     lblAutoRebetCount: cc.Label = null;
 
+    @property(cc.Prefab)
+    closeGameDialogPrefab: cc.Prefab = null;
+
+    protected isStartRound = false;
+
     betWinAmount = 0;
     autoRebetCount = 0;
+    hasAcceptedBets = false;
 
     onLoad() {
         super.onLoad();
         this.animatedTime.setAnimatedY(20, -10);
         this.hideAutoRebetMessage();
+        this.resetAutoRebetCount();
     }
-
     get soloBetModel() {
         return this.gameData.betModel as SoloBetModel;
     }
@@ -51,6 +64,10 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.PLACE_BET_FAILED, () => () => {
             this.soloBetModel.changeState(SoloBetState.BETTING_FAILED);
+        });
+
+        this.emitterListener(this.gameData.betModel, SoloBetModel.Events.PLACE_BET_SUCCESS, () => () => {
+            this.hasAcceptedBets = true;
         });
 
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CHANGE_STATE, () => (state) => {
@@ -74,17 +91,21 @@ export default class SoloGame extends StandAloneTableGameBase {
     updateSpinButtonInteractable() {
         const state = this.soloBetModel.state;
         const isStateCanBet =
-            state === SoloBetState.BETTING_FAILED || state === SoloBetState.SETTLEMENT || state === SoloBetState.STARTING_ROUND;
-        this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet;
+            state === SoloBetState.BETTING_FAILED ||
+            state === SoloBetState.STARTING_ROUND ||
+            state === SoloBetState.READY ||
+            state === SoloBetState.PLACE_BET_FAILED ||
+            state === SoloBetState.PLACE_BET_SUCCESS;
+        this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet && this.hasAcceptedBets;
     }
 
     onConfirmBet() {
-        this.sendSocketData("spin", null);
+        this.sendSocketData("settle", null);
     }
 
     onReBet(bet: any) {
         const betData = this.createBetData(bet);
-        this.sendSocketData("reBet", betData);
+        this.sendSocketData("rebet", betData);
     }
 
     onPlaceBet(bet: any) {
@@ -103,21 +124,40 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     clickAutoRebet() {
         this.playClick();
+
+        const lastBestAmount = this.calculateLastBets(this.soloBetModel.lastQueueBet);
+        const isBalanceEnough = this.checkAvailableBalance(lastBestAmount);
+        this.setAutoRebetInteractable(isBalanceEnough);
+        if (!isBalanceEnough) {
+            return;
+        }
+
         const dialog = cc.instantiate(this.autoRebetDialogPrefab);
         const comp = dialog.getComponent(AutoRebetDialog);
         this.currentMiniPanel.node.addChild(dialog);
 
         comp.onConfirmCallback = (autoRebetCount: number) => {
-            this.onConfirmCallBackAutoRebetDialog(autoRebetCount);
+            this.handleAutoRebet(autoRebetCount);
         };
     }
 
-    onConfirmCallBackAutoRebetDialog(autoRebetCount: number) {
+    clickStopAutoRebet() {
+        this.hideAutoRebetMessage();
+        this.resetAutoRebetCount();
+    }
+
+    handleAutoRebet(autoRebetCount: number) {
         const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
         this.onReBet(betObject);
+
         this.autoRebetCount = autoRebetCount - 1;
-        this.updateAutoRebetCount();
-        this.showAutoRebetMessage();
+        this.setAutoRebetInteractable(false);
+
+        if (this.autoRebetCount > 0) {
+            this.updateAutoRebetCount();
+            this.showAutoRebetMessage();
+            this.nodeStopAutoRebet.active = true;
+        }
     }
 
     convertBetQueueToBetObject(bets: ChoiceBet[]): { [choice: string]: number } {
@@ -143,6 +183,8 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     showAutoRebetMessage() {
+        this.nodeStopAutoRebet.active = true;
+
         const autoRebetMessage = this.lblAutoRebetCount.node.parent;
         autoRebetMessage.active = true;
         autoRebetMessage.scale = 0;
@@ -152,6 +194,8 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     hideAutoRebetMessage() {
+        this.nodeStopAutoRebet.active = false;
+
         const autoRebetMessage = this.lblAutoRebetCount.node.parent;
         cc.tween(autoRebetMessage)
             .to(0.5, { scale: 0, opacity: 0 }, { easing: "backIn" })
@@ -170,7 +214,29 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     clickTopUpBalance() {
-        GameUtils.notifyNativeApp("openRechargePanel");
+        GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL);
+    }
+
+    private getCloseGameDialogContent(): string {
+        const MSG_CLOSE_PLACED_BET = i18n.t("MiniRoulette.alert_close_game_place_bet");
+        const MSG_CLOSE_NOT_PLACED_BET = i18n.t("MiniRoulette.alert_close_game");
+        const hasBet = this.soloBetModel.existBet && this.soloBetModel.existBet();
+        const isRoundNotReady = this.soloBetModel.state !== SoloBetState.READY;
+        return hasBet && isRoundNotReady ? MSG_CLOSE_PLACED_BET : MSG_CLOSE_NOT_PLACED_BET;
+    }
+
+    clickCloseGame() {
+        this.playClick();
+        const dialog = cc.instantiate(this.closeGameDialogPrefab);
+        const comp = dialog.getComponent(CloseGameDialog);
+        this.currentMiniPanel.node.addChild(dialog);
+        const content = this.getCloseGameDialogContent();
+        comp.setContent(content);
+
+        comp.onConfirmCallback = () => {
+            cc.log("Confirm Close, Send Message to Native App");
+            GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.CLOSE);
+        };
     }
 
     override showStatus(status: any) {
@@ -181,5 +247,42 @@ export default class SoloGame extends StandAloneTableGameBase {
             this.updateUserBalance();
             this.betWinAmount = bet;
         }
+    }
+
+    onBetClick(choice: string) {
+        if (this.isStartRound && this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS) {
+            this.showProcessingWarning(true);
+            return;
+        }
+
+        this.soloBetModel.changeState(SoloBetState.START_BET);
+        this.resetAutoRebetCount();
+        if (!this.checkAvailableBetChoices(choice, this.currentBet) || !this.checkAvailableBalance(this.currentBet)) {
+            return;
+        }
+
+        this.onPlaceBet({ [choice]: this.currentBet });
+        !this.isStartRound && this.soloBetModel.changeState(SoloBetState.STARTING_ROUND);
+
+        this.isStartRound = true;
+    }
+
+    checkAvailableBetChoices(choice: string, amount: number): boolean {
+        return true;
+    }
+
+    checkAvailableBalance(amount: number): boolean {
+        const available = amount <= userManager.balance;
+
+        if (!available) {
+            this.showMiniWarning(i18n.t("messages.notEnoughMoney"));
+            GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL);
+        }
+
+        return available;
+    }
+
+    calculateLastBets(bets: ChoiceBet[]): number {
+        return bets.reduce((acc, bet) => acc + bet.amount, 0);
     }
 }

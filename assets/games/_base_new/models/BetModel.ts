@@ -139,4 +139,8 @@ export class BetModel extends EventEmitterBase {
             });
         });
     }
+
+    changeState(state: string) {
+        // override
+    }
 }

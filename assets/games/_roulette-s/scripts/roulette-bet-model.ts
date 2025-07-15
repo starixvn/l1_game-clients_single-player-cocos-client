@@ -1,5 +1,5 @@
 import { ChoiceBet, SoloBetModel } from "../../_solo_game/solo-bet-model";
-import { getTypeFromChoice } from "./roulette-s-utils";
+import { convertOwnBetsToTempBet, getTypeFromChoice } from "./roulette-s-utils";
 
 export class RouletteBetModel extends SoloBetModel {
     protected addTempBet(bet: ChoiceBet) {
@@ -23,7 +23,11 @@ export class RouletteBetModel extends SoloBetModel {
             groupBets[type] = currentBet + ownBets[choice];
         });
         Object.assign(ownBets, groupBets);
-        console.log("ownBets", ownBets);
         this.changeOwnBets(ownBets);
+    }
+
+    getTotalBetOnChoice(choice: string) {
+        const convertedOwnBets = convertOwnBetsToTempBet(this.ownBets);
+        return convertedOwnBets.amount ?? 0;
     }
 }

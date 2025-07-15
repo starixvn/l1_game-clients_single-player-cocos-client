@@ -1,5 +1,3 @@
-import * as _ from "lodash";
-
 import GameUtils from "../../../../common/GameUtils";
 import { numberWithCommas } from "../../../../common/helpers/NumberHelper";
 import GameTicketDetailItemBase from "../../../_base/view-models/GameTicketDetailItemBase";
@@ -27,7 +25,6 @@ export default class MiniRouletteTicketDetailItem extends GameTicketDetailItemBa
 
     createBetLogItem(betLog: any, settlementResult: any, odds: Record<string, number>) {
         this.timeLabel.string = getStringHourByTime(betLog.time);
-        console.log(betLog);
         const betTypes = [RouletteBetType.StraightUp, RouletteBetType.Dozen, RouletteBetType.RedBlack, RouletteBetType.OddEven];
         betTypes.forEach((betType) => {
             const betList = betLog[betType];

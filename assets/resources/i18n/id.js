@@ -470,7 +470,11 @@ const data = {
         back: "Kembali",
         titleGuidePF: "Panduan Terbukti Adil",
         hot: "PANAS",
-        bet_details_classic_slot_non_winning_payline: "Paylines yang tidak menang"
+        bet_details_classic_slot_non_winning_payline: "Paylines yang tidak menang",
+        game_ranking_updated: "Updated On",
+        game_ranking_player: "Player",
+        game_ranking_win: "Winning Splash",
+        game_ranking: "Game Ranking"
     },
     termsPromotion: {
         first: "- Semua pemain baru dan yang sudah ada berhak untuk mengikuti promosi dan mengambil kesempatan untuk memenangkan hadiah yang lebih besar. \n- Jumlah kemenangan dibayarkan sesuai dengan aturan promosi dan pembayaran. \n- Promosi berlaku untuk periode tertentu yang diatur oleh Perusahaan. Saat promosi kedaluwarsa, peluang taruhan akan diatur kembali ke nilai sebelumnya.\n- Perusahaan berhak mengubah syarat masuk yang berlaku untuk promosi ini atau mengubah, menghentikan, menangguhkan, atau menjadwal ulang promosi ini kapan saja.\n- Setiap perselisihan yang timbul dari atau sehubungan dengan promosi ini akan diputuskan oleh Perusahaan."

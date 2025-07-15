@@ -1,13 +1,18 @@
 import { DevTools, Tolgee } from "@tolgee/web";
 import * as fs from "fs";
+import path = require("path");
 
-const gameId = 80;
+const gameId = 134;
 interface Config {
     namespaces: string[];
     gameNameFolder: string;
 }
 
 function writeFile(fileName: string, content: string, extension = "ts") {
+    const dir = path.dirname(`${fileName}.${extension}`);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true }); 
+    }
     fs.writeFileSync(`${fileName}.${extension}`, content, {
         encoding: "utf8",
         flag: "w"

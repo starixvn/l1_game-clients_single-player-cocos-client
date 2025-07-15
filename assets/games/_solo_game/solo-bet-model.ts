@@ -11,7 +11,10 @@ export enum SoloBetState {
     BETTING = "betting",
     BETTING_FAILED = "bettingFailed",
     RESULT = "result",
-    SETTLEMENT = "settlement"
+    SETTLEMENT = "settlement",
+    PLACE_BET_FAILED = "placeBetFailed",
+    PLACE_BET_SUCCESS = "placeBetSuccess",
+    START_BET = "startBet"
 }
 
 export class SoloBetModel extends BetModel {
@@ -28,10 +31,11 @@ export class SoloBetModel extends BetModel {
 
     changeState(state: string) {
         this.state = state;
-        this.emit(SoloBetModel.Events.CHANGE_STATE, state);
         if (state === SoloBetState.READY) {
             this.resetLastBet();
         }
+
+        this.emit(SoloBetModel.Events.CHANGE_STATE, state);
     }
 
     setCurrentBet(bet: number) {
@@ -48,8 +52,18 @@ export class SoloBetModel extends BetModel {
     }
 
     addBet(choice: string) {
-        this.addTempBet({ choice, amount: this.currentBet });
-        this.flyOwnChipFake({ endBet: this.currentBet, betChoice: choice });
+        const tempBet = { choice, amount: this.currentBet };
+        console.log("---------- solo-bet-model - addBet - tempBet", tempBet);
+        this.addTempBet(tempBet);
+        const ownBets = { endBet: this.currentBet, betChoice: choice };
+        console.log("---------- solo-bet-model - addBet - ownBets", ownBets);
+        this.flyOwnChipFake(ownBets);
+        this.updateOwnbets();
+    }
+
+    receiveOwnBets(tempBets: any, ownBets: any) {
+        this.addTempBet(tempBets);
+        this.flyOwnChipFake(ownBets);
         this.updateOwnbets();
     }
 
@@ -84,7 +98,7 @@ export class SoloBetModel extends BetModel {
     }
 
     getTotalBetOnChoice(choice: string) {
-        return this.ownBets[choice] ?? 0;
+        return this.ownBets?.[choice] ?? 0;
     }
 
     currentTotalBet() {

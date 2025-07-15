@@ -1,5 +1,6 @@
 import { BetEventType, BetHandler } from "../_base_new/handlers/BetHandler";
 import SoloGameData from "./solo-game-data";
+import { SoloBetState } from "./solo-bet-model";
 
 export class SoloBetHandler extends BetHandler {
     protected readonly gameData: SoloGameData;
@@ -13,8 +14,10 @@ export class SoloBetHandler extends BetHandler {
         if (event.endBet) {
             if (event.endBet === -1) {
                 this.gameData.betModel.placeBetFailed();
+                this.gameData.betModel.changeState(SoloBetState.PLACE_BET_FAILED);
             } else {
                 this.gameData.betModel.placeBetSuccess(event.endBet);
+                this.gameData.betModel.changeState(SoloBetState.PLACE_BET_SUCCESS);
             }
             if (event.roundId) {
                 this.gameData.changeRoundId(event.roundId);

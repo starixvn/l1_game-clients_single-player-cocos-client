@@ -10,7 +10,9 @@ export default class RouletteBetItem extends BetItem {
     @property(cc.Node)
     inactiveNode: cc.Node = null;
 
-   
+    @property
+    interval = 0.4;
+
     public betCallback = (choice: string) => {};
 
 
@@ -57,6 +59,9 @@ export default class RouletteBetItem extends BetItem {
 
     setHighlight(highlight: boolean) {
         this.highlight.active = highlight;
+        const action = cc.sequence(cc.fadeOut(this.interval), cc.fadeIn(this.interval));
+        const repeat = cc.repeat(action, 5);
+        this.highlight.runAction(repeat);
     }
 
     setInactive(inactive: boolean) {
