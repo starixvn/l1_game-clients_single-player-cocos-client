@@ -37,7 +37,13 @@ export default class RouletteToggle extends cc.Component {
         this.updateIcon(this.isEnabled);
         
         AudioManager.getInstance().playClick();
-        
+
+        // animation ease-in-out toggle
+        cc.tween(this.node)
+            .to(0.12, { scale: 0.9 }, { easing: 'smooth' })
+            .to(0.12, { scale: 1.0 }, { easing: 'smooth' })
+            .start();
+
         if (this.onToggleCallback) {
             this.onToggleCallback(this.type, this.isEnabled);
         }
