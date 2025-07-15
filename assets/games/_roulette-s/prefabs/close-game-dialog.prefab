@@ -1272,8 +1272,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 224,
-      "height": 50.4
+      "width": 513.32,
+      "height": 90.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1324,8 +1324,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "是否要離開遊戲？",
-    "_N$string": "是否要離開遊戲？",
+    "_string": "You have completed your bet, \nThe game will still be drawn if you leave",
+    "_N$string": "You have completed your bet, \nThe game will still be drawn if you leave",
     "_fontSize": 28,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1340,7 +1340,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0,
+    "_N$overflow": 2,
     "_N$cacheMode": 0,
     "_id": ""
   },
