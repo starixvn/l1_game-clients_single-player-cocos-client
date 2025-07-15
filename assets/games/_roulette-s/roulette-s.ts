@@ -264,7 +264,7 @@ export default class RouletteS extends SoloGame {
         const result = settlement.result;
         try {
             await this.showWheelResult(settlement);
-            AnimationUtils.delayTime(4).then(() => {
+            AnimationUtils.delayTime(6).then(() => {
                 this.wheel.hideResultNumber();
             });
             this.soloBetModel.changeState(SoloBetState.SETTLEMENT);
