@@ -250,13 +250,16 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     onBetClick(choice: string) {
+        if (this.isAutoRebetActive()) {
+            return;
+        }
+
         if (this.isStartRound && this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS) {
             this.showProcessingWarning(true);
             return;
         }
 
         this.soloBetModel.changeState(SoloBetState.START_BET);
-        this.resetAutoRebetCount();
         if (!this.checkAvailableBetChoices(choice, this.currentBet) || !this.checkAvailableBalance(this.currentBet)) {
             return;
         }
@@ -284,5 +287,9 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     calculateLastBets(bets: ChoiceBet[]): number {
         return bets.reduce((acc, bet) => acc + bet.amount, 0);
+    }
+
+    private isAutoRebetActive(): boolean {
+        return this.autoRebetCount > 0;
     }
 }
