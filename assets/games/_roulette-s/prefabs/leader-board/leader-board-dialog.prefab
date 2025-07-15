@@ -31,13 +31,10 @@
       },
       {
         "__id__": 87
-      },
-      {
-        "__id__": 88
       }
     ],
     "_prefab": {
-      "__id__": 89
+      "__id__": 88
     },
     "_opacity": 255,
     "_color": {
@@ -3021,38 +3018,6 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 1398,
     "_originalHeight": 786,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": false,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "e4621714-e67d-459f-a0a5-d026d19a7842"
-    },
-    "_type": 0,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
     "_id": ""
   },
   {
