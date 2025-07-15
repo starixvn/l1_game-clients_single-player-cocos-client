@@ -119,7 +119,7 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     clickConfirmBet() {
         this.gameData.durations.remaining = this.config.minBetTime;
-        this.soloBetModel.confirmBet();
+        //this.soloBetModel.confirmBet();
     }
 
     clickAutoRebet() {
