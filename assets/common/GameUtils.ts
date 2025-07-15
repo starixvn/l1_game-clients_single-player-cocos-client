@@ -26,6 +26,7 @@ import { sentryLogger } from "./logger";
 import { preloadAssets } from "./PreloadRemoteAsset";
 import SetStaticFontSizeLabel from "./SetStaticFontSizeLabel";
 import { userManager } from "./user/UserManager";
+import { WEBVIEW_MESSAGE } from "../constants";
 
 
 
@@ -1144,17 +1145,37 @@ export default class GameUtils {
     }
 
 
+    private static callGlobalFunction(method: string) {
+        const globalFunctions = {
+            [WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL]: "openRechargePanel",
+            [WEBVIEW_MESSAGE.ON_GAME_LOADED]: "onGameLoaded",
+            [WEBVIEW_MESSAGE.CLOSE]: "close"
+        };
+
+        const functionName = globalFunctions[method];
+        if (functionName && typeof (window as any)[functionName] === "function") {
+            (window as any)[functionName]();
+            return true;
+        }
+        return false;
+    }
+
+    private static logError(message: string, error?: any) {
+        console.error(message, error);
+        const errorMessage = error ? `${message} ${error}` : message;
+        sentryLogger.log(errorMessage);
+    }
+
     public static notifyNativeApp(method: string, payload: any = {}) {
         try {
             // React Native WebView
             if (window.ReactNativeWebView?.postMessage) {
-                window.ReactNativeWebView.postMessage(
-                    JSON.stringify({ type: method, ...payload })
-                );
+                window.ReactNativeWebView.postMessage(JSON.stringify({ type: method, ...payload }));
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error ReactNativeWebView (${method}):`, e);
+            this.logError(`Error ReactNativeWebView (${method}):`, e);
         }
 
         try {
@@ -1162,10 +1183,11 @@ export default class GameUtils {
             const android = (window as any).Android;
             if (android && typeof android[method] === "function") {
                 android[method]();
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error Android.${method}:`, e);
+            this.logError(`Error Android.${method}:`, e);
         }
 
         try {
@@ -1173,10 +1195,11 @@ export default class GameUtils {
             const jsbridge = (window as any).JSBridge;
             if (jsbridge && typeof jsbridge[method] === "function") {
                 jsbridge[method]();
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error JSBridge.${method}:`, e);
+            this.logError(`Error JSBridge.${method}:`, e);
         }
 
         try {
@@ -1184,23 +1207,28 @@ export default class GameUtils {
             const webkitHandler = (window as any).webkit?.messageHandlers?.[method];
             if (webkitHandler?.postMessage) {
                 webkitHandler.postMessage(payload);
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error webkit.messageHandlers.${method}:`, e);
+            this.logError(`Error webkit.messageHandlers.${method}:`, e);
         }
 
         try {
-            // iframe fallback
+            // iframe
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({ type: method, ...payload }, "*");
+                this.callGlobalFunction(method);
                 return;
             }
         } catch (e) {
-            cc.log(`Error window.parent.postMessage (${method}):`, e);
+            this.logError(`Error window.parent.postMessage (${method}):`, e);
         }
 
-        cc.warn(`notifyNativeApp: no valid bridge found for "${method}"`);
+        const called = this.callGlobalFunction(method);
+        if (!called) {
+            this.logError(`notifyNativeApp: no valid bridge found for "${method}"`);
+        }
     }
 }
 
