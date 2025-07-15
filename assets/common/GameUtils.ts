@@ -27,10 +27,7 @@ import { preloadAssets } from "./PreloadRemoteAsset";
 import SetStaticFontSizeLabel from "./SetStaticFontSizeLabel";
 import { userManager } from "./user/UserManager";
 
-// Stub implementation for PromotionTournamentHandler
-class PromotionTournamentHandler {
-    // Stub implementation
-}
+
 
 console.log("[GameUtils] Loading GameUtils module...");
 
@@ -442,7 +439,6 @@ export default class GameUtils {
                         this.onForceReload();
                     } else {
                         cc.director.loadScene(sceneName, () => {
-                            PromotionTournamentHandler.getInstance().checkTournamentPromotionsBeforeSignIn();
                             resolve();
                         });
                     }
