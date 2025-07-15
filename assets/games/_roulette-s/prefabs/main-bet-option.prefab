@@ -776,8 +776,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 160,
+      "height": 85
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -788,8 +788,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        50,
-        -35,
+        -80,
+        -65,
         0,
         0,
         0,
@@ -1062,6 +1062,7 @@
     "inactiveNode": {
       "__id__": 19
     },
+    "interval": 0.4,
     "singleBetControl": null,
     "_id": ""
   },
@@ -1514,8 +1515,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 160,
+      "height": 85
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1526,8 +1527,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        50,
-        -29,
+        -80,
+        -65,
         0,
         0,
         0,
@@ -1677,6 +1678,7 @@
     "inactiveNode": {
       "__id__": 39
     },
+    "interval": 0.4,
     "_id": ""
   },
   {
@@ -2251,8 +2253,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 160,
+      "height": 85
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2263,8 +2265,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        50,
-        -29,
+        -80,
+        -65,
         0,
         0,
         0,
@@ -2414,6 +2416,7 @@
     "inactiveNode": {
       "__id__": 59
     },
+    "interval": 0.4,
     "_id": ""
   },
   {
@@ -2988,8 +2991,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 160,
+      "height": 85
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3000,8 +3003,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        50,
-        -29,
+        -80,
+        -65,
         0,
         0,
         0,
@@ -3151,6 +3154,7 @@
     "inactiveNode": {
       "__id__": 79
     },
+    "interval": 0.4,
     "_id": ""
   },
   {
@@ -3958,8 +3962,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 160,
+      "height": 85
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3970,8 +3974,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        50,
-        -35,
+        -80,
+        -65,
         0,
         0,
         0,
@@ -4121,6 +4125,7 @@
     "inactiveNode": {
       "__id__": 105
     },
+    "interval": 0.4,
     "_id": ""
   },
   {
@@ -4695,8 +4700,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 160,
+      "height": 85
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4707,8 +4712,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        50,
-        -35,
+        -80,
+        -65,
         0,
         0,
         0,
@@ -4858,6 +4863,7 @@
     "inactiveNode": {
       "__id__": 125
     },
+    "interval": 0.4,
     "_id": ""
   },
   {
@@ -5432,8 +5438,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 160,
+      "height": 85
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5444,8 +5450,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        50,
-        -35,
+        -80,
+        -65,
         0,
         0,
         0,
@@ -5595,6 +5601,7 @@
     "inactiveNode": {
       "__id__": 145
     },
+    "interval": 0.4,
     "_id": ""
   },
   {
@@ -6282,8 +6289,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 160,
+      "height": 85
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6294,8 +6301,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        50,
-        -35,
+        -80,
+        -65,
         0,
         0,
         0,
@@ -6445,6 +6452,7 @@
     "inactiveNode": {
       "__id__": 168
     },
+    "interval": 0.4,
     "_id": ""
   },
   {

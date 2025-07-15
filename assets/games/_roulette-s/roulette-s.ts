@@ -133,15 +133,7 @@ export default class RouletteS extends SoloGame {
         });
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.FLY_OWN_CHIP_FAKE, () => (data) => {
             if (data.endBet) {
-                const choice = data.betChoice;
-                const nodeName = choice;
-                const betItem = this.rouletteBetItems.find((item) => item.node.name === nodeName);
-                if (betItem) {
-                    this.chipFlyingStamp = Date.now();
-                    this.betChips.throwChipThenConvertToStack(betItem.chipNode, this.currentBet, () => {
-                        this.mergeStackOnChoice(choice, this.chipFlyingStamp);
-                    });
-                }
+                this.throwChip(data);
                 this.updateSpinButtonInteractable();
             }
         });
@@ -173,6 +165,25 @@ export default class RouletteS extends SoloGame {
             const convertedTempBets = convertOwnChipToTempBet(ownChip);
             this.soloBetModel.receiveOwnBets(convertedTempBets, convertedOwnBets);
         });
+    }
+
+    throwChip(data) {
+        const choice = data.betChoice;
+        const nodeName = choice;
+        const betItem = this.rouletteBetItems.find((item) => item.node.name === nodeName);
+        const chipBoxNode = betItem?.chipNode;
+        if (!betItem || !chipBoxNode) {
+            return;
+        }
+        this.chipFlyingStamp = Date.now();
+        if (betItem.node.name !== "straightUp") {
+            this.betChips.throwChipToChipBox(data.endBet, chipBoxNode, null, null);
+        } else {
+            const chipNode = this.betChips.createSmallChip(data.endBet);
+            const randomInChipBoxPosition = this.betChips.getRandomPositionChip(chipNode, chipBoxNode);
+            chipNode.position = randomInChipBoxPosition;
+            chipBoxNode.addChild(chipNode);
+        }
     }
 
     updateRoundHistory() {
