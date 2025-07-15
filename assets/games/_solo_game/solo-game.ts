@@ -96,7 +96,7 @@ export default class SoloGame extends StandAloneTableGameBase {
             state === SoloBetState.READY ||
             state === SoloBetState.PLACE_BET_FAILED ||
             state === SoloBetState.PLACE_BET_SUCCESS;
-        this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet && this.hasAcceptedBets;
+        this.btnSpin.interactable = this.soloBetModel.existBet() && isStateCanBet && this.hasAcceptedBets && !this.isAutoRebetMode();
     }
 
     onConfirmBet() {
