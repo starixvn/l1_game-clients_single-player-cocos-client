@@ -310,9 +310,8 @@ export default class RouletteS extends SoloGame {
 
             if (this.autoRebetCount > 0) {
                 const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
-                this.onReBet(betObject);
                 this.autoRebetCount--;
-                this.updateAutoRebetCount();
+                this.onReBet(betObject, this.autoRebetCount);
             } else {
                 this.hideAutoRebetMessage();
             }

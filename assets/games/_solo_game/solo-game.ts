@@ -103,7 +103,32 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.sendSocketData("settle", null);
     }
 
-    onReBet(bet: any) {
+    onReBet(bet: any, autoRebetCount?: number) {
+        if (autoRebetCount !== undefined) {
+            this.autoRebetCount = autoRebetCount;
+        }
+
+        const lastBestAmount = this.calculateLastBets(this.soloBetModel.lastQueueBet);
+        const isBalanceEnough = this.checkAvailableBalance(lastBestAmount);
+        if (!isBalanceEnough) {
+            this.clickStopAutoRebet();
+            return;
+        }
+
+        this.handleWhenAvailableBalance(bet);
+    }
+
+    private handleWhenAvailableBalance(bet: any) {
+        this.setAutoRebetInteractable(false);
+
+        if (this.autoRebetCount > 0) {
+            this.updateAutoRebetCount();
+            this.showAutoRebetMessage();
+            this.nodeStopAutoRebet.active = true;
+        } else {
+            this.hideAutoRebetMessage();
+        }
+
         const betData = this.createBetData(bet);
         this.sendSocketData("rebet", betData);
     }
@@ -137,27 +162,14 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.currentMiniPanel.node.addChild(dialog);
 
         comp.onConfirmCallback = (autoRebetCount: number) => {
-            this.handleAutoRebet(autoRebetCount);
+            const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
+            this.onReBet(betObject, autoRebetCount);
         };
     }
 
     clickStopAutoRebet() {
         this.hideAutoRebetMessage();
         this.resetAutoRebetCount();
-    }
-
-    handleAutoRebet(autoRebetCount: number) {
-        const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
-        this.onReBet(betObject);
-
-        this.autoRebetCount = autoRebetCount - 1;
-        this.setAutoRebetInteractable(false);
-
-        if (this.autoRebetCount > 0) {
-            this.updateAutoRebetCount();
-            this.showAutoRebetMessage();
-            this.nodeStopAutoRebet.active = true;
-        }
     }
 
     convertBetQueueToBetObject(bets: ChoiceBet[]): { [choice: string]: number } {
@@ -250,7 +262,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     onBetClick(choice: string) {
-        if (this.isAutoRebetActive()) {
+        if (this.isAutoRebetMode()) {
             return;
         }
 
@@ -289,7 +301,7 @@ export default class SoloGame extends StandAloneTableGameBase {
         return bets.reduce((acc, bet) => acc + bet.amount, 0);
     }
 
-    private isAutoRebetActive(): boolean {
+    private isAutoRebetMode(): boolean {
         return this.autoRebetCount > 0;
     }
 }
