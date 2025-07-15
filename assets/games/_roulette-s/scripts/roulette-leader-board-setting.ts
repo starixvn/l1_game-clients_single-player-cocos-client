@@ -14,6 +14,7 @@ export default class RouletteLeaderBoardSetting extends BaseComponent {
 
     protected socket: Socket;
     protected gameName: string;
+    private socketHandler: (data: any) => void;
 
     onLoad() {
         if (this.nameToggle) {
@@ -29,16 +30,20 @@ export default class RouletteLeaderBoardSetting extends BaseComponent {
     }
 
     onDestroy() {
-        this.socket?.off(this.gameName);
+        if (this.socket && this.socketHandler) {
+            this.socket.off(this.gameName, this.socketHandler);
+        }
     }
 
     init(socket: Socket, gameName: string) {
         this.socket = socket;
         this.gameName = gameName;
         
-        this.socket.on(this.gameName, (data) => {
+        this.socketHandler = (data) => {
             this.onSocketData(data);
-        });
+        };
+        
+        this.socket.on(this.gameName, this.socketHandler);
     }
 
     getLeaderboardSettings() {
