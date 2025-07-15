@@ -22,13 +22,13 @@ export default class NewClass extends cc.Component {
         this.node.opacity = 0;
         
         cc.tween(this.node)
-            .to(0.5, { scale: 1, opacity: 255 }, { easing: "easeIn" })
+            .to(0.5, { scale: 1, opacity: 255 }, { easing: cc.easing.quadIn })
             .start();
     }
 
     hideSettlementResult() {
         cc.tween(this.node)
-            .to(0.5, { scale: 0, opacity: 0 }, { easing: "easeOut" })
+            .to(0.5, { scale: 0, opacity: 0 }, { easing: cc.easing.quadIn })
             .call(() => {
                 this.node.active = false;
             })

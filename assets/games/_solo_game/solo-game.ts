@@ -38,6 +38,10 @@ export default class SoloGame extends StandAloneTableGameBase {
     autoRebetCount = 0;
     hasAcceptedBets = false;
 
+    private pendingBetChoice: string = null;
+    private pendingBetAmount: number = 0;
+    private isWaitingForBetResponse = false;
+
     onLoad() {
         super.onLoad();
         this.animatedTime.setAnimatedY(20, -10);
@@ -64,10 +68,12 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.PLACE_BET_FAILED, () => () => {
             this.soloBetModel.changeState(SoloBetState.BETTING_FAILED);
+            this.handleBetResponse(false);
         });
 
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.PLACE_BET_SUCCESS, () => () => {
             this.hasAcceptedBets = true;
+            this.handleBetResponse(true);
         });
 
         this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CHANGE_STATE, () => (state) => {
@@ -82,6 +88,44 @@ export default class SoloGame extends StandAloneTableGameBase {
         });
 
         this.onStateChange(this.soloBetModel.state);
+    }
+
+    private handleBetResponse(isSuccess: boolean) {
+        if (!this.isWaitingForBetResponse) {
+            return;
+        }
+
+        this.isWaitingForBetResponse = false;
+
+        if (isSuccess) {
+            this.continueAfterBetSuccess();
+        } else {
+            this.showProcessingWarning(false);
+        }
+
+        this.pendingBetChoice = null;
+        this.pendingBetAmount = 0;
+    }
+
+    private continueAfterBetSuccess() {
+        const choice = this.pendingBetChoice;
+        const amount = this.pendingBetAmount;
+
+        if (!choice || !amount) {
+            return;
+        }
+
+        this.showProcessingWarning(false);
+
+        this.soloBetModel.changeState(SoloBetState.START_BET);
+        this.resetAutoRebetCount();
+        
+        if (!this.checkAvailableBetChoices(choice, amount) || !this.checkAvailableBalance(amount)) {
+            return;
+        }
+
+        !this.isStartRound && this.soloBetModel.changeState(SoloBetState.STARTING_ROUND);
+        this.isStartRound = true;
     }
 
     onStateChange(state: string) {
@@ -202,7 +246,7 @@ export default class SoloGame extends StandAloneTableGameBase {
         autoRebetMessage.scale = 0;
         autoRebetMessage.opacity = 0;
 
-        cc.tween(autoRebetMessage).to(0.5, { scale: 1, opacity: 255 }, { easing: "backOut" }).start();
+        cc.tween(autoRebetMessage).to(0.5, { scale: 1, opacity: 255 }, { easing: cc.easing.backOut }).start();
     }
 
     hideAutoRebetMessage() {
@@ -210,7 +254,7 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         const autoRebetMessage = this.lblAutoRebetCount.node.parent;
         cc.tween(autoRebetMessage)
-            .to(0.5, { scale: 0, opacity: 0 }, { easing: "backIn" })
+            .to(0.5, { scale: 0, opacity: 0 }, { easing: cc.easing.backIn })
             .call(() => {
                 autoRebetMessage.active = false;
             })
@@ -266,20 +310,21 @@ export default class SoloGame extends StandAloneTableGameBase {
             return;
         }
 
-        if (this.isStartRound && this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS) {
+        if (this.isWaitingForBetResponse) {
             this.showProcessingWarning(true);
             return;
         }
 
-        this.soloBetModel.changeState(SoloBetState.START_BET);
-        if (!this.checkAvailableBetChoices(choice, this.currentBet) || !this.checkAvailableBalance(this.currentBet)) {
-            return;
-        }
+        this.pendingBetChoice = choice;
+        this.pendingBetAmount = this.currentBet;
+        this.isWaitingForBetResponse = true;
 
         this.onPlaceBet({ [choice]: this.currentBet });
-        !this.isStartRound && this.soloBetModel.changeState(SoloBetState.STARTING_ROUND);
 
-        this.isStartRound = true;
+        if ((this.isStartRound && this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS ) 
+            || this.soloBetModel.state === SoloBetState.PLACE_BET_FAILED) {
+            this.showProcessingWarning(true);
+        }
     }
 
     checkAvailableBetChoices(choice: string, amount: number): boolean {

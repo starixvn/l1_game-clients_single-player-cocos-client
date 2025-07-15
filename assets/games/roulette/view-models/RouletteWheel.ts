@@ -112,24 +112,30 @@ export default class RouletteWheel extends cc.Component {
         node.scale = 0;
 
         cc.tween(node)
-            .to(0.5, { 
-                opacity: 255, 
-                scale: 1 
-            }, { 
-                easing: "easeIn" 
-            })
+            .to(
+                0.5,
+                {
+                    opacity: 255,
+                    scale: 1
+                },
+                { easing: cc.easing.quadIn }
+            )
             .start();
     }
 
     hideResultNumber() {
         const node = this.resultNumber.node;
         cc.tween(node)
-            .to(0.5, { 
-                opacity: 0, 
-                scale: 0 
-            }, { 
-                easing: "easeOut" 
-            })
+            .to(
+                0.5,
+                {
+                    opacity: 0,
+                    scale: 0
+                },
+                {
+                    easing: cc.easing.quadIn
+                }
+            )
             .call(() => this.resultNumber.hide())
             .start();
     }
@@ -150,7 +156,7 @@ export default class RouletteWheel extends cc.Component {
             if (this.onBallLandedWithSettlementCallback && this.currentSettlement) {
                 this.onBallLandedWithSettlementCallback(this.currentSettlement);
             }
-            
+
             this.showResultNumber(result);
             cc.tween(this.node).delay(this.durationShowResult).call(onComplete).start();
         };
@@ -715,7 +721,6 @@ export default class RouletteWheel extends cc.Component {
                     this.onBallLandedCallback();
                     this.onBallLandedCallback = null; // Reset callback
                 }
-
 
                 //     this.hasToSkipAnimation = this.isTurboActive,
                 //     this.wheelResultController.show(),
