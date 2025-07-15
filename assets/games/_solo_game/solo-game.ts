@@ -163,7 +163,7 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         comp.onConfirmCallback = (autoRebetCount: number) => {
             const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
-            this.onReBet(betObject, autoRebetCount);
+            this.onReBet(betObject, autoRebetCount - 1);
         };
     }
 
