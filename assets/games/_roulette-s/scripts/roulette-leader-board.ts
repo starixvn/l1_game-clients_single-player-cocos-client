@@ -22,6 +22,7 @@ export default class RouletteLeaderBoard extends BaseComponent {
 
     protected socket: Socket;
     protected gameName: string;
+    private socketHandler: (data: any) => void;
 
     onEnable() {
         this.getData();
@@ -42,13 +43,18 @@ export default class RouletteLeaderBoard extends BaseComponent {
             this.node.destroy();
         });
 
-        this.socket?.on(this.gameName, (data) => {
+        this.socketHandler = (data) => {
             this.onData(data);
-        });
+        };
+
+        this.socket?.on(this.gameName, this.socketHandler);
     }
 
     onDestroy() {
-        this.socket?.off(this.gameName);
+        if (this.socketHandler) {
+            this.socket?.off(this.gameName, this.socketHandler);
+            this.socketHandler = null;
+        }
     }
 
     onData(data) {
