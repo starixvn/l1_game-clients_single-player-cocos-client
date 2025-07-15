@@ -1,3 +1,5 @@
+import AudioManager from "../../../common/audio/AudioManager";
+
 const {ccclass, property} = cc._decorator;
 
 export enum RouletteToggleType {
@@ -33,6 +35,8 @@ export default class RouletteToggle extends cc.Component {
     private onToggleClick() {
         this.isEnabled = !this.isEnabled;
         this.updateIcon(this.isEnabled);
+        
+        AudioManager.getInstance().playClick();
         
         if (this.onToggleCallback) {
             this.onToggleCallback(this.type, this.isEnabled);

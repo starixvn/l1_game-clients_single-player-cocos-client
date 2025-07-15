@@ -97,8 +97,7 @@ export default class RouletteSlider extends cc.Component {
         this.isDragging = false;
         this.saveVolume(this.currentVolume);
         
-        // Provide audio feedback for SFX slider
-        if (this.sliderType === RouletteSliderType.SFX && this.currentVolume > 0) {
+        if (this.currentVolume > 0) {
             AudioManager.getInstance().playClick();
         }
     }
