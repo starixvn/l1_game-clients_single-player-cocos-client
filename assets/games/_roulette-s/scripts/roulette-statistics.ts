@@ -95,11 +95,11 @@ export default class RouletteStatistics extends cc.Component {
 
         const totalNonZero = this.result.length - zeroCount;
 
-        const red = _.round((redCount / totalNonZero) * 100);
-        const black = 100 - red;
+        const red = totalNonZero > 0 ? _.round((redCount / totalNonZero) * 100) : 0;
+        const black = totalNonZero > 0 ? 100 - red : 0;
 
-        const odd = _.round((oddCount / totalNonZero) * 100);
-        const even = 100 - odd;
+        const odd = totalNonZero > 0 ? _.round((oddCount / totalNonZero) * 100) : 0;
+        const even = totalNonZero > 0 ? 100 - odd : 0;
 
         const statisticPercentNodes = this.getComponentsInChildren(RouletteStatisticItem);
         statisticPercentNodes.forEach((item, index) => {
