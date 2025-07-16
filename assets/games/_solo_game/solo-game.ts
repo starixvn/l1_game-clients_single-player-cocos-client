@@ -159,10 +159,10 @@ export default class SoloGame extends StandAloneTableGameBase {
             return;
         }
 
-        this.handleWhenAvailableBalance(bet);
+        this.handleRebetWhenAvailableBalance(bet);
     }
 
-    private handleWhenAvailableBalance(bet: any) {
+    private handleRebetWhenAvailableBalance(bet: any) {
         this.setAutoRebetInteractable(false);
 
         if (this.autoRebetCount > 0) {
