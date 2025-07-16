@@ -348,6 +348,6 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     private isAutoRebetMode(): boolean {
-        return this.autoRebetCount > 0;
+        return this.autoRebetCount > 0 || (this.autoRebetCount === 0 && (this.soloBetModel.state === SoloBetState.SETTLEMENT || this.soloBetModel.state === SoloBetState.RESULT));
     }
 }
