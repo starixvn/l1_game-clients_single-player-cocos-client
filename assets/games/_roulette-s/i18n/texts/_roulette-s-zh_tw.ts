@@ -35,7 +35,7 @@ export const phrases = {
         "no_data": "尚無資料",
         "note": "僅提供當前日期前7天內的投注紀錄。",
         "quick_selection": "快速選取",
-        "remaining _rounds": "剩餘 {x} 局",
+        "remaining_rounds": "剩餘 %{x} 回合",
         "result": "結果",
         "round": "回合",
         "settlement": "結算",

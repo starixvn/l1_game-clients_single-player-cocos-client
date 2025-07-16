@@ -232,7 +232,9 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     updateAutoRebetCount() {
-        this.lblAutoRebetCount.string = this.autoRebetCount.toString();
+        const autoRebetCount = this.autoRebetCount;
+        const autoRebetCountString = i18n.t("MiniRoulette.remaining_rounds", { x: autoRebetCount });
+        this.lblAutoRebetCount.string = autoRebetCountString;
     }
 
     resetAutoRebetCount() {

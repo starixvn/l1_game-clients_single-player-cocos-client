@@ -35,7 +35,7 @@ export const phrases = {
         "no_data": "No data available",
         "note": "Data are only available within the last 7 days from the current date.",
         "quick_selection": "Quick Selection",
-        "remaining _rounds": "{x} round remaining",
+        "remaining_rounds": "%{x} round remaining",
         "result": "Result",
         "round": "Round",
         "settlement": "Settlement",
