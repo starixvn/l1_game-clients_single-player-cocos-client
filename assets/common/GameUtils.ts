@@ -28,10 +28,6 @@ import SetStaticFontSizeLabel from "./SetStaticFontSizeLabel";
 import { userManager } from "./user/UserManager";
 import { WEBVIEW_MESSAGE } from "../constants";
 
-
-
-
-
 export const MINI_GAMES_SCALE_ON_DESKTOP = 0.8;
 
 declare global {
@@ -44,7 +40,6 @@ export default class GameUtils {
     static versionsCache = {};
 
     public static addFlyingText(parent: cc.Node, win: boolean, value: number, duration = 1, startY = 0, destY = 100) {
-        
         const temp = new cc.Node().addComponent(cc.Label);
         temp.string = (win ? "+" : "-") + numberWithCommas(value, 2);
         temp.font = win ? appManager.font.increaseMoney : appManager.font.decreaseMoney;
@@ -60,66 +55,58 @@ export default class GameUtils {
                 }, temp)
             )
         );
-        
+
         return temp.node;
     }
 
     public static getText(key: string, opt: any = {}) {
-        
         const text = i18n.t(key, opt);
-        
+
         return text;
     }
 
     public static getBetChoiceString(choice: string): string {
-        
         const choiceString = i18n.t(`ui.choice_${choice}`);
-        
+
         return choiceString;
     }
 
     public static capitalizeWords(str: string) {
-        
         const result = str.replace(/\w\S*/g, function (txt) {
             return txt.charAt(0).toUpperCase() + txt.slice(0, 1).toLowerCase();
         });
-        
+
         return result;
     }
 
     public static capitalizeWordIntoString(str: string) {
-        
         const words = str.split(" ");
         const result = words.map((word) => word[0] + word.substring(1).toLowerCase()).join(" ");
-        
+
         return result;
     }
 
     public static remoteGameResourceUrl(gameId: number, pathResource: string) {
-        
         const url = buildMicrositeGameUrl(gameId);
         const fullUrl = `${url}/remote/${pathResource}`;
-        
+
         return fullUrl;
     }
 
     public static loadRemoteGameResource<T>(gameId: number, pathResource: string) {
-        
         return this.loadRemote<T>(this.remoteGameResourceUrl(gameId, pathResource));
     }
 
     public static loadRemoteFromSharedResource<T>(pathResource: string, latest = false) {
-        
         let rawUrl = buildSharedResourceUrl(pathResource);
         if (latest) {
             rawUrl += `?v=${Date.now()}`;
         }
-        
+
         return this.loadRemote<T>(rawUrl);
     }
 
     public static loadRemote<T>(url: string, options = { maxRetryCount: 3 }): Promise<T> {
-        
         return new Promise((resolve, reject) => {
             cc.assetManager.loadRemote(url, options, (err, asset) => {
                 if (err) {
@@ -127,20 +114,18 @@ export default class GameUtils {
                     reject(err);
                     return;
                 }
-                
+
                 resolve(asset as T);
             });
         });
     }
 
     public static loadResource(path: string): Promise<cc.Prefab> {
-        
         return new Promise((resolve) => {
             cc.resources.load(path, (err, prefab: cc.Prefab) => {
                 if (err) {
                     console.error("[GameUtils] Failed to load resource:", err);
                 } else {
-                    
                 }
                 resolve(prefab);
             });
@@ -148,24 +133,18 @@ export default class GameUtils {
     }
 
     public static async getRemoteVersion(gameId: number) {
-        
         if (!this.versionsCache[gameId]) {
-            
             const versions: any = await GameUtils.loadRemote(`${GameUtils.remoteGameResourceUrl(gameId, "versions.json")}?v=${Date.now()}`);
             this.versionsCache[gameId] = versions?.json;
-            
         } else {
-            
         }
         return this.versionsCache[gameId];
     }
 
     public static async loadMiniPanelGameIcon(gameId: number): Promise<cc.Prefab> {
-        
         const gameConfiguration = getGameConfiguration(gameId);
 
         if (!!gameConfiguration?.remoteBundle) {
-            
             const path = `icons/SmallMiniPanel`;
             const devPath = `../games/*/${path}`;
             try {
@@ -175,26 +154,23 @@ export default class GameUtils {
                     pathForDevMode: devPath,
                     type: cc.Prefab
                 });
-                
+
                 return prefab;
             } catch (e) {
                 console.warn("[GameUtils] Missing prefab for", path, e);
                 return null;
             }
         } else {
-            
             const prefab = await GameUtils.loadResource(`minipanel/games/${gameId}`);
-            
+
             return prefab;
         }
     }
 
     public static async loadMiniGamePrefab(gameId: number, onProgress: (completed: number, total: number, item?: unknown) => void) {
-        
         const gameConfiguration = getGameConfiguration(gameId);
 
         if (!!gameConfiguration?.remoteBundle) {
-            
             const prefabPath = `views/${gameConfiguration.key}`;
 
             const prefab = await BundleManager.getInstance().loadAsset<cc.Prefab>({
@@ -203,10 +179,9 @@ export default class GameUtils {
                 type: cc.Prefab,
                 onProgress
             });
-            
+
             return prefab;
         } else {
-            
             const prefabPath = `games/minigame/${gameConfiguration.key}`;
 
             return new Promise<cc.Prefab>((resolve, reject) => {
@@ -215,7 +190,6 @@ export default class GameUtils {
                         console.error("[GameUtils] Failed to load mini game prefab:", error);
                         reject(error);
                     } else {
-                        
                         resolve(prefab);
                     }
                 });
@@ -280,7 +254,7 @@ export default class GameUtils {
     }
 
     public static getChipQuantity(bet: number, options: number[]): any {
-        const list = [...options].reverse();
+        const list = [...options].sort((a, b) => b - a);
         const chipValue = this.calcChipValue(list, bet);
         const values = chipValue.values;
 
@@ -352,27 +326,21 @@ export default class GameUtils {
     }
 
     public static async openGameDirect(gameId: number, socketIOController: SocketIOControllerInterface) {
-        
         const gameConfiguration = getGameConfiguration(gameId);
         if (GameUtils.isMicroSite(gameConfiguration)) {
-            
             this.openGameMicrosite(gameId);
             return;
         }
-        
+
         await this.tryOpenGameDirect(gameId, socketIOController);
         await this.loadSceneGame(gameId, socketIOController);
-        
     }
 
     public static async tryOpenGameDirect(gameId: number, socketIOController: SocketIOControllerInterface) {
-        
         try {
-            
             await socketIOController.openGameSocket(gameId);
-            
+
             await this.preloadGameRoom(gameId);
-            
         } catch (error) {
             console.error("[GameUtils] An error occurred in tryOpenGameDirect:", error);
             cc.error("An error occurred in tryOpenGameDirect:", error);
@@ -381,18 +349,13 @@ export default class GameUtils {
     }
 
     public static async openGameMicrosite(gameId: number, loading: Loading = null) {
-        
         try {
-            
             const available = await this.healthCheckMicrositeGame(gameId);
             if (available) {
-                
                 SessionManager.storeMicrositeGameId(gameId);
                 const sceneName = "microsite-game";
                 await this.loadScene(gameId, sceneName);
-                
             } else {
-                
                 loading?.setLoadingVisibility(false);
                 const data = {
                     text: i18n.t("messages.lostGameConnection", { gameName: await this.getDisplayGameName(gameId) }),
@@ -861,7 +824,7 @@ export default class GameUtils {
 
     public static waitUntil = async (condition, interval = 1000, maxWait = 10000) => {
         const startTime = new Date().getTime();
-        for (; ;) {
+        for (;;) {
             try {
                 if (await condition()) {
                     return true;
@@ -1144,7 +1107,6 @@ export default class GameUtils {
             .start();
     }
 
-
     private static callGlobalFunction(method: string) {
         const globalFunctions = {
             [WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL]: "openRechargePanel",
@@ -1231,5 +1193,3 @@ export default class GameUtils {
         }
     }
 }
-
-

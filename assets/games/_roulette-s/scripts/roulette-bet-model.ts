@@ -6,7 +6,7 @@ export class RouletteBetModel extends SoloBetModel {
         super.addTempBet(bet);
 
         const type = getTypeFromChoice(bet.choice);
-        this.flyOwnChipFake({ endBet: this.currentBet, betChoice: type });
+        this.flyOwnChipFake({ endBet: bet.amount || this.currentBet, betChoice: type });
     }
 
     updateOwnbets() {
