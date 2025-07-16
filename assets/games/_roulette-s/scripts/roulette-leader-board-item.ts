@@ -56,7 +56,7 @@ export default class RouletteLeaderBoardItem extends cc.Component {
     }
 
     private formatText(text: string, maxLength: number): string {
-        return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+        return text.length > maxLength ? `${text.substring(0, maxLength-1)}...` : text;
     }
 
     private async setGameAvatar(avatarUrl: string): Promise<void> {
