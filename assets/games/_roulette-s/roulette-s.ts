@@ -322,6 +322,9 @@ export default class RouletteS extends SoloGame {
             this.setAutoRebetInteractable(true);
 
             if (this.autoRebetCount > 0) {
+                const isBalanceEnough = this.checkAutoRebetBalance();
+                this.setAutoRebetInteractable(isBalanceEnough);
+
                 const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
                 this.autoRebetCount--;
                 this.onReBet(betObject, this.autoRebetCount);

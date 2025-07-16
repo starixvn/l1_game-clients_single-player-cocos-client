@@ -119,7 +119,7 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         this.soloBetModel.changeState(SoloBetState.START_BET);
         this.resetAutoRebetCount();
-        
+
         if (!this.checkAvailableBetChoices(choice, amount) || !this.checkAvailableBalance(amount)) {
             return;
         }
@@ -194,9 +194,8 @@ export default class SoloGame extends StandAloneTableGameBase {
     clickAutoRebet() {
         this.playClick();
 
-        const lastBestAmount = this.calculateLastBets(this.soloBetModel.lastQueueBet);
-        const isBalanceEnough = this.checkAvailableBalance(lastBestAmount);
-        this.setAutoRebetInteractable(isBalanceEnough);
+        const isBalanceEnough = this.checkAutoRebetBalance();
+
         if (!isBalanceEnough) {
             return;
         }
@@ -209,6 +208,13 @@ export default class SoloGame extends StandAloneTableGameBase {
             const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
             this.onReBet(betObject, autoRebetCount - 1);
         };
+    }
+
+    checkAutoRebetBalance(): boolean {
+        const lastBestAmount = this.calculateLastBets(this.soloBetModel.lastQueueBet);
+        const isBalanceEnough = this.checkAvailableBalance(lastBestAmount);
+        this.setAutoRebetInteractable(isBalanceEnough);
+        return isBalanceEnough;
     }
 
     clickStopAutoRebet() {
@@ -321,8 +327,10 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         this.onPlaceBet({ [choice]: this.currentBet });
 
-        if ((this.isStartRound && this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS ) 
-            || this.soloBetModel.state === SoloBetState.PLACE_BET_FAILED) {
+        if (
+            (this.isStartRound && this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS) ||
+            this.soloBetModel.state === SoloBetState.PLACE_BET_FAILED
+        ) {
             this.showProcessingWarning(true);
         }
     }
