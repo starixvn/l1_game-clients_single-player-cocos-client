@@ -326,13 +326,6 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.isWaitingForBetResponse = true;
 
         this.onPlaceBet({ [choice]: this.currentBet });
-
-        if (
-            (this.isStartRound && this.soloBetModel.state !== SoloBetState.PLACE_BET_SUCCESS) ||
-            this.soloBetModel.state === SoloBetState.PLACE_BET_FAILED
-        ) {
-            this.showProcessingWarning(true);
-        }
     }
 
     checkAvailableBetChoices(choice: string, amount: number): boolean {
