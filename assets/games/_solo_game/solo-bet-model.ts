@@ -11,10 +11,7 @@ export enum SoloBetState {
     BETTING = "betting",
     BETTING_FAILED = "bettingFailed",
     RESULT = "result",
-    SETTLEMENT = "settlement",
-    PLACE_BET_FAILED = "placeBetFailed",
-    PLACE_BET_SUCCESS = "placeBetSuccess",
-    START_BET = "startBet"
+    SETTLEMENT = "settlement"
 }
 
 export class SoloBetModel extends BetModel {
@@ -53,10 +50,10 @@ export class SoloBetModel extends BetModel {
 
     addBet(choice: string) {
         const tempBet = { choice, amount: this.currentBet };
-        
+
         this.addTempBet(tempBet);
         const ownBets = { endBet: this.currentBet, betChoice: choice };
-        
+
         this.flyOwnChipFake(ownBets);
         this.updateOwnbets();
     }

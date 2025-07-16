@@ -255,12 +255,10 @@ export default class RouletteS extends SoloGame {
     }
 
     async showSettlementResult(settlement: any) {
-        //this.wheel.hideResultNumber();
         this.singleBetControl.hideControl();
 
         this.soloBetModel.changeState(SoloBetState.RESULT);
 
-        const result = settlement.result;
         try {
             await this.showWheelResult(settlement);
             AnimationUtils.delayTime(4.7).then(() => {
@@ -303,13 +301,19 @@ export default class RouletteS extends SoloGame {
 
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;
-            this.hasAcceptedBets = false;
 
             this.setAutoRebetInteractable(true);
 
             if (this.autoRebetCount > 0) {
-                const isBalanceEnough = this.checkAutoRebetBalance();
-                this.setAutoRebetInteractable(isBalanceEnough);
+                if (this.isStopAutoRebetMode) {
+                    this.isStopAutoRebetMode = false;
+                    this.resetAutoRebetCount();
+                    this.updateSpinButtonInteractable();
+                    return;
+                }
+
+                const hasEnoughBalanceForAutoRebet = this.checkBalanceWhenStartAutoRebet();
+                this.setAutoRebetInteractable(hasEnoughBalanceForAutoRebet);
 
                 const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
                 this.autoRebetCount--;
