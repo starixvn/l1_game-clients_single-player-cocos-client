@@ -43,6 +43,11 @@ export default class AutoRebetDialog extends cc.Component {
         if (currentValue === "" && value === "0") {
             return;
         }
+
+        if (+value >= 1000) {
+            value = "1000";
+        }
+
         this.autoRebetCount = Number(value);
         this.lblRoundNumber.string = value;
         this.nodeConfirmDisabled.active = this.disabledConfirmBtn(value);
