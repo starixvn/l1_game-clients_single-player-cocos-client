@@ -162,8 +162,8 @@ export default class BetChips extends cc.Component implements BetChipsInterface 
         return this.createBigChip(value);
     }
 
-    getChipDisplayType(index: number) {
-        return index > this.chipValues.length - 3 ? ChipDisplayType.VIP : ChipDisplayType.Normal;
+    getChipDisplayType(value: number) {
+        return value >= 1000 ? ChipDisplayType.VIP : ChipDisplayType.Normal;
     }
 
     updateLastChip(value: number) {
@@ -588,7 +588,7 @@ export default class BetChips extends cc.Component implements BetChipsInterface 
         chipView.setColor(this.chipConfig.getChipColor(value));
         chipView.setValue(value);
         const index = this.chipValues.findIndex((chipValue) => chipValue === value);
-        chipView.setType(this.getChipDisplayType(index));
+        chipView.setType(this.getChipDisplayType(value));
         return chip;
     }
 
