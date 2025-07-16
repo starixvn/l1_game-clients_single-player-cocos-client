@@ -1,5 +1,6 @@
 import { getStringDate } from "../../../../common/helpers/DateTimeHelper";
 import DropdownItem, { IDropdownItem } from "./dropdown-item";
+import * as i18n from "i18n/runtime-scripts/LanguageData";
 
 const { ccclass, property } = cc._decorator;
 
@@ -52,7 +53,7 @@ export default class Dropdown extends cc.Component {
                 text: getStringDate(date)
             };
         });
-        data.unshift({ value: "", text: "All" });
+        data.unshift({ value: "", text: i18n.t("MiniRoulette.all") });
         return data;
     }
 

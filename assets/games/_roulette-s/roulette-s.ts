@@ -137,18 +137,6 @@ export default class RouletteS extends SoloGame {
                 this.updateSpinButtonInteractable();
             }
         });
-        this.emitterListener(this.gameData.betModel, SoloBetModel.Events.CHANGE_OWN_CHIPS_FAKE, () => (ownBets) => {
-            this.rouletteBetItems.forEach((item) => {
-                const choice = item.node.name;
-                const betValue = ownBets[choice];
-                if (betValue) {
-                    this.betChips.createChipStackUtils(item.chipNode, betValue);
-                } else {
-                    item.clearChips();
-                }
-            });
-            this.updateSpinButtonInteractable();
-        });
 
         this.emitterListener(this.gameData.betModel, BetModel.Events.CHANGE_OWN_CHIP, () => (ownChip) => {
             if (!ownChip || typeof ownChip !== "object") {
@@ -184,23 +172,21 @@ export default class RouletteS extends SoloGame {
             this.betChips.showChipOwnBet({ chipNode: chipBoxNode, clearChips: () => {} }, data.endBet);
             return;
         } else {
-            this.betChips.throwChipToChipBox(data.endBet, chipBoxNode, null, null);
+            let total = data.endBet;
+            while (total > 0) {
+                const value = this.betChips.chipValues.sort((a, b) => b - a).find((value) => value <= total);
+                if (value) {
+                    total -= value;
+                    this.betChips.throwChipToChipBox(value, chipBoxNode, null, null);
+                } else {
+                    total = 0;
+                }
+            }
         }
     }
 
     updateRoundHistory() {
         this.roundHistoryComponent?.setData(this.currentDataLogs);
-    }
-
-    mergeStackOnChoice(choice: string, timeStamp: number) {
-        if (this.chipFlyingStamp !== timeStamp) {
-            return;
-        }
-
-        const totalBet = this.soloBetModel.getTotalBetOnChoice(choice);
-        const nodeName = choice;
-        const item = this.rouletteBetItems.find((item) => item.node.name === nodeName);
-        this.betChips.createChipStackUtils(item.chipNode, totalBet);
     }
 
     updateOddsFromConfigs() {
