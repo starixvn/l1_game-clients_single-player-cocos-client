@@ -4,7 +4,7 @@ export const phrases = {
     "MiniRoulette": {
         "alert": "Alert",
         "alert_close_game": "Do you want to leave the game?",
-        "alert_close_game_place_bet": "You have completed your bet, the game will still be drawn if you leave",
+        "alert_close_game_place_bet": "You have completed your bet, \n the game will still be drawn if you leave",
         "all": "All",
         "balance": "Balance",
         "button_cancel": "Cancel",
