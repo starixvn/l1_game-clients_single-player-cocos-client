@@ -25,28 +25,13 @@ export default class MainSplash extends cc.Component {
     manifestUrl: cc.Asset = null;
 
     @property(cc.Node)
-    containerProgressBar: cc.Node = null;
+    progressBar: cc.Node = null;
+
+    @property(cc.Node)
+    progressBarBackground: cc.Node = null;
 
     @property(cc.Label)
     percentResourceLoad: cc.Label = null;
-
-    @property(cc.Node)
-    sloganSC1: cc.Node = null;
-
-    @property(cc.Node)
-    sloganSC2: cc.Node = null;
-
-    @property(cc.Node)
-    sloganSabaPlay: cc.Node = null;
-
-    @property(cc.Node)
-    sloganOtherVG: cc.Node = null;
-
-    @property(cc.Node)
-    sloganOtherSG: cc.Node = null;
-
-    @property(cc.Node)
-    sloganTip88: cc.Node = null;
 
     @property(cc.Node)
     noticeContainer: cc.Node = null;
@@ -62,48 +47,9 @@ export default class MainSplash extends cc.Component {
     private noticePrefab: cc.Prefab = null;
 
     protected onLoad(): void {
+        this.progressBar.width = 0;
+        this.percentResourceLoad.string = "";
         this.initUIListeners();
-        this.deactivateAllSlogans();
-        this.activateSlogan();
-    }
-
-    private deactivateAllSlogans(): void {
-        const slogans = ["sloganSC1", "sloganSC2", "sloganSabaPlay", "sloganOtherVG", "sloganOtherSG", "sloganTip88"];
-
-        for (const slogan of slogans) {
-            this.setSloganActiveState(slogan, false);
-        }
-    }
-
-    private activateSlogan(): void {
-        const operator = sessionManager.getOperator()?.toUpperCase();
-        if (!operator) {
-            this.activateOtherSlogans();
-            return;
-        }
-
-        const sloganMapping: { [key: string]: string } = {
-            [OperatorAlias.SG]: "sloganSC1",
-            [OperatorAlias.VG]: "sloganSC2",
-            [OperatorAlias.SP]: "sloganSabaPlay",
-            [OperatorAlias.TIP88]: "sloganTip88"
-        };
-
-        const slogan = sloganMapping[operator];
-        if (slogan) {
-            this.setSloganActiveState(slogan, true);
-        } else {
-            this.activateOtherSlogans();
-        }
-    }
-
-    private activateOtherSlogans(): void {
-        this.setSloganActiveState("sloganOtherVG", !this.splashConfig.enabledSC1);
-        this.setSloganActiveState("sloganOtherSG", this.splashConfig.enabledSC1);
-    }
-
-    private setSloganActiveState(slogan: string, isActive: boolean): void {
-        this[slogan].active = isActive;
     }
 
     private initUIListeners() {
@@ -187,33 +133,41 @@ export default class MainSplash extends cc.Component {
 
     async loadToLobbyOrDirectGame() {
         try {
+            console.log('[MainSplash] Starting loadToLobbyOrDirectGame process');
             this.updateProgress(0);
 
             const ssoGameRoomId = appManager.ssoGameId && !isMiniGameByGameId(appManager.ssoGameId) ? appManager.ssoGameId : 0;
             const gameId = sessionManager.getInRoomGameId() || appManager.directGameId || ssoGameRoomId;
 
             if (gameId > 0) {
+                console.log(`[MainSplash] Loading game directly with ID: ${gameId}`);
                 cc.log("Main Splash : loadGameDirectly ", gameId);
                 await this.loadGameDirectly(gameId);
                 appManager.clearSSOGameId();
             } else {
+                console.log('[MainSplash] No game available, redirecting to operator lobby');
                 cc.log("Main Splash : No game available");
                 appManager.backToOperatorLobby();
             }
         } catch (error) {
+            console.error('[MainSplash] Error in loadToLobbyOrDirectGame:', error);
             sentryLogger.logError(error);
         }
     }
 
     async loadGameDirectly(gameId) {
+        console.log(`[MainSplash] Starting to load game directly with ID: ${gameId}`);
         const updateProgress = ({ progress, total }) => {
+            console.log(`[MainSplash] Game loading progress - Progress: ${progress}, Total: ${total}`);
             this.onProgress(progress, total);
         };
         uiManager.emitterListener(`${InternalEvents.LOADING_GAME}-${gameId}`, updateProgress, this);
         try {
             await GameUtils.openGameDirect(gameId, this.socketIOController);
+            console.log(`[MainSplash] Successfully loaded game with ID: ${gameId}`);
             uiManager.removeListenersWithName(`${InternalEvents.LOADING_GAME}-${gameId}`);
         } catch (error) {
+            console.error(`[MainSplash] Failed to load game with ID ${gameId}:`, error);
             cc.warn(`Can not load game directly id ${gameId}`, error);
         }
     }
@@ -230,17 +184,33 @@ export default class MainSplash extends cc.Component {
 
     onProgress(completedCount, totalCount) {
         const percent = completedCount / totalCount;
+        console.log(`[MainSplash] Progress update - Completed: ${completedCount}, Total: ${totalCount}, Percent: ${(percent * 100).toFixed(2)}%`);
         this.updateProgress(percent);
     }
 
     updateProgress(progress) {
+        console.log(`[MainSplash] Updating progress: ${(progress * 100).toFixed(2)}%`);
         if (this) {
             this.updateProgressBar(progress);
         }
     }
 
     updateProgressBar(progress) {
-        this.percentResourceLoad && (this.percentResourceLoad.string = `${Math.round(progress * 100)}%`);
+        const progressPercent = Math.round(progress * 100);
+        console.log(`[MainSplash] Progress bar update: ${progressPercent}%`);
+
+        // Update percentage text
+        this.percentResourceLoad && (this.percentResourceLoad.string = `載入中 ${progressPercent}%`);
+
+        // Update progress bar width
+        if (this.progressBar && this.progressBarBackground) {
+            const backgroundWidth = this.progressBarBackground.width;
+            const newWidth = (progress * backgroundWidth);
+            console.log(`[MainSplash] Progress bar width update - Background width: ${backgroundWidth}, New width: ${newWidth.toFixed(2)}`);
+            this.progressBar.width = newWidth;
+        } else {
+            console.warn('[MainSplash] Progress bar or background not assigned');
+        }
     }
 
     protected onDestroy(): void {

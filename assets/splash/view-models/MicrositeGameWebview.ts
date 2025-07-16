@@ -12,27 +12,36 @@ const { ccclass } = cc._decorator;
 @ccclass
 export default class MicrositeGameWebView extends BaseMicrositeGame {
     protected getMicrositeGameQueryString() {
+        console.log('[MicrositeGameWebView] Generating microsite game query string');
         const urlParams = appManager.urlParams;
         if (urlParams.has("token")) {
+            console.log('[MicrositeGameWebView] Token found in URL params');
             const mainUrl = EncryptUtils.base64Encode(window.location.href);
             const existDirectModeInfo = urlParams.has(UrlInfo.Ref) && appManager.checkDirectModeRefData(urlParams.get(UrlInfo.Ref));
             const returnMainLobbyUrl = existDirectModeInfo ? "" : `&rurl=${mainUrl}`;
-            return `?${urlParams.toString()}${returnMainLobbyUrl}&purl=${mainUrl}`;
+            const queryString = `?${urlParams.toString()}${returnMainLobbyUrl}&purl=${mainUrl}`;
+            console.log(`[MicrositeGameWebView] Generated query string: ${queryString}`);
+            return queryString;
         } else {
+            console.log('[MicrositeGameWebView] No token found, returning empty query string');
             return "";
         }
     }
 
     protected async updateSession(session) {
+        console.log('[MicrositeGameWebView] Updating session');
         AuthManager.updateSession(SessionManager.getSession(), session);
         SessionManager.removeDirectMode();
+        console.log('[MicrositeGameWebView] Session updated and direct mode removed');
     }
 
     protected loadLobbyScene() {
+        console.log('[MicrositeGameWebView] Loading lobby scene');
         uiManager.emitter.emit(InternalEvents.MICROSITE_BACK_TO_LOBBY);
     }
 
     protected async onClickJoinGame(gameId: number) {
+        console.log(`[MicrositeGameWebView] Join game clicked for game ID: ${gameId}`);
         uiManager.emitter.emit(InternalEvents.MICROSITE_OPEN_GAME_BACK_FROM_LOBBY, gameId);
     }
 }
