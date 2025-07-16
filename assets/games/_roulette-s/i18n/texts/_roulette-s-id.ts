@@ -15,8 +15,7 @@ export const phrases = {
         "glossary_red_black": "Merah/Hitam",
         "glossary_straight_up": "Straight Up",
         "hot_number": "Nomor Panas",
-        "settlement_bet_amount": "JUMLAH TARUHAN",
-        "win": "Menang"
+        "settlement_bet_amount": "JUMLAH TARUHAN"
     },
     "Common": {
         "back": "Kembali",
@@ -218,6 +217,7 @@ export const phrases = {
         "result": "Hasil",
         "rotateDevice": "Silakan putar perangkat Anda.",
         "round": "Babak",
+        "sabaplay_tagline": "BUKAN SEKADAR PERMAINAN",
         "searching_for_players": "Mencari pemain...",
         "sha256": "SHA-256",
         "splash_check_downloading": "Memeriksa dan mengunduh paket pembaruan terbaru...",

@@ -15,8 +15,7 @@ export const phrases = {
         "glossary_red_black": "แดง/ดำ",
         "glossary_straight_up": "ตรงขึ้น",
         "hot_number": "เบอร์ร้อน",
-        "settlement_bet_amount": "จำนวนเงินเดิมพัน",
-        "win": "ชนะ"
+        "settlement_bet_amount": "จำนวนเงินเดิมพัน"
     },
     "Common": {
         "back": "กลับ",
@@ -218,6 +217,7 @@ export const phrases = {
         "result": "ผลลัพธ์",
         "rotateDevice": "กรุณาหมุนอุปกรณ์ของคุณ",
         "round": "รอบ",
+        "sabaplay_tagline": "มากกว่าแค่เกม",
         "searching_for_players": "ค้นหาผู้เล่น...",
         "sha256": "SHA-256",
         "splash_check_downloading": "กำลังตรวจสอบและกำลังดาวน์โหลดเกมของการอัพเดทล่าสุด",

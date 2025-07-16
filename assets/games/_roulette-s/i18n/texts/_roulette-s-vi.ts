@@ -15,8 +15,7 @@ export const phrases = {
         "glossary_red_black": "Đỏ/Đen",
         "glossary_straight_up": "Cược đơn",
         "hot_number": "Số Hay Trúng",
-        "settlement_bet_amount": "TIỀN CƯỢC",
-        "win": "Thắng"
+        "settlement_bet_amount": "TIỀN CƯỢC"
     },
     "Common": {
         "back": "Quay Lại",
@@ -218,6 +217,7 @@ export const phrases = {
         "result": "Kết Quả",
         "rotateDevice": "Vui lòng xoay thiết bị của bạn.",
         "round": "Phiên",
+        "sabaplay_tagline": "Nâng Tầm Cuộc Chơi",
         "searching_for_players": "Đang tìm thêm người chơi...",
         "sha256": "SHA-256",
         "splash_check_downloading": "Đang kiểm tra và tải gói cập nhật game mới nhất...",
