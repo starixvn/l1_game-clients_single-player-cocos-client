@@ -1,20 +1,21 @@
 import AudioManager from "../../../common/audio/AudioManager";
-import {  formatBetAmount, formatOddsWithX } from "../../../common/helpers/NumberHelper";
+import { formatBetAmount, formatOddsWithX } from "../../../common/helpers/NumberHelper";
 import BetItem from "../../_base/view-models/BetItem";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class RouletteBetItem extends BetItem {
-
     @property(cc.Node)
     inactiveNode: cc.Node = null;
 
     @property
     interval = 0.4;
 
-    public betCallback = (choice: string) => {};
+    @property(cc.Boolean)
+    isSingleBet = false;
 
+    public betCallback = (choice: string) => {};
 
     resetUI() {
         this.odds && (this.odds.string = "");

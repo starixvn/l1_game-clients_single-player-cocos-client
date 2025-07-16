@@ -12,6 +12,10 @@ export default class SingleBetControl extends cc.Component {
         this.hideControl();
     }
 
+    get isActive() {
+        return this.node.active;
+    }
+
     showControl() {
         this.node.active = true;
     }

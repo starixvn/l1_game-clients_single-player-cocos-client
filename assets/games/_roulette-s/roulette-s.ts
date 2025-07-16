@@ -176,13 +176,15 @@ export default class RouletteS extends SoloGame {
             return;
         }
         this.chipFlyingStamp = Date.now();
-        if (betItem.node.name !== "straightUp") {
-            this.betChips.throwChipToChipBox(data.endBet, chipBoxNode, null, null);
+        if (betItem.isSingleBet && !this.singleBetControl.isActive) {
+            this.betChips.showChipOwnBet({ chipNode: chipBoxNode, clearChips: () => {} }, data.endBet);
+            return;
+        }
+        if (this.singleBetControl.isActive && betItem.node.name === "straightUp") {
+            this.betChips.showChipOwnBet({ chipNode: chipBoxNode, clearChips: () => {} }, data.endBet);
+            return;
         } else {
-            const chipNode = this.betChips.createSmallChip(data.endBet);
-            const randomInChipBoxPosition = this.betChips.getRandomPositionChip(chipNode, chipBoxNode);
-            chipNode.position = randomInChipBoxPosition;
-            chipBoxNode.addChild(chipNode);
+            this.betChips.throwChipToChipBox(data.endBet, chipBoxNode, null, null);
         }
     }
 
