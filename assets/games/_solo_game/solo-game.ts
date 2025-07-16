@@ -88,7 +88,11 @@ export default class SoloGame extends StandAloneTableGameBase {
         });
 
         this.emitterListener(this.gameData, CommonEvents.API_ERROR, () => (apiError) => {
-            // console.log("----------API_ERROR", apiError);
+            console.log("----------API_ERROR", apiError);
+            if (this.isAutoRebetMode()) {
+                this.resetAutoRebetCount();
+                this.hideAutoRebetMessage();
+            }
         });
 
         this.onStateChange(this.soloBetModel.state);

@@ -7,8 +7,6 @@ export class SoloAPIErrorHandler extends APIErrorHandler {
     }
 
     protected handle(event: APIErrorEventType) {
-        this.gameData.isProcessingBet = false;
-
         this.gameData.emit(CommonEvents.API_ERROR, event.apiError);
     }
 }
