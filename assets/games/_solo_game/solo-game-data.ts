@@ -8,6 +8,7 @@ import { UMHandler } from "../_base_new/handlers/UMHandler";
 import NewGameData from "../_base_new/models/NewGameData";
 import { UserProfileModel } from "../_base_new/models/UserProfileModel";
 import { TotalBetsEventHandler } from "../_new/_base/game-data-management/event-handlers/total-bets-handler";
+import { SoloAPIErrorHandler } from "./solo-api-error-handler";
 import { SoloBetHandler } from "./solo-bet-handler";
 import { SoloBetModel } from "./solo-bet-model";
 
@@ -47,7 +48,8 @@ export default class SoloGameData extends NewGameData {
             TotalBetsEventHandler,
             NoticeHandler,
             SettlemenHandler,
-            SoloBetHandler
+            SoloBetHandler,
+            SoloAPIErrorHandler
 
             // more handlers for player and placing chips
             // TableGameBetHandler,

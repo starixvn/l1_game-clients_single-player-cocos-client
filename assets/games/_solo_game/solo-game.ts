@@ -9,6 +9,7 @@ import CloseGameDialog from "../../common/close-game-dialog/CloseGameDialog";
 import { WEBVIEW_MESSAGE } from "../../constants";
 import { userManager } from "../../common/user/UserManager";
 import { i18n } from "../../ClientModules";
+import { CommonEvents } from "../_new/_base/game-data-management/models/common-events";
 
 const { ccclass, property } = cc._decorator;
 
@@ -84,6 +85,10 @@ export default class SoloGame extends StandAloneTableGameBase {
             if (remaining === 0 && state !== SoloBetState.RESULT) {
                 this.soloBetModel.confirmBet();
             }
+        });
+
+        this.emitterListener(this.gameData, CommonEvents.API_ERROR, () => (apiError) => {
+            // console.log("----------API_ERROR", apiError);
         });
 
         this.onStateChange(this.soloBetModel.state);
@@ -319,6 +324,7 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.pendingBetChoice = choice;
         this.pendingBetAmount = this.currentBet;
         this.isWaitingForBetResponse = true;
+        this.setAutoRebetInteractable(false);
 
         this.onPlaceBet({ [choice]: this.currentBet });
     }
@@ -343,6 +349,10 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     private isAutoRebetMode(): boolean {
-        return this.autoRebetCount > 0 || (this.autoRebetCount === 0 && (this.soloBetModel.state === SoloBetState.SETTLEMENT || this.soloBetModel.state === SoloBetState.RESULT));
+        return (
+            this.autoRebetCount > 0 ||
+            (this.autoRebetCount === 0 &&
+                (this.soloBetModel.state === SoloBetState.SETTLEMENT || this.soloBetModel.state === SoloBetState.RESULT))
+        );
     }
 }

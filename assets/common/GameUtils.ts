@@ -1123,7 +1123,6 @@ export default class GameUtils {
     }
 
     private static logError(message: string, error?: any) {
-        console.error(message, error);
         const errorMessage = error ? `${message} ${error}` : message;
         sentryLogger.log(errorMessage);
     }
