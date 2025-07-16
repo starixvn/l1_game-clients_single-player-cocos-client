@@ -93,13 +93,13 @@ export default class RouletteStatistics extends cc.Component {
             }
         });
 
-        const zeroPercent = _.round((zeroCount / this.result.length) * 100);
+        const totalNonZero = this.result.length - zeroCount;
 
-        const red = _.round((redCount / this.result.length) * 100);
-        const black = 100 - (red + zeroPercent);
+        const red = _.round((redCount / totalNonZero) * 100);
+        const black = 100 - red;
 
-        const odd = _.round((oddCount / this.result.length) * 100);
-        const even = 100 - (odd + zeroPercent);
+        const odd = _.round((oddCount / totalNonZero) * 100);
+        const even = 100 - odd;
 
         const statisticPercentNodes = this.getComponentsInChildren(RouletteStatisticItem);
         statisticPercentNodes.forEach((item, index) => {
@@ -109,8 +109,8 @@ export default class RouletteStatistics extends cc.Component {
             }
 
             if (index === 1) {
-                item.setData(even, odd);
-                item.updateProgressBar(evenCount, oddCount);
+                item.setData(odd, even);
+                item.updateProgressBar(oddCount, evenCount);
             }
         });
     }
