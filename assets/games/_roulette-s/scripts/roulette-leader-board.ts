@@ -2,9 +2,26 @@ import * as _ from "lodash";
 import CommonDialog from "../../../common/_base/view-models/CommonDialog";
 import { Socket } from "socket.io-client";
 import BaseComponent from "../../../common/BaseComponent";
-import RouletteLeaderBoardItem from "./roulette-leader-board-item";
+import RouletteLeaderBoardItem, { LeaderBoardItem } from "./roulette-leader-board-item";
 
 const { ccclass, property } = cc._decorator;
+
+interface LeaderboardData {
+    leaderboard: LeaderBoardItem[];
+    time: string;
+    currentPlayer: CurrentPlayer;
+}
+
+interface CurrentPlayer {
+    rank: string;
+    totalWin: number;
+    currentPlayerSettings: {
+        hideName: boolean;
+        hideAvatar: boolean;
+        nickname: string;
+        avatarUrl: string;
+    };
+}
 
 @ccclass
 export default class RouletteLeaderBoard extends BaseComponent {
@@ -20,74 +37,102 @@ export default class RouletteLeaderBoard extends BaseComponent {
     @property(cc.Label)
     lblTime: cc.Label = null;
 
-    protected socket: Socket;
-    protected gameName: string;
-    private socketHandler: (data: any) => void;
+    private socket: Socket;
+    private gameName: string;
+    private socketHandler: (data: { leaderboard?: LeaderboardData }) => void;
 
-    onEnable() {
-        this.getData();
+    protected onEnable(): void {
+        this.updateTimeDisplay(new Date().toISOString());
+        this.scheduleOnce(() => {
+            this.requestLeaderboardData();
+        }, 0.2);
     }
 
-    getData() {
-        this.socket?.connected && this.socket.emit("getLeaderboard");
+    private requestLeaderboardData(): void {
+        if (this.socket?.connected) {
+            this.socket.emit("getLeaderboard");
+        }
     }
 
-    init(socket: Socket, gameName: string) {
+    public init(socket: Socket, gameName: string): void {
         this.socket = socket;
         this.gameName = gameName;
     }
 
-    onLoad() {
+    protected onLoad(): void {
+        this.setupDialogHandler();
+        this.setupSocketHandler();
+    }
+
+    private setupDialogHandler(): void {
         const commonDialog = this.mainFrame.getComponent(CommonDialog);
         commonDialog.addOnDidHide(() => {
             this.node.destroy();
         });
+    }
 
-        this.socketHandler = (data) => {
-            this.onData(data);
+    private setupSocketHandler(): void {
+        this.socketHandler = (data: { leaderboard?: LeaderboardData }) => {
+            this.handleLeaderboardData(data);
         };
-
         this.socket?.on(this.gameName, this.socketHandler);
     }
 
-    onDestroy() {
+    protected onDestroy(): void {
         if (this.socketHandler) {
             this.socket?.off(this.gameName, this.socketHandler);
             this.socketHandler = null;
         }
     }
 
-    onData(data) {
-        if (data.leaderboard) {
-            const { leaderboard, time, currentPlayer } = data.leaderboard;
-            this.lblTime.string = new Date(time).toISOString().replace("T", " ").slice(0, 19).replace(/-/g, "/");
-            leaderboard.forEach((item) => {
-                const isCurrentPlayer = item.rank === currentPlayer.rank;
-                this.bindItemRowData(item, isCurrentPlayer);
-            });
+    private handleLeaderboardData(data: { leaderboard?: LeaderboardData }): void {
+        if (!data.leaderboard) {
+            return;
+        }
 
-            if (currentPlayer.rank === -1 || currentPlayer.rank > 30) {
-                const newCurrentPlayer = this.getCurrentPlayer(currentPlayer);
-                this.bindItemRowData(newCurrentPlayer, true);
-            }
+        const { leaderboard, time, currentPlayer } = data.leaderboard;
+        this.updateTimeDisplay(time);
+        this.displayLeaderboardItems(leaderboard, currentPlayer);
+    }
+
+    private updateTimeDisplay(time: string): void {
+        this.lblTime.string = new Date(time)
+            .toISOString()
+            .replace("T", " ")
+            .slice(0, 19)
+            .replace(/-/g, "/");
+    }
+
+    private displayLeaderboardItems(leaderboard: LeaderBoardItem[], currentPlayer: CurrentPlayer): void {
+        leaderboard.forEach((item) => {
+            const isCurrentPlayer = item.rank === currentPlayer.rank;
+            this.createLeaderboardItem(item, isCurrentPlayer);
+        });
+
+        if (this.shouldDisplayCurrentPlayer(currentPlayer.rank)) {
+            const currentPlayerData = this.formatCurrentPlayerData(currentPlayer);
+            this.createLeaderboardItem(currentPlayerData, true);
         }
     }
 
-    bindItemRowData(leaderboardItem, isCurrentPlayer = false) {
-        const leaderboardItemPrefab = cc.instantiate(this.leaderBoardItemPrefab);
-        const item = leaderboardItemPrefab.getComponent(RouletteLeaderBoardItem);
-        this.bodyContent.addChild(leaderboardItemPrefab);
+    private shouldDisplayCurrentPlayer(rank: string): boolean {
+        return parseInt(rank) === -1 || parseInt(rank) > 30;
+    }
+
+    private createLeaderboardItem(leaderboardItem: LeaderBoardItem, isCurrentPlayer = false): void {
+        const leaderboardItemNode = cc.instantiate(this.leaderBoardItemPrefab);
+        const item = leaderboardItemNode.getComponent(RouletteLeaderBoardItem);
+        this.bodyContent.addChild(leaderboardItemNode);
         item.setData(leaderboardItem, isCurrentPlayer);
     }
 
-    getCurrentPlayer(currentPlayer: any) {
-        const newCurrentPlayer = {
+    private formatCurrentPlayerData(currentPlayer: CurrentPlayer): LeaderBoardItem {
+        const { currentPlayerSettings, totalWin } = currentPlayer;
+        return {
             rank: "-",
-            nickname: currentPlayer.currentPlayerSettings.hideName ? "" : currentPlayer.currentPlayerSettings.nickname,
-            totalWin: currentPlayer.totalWin,
-            avatarUrl: currentPlayer.currentPlayerSettings.hideAvatar ? "" : currentPlayer.currentPlayerSettings.avatarUrl,
+            nickname: currentPlayerSettings.hideName ? "" : currentPlayerSettings.nickname,
+            totalWin,
+            avatarUrl: currentPlayerSettings.hideAvatar ? "" : currentPlayerSettings.avatarUrl
         };
-
-        return newCurrentPlayer;
     }
 }

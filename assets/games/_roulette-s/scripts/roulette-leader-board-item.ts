@@ -3,64 +3,82 @@ import { numberWithCommas } from "../../../common/helpers/NumberHelper";
 
 const { ccclass, property } = cc._decorator;
 
+export interface LeaderBoardItem {
+    rank?: string;
+    nickname?: string;
+    totalWin: number;
+    avatarUrl?: string;
+}
+
 @ccclass
 export default class RouletteLeaderBoardItem extends cc.Component {
     @property(cc.Label)
     rank: cc.Label = null;
-    @property(cc.Sprite)
+
+    @property(cc.Sprite) 
     avatar: cc.Sprite = null;
+
     @property(cc.Label)
     playerName: cc.Label = null;
+
     @property(cc.Label)
     winAmount: cc.Label = null;
+
     @property(cc.Node)
     background: cc.Node = null;
 
-    setData(leaderBoardItem: any, isCurrentPlayer = false) {
-        this.rank.string = leaderBoardItem.rank?.toString();
-        this.playerName.string = this.getNickname(leaderBoardItem.nickname?.toString());
-        this.winAmount.string = this.formatText(numberWithCommas(leaderBoardItem.totalWin, 2), 11);
-        if (isCurrentPlayer) {
-            this.background.active = true;
+    private readonly HIDDEN_NAME = '******';
+    private readonly MAX_NICKNAME_LENGTH = 12;
+    private readonly DEFAULT_RETRY_COUNT = 3;
+
+    public setData(leaderBoardItem: LeaderBoardItem, isCurrentPlayer = false): void {
+        if (!leaderBoardItem) {
+            return;
         }
 
+        this.rank.string = leaderBoardItem.rank?.toString() ?? '';
+        this.playerName.string = this.getNickname(leaderBoardItem.nickname);
+        this.winAmount.string = numberWithCommas(leaderBoardItem.totalWin, 2);
+        this.background.active = isCurrentPlayer;
+
         if (leaderBoardItem.avatarUrl) {
-            this.setGameAvartar(leaderBoardItem.avatarUrl);
+            this.setGameAvatar(leaderBoardItem.avatarUrl).catch(error => 
+                cc.error('Failed to load avatar:', error)
+            );
         }
     }
 
-    getNickname(nickname: string) {
-        if (!nickname || nickname.trim().length === 0) {
-            return '******';
+    private getNickname(nickname?: string): string {
+        if (!nickname?.trim()) {
+            return this.HIDDEN_NAME;
         }
-        return this.formatText(nickname, 12);
+        return this.formatText(nickname, this.MAX_NICKNAME_LENGTH);
     }
 
     private formatText(text: string, maxLength: number): string {
-        if (text.length > maxLength) {
-            return text.substring(0, maxLength) + "...";
-        }
-        return text;
+        return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
     }
 
-    protected async setGameAvartar(avatarUrl: string) {
+    private async setGameAvatar(avatarUrl: string): Promise<void> {
         try {
             const remoteTexture = await this.loadRemoteSharedResource<cc.Texture2D>(avatarUrl);
             this.assignSpriteFrame(remoteTexture);
         } catch (error) {
-            cc.log(`Not get Game} Icon from shared resource`);
+            cc.error('Failed to load avatar from shared resource:', error);
+            throw error;
         }
     }
 
-    public loadRemoteSharedResource<T>(pathResource: string, options = { maxRetryCount: 3 }) {
-        return GameUtils.loadRemote<T>(pathResource, options);
+    private loadRemoteSharedResource<T>(pathResource: string): Promise<T> {
+        return GameUtils.loadRemote<T>(pathResource, { 
+            maxRetryCount: this.DEFAULT_RETRY_COUNT 
+        });
     }
 
-    assignSpriteFrame(texture2D: cc.Texture2D) {
-        const sprite = this.avatar;
-        if (sprite) {
-            const spriteFrame = new cc.SpriteFrame(texture2D);
-            sprite.spriteFrame = spriteFrame;
+    private assignSpriteFrame(texture2D: cc.Texture2D): void {
+        if (!this.avatar || !texture2D) {
+            return;
         }
+        this.avatar.spriteFrame = new cc.SpriteFrame(texture2D);
     }
 }
