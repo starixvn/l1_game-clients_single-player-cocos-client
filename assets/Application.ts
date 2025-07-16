@@ -6,6 +6,7 @@ import { Container } from "inversify";
 import getDecorators from "inversify-inject-decorators";
 
 import { AXIOS_FAILED_PREFIX } from "./utils";
+import "./common/GlobalFunctions";
 
 export class Application {
     constructor(public readonly container = new Container()) {
