@@ -316,7 +316,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     onBetClick(choice: string) {
         const amount = this.currentBet;
 
-        if (!this.checkAvailableBetChoices(choice, amount) || !this.checkAvailableBalance(amount)) {
+        if (this.isAutoRebetMode() || !this.checkAvailableBetChoices(choice, amount) || !this.checkAvailableBalance(amount)) {
             return;
         }
 
@@ -325,9 +325,6 @@ export default class SoloGame extends StandAloneTableGameBase {
             return;
         }
 
-        if (this.isAutoRebetMode()) {
-            this.resetAutoRebetCount();
-        }
         this.pendingBetChoice = choice;
         this.pendingBetAmount = this.currentBet;
         this.isWaitingForBetResponse = true;
