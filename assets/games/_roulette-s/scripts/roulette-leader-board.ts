@@ -3,6 +3,7 @@ import CommonDialog from "../../../common/_base/view-models/CommonDialog";
 import { Socket } from "socket.io-client";
 import BaseComponent from "../../../common/BaseComponent";
 import RouletteLeaderBoardItem, { LeaderBoardItem } from "./roulette-leader-board-item";
+import { formatLongDateTime } from "../../../common/helpers/DateTimeHelper";
 
 const { ccclass, property } = cc._decorator;
 
@@ -88,29 +89,15 @@ export default class RouletteLeaderBoard extends BaseComponent {
         }
 
         const { leaderboard, time, currentPlayer } = data.leaderboard;
-        this.updateTimeDisplay(time);
-
+        
+        this.lblTime.string = formatLongDateTime(time);
         this.scheduleOnce(() => {
             this.displayLeaderboardItems(leaderboard, currentPlayer);
         }, 0.1);
+        
     }
 
-    private updateTimeDisplay(time: string): void {
-        this.lblTime.string = this.formatTime(time);
-    }
 
-    private formatTime(isoTimeString: string) {
-        const date = new Date(isoTimeString);
-
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, "0");
-        const day = date.getDate().toString().padStart(2, "0");
-        const hours = date.getHours().toString().padStart(2, "0");
-        const minutes = date.getMinutes().toString().padStart(2, "0");
-        const seconds = date.getSeconds().toString().padStart(2, "0");
-
-        return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
-    }
 
     private displayLeaderboardItems(leaderboard: LeaderBoardItem[], currentPlayer: CurrentPlayer): void {
         leaderboard.forEach((item) => {

@@ -24,4 +24,8 @@ export const getString12HourByTime = (time: string) => {
     return moment(new Date(time)).format("hh:mm:ss A");
 };
 
-export { formatDateTime, getStringDate, getStringDateByTime, getStringHourByTime };
+const formatLongDateTime = (t) => {
+    return moment(new Date(t)).format("MM/DD/YYYY HH:mm:ss");
+};
+
+export { formatDateTime, getStringDate, getStringDateByTime, getStringHourByTime, formatLongDateTime };

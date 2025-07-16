@@ -4,7 +4,7 @@ import { numberWithCommas } from "../../../common/helpers/NumberHelper";
 const { ccclass, property } = cc._decorator;
 
 export interface LeaderBoardItem {
-    rank?: string;
+    rank?: string;  
     nickname?: string;
     totalWin: number;
     avatarUrl?: string;
