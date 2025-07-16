@@ -225,7 +225,7 @@ class RandomWaitingMessage {
         this.intervalId = null;
         const waitingMessage = document.getElementById("waiting-message");
         waitingMessage.classList.add("waiting-message");
-        const messages = waitingMessages[language] || waitingMessages.en;
+        const messages = ""; // waitingMessages[language] || waitingMessages.en;
         let currentIndex = 0;
 
         const showMessage = () => {
