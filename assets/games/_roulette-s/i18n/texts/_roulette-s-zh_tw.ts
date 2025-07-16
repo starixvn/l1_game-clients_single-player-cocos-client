@@ -13,6 +13,7 @@ export const phrases = {
         "button_spin": "Spin",
         "button_stop": "停止",
         "cold_number": " 少中號碼",
+        "data_statistics": "過去 100 局的統計計算",
         "game_name": "迷你輪盤",
         "game_ranking": "遊戲排名",
         "game_ranking_player": "玩家",

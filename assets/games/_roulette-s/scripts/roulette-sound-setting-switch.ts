@@ -32,7 +32,12 @@ export default class RouletteSoundSettingSwitch extends cc.Component {
     }
 
     onSwitchClick() {
-        if (!this.targetSlider) return;
+        if (!this.targetSlider || !this.switchButton) return;
+
+        cc.tween(this.switchButton.node)
+            .to(0.12, { scale: 0.9 }, { easing: 'smooth' })
+            .to(0.12, { scale: 1.0 }, { easing: 'smooth' })
+            .start();
         
         const currentVolume = this.targetSlider.getVolume();
         

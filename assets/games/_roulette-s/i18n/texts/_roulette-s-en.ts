@@ -13,6 +13,7 @@ export const phrases = {
         "button_spin": "Spin",
         "button_stop": "Stop",
         "cold_number": "Least Hit Number",
+        "data_statistics": "Statistics based on the last 100 rounds",
         "game_name": "Mini Roulette",
         "game_ranking": "Game Ranking",
         "game_ranking_player": "Player",
