@@ -93,15 +93,23 @@ export default class RouletteLeaderBoard extends BaseComponent {
         this.scheduleOnce(() => {
             this.displayLeaderboardItems(leaderboard, currentPlayer);
         }, 0.1);
-        
     }
 
     private updateTimeDisplay(time: string): void {
-        this.lblTime.string = new Date(time)
-            .toISOString()
-            .replace("T", " ")
-            .slice(0, 19)
-            .replace(/-/g, "/");
+        this.lblTime.string = this.formatTime(time);
+    }
+
+    private formatTime(isoTimeString: string) {
+        const date = new Date(isoTimeString);
+
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day = date.getDate().toString().padStart(2, "0");
+        const hours = date.getHours().toString().padStart(2, "0");
+        const minutes = date.getMinutes().toString().padStart(2, "0");
+        const seconds = date.getSeconds().toString().padStart(2, "0");
+
+        return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
     }
 
     private displayLeaderboardItems(leaderboard: LeaderBoardItem[], currentPlayer: CurrentPlayer): void {
