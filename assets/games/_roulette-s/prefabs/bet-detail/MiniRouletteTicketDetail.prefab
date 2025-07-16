@@ -2207,7 +2207,7 @@
     },
     "_enabled": true,
     "_dataId": "ui.time",
-    "format": 1,
+    "format": 3,
     "suffix": "",
     "_id": ""
   },
@@ -2368,7 +2368,7 @@
     },
     "_enabled": true,
     "_dataId": "ui.betChoice",
-    "format": 1,
+    "format": 3,
     "suffix": "",
     "_id": ""
   },
@@ -2494,7 +2494,7 @@
     },
     "_enabled": true,
     "_dataId": "ui.totalStake",
-    "format": 1,
+    "format": 3,
     "suffix": "",
     "_id": ""
   },
@@ -2620,7 +2620,7 @@
     },
     "_enabled": true,
     "_dataId": "ui.win",
-    "format": 1,
+    "format": 3,
     "suffix": "",
     "_id": ""
   },
