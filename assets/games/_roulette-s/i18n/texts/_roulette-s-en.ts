@@ -5,6 +5,7 @@ export const phrases = {
         "alert": "Alert",
         "alert_close_game": "Do you want to leave the game?",
         "alert_close_game_place_bet": "You have completed your bet,\nthe game will still be drawn if you leave",
+        "all": "All",
         "balance": "Balance",
         "button_cancel": "Cancel",
         "button_clear": "Clear",

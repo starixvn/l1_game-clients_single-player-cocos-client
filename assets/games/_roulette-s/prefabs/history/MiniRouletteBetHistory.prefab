@@ -2356,7 +2356,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 269.7,
+      "width": 224.45,
       "height": 57.96
     },
     "_anchorPoint": {
@@ -2408,8 +2408,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "MiniRoulette.no_data",
-    "_N$string": "MiniRoulette.no_data",
+    "_string": "Common.no_data",
+    "_N$string": "Common.no_data",
     "_fontSize": 28,
     "_lineHeight": 46,
     "_enableWrapText": true,
@@ -2463,7 +2463,7 @@
       "__id__": 64
     },
     "_enabled": true,
-    "_dataId": "MiniRoulette.no_data",
+    "_dataId": "Common.no_data",
     "format": 0,
     "suffix": "",
     "_id": ""
@@ -3254,7 +3254,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 195.36,
+      "width": 150.11,
       "height": 57.96
     },
     "_anchorPoint": {
@@ -3306,8 +3306,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "MiniRoulette.all",
-    "_N$string": "MiniRoulette.all",
+    "_string": "Common.all",
+    "_N$string": "Common.all",
     "_fontSize": 28,
     "_lineHeight": 46,
     "_enableWrapText": true,
@@ -3361,7 +3361,7 @@
       "__id__": 90
     },
     "_enabled": true,
-    "_dataId": "MiniRoulette.all",
+    "_dataId": "Common.all",
     "format": 0,
     "suffix": "",
     "_id": ""

@@ -5,6 +5,7 @@ export const phrases = {
         "alert": "提示",
         "alert_close_game": "是否要離開遊戲？",
         "alert_close_game_place_bet": "您已完成下注，離開仍會進行遊戲開獎唷",
+        "all": "全部",
         "balance": "餘額",
         "button_cancel": "取消",
         "button_clear": "清除",

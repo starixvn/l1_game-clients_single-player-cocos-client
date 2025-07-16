@@ -113,7 +113,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 195.36,
+      "width": 150.11,
       "height": 60.48
     },
     "_anchorPoint": {
@@ -165,8 +165,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "MiniRoulette.all",
-    "_N$string": "MiniRoulette.all",
+    "_string": "Common.all",
+    "_N$string": "Common.all",
     "_fontSize": 28,
     "_lineHeight": 48,
     "_enableWrapText": true,
@@ -193,7 +193,7 @@
       "__id__": 2
     },
     "_enabled": true,
-    "_dataId": "MiniRoulette.all",
+    "_dataId": "Common.all",
     "format": 0,
     "suffix": "",
     "_id": ""
