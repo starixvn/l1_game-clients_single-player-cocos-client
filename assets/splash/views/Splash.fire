@@ -1630,8 +1630,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 41.67,
-      "height": 20
+      "width": 105.67,
+      "height": 25.2
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1642,8 +1642,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        63.64,
-        -307.776,
+        14.32,
+        -316.151,
         0,
         0,
         0,
@@ -1682,20 +1682,20 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "50%",
-    "_N$string": "50%",
+    "_string": "載入中 60%",
+    "_N$string": "載入中 60%",
     "_fontSize": 20,
     "_lineHeight": 20,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "635f0aa9-bb35-42b3-8db8-4ebd13755c34"
+      "__uuid__": "0763b17c-4af5-4b06-aaf9-9ab41eb64775"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 1,
     "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,

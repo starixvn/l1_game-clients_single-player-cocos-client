@@ -197,7 +197,7 @@ export default class MainSplash extends cc.Component {
 
     updateProgressBar(progress) {
         const progressPercent = Math.round(progress * 100);
-        console.log(`[MainSplash] Progress bar update: ${progressPercent}%`);
+        console.log(`[MainSplash] Progress bar update: 載入中 ${progressPercent}%`);
 
         // Update percentage text
         this.percentResourceLoad && (this.percentResourceLoad.string = `載入中 ${progressPercent}%`);
