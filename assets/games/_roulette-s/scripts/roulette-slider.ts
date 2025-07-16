@@ -43,12 +43,20 @@ export default class RouletteSlider extends cc.Component {
     private initialHandleX = 0;
 
     onLoad() {
-        this.initializeSlider();
+        this.maxProgressWidth = this.background?.node.width;
         this.bindDragEvents();
     }
 
-    private initializeSlider() {
-        this.maxProgressWidth = this.background?.node.width > 0 ? this.background.node.width : 250;
+    onEnable() {
+        this.currentVolume = this.getCurrentVolume();
+        this.updateProgressBar(this.currentVolume, false);
+        this.updateHandlePosition(this.currentVolume, false);
+        this.setAudioVolume(this.currentVolume);
+
+        this.node.emit('volume-changed', this.currentVolume);
+    }
+
+    private initializeSliderState() {
         this.currentVolume = this.getCurrentVolume();
         this.updateProgressBar(this.currentVolume, false);
         this.updateHandlePosition(this.currentVolume, false);
@@ -117,6 +125,7 @@ export default class RouletteSlider extends cc.Component {
         this.updateProgressBar(volume, false);
         this.updateHandlePosition(volume, false);
         this.setAudioVolume(volume);
+        this.node.emit('volume-changed', this.currentVolume);
     }
 
     private updateProgressBar(volume: number, animate: boolean = true) {
@@ -177,6 +186,8 @@ export default class RouletteSlider extends cc.Component {
         if (this.sliderType === RouletteSliderType.SFX && volume > 0) {
             AudioManager.getInstance().playClick();
         }
+
+        this.node.emit('volume-changed', this.currentVolume);
     }
 
     public getVolume(): number {
