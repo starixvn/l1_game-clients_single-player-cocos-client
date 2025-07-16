@@ -42,10 +42,7 @@ export default class RouletteLeaderBoard extends BaseComponent {
     private socketHandler: (data: { leaderboard?: LeaderboardData }) => void;
 
     protected onEnable(): void {
-        this.updateTimeDisplay(new Date().toISOString());
-        this.scheduleOnce(() => {
-            this.requestLeaderboardData();
-        }, 0.2);
+        this.requestLeaderboardData();
     }
 
     private requestLeaderboardData(): void {
@@ -92,7 +89,11 @@ export default class RouletteLeaderBoard extends BaseComponent {
 
         const { leaderboard, time, currentPlayer } = data.leaderboard;
         this.updateTimeDisplay(time);
-        this.displayLeaderboardItems(leaderboard, currentPlayer);
+
+        this.scheduleOnce(() => {
+            this.displayLeaderboardItems(leaderboard, currentPlayer);
+        }, 0.1);
+        
     }
 
     private updateTimeDisplay(time: string): void {
