@@ -10,6 +10,7 @@ import { WEBVIEW_MESSAGE } from "../../constants";
 import { userManager } from "../../common/user/UserManager";
 import { i18n } from "../../ClientModules";
 import { CommonEvents } from "../_new/_base/game-data-management/models/common-events";
+import { t } from "../../../packages/i18n/runtime-scripts/LanguageData";
 
 const { ccclass, property } = cc._decorator;
 
@@ -88,7 +89,6 @@ export default class SoloGame extends StandAloneTableGameBase {
         });
 
         this.emitterListener(this.gameData, CommonEvents.API_ERROR, () => (apiError) => {
-            console.log("----------API_ERROR", apiError);
             if (this.isAutoRebetMode()) {
                 this.resetAutoRebetCount();
                 this.hideAutoRebetMessage();
@@ -316,7 +316,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     onBetClick(choice: string) {
         const amount = this.currentBet;
 
-        if (this.isAutoRebetMode() || !this.checkAvailableBetChoices(choice, amount) || !this.checkAvailableBalance(amount)) {
+        if (!this.checkAvailableBetChoices(choice, amount) || !this.checkAvailableBalance(amount)) {
             return;
         }
 
@@ -325,6 +325,9 @@ export default class SoloGame extends StandAloneTableGameBase {
             return;
         }
 
+        if (this.isAutoRebetMode()) {
+            this.resetAutoRebetCount();
+        }
         this.pendingBetChoice = choice;
         this.pendingBetAmount = this.currentBet;
         this.isWaitingForBetResponse = true;
