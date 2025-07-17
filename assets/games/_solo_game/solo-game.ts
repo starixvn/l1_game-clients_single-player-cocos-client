@@ -379,6 +379,9 @@ export default class SoloGame extends StandAloneTableGameBase {
             case WEBVIEW_ACTION.CLOSE:
                 this.clickCloseGame();
                 break;
+            case WEBVIEW_ACTION.ON_RECHARGE_SUCCESS:
+                this.updateUserBalance();
+                break;
         }
     }
 }
