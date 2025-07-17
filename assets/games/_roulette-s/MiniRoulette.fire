@@ -1290,8 +1290,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "Straight Up",
-    "_N$string": "Straight Up",
+    "_string": "MiniRoulette.glossary_straight_up",
+    "_N$string": "MiniRoulette.glossary_straight_up",
     "_fontSize": 36,
     "_lineHeight": 40,
     "_enableWrapText": false,
@@ -33160,7 +33160,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 148,
-      "height": 148
+      "height": 88
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -33624,7 +33624,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 148,
-      "height": 148
+      "height": 88
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
