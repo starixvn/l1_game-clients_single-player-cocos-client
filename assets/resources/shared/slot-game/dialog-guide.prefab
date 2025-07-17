@@ -25,14 +25,7 @@
       }
     ],
     "_active": true,
-    "_components": [
-      {
-        "__id__": 41
-      },
-      {
-        "__id__": 42
-      }
-    ],
+    "_components": [],
     "_prefab": {
       "__id__": 43
     },
@@ -1454,26 +1447,7 @@
     "_originalHeight": 786,
     "_id": ""
   },
-  {
-    "__type__": "b5110JWHFBHFY6cjIF2IARD",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "webView": {
-      "__id__": 29
-    },
-    "loading": {
-      "__id__": 31
-    },
-    "commonDialog": {
-      "__id__": 36
-    },
-    "themeName": "classic-slot-template",
-    "_id": ""
-  },
+
   {
     "__type__": "cc.PrefabInfo",
     "root": {

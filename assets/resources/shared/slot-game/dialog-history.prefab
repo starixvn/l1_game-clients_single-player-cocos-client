@@ -25,14 +25,7 @@
       }
     ],
     "_active": true,
-    "_components": [
-      {
-        "__id__": 182
-      },
-      {
-        "__id__": 183
-      }
-    ],
+    "_components": [],
     "_prefab": {
       "__id__": 184
     },
@@ -6563,34 +6556,7 @@
     "_originalHeight": 786,
     "_id": ""
   },
-  {
-    "__type__": "f4d8ffYk8JPzpKHEQVN2Iv+",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "pagination": {
-      "__id__": 174
-    },
-    "mainFrame": {
-      "__id__": 5
-    },
-    "gameName": null,
-    "content": {
-      "__id__": 59
-    },
-    "itemPrefab": {
-      "__uuid__": "b30528a7-476c-421c-b56e-a3c938c0f22c"
-    },
-    "wrapperContent": null,
-    "scrollView": null,
-    "ticketDetailPrefab": {
-      "__uuid__": "c5747480-0be6-4ac5-a099-9c450ea2f462"
-    },
-    "_id": ""
-  },
+
   {
     "__type__": "cc.PrefabInfo",
     "root": {
