@@ -286,7 +286,7 @@ export default class RouletteS extends SoloGame {
         this.settlePopupComponent.showSettlementResult(this.betWinAmount, this.soloBetModel.currentTotalBet());
         this.resetBetWinAmount();
 
-        const delayHideSettlementPopup = 2.32;
+        const delayHideSettlementPopup = 3.32;
         AnimationUtils.delayTime(delayHideSettlementPopup).then(async () => {
             this.settlePopupComponent.hideSettlementResult();
             const delayHideResultNumber = 0.6;

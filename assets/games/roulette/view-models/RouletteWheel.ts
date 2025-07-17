@@ -55,6 +55,7 @@ export default class RouletteWheel extends cc.Component {
     ballTrack = 1;
     timeScale = 0;
     initBallRotation = 0;
+    customTimeScale = 1;
 
     rotateBallBone: any;
     isFromRestore = false;
@@ -162,6 +163,8 @@ export default class RouletteWheel extends cc.Component {
     }
 
     showResult(settlement: any, onComplete: () => void) {
+        this.animation.timeScale = this.customTimeScale;
+
         if (this.onBeforeShowResultCallback) {
             this.onBeforeShowResultCallback();
         }
@@ -173,11 +176,12 @@ export default class RouletteWheel extends cc.Component {
 
         this.currentSettlement = settlement;
 
-        this.onBallLandedCallback = () => {
+        this.onBallLandedCallback = async () => {
             if (this.onBallLandedWithSettlementCallback && this.currentSettlement) {
                 this.onBallLandedWithSettlementCallback(this.currentSettlement);
             }
 
+            await AnimationUtils.delayTime(1);
             this.showResultNumber(result);
             cc.tween(this.node).delay(this.durationShowResult).call(onComplete).start();
         };
@@ -566,6 +570,8 @@ export default class RouletteWheel extends cc.Component {
 
     initWheelSpineAnimation() {
         this.rotateBallBone = this.animation.findBone("Rotate Ball");
+
+        this.animation.timeScale = this.customTimeScale;
         this.animation.setToSetupPose();
         this.animation.setStartListener((e) => {
             e.animation.name == WheelAnimation.BALL_LOOP && this.playSound(WheelAudio.BALL_ROLLING, !0);
@@ -813,8 +819,11 @@ export default class RouletteWheel extends cc.Component {
 
     startBallAnimation() {
         this.animation.setAnimation(this.wheelTrack, WheelAnimation.WHEEL_LOOP, true);
+        this.animation.timeScale = this.customTimeScale;
         const count = 0;
+
         const trackEntry = this.animation.setAnimation(this.ballTrack, WheelAnimation.BALL_LOOP, true);
+        trackEntry.timeScale = this.customTimeScale;
         const tmpThis = this;
         trackEntry.listener = {
             complete: () => {
@@ -824,6 +833,7 @@ export default class RouletteWheel extends cc.Component {
     }
 
     startBallTransitionAnimation() {
+        this.animation.timeScale = this.customTimeScale;
         this.animation.setAnimation(this.ballTrack, WheelAnimation.BALL_LOOP_TRANSITION, false).listener = {
             complete: () => {
                 this.pauseAnimation();

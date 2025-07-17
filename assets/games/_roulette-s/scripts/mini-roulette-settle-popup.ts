@@ -20,16 +20,12 @@ export default class NewClass extends cc.Component {
         this.node.scale = 0;
         this.node.opacity = 0;
 
-        cc.tween(this.node)
-            .to(0.4, { scale: 1.1, opacity: 100 })
-            .to(0.1, { scale: 1, opacity: 255 }, { easing: cc.easing.sineOut })
-            .start();
+        cc.tween(this.node).to(0.6, { scale: 1, opacity: 255 }, { easing: "backOut" }).start();
     }
 
     hideSettlementResult() {
         cc.tween(this.node)
-            .to(0.3, { scale: 1.1, opacity: 100 })
-            .to(0.3, { scale: 0, opacity: 0 }, { easing: cc.easing.sineIn })
+            .to(0.6, { scale: 0, opacity: 0 }, { easing: "backIn" })
             .call(() => {
                 this.node.active = false;
             })
