@@ -25,14 +25,7 @@
       }
     ],
     "_active": true,
-    "_components": [
-      {
-        "__id__": 181
-      },
-      {
-        "__id__": 182
-      }
-    ],
+    "_components": [],
     "_prefab": {
       "__id__": 183
     },

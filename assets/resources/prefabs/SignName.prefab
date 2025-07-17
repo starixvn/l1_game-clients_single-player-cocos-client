@@ -28,9 +28,6 @@
     "_components": [
       {
         "__id__": 84
-      },
-      {
-        "__id__": 85
       }
     ],
     "_prefab": {
@@ -2778,25 +2775,7 @@
     "fileId": "3eo8BZAsdFPr+gKnJwYZJl",
     "sync": false
   },
-  {
-    "__type__": "428fapqUBNMxZBikn0+ylYv",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "username": {
-      "__id__": 45
-    },
-    "errorMessage": {
-      "__id__": 10
-    },
-    "dialogNode": {
-      "__id__": 7
-    },
-    "_id": ""
-  },
+
   {
     "__type__": "cc.Widget",
     "_name": "",

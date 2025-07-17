@@ -22,11 +22,7 @@
       }
     ],
     "_active": true,
-    "_components": [
-      {
-        "__id__": 5
-      }
-    ],
+    "_components": [],
     "_prefab": {
       "__id__": 6
     },
@@ -175,20 +171,7 @@
     "fileId": "0dqIsHPldApI0QwnzUVtxI",
     "sync": false
   },
-  {
-    "__type__": "4b7d9xc8RhAr7n9h5b38AFa",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "msgText": null,
-    "msgRichText": {
-      "__id__": 3
-    },
-    "_id": ""
-  },
+
   {
     "__type__": "cc.PrefabInfo",
     "root": {
