@@ -328,7 +328,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 28.8,
+      "width": 30,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -382,7 +382,7 @@
     "_dstBlendFactor": 771,
     "_string": "36",
     "_N$string": "36",
-    "_fontSize": 24,
+    "_fontSize": 25,
     "_lineHeight": 20,
     "_enableWrapText": true,
     "_N$file": {
