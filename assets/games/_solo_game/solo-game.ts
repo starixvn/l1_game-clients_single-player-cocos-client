@@ -6,7 +6,7 @@ import { Durations } from "../_new/_base/game-data-management/models/durations";
 import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
 import GameUtils from "../../common/GameUtils";
 import CloseGameDialog from "../../common/close-game-dialog/CloseGameDialog";
-import { WEBVIEW_MESSAGE } from "../../constants";
+import { WEBVIEW_ACTION } from "../../constants";
 import { userManager } from "../../common/user/UserManager";
 import { i18n } from "../../ClientModules";
 import { CommonEvents } from "../_new/_base/game-data-management/models/common-events";
@@ -49,6 +49,7 @@ export default class SoloGame extends StandAloneTableGameBase {
         this.animatedTime.setAnimatedY(20, -10);
         this.hideAutoRebetMessage();
         this.resetAutoRebetCount();
+        this.listenMessageFromParent();
     }
     get soloBetModel() {
         return this.gameData.betModel as SoloBetModel;
@@ -278,7 +279,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     clickTopUpBalance() {
-        GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL);
+        GameUtils.sendActionToParent(WEBVIEW_ACTION.OPEN_RECHARGE_PANEL);
     }
 
     private getCloseGameDialogContent(): string {
@@ -299,7 +300,7 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         comp.onConfirmCallback = () => {
             cc.log("Confirm Close, Send Message to Native App");
-            GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.CLOSE);
+            GameUtils.sendActionToParent(WEBVIEW_ACTION.CLOSE);
         };
     }
 
@@ -342,7 +343,7 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         if (!available) {
             this.showMiniWarning(i18n.t("messages.notEnoughMoney"));
-            GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.OPEN_RECHARGE_PANEL);
+            GameUtils.sendActionToParent(WEBVIEW_ACTION.OPEN_RECHARGE_PANEL);
         }
 
         return available;
@@ -358,5 +359,26 @@ export default class SoloGame extends StandAloneTableGameBase {
             (this.autoRebetCount === 0 &&
                 (this.soloBetModel.state === SoloBetState.SETTLEMENT || this.soloBetModel.state === SoloBetState.RESULT))
         );
+    }
+
+    listenMessageFromParent() {
+        // Listen for messages from parent window (iframe communication)
+        if (window && window.addEventListener) {
+            window.addEventListener("message", (event) => {
+                // Optionally, check event.origin for security
+                this.handleMessageFromParent(event.data);
+            });
+        }
+    }
+
+    handleMessageFromParent(message: any) {
+        // Example: handle different message types
+        if (!message || typeof message !== "object") return;
+
+        switch (message.action) {
+            case WEBVIEW_ACTION.CLOSE:
+                this.clickCloseGame();
+                break;
+        }
     }
 }

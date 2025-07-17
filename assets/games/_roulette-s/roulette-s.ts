@@ -20,7 +20,7 @@ import MiniRouletteSettlePopup from "./scripts/mini-roulette-settle-popup";
 import RouletteLeaderBoard from "./scripts/roulette-leader-board";
 import RouletteSettings from "./scripts/roulette-settings";
 import GameUtils from "../../common/GameUtils";
-import { WEBVIEW_MESSAGE } from "../../constants";
+import { WEBVIEW_ACTION } from "../../constants";
 import { BetModel } from "../_base_new/models/BetModel";
 
 const { ccclass, property } = cc._decorator;
@@ -92,7 +92,7 @@ export default class RouletteS extends SoloGame {
         this.wheel.setOnBeforeShowResultCallback(this.handleBeforeShowResult.bind(this));
 
         super.onLoad();
-        GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.ON_GAME_LOADED);
+        GameUtils.sendActionToParent(WEBVIEW_ACTION.ON_GAME_LOADED);
     }
 
     protected onChangedBetChip(bet: number) {
