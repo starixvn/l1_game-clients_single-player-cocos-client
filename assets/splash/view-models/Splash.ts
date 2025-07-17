@@ -147,7 +147,7 @@ export default class Splash extends cc.Component {
             await appManager.ssoAndAuthorize();
             if (!appManager.authorized) {
                 if (!appManager.autoGenerateNickname) {
-                    this.showSignName();
+                    // this.showSignName();
                 }
                 return;
             }
@@ -156,15 +156,7 @@ export default class Splash extends cc.Component {
         this.handleSplashScene();
     }
 
-    async showSignName() {
-        const prefab = await GameUtils.loadResource("prefabs/SignName");
 
-        const node = cc.instantiate(prefab);
-        const signName = node.getComponent("SignName");
-        signName.init(this.handleSignName.bind(this));
-
-        this.nodeDialog.addChild(node);
-    }
 
     handleSignName(response) {
         if (response.authorized) {
@@ -187,11 +179,7 @@ export default class Splash extends cc.Component {
     }
 
     serviceAuthorized(Authorized) {
-        if (!Authorized) {
-            this.showSignName();
-        } else {
-            this.handleSplashScene();
-        }
+        this.handleSplashScene();
     }
 
     private async enableMicrositeGameIframe(gameId) {
