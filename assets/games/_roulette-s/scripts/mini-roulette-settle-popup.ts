@@ -1,6 +1,4 @@
 import { numberWithCommas } from "../../../common/helpers/NumberHelper";
-import AnimationUtils from "../../../common/utils/AnimationUtils";
-import { easeIn } from "../../../../packages/i18n/runtime-scripts/creator";
 
 const { ccclass, property } = cc._decorator;
 
