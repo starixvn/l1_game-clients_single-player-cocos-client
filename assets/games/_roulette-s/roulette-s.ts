@@ -266,9 +266,6 @@ export default class RouletteS extends SoloGame {
 
         try {
             await this.showWheelResult(settlement);
-            AnimationUtils.delayTime(4.7).then(() => {
-                this.wheel.hideResultNumber();
-            });
             this.soloBetModel.changeState(SoloBetState.SETTLEMENT);
             this.gameData.settlement.finishShowResult(settlement, true);
         } catch (error) {
@@ -284,12 +281,19 @@ export default class RouletteS extends SoloGame {
         super.handleAfterSettlementResult(settlement, animated);
         this.roundHistoryComponent.setHighlight(true);
 
-        await AnimationUtils.delayTime(2);
+        const delayShowSettlementPopup = 1.1;
+        await AnimationUtils.delayTime(delayShowSettlementPopup);
         this.settlePopupComponent.showSettlementResult(this.betWinAmount, this.soloBetModel.currentTotalBet());
         this.resetBetWinAmount();
 
-        AnimationUtils.delayTime(2.2).then(async () => {
+        const delayHideSettlementPopup = 2.32;
+        AnimationUtils.delayTime(delayHideSettlementPopup).then(async () => {
             this.settlePopupComponent.hideSettlementResult();
+            const delayHideResultNumber = 0.6;
+            AnimationUtils.delayTime(delayHideResultNumber).then(() => {
+                this.wheel.hideResultNumber();
+            });
+
             this.rouletteBetItems.forEach((betItem) => {
                 const choice = betItem.node.name;
 
@@ -302,7 +306,8 @@ export default class RouletteS extends SoloGame {
                 betItem.clearChips();
             });
 
-            await AnimationUtils.delayTime(0.5);
+            const delayChangeNewRound = 0.5;
+            await AnimationUtils.delayTime(delayChangeNewRound);
 
             this.soloBetModel.changeState(SoloBetState.READY);
             this.isStartRound = false;

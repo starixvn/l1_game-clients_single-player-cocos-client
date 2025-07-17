@@ -115,13 +115,19 @@ export default class RouletteWheel extends cc.Component {
         node.scale = 0;
 
         cc.tween(node)
+            .to(0.4, {
+                opacity: 100,
+                scale: 1.1
+            })
             .to(
-                0.5,
+                0.26,
                 {
                     opacity: 255,
                     scale: 1
                 },
-                { easing: cc.easing.quadIn }
+                {
+                    easing: cc.easing.sineOut
+                }
             )
             .start();
     }
@@ -129,14 +135,18 @@ export default class RouletteWheel extends cc.Component {
     hideResultNumber() {
         const node = this.resultNumber.node;
         cc.tween(node)
+            .to(0.3, {
+                opacity: 100,
+                scale: 1.1
+            })
             .to(
-                0.5,
+                0.3,
                 {
                     opacity: 0,
                     scale: 0
                 },
                 {
-                    easing: cc.easing.quadIn
+                    easing: cc.easing.sineIn
                 }
             )
             .call(() => this.resultNumber.hide())
