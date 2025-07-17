@@ -89,6 +89,7 @@ export default class RouletteS extends SoloGame {
         this.settlePopupComponent = this.settlePopup.getComponent(MiniRouletteSettlePopup);
 
         this.wheel.setOnBallLandedWithSettlementCallback(this.highlightBetItemsBySettlement.bind(this));
+        this.wheel.setOnBeforeShowResultCallback(this.handleBeforeShowResult.bind(this));
 
         super.onLoad();
         GameUtils.notifyNativeApp(WEBVIEW_MESSAGE.ON_GAME_LOADED);
@@ -210,12 +211,7 @@ export default class RouletteS extends SoloGame {
                 this.gameData.durations.start();
                 break;
             case SoloBetState.BETTING:
-                this.showMainTime(false);
-                this.rouletteBetItems.forEach((item) => {
-                    item.setHighlight(false);
-                    item.setInactive(true);
-                });
-                this.roundHistoryComponent.setHighlight(false);
+                this.handleBeforeShowResult();
                 break;
             case SoloBetState.RESULT:
                 this.showMainTime(false);
@@ -225,6 +221,15 @@ export default class RouletteS extends SoloGame {
             default:
                 break;
         }
+    }
+
+    handleBeforeShowResult() {
+        this.showMainTime(false);
+        this.rouletteBetItems.forEach((item) => {
+            item.setHighlight(false);
+            item.setInactive(true);
+        });
+        this.roundHistoryComponent.setHighlight(false);
     }
 
     protected createBetData(bet: any) {

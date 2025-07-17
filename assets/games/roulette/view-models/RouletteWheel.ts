@@ -84,6 +84,9 @@ export default class RouletteWheel extends cc.Component {
     // Callback to highlight bet item when the ball lands
     private onBallLandedWithSettlementCallback: ((settlement: any) => void) | null = null;
 
+    // Callback to trigger before showing result
+    private onBeforeShowResultCallback: (() => void) | null = null;
+
     private currentSettlement: any = null;
 
     onLoad() {
@@ -144,7 +147,15 @@ export default class RouletteWheel extends cc.Component {
         this.onBallLandedWithSettlementCallback = callback;
     }
 
+    setOnBeforeShowResultCallback(callback: () => void) {
+        this.onBeforeShowResultCallback = callback;
+    }
+
     showResult(settlement: any, onComplete: () => void) {
+        if (this.onBeforeShowResultCallback) {
+            this.onBeforeShowResultCallback();
+        }
+
         this.prepareWheelSpinAnimation();
         const result = settlement.result;
         const t = { resultNumber: result + 1 };
