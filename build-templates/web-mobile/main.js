@@ -246,10 +246,6 @@ window.boot = function () {
                     // show canvas
                     var canvas = document.getElementById("GameCanvas");
                     canvas.style.visibility = "";
-                    var div = document.getElementById("GameDiv");
-                    if (div) {
-                        div.style.backgroundImage = "";
-                    }
                     console.log("Success to load scene: " + launchScene);
                 }
             }

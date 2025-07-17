@@ -4,7 +4,6 @@ class FullScreenManager {
     constructor() {
         this.isInIframe = window !== window.top;
         this.IOSInstruction = document.getElementById("ios-instruction");
-        this.androidInstruction = document.getElementById("android-instruction");
         this.iconFullScreen = document.getElementById("icon-fullscreen");
         this.userAgent = window.navigator.userAgent;
         this.isIOS = /(ipad|iphone|ipod)/i.test(this.userAgent);
