@@ -17,9 +17,9 @@ export default class RandonWaitingMessage extends cc.Component {
 
     onLoad() {
         console.log('[RandonWaitingMessage] Component loaded');
-        this.messageList = _.shuffle(this.messageList);
+        // this.messageList = _.shuffle(this.messageList);
         console.log(`[RandonWaitingMessage] Shuffled message list: ${this.messageList.join(', ')}`);
-        this.showMessage(0);
+        // this.showMessage(0);
     }
 
     showMessage(duration = 1) {

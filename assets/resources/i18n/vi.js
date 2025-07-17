@@ -175,7 +175,8 @@ const data = {
         winTumbleMsg: "CHÚC MỪNG!",
         winningNotificationOn: "Bật thông báo cầu thuận lợi",
         winningNotificationOff: "Tắt thông báo cầu thuận lợi",
-        voidTicketMessage: "Cược của bạn đã bị hủy vì lý do kỹ thuật. Vui lòng thử lại game."
+        voidTicketMessage: "Cược của bạn đã bị hủy vì lý do kỹ thuật. Vui lòng thử lại game.",
+        message_loading: "Đang tải"
     },
     ui: {
         choice_red2: "2 Đỏ",

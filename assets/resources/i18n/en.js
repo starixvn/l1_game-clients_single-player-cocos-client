@@ -172,7 +172,8 @@ const data = {
         winTumbleMsg: "CONGRATULATION!",
         winningNotificationOn: "Winning streak notification “ON”",
         winningNotificationOff: "Winning streak notification “OFF”",
-        voidTicketMessage: "The bet was voided due to a technical issue. Please try the game again."
+        voidTicketMessage: "The bet was voided due to a technical issue. Please try the game again.",
+        message_loading: "Loading"
     },
     ui: {
         choice_red2: "2 Red",

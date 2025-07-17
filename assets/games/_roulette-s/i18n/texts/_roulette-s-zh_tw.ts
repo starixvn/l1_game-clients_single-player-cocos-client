@@ -150,6 +150,7 @@ export const phrases = {
         "message_limitbet_exceeded": "%{gameName} 遊戲 (#%{gameRoundId})\n\n下注失敗！您的本金已超出您的投注限額設置，請重試。(%{errorCode})",
         "message_limit_bet_not_defined": "%{gameName} 遊戲 (#%{gameRoundId})\n\n下注失敗！您對此遊戲的投注限額尚未設置。請聯繫您的上線，謝謝。(%{errorCode})",
         "message_limit_bet_updated": "%{gameName} 遊戲 (#%{gameRoundId})\n\n下注失敗！您的投注限額已更新，請重試。(%{errorCode})",
+        "message_loading": "載入中",
         "message_login_fail_place_bet": "%{gameName} 遊戲 (#%{gameRoundId})\n\n下注失敗！登錄名或密碼不正確。",
         "message_lose_limit_hit": "%{gameName} 遊戲 (#%{gameRoundId})\n\n下注失敗！輸限制命中。請聯繫您的上線，謝謝。    (%{errorCode})",
         "message_lost_game_connection": "%{gameName}\n\n連接不穩定，請檢查。",

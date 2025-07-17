@@ -1,6 +1,4 @@
 import { lazyInject } from "../../Application";
-import { i18n } from "../../ClientModules";
-import { OperatorAlias } from "../../ISystem";
 import SocketIOController from "../../SocketIOController";
 import GameUtils from "../../common/GameUtils";
 import * as sessionManager from "../../common/auth/SessionManager";
@@ -13,6 +11,7 @@ import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
 import RandomWaitingMessage from "./RandonWaitingMessage";
 import SplashConfig from "./SplashConfig";
+import * as i18n from "i18n/runtime-scripts/LanguageData";
 
 const { ccclass, property } = cc._decorator;
 
@@ -200,7 +199,7 @@ export default class MainSplash extends cc.Component {
         console.log(`[MainSplash] Progress bar update: 載入中 ${progressPercent}%`);
 
         // Update percentage text
-        this.percentResourceLoad && (this.percentResourceLoad.string = `載入中 ${progressPercent}%`);
+        this.percentResourceLoad && (this.percentResourceLoad.string = `${i18n.t("messages.message_loading")} ${progressPercent}%`);
 
         // Update progress bar width
         if (this.progressBar && this.progressBarBackground) {
