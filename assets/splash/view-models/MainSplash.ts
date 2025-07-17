@@ -132,41 +132,33 @@ export default class MainSplash extends cc.Component {
 
     async loadToLobbyOrDirectGame() {
         try {
-            console.log('[MainSplash] Starting loadToLobbyOrDirectGame process');
             this.updateProgress(0);
 
             const ssoGameRoomId = appManager.ssoGameId && !isMiniGameByGameId(appManager.ssoGameId) ? appManager.ssoGameId : 0;
             const gameId = sessionManager.getInRoomGameId() || appManager.directGameId || ssoGameRoomId;
 
             if (gameId > 0) {
-                console.log(`[MainSplash] Loading game directly with ID: ${gameId}`);
                 cc.log("Main Splash : loadGameDirectly ", gameId);
                 await this.loadGameDirectly(gameId);
                 appManager.clearSSOGameId();
             } else {
-                console.log('[MainSplash] No game available, redirecting to operator lobby');
                 cc.log("Main Splash : No game available");
                 appManager.backToOperatorLobby();
             }
         } catch (error) {
-            console.error('[MainSplash] Error in loadToLobbyOrDirectGame:', error);
             sentryLogger.logError(error);
         }
     }
 
     async loadGameDirectly(gameId) {
-        console.log(`[MainSplash] Starting to load game directly with ID: ${gameId}`);
         const updateProgress = ({ progress, total }) => {
-            console.log(`[MainSplash] Game loading progress - Progress: ${progress}, Total: ${total}`);
             this.onProgress(progress, total);
         };
         uiManager.emitterListener(`${InternalEvents.LOADING_GAME}-${gameId}`, updateProgress, this);
         try {
             await GameUtils.openGameDirect(gameId, this.socketIOController);
-            console.log(`[MainSplash] Successfully loaded game with ID: ${gameId}`);
             uiManager.removeListenersWithName(`${InternalEvents.LOADING_GAME}-${gameId}`);
         } catch (error) {
-            console.error(`[MainSplash] Failed to load game with ID ${gameId}:`, error);
             cc.warn(`Can not load game directly id ${gameId}`, error);
         }
     }
@@ -183,12 +175,10 @@ export default class MainSplash extends cc.Component {
 
     onProgress(completedCount, totalCount) {
         const percent = completedCount / totalCount;
-        console.log(`[MainSplash] Progress update - Completed: ${completedCount}, Total: ${totalCount}, Percent: ${(percent * 100).toFixed(2)}%`);
         this.updateProgress(percent);
     }
 
     updateProgress(progress) {
-        console.log(`[MainSplash] Updating progress: ${(progress * 100).toFixed(2)}%`);
         if (this) {
             this.updateProgressBar(progress);
         }
@@ -196,7 +186,6 @@ export default class MainSplash extends cc.Component {
 
     updateProgressBar(progress) {
         const progressPercent = Math.round(progress * 100);
-        console.log(`[MainSplash] Progress bar update: 載入中 ${progressPercent}%`);
 
         // Update percentage text
         this.percentResourceLoad && (this.percentResourceLoad.string = `${i18n.t("messages.message_loading")} ${progressPercent}%`);
@@ -205,10 +194,7 @@ export default class MainSplash extends cc.Component {
         if (this.progressBar && this.progressBarBackground) {
             const backgroundWidth = this.progressBarBackground.width;
             const newWidth = (progress * backgroundWidth);
-            console.log(`[MainSplash] Progress bar width update - Background width: ${backgroundWidth}, New width: ${newWidth.toFixed(2)}`);
             this.progressBar.width = newWidth;
-        } else {
-            console.warn('[MainSplash] Progress bar or background not assigned');
         }
     }
 
