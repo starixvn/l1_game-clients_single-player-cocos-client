@@ -22,6 +22,7 @@ import RouletteSettings from "./scripts/roulette-settings";
 import GameUtils from "../../common/GameUtils";
 import { WEBVIEW_ACTION } from "../../constants";
 import { BetModel } from "../_base_new/models/BetModel";
+import GameBaseVoidTicketHandler from "../_base/handlers/GameBaseVoidTicketHandler";
 
 const { ccclass, property } = cc._decorator;
 
@@ -98,6 +99,11 @@ export default class RouletteS extends SoloGame {
     protected onChangedBetChip(bet: number) {
         super.onChangedBetChip(bet);
         this.soloBetModel.setCurrentBet(bet);
+    }
+
+    setUpHandlers(): void {
+        super.setUpHandlers();
+        this.addHandlers(new GameBaseVoidTicketHandler(this));
     }
 
     initRouletteBetItems() {
