@@ -112,7 +112,7 @@ function updateLocalizedImages() {
     const language = getCurrentLanguage();
 
     let title = "Default Title";
-    let favicon = "default_favicon.ico";
+    let favicon = "favicon.ico";
     setTitleAndFavicon(title, favicon);
     setSplashTextClass(language);
 }
