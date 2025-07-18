@@ -46,8 +46,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1398,
-      "height": 786
+      "width": 786,
+      "height": 772
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -58,8 +58,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        699,
         393,
+        386,
         0,
         0,
         0,
@@ -116,8 +116,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1398,
-      "height": 786
+      "width": 786,
+      "height": 772
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -352,9 +352,9 @@
         0,
         0,
         1,
-        1,
-        1,
-        1
+        0.5622317596566524,
+        0.5622317596566524,
+        0.5622317596566524
       ]
     },
     "_eulerAngles": {
@@ -1195,6 +1195,7 @@
     },
     "_enabled": true,
     "overrideFonts": [],
+    "enableCacheMode": false,
     "_id": ""
   },
   {
@@ -3836,6 +3837,7 @@
     },
     "_enabled": true,
     "overrideFonts": [],
+    "enableCacheMode": false,
     "_id": ""
   },
   {
@@ -7786,6 +7788,7 @@
     },
     "_enabled": true,
     "overrideFonts": [],
+    "enableCacheMode": false,
     "_id": ""
   },
   {
@@ -8614,6 +8617,7 @@
     "_fontSize": 24,
     "_lineHeight": 40,
     "_enableWrapText": true,
+    "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
@@ -8648,6 +8652,7 @@
     },
     "_enabled": true,
     "overrideFonts": [],
+    "enableCacheMode": false,
     "_id": ""
   },
   {
@@ -11754,7 +11759,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "30a54e4c-5f5a-41a3-9446-06bd4a911ac9"
+      "__uuid__": "3c0582da-0f92-4060-938f-7fe63b39340f"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -11768,7 +11773,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": {
-      "__uuid__": "3e2cb345-2fbe-4d08-a01c-06e5aa05f9ca"
+      "__uuid__": "1f51864e-2741-465e-9dae-62c7e5bb7483"
     },
     "_id": ""
   },
