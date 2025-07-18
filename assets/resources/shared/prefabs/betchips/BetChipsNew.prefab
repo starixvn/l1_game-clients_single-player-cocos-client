@@ -993,7 +993,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "62830ced-89bf-4874-9f90-09e2e4a5cde5"
+      "__uuid__": "9df1e4ac-a811-4df2-ad20-665c9db52366"
     },
     "_type": 0,
     "_sizeMode": 2,
@@ -1007,7 +1007,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": false,
     "_atlas": {
-      "__uuid__": "5f6e1342-0e7f-4dfb-bb65-1eaa8e436895"
+      "__uuid__": "a82c8fe1-4edb-4815-82c6-18f39f2fec3c"
     },
     "_id": ""
   },
@@ -1145,7 +1145,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "4066deea-2a49-46b6-9a87-f0ebf51a20aa"
+      "__uuid__": "ebc2f29b-69f1-4408-b07f-860060223e6a"
     },
     "_type": 0,
     "_sizeMode": 2,
@@ -1159,7 +1159,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": false,
     "_atlas": {
-      "__uuid__": "5f6e1342-0e7f-4dfb-bb65-1eaa8e436895"
+      "__uuid__": "a82c8fe1-4edb-4815-82c6-18f39f2fec3c"
     },
     "_id": ""
   },
@@ -1390,7 +1390,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "ccb3d1c5-998e-4ffc-9d9e-4dbb1edfc9e5"
+      "__uuid__": "cd66cbc0-8891-4b0c-81fb-e24c6666bb3a"
     },
     "_type": 0,
     "_sizeMode": 2,
@@ -1404,7 +1404,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": false,
     "_atlas": {
-      "__uuid__": "5f6e1342-0e7f-4dfb-bb65-1eaa8e436895"
+      "__uuid__": "a82c8fe1-4edb-4815-82c6-18f39f2fec3c"
     },
     "_id": ""
   },
@@ -1542,7 +1542,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "aa3abf5c-d521-4f8d-af80-36e7fa19d2e6"
+      "__uuid__": "3ff3a646-7dfe-4491-beb7-24862ebfa807"
     },
     "_type": 0,
     "_sizeMode": 2,
@@ -1556,7 +1556,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": false,
     "_atlas": {
-      "__uuid__": "5f6e1342-0e7f-4dfb-bb65-1eaa8e436895"
+      "__uuid__": "a82c8fe1-4edb-4815-82c6-18f39f2fec3c"
     },
     "_id": ""
   },
@@ -1592,7 +1592,7 @@
       "__id__": 9
     },
     "chipAltas": {
-      "__uuid__": "5f6e1342-0e7f-4dfb-bb65-1eaa8e436895"
+      "__uuid__": "a82c8fe1-4edb-4815-82c6-18f39f2fec3c"
     },
     "snappedScrollView": {
       "__id__": 20
@@ -1609,7 +1609,7 @@
       "__uuid__": "d611f1a6-4a22-4aee-8f04-9c4ef88a69e1"
     },
     "lowValueChipSprite": {
-      "__uuid__": "de2f2515-360e-466c-9a20-c5f31189bbb7"
+      "__uuid__": "1f68cc42-a3f1-416a-8cb5-96bf6ca02c2d"
     },
     "chipFlyPrefab": {
       "__uuid__": "b5f6c843-fa81-4ad3-852a-a02b0d38bf07"
