@@ -6,11 +6,11 @@ import { Durations } from "../_new/_base/game-data-management/models/durations";
 import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
 import GameUtils from "../../common/GameUtils";
 import CloseGameDialog from "../../common/close-game-dialog/CloseGameDialog";
+import CommonDialog from "../../common/_base/view-models/CommonDialog";
 import { WEBVIEW_ACTION } from "../../constants";
 import { userManager } from "../../common/user/UserManager";
 import { i18n } from "../../ClientModules";
 import { CommonEvents } from "../_new/_base/game-data-management/models/common-events";
-import { t } from "../../../packages/i18n/runtime-scripts/LanguageData";
 
 const { ccclass, property } = cc._decorator;
 
@@ -43,6 +43,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     private pendingBetAmount = 0;
     private isWaitingForBetResponse = false;
     protected isStopAutoRebetMode = false;
+    private isCloseGameDialogOpen = false;
 
     onLoad() {
         super.onLoad();
@@ -292,6 +293,12 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     clickCloseGame() {
         this.playClick();
+        
+        if (this.isCloseGameDialogOpen) {
+            return;
+        }
+        
+        this.isCloseGameDialogOpen = true;
         const dialog = cc.instantiate(this.closeGameDialogPrefab);
         const comp = dialog.getComponent(CloseGameDialog);
         this.currentMiniPanel.node.addChild(dialog);
@@ -300,8 +307,19 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         comp.onConfirmCallback = () => {
             cc.log("Confirm Close, Send Message to Native App");
+            this.isCloseGameDialogOpen = false;
             GameUtils.sendActionToParent(WEBVIEW_ACTION.CLOSE);
         };
+        
+        const commonDialog = comp.mainFrame.getComponent(CommonDialog);
+        if (commonDialog) {
+            commonDialog.addOnDidHide(() => {
+                this.isCloseGameDialogOpen = false;
+            });
+        }
+        comp.btnCancel.node.once('click', () => {
+            this.isCloseGameDialogOpen = false;
+        });
     }
 
     override showStatus(status: any) {
