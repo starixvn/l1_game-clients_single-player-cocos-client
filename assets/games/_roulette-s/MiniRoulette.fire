@@ -35011,8 +35011,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 740,
-      "height": 410
+      "width": 516,
+      "height": 338
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -35024,7 +35024,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -132.062,
+        -117.341,
         0,
         0,
         0,
@@ -35084,8 +35084,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80,
-      "height": 50.4
+      "width": 457.24,
+      "height": 54.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -35097,7 +35097,7 @@
       "ctor": "Float64Array",
       "array": [
         0.305,
-        158.933,
+        126.689,
         0,
         0,
         0,
@@ -35136,8 +35136,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "結算",
-    "_N$string": "結算",
+    "_string": "MiniRoulette.settlement",
+    "_N$string": "MiniRoulette.settlement",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -35254,8 +35254,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 450,
-      "height": 110
+      "width": 458,
+      "height": 88
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -35266,8 +35266,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        1.027,
+        18.764,
+        5.718,
         0,
         0,
         0,
@@ -35318,7 +35318,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 499,
+      "width": 458,
       "height": 92
     },
     "_anchorPoint": {
@@ -35330,7 +35330,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
+        -18.764,
         9.753,
         0,
         0,
@@ -35430,7 +35430,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 54.34,
+      "width": 418.63,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -35442,8 +35442,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -191.982,
-        12.26,
+        -189.459,
+        8.897,
         0,
         0,
         0,
@@ -35482,8 +35482,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "押注:",
-    "_N$string": "押注:",
+    "_string": "MiniRoulette.settlement_bet_amount",
+    "_N$string": "MiniRoulette.settlement_bet_amount",
     "_fontSize": 24,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -35572,8 +35572,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        221.007,
-        1,
+        185.653,
+        -2,
         0,
         0,
         0,
@@ -35967,8 +35967,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 499,
-      "height": 92
+      "width": 458,
+      "height": 88
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -35980,7 +35980,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -25.147,
+        -14.216,
         0,
         0,
         0,
@@ -36079,7 +36079,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30.34,
+      "width": 421.08,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -36091,8 +36091,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -205.217,
-        -23.132,
+        -185.878,
+        -14.731,
         0,
         0,
         0,
@@ -36131,8 +36131,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "贏:",
-    "_N$string": "贏:",
+    "_string": "MiniRoulette.settlement_win_amount",
+    "_N$string": "MiniRoulette.settlement_win_amount",
     "_fontSize": 24,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -36221,8 +36221,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        218,
-        0,
+        202.865,
+        8.408,
         0,
         0,
         0,
@@ -36535,7 +36535,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "f45394e2-264d-46c7-b525-e5702b236abf"
+      "__uuid__": "19c39961-b7b5-4f80-a100-1a6d22dfac52"
     },
     "_type": 0,
     "_sizeMode": 0,
