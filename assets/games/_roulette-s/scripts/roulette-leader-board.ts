@@ -124,6 +124,14 @@ export default class RouletteLeaderBoard extends BaseComponent {
 
     private formatCurrentPlayerData(currentPlayer: CurrentPlayer): LeaderBoardItem {
         const { currentPlayerSettings, totalWin } = currentPlayer;
+        if (!currentPlayerSettings) {
+            return {
+                rank: "-",
+                nickname: "",
+                totalWin,
+                avatarUrl: ""
+            };
+        }
         return {
             rank: "-",
             nickname: currentPlayerSettings.hideName ? "" : currentPlayerSettings.nickname,
