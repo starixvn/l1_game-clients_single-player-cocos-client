@@ -12,7 +12,7 @@
   "height": 512,
   "platformSettings": {},
   "subMetas": {
-    "money": {
+    "money-png": {
       "ver": "1.0.6",
       "uuid": "1143f7d8-c8cd-4655-89d7-3338057bf50b",
       "importer": "sprite-frame",
