@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "pack-images": "npm install && python pack-resources.py"
+        "pack-images": "npm install && py pack-resources.py"
     },
     "dependencies": {
         "argparse": "^2.0.1",
