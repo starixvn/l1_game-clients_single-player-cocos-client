@@ -1,0 +1,20 @@
+
+light-effect.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+halo-light
+  rotate: false
+  xy: 2, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+light-zoom
+  rotate: true
+  xy: 504, 225
+  size: 277, 276
+  orig: 277, 276
+  offset: 0, 0
+  index: -1
