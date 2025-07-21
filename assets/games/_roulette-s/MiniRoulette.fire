@@ -36809,7 +36809,7 @@
     "_playTimes": 0,
     "_isAniComplete": true,
     "_N$skeletonData": {
-      "__uuid__": "da658a08-6829-4c45-963d-27c1523d6ed1"
+      "__uuid__": "e099126e-e4d5-471e-91a2-2163c1e8c4ef"
     },
     "_N$_defaultCacheMode": 0,
     "_N$debugSlots": false,
@@ -36923,11 +36923,11 @@
     "totalWinAmount": {
       "__id__": 960
     },
-    "lightEffectSpine": {
-      "__id__": 966
-    },
     "trophyEffectSpine": {
       "__id__": 970
+    },
+    "lightEffectSpine": {
+      "__id__": 966
     },
     "_id": "cfdDLTGBlIHJiamEr4Mn6E"
   },

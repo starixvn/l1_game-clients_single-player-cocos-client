@@ -11,10 +11,10 @@ export default class NewClass extends cc.Component {
     totalWinAmount: cc.Label = null;
 
     @property(sp.Skeleton)
-    lightEffectSpine: sp.Skeleton = null;
+    trophyEffectSpine: sp.Skeleton = null;
 
     @property(sp.Skeleton)
-    trophyEffectSpine: sp.Skeleton = null;
+    lightEffectSpine: sp.Skeleton = null;
 
     public onConfettiTrigger: () => void = null;
 
@@ -29,15 +29,13 @@ export default class NewClass extends cc.Component {
         this.updateLabels(betWinAmount, betAmount);
         this.showPopup();
         this.handleWinCondition(betWinAmount, betAmount);
-        
-        cc.tween(this.node)
-            .to(0.6, { scale: 1, opacity: 255 }, { easing: "backOut" })
-            .start();
+
+        cc.tween(this.node).to(0.6, { scale: 1, opacity: 255 }, { easing: "backOut" }).start();
     }
 
     hideSettlementResult() {
         this.resetAnimation();
-        
+
         cc.tween(this.node)
             .to(0.6, { scale: 0, opacity: 0 }, { easing: "backIn" })
             .call(() => {
@@ -47,10 +45,7 @@ export default class NewClass extends cc.Component {
     }
 
     private initAnimationSpines() {
-        this.animationSpines.push(
-            this.lightEffectSpine,
-            this.trophyEffectSpine
-        );
+        this.animationSpines.push(this.trophyEffectSpine, this.lightEffectSpine);
     }
 
     private updateLabels(betWinAmount: number, betAmount: number) {
@@ -66,7 +61,9 @@ export default class NewClass extends cc.Component {
 
     private handleWinCondition(betWinAmount: number, betAmount: number) {
         if (betWinAmount >= betAmount) {
-            this.onConfettiTrigger?.();
+            this.scheduleOnce(() => {
+                this.onConfettiTrigger?.();
+            }, 0.03);
             this.playAnimation();
         } else {
             this.resetAnimation();
@@ -74,7 +71,7 @@ export default class NewClass extends cc.Component {
     }
 
     private playAnimation() {
-        this.animationSpines.forEach(spine => {
+        this.animationSpines.forEach((spine) => {
             if (spine) {
                 spine.node.active = true;
                 spine.setAnimation(0, "show", false);
@@ -83,7 +80,7 @@ export default class NewClass extends cc.Component {
     }
 
     private resetAnimation() {
-        this.animationSpines.forEach(spine => {
+        this.animationSpines.forEach((spine) => {
             if (spine) {
                 spine.node.active = false;
                 spine.setAnimation(0, "", false);
