@@ -725,7 +725,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 649.4,
+      "width": 646.34,
       "height": 67
     },
     "_anchorPoint": {
@@ -783,7 +783,7 @@
     "_lineHeight": 50,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -1168,7 +1168,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 531.65,
+      "width": 462.17,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1226,7 +1226,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -3625,7 +3625,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 569.18,
+      "width": 498.42,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -3683,7 +3683,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -3893,7 +3893,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 692.92,
+      "width": 610.02,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -3951,7 +3951,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -4414,7 +4414,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 702.83,
+      "width": 615.5,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -4472,7 +4472,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
