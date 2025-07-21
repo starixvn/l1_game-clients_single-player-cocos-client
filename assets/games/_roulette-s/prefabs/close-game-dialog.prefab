@@ -27,11 +27,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 53
+        "__id__": 50
       }
     ],
     "_prefab": {
-      "__id__": 54
+      "__id__": 51
     },
     "_opacity": 255,
     "_color": {
@@ -94,14 +94,14 @@
         "__id__": 3
       },
       {
-        "__id__": 50
+        "__id__": 47
       },
       {
-        "__id__": 51
+        "__id__": 48
       }
     ],
     "_prefab": {
-      "__id__": 52
+      "__id__": 49
     },
     "_opacity": 180,
     "_color": {
@@ -251,22 +251,19 @@
       },
       {
         "__id__": 35
-      },
-      {
-        "__id__": 38
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 47
+        "__id__": 44
       },
       {
-        "__id__": 48
+        "__id__": 45
       }
     ],
     "_prefab": {
-      "__id__": 49
+      "__id__": 46
     },
     "_opacity": 255,
     "_color": {
@@ -1294,116 +1291,6 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "lblContent",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 5
-    },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 36
-      }
-    ],
-    "_prefab": {
-      "__id__": 37
-    },
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 600,
-      "height": 90.4
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        0,
-        11.258,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 35
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_string": "您已完成下注，離開仍會進行遊戲開獎唷",
-    "_N$string": "您已完成下注，離開仍會進行遊戲開獎唷",
-    "_fontSize": 28,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "bbb837e4-89ce-47e2-ae61-858f93e222ac"
-    },
-    "_isSystemFontUsed": false,
-    "_spacingX": 0,
-    "_batchAsBitmap": false,
-    "_styleFlags": 0,
-    "_underlineHeight": 0,
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 2,
-    "_N$cacheMode": 0,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 35
-    },
-    "asset": {
-      "__uuid__": "27756ebb-3d33-44b0-9b96-e858fadd4dd4"
-    },
-    "fileId": "87F2GsC0tJ4Z2EOJ1noHs8",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
     "_name": "btnConfirm",
     "_objFlags": 0,
     "_parent": {
@@ -1411,20 +1298,20 @@
     },
     "_children": [
       {
-        "__id__": 39
+        "__id__": 36
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 43
+        "__id__": 40
       },
       {
-        "__id__": 44
+        "__id__": 41
       }
     ],
     "_prefab": {
-      "__id__": 46
+      "__id__": 43
     },
     "_opacity": 255,
     "_color": {
@@ -1478,20 +1365,20 @@
     "_name": "text",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 38
+      "__id__": 35
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 40
+        "__id__": 37
       },
       {
-        "__id__": 41
+        "__id__": 38
       }
     ],
     "_prefab": {
-      "__id__": 42
+      "__id__": 39
     },
     "_opacity": 255,
     "_color": {
@@ -1545,7 +1432,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 39
+      "__id__": 36
     },
     "_enabled": true,
     "_materials": [
@@ -1580,7 +1467,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 39
+      "__id__": 36
     },
     "_enabled": true,
     "_dataId": "MiniRoulette.button_confirm",
@@ -1604,7 +1491,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 38
+      "__id__": 35
     },
     "_enabled": true,
     "_materials": [
@@ -1638,7 +1525,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 38
+      "__id__": 35
     },
     "_enabled": true,
     "_normalMaterial": null,
@@ -1647,7 +1534,7 @@
     "zoomScale": 1.2,
     "clickEvents": [
       {
-        "__id__": 45
+        "__id__": 42
       }
     ],
     "_N$interactable": true,
@@ -1858,14 +1745,12 @@
     "mainFrame": {
       "__id__": 5
     },
-    "lblContent": {
-      "__id__": 36
-    },
+    "lblContent": null,
     "btnCancel": {
       "__id__": 32
     },
     "btnConfirm": {
-      "__id__": 44
+      "__id__": 41
     },
     "_id": ""
   },

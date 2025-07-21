@@ -1,5 +1,5 @@
 
-confetti-effect.png
+confetti-effect.webp
 size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
@@ -257,7 +257,7 @@ confetti_65
   offset: 0, 0
   index: -1
 
-confetti-effect2.png
+confetti-effect2.webp
 size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
@@ -508,7 +508,7 @@ confetti_99
   offset: 0, 0
   index: -1
 
-confetti-effect3.png
+confetti-effect3.webp
 size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear

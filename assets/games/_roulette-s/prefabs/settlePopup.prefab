@@ -1605,6 +1605,8 @@
     "totalWinAmount": {
       "__id__": 39
     },
+    "lightEffectSpine": null,
+    "trophyEffectSpine": null,
     "_id": ""
   },
   {
