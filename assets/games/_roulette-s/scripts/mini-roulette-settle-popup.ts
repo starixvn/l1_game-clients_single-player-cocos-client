@@ -13,35 +13,32 @@ export default class NewClass extends cc.Component {
     @property(sp.Skeleton)
     lightEffectSpine: sp.Skeleton = null;
 
+    @property(sp.Skeleton)
+    trophyEffectSpine: sp.Skeleton = null;
+
     public onConfettiTrigger: () => void = null;
 
+    private readonly animationSpines: sp.Skeleton[] = [];
+
     onLoad() {
-        this.resetLightEffect();
+        this.initAnimationSpines();
+        this.resetAnimation();
     }
 
     showSettlementResult(betWinAmount: number, betAmount: number) {
-        this.totalBetAmount.string = numberWithCommas(betAmount);
-        this.totalWinAmount.string = numberWithCommas(betWinAmount);
-
-        this.node.active = true;
-        this.node.scale = 0;
-        this.node.opacity = 0;
-
+        this.updateLabels(betWinAmount, betAmount);
+        this.showPopup();
+        
         cc.tween(this.node)
             .to(0.6, { scale: 1, opacity: 255 }, { easing: "backOut" })
             .call(() => {
-                if (betWinAmount >= betAmount) {
-                    this.onConfettiTrigger?.();
-                    this.playLightEffect();
-                } else {
-                    this.resetLightEffect();
-                }
+                this.handleWinCondition(betWinAmount, betAmount);
             })
             .start();
     }
 
     hideSettlementResult() {
-        this.resetLightEffect();
+        this.resetAnimation();
         
         cc.tween(this.node)
             .to(0.6, { scale: 0, opacity: 0 }, { easing: "backIn" })
@@ -51,17 +48,48 @@ export default class NewClass extends cc.Component {
             .start();
     }
 
-    private playLightEffect() {
-        if (this.lightEffectSpine) {
-            this.lightEffectSpine.node.active = true;
-            this.lightEffectSpine.setAnimation(0, "show", false);
+    private initAnimationSpines() {
+        this.animationSpines.push(
+            this.lightEffectSpine,
+            this.trophyEffectSpine
+        );
+    }
+
+    private updateLabels(betWinAmount: number, betAmount: number) {
+        this.totalBetAmount.string = numberWithCommas(betAmount);
+        this.totalWinAmount.string = numberWithCommas(betWinAmount);
+    }
+
+    private showPopup() {
+        this.node.active = true;
+        this.node.scale = 0;
+        this.node.opacity = 0;
+    }
+
+    private handleWinCondition(betWinAmount: number, betAmount: number) {
+        if (betWinAmount >= betAmount) {
+            this.onConfettiTrigger?.();
+            this.playAnimation();
+        } else {
+            this.resetAnimation();
         }
     }
 
-    private resetLightEffect() {
-        if (this.lightEffectSpine) {
-            this.lightEffectSpine.node.active = false;
-            this.lightEffectSpine.setAnimation(0, "", false);
-        }
+    private playAnimation() {
+        this.animationSpines.forEach(spine => {
+            if (spine) {
+                spine.node.active = true;
+                spine.setAnimation(0, "show", false);
+            }
+        });
+    }
+
+    private resetAnimation() {
+        this.animationSpines.forEach(spine => {
+            if (spine) {
+                spine.node.active = false;
+                spine.setAnimation(0, "", false);
+            }
+        });
     }
 }

@@ -1,0 +1,27 @@
+
+icon-settlement.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blink
+  rotate: false
+  xy: 400, 67
+  size: 51, 51
+  orig: 51, 51
+  offset: 0, 0
+  index: -1
+coin
+  rotate: false
+  xy: 2, 2
+  size: 278, 116
+  orig: 278, 116
+  offset: 0, 0
+  index: -1
+huychuong
+  rotate: false
+  xy: 282, 2
+  size: 116, 116
+  orig: 116, 116
+  offset: 0, 0
+  index: -1
