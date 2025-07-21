@@ -1319,7 +1319,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 513.32,
+      "width": 600,
       "height": 90.4
     },
     "_anchorPoint": {
@@ -1371,8 +1371,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "You have completed your bet, \nThe game will still be drawn if you leave",
-    "_N$string": "You have completed your bet, \nThe game will still be drawn if you leave",
+    "_string": "您已完成下注，離開仍會進行遊戲開獎唷",
+    "_N$string": "您已完成下注，離開仍會進行遊戲開獎唷",
     "_fontSize": 28,
     "_lineHeight": 40,
     "_enableWrapText": true,
