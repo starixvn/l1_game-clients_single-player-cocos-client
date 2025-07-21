@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Loading Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .avatar-container {
+            display: flex;
+            gap: 20px;
+            margin: 10px 0;
+        }
+        .avatar-item {
+            text-align: center;
+        }
+        .avatar-item img {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .loading { background-color: #fff3cd; color: #856404; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Avatar Loading Test</h1>
+    <p>This page tests different methods of loading avatar images with CORS handling.</p>
+
+    <div class="test-section">
+        <h2>Test URLs</h2>
+        <ul>
+            <li><strong>GitLab Avatar:</strong> https://git3.nexdev.net/uploads/-/system/user/avatar/50/avatar.png</li>
+            <li><strong>Assets Avatar:</strong> https://assets.lang.live/gift/fedffb919a921cfab98660bb2400cb07</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Method 1: Direct Image Loading (CORS)</h2>
+        <button onclick="testDirectImage()">Test Direct Image</button>
+        <div class="avatar-container">
+            <div class="avatar-item">
+                <img id="direct-gitlab" alt="GitLab Avatar" />
+                <div id="direct-gitlab-status" class="status">Not loaded</div>
+            </div>
+            <div class="avatar-item">
+                <img id="direct-assets" alt="Assets Avatar" />
+                <div id="direct-assets-status" class="status">Not loaded</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Method 2: Fetch API with Blob</h2>
+        <button onclick="testFetchBlob()">Test Fetch Blob</button>
+        <div class="avatar-container">
+            <div class="avatar-item">
+                <img id="fetch-gitlab" alt="GitLab Avatar" />
+                <div id="fetch-gitlab-status" class="status">Not loaded</div>
+            </div>
+            <div class="avatar-item">
+                <img id="fetch-assets" alt="Assets Avatar" />
+                <div id="fetch-assets-status" class="status">Not loaded</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Method 3: Canvas Approach</h2>
+        <button onclick="testCanvas()">Test Canvas</button>
+        <div class="avatar-container">
+            <div class="avatar-item">
+                <canvas id="canvas-gitlab" width="100" height="100"></canvas>
+                <div id="canvas-gitlab-status" class="status">Not loaded</div>
+            </div>
+            <div class="avatar-item">
+                <canvas id="canvas-assets" width="100" height="100"></canvas>
+                <div id="canvas-assets-status" class="status">Not loaded</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const testUrls = {
+            gitlab: 'https://git3.nexdev.net/uploads/-/system/user/avatar/50/avatar.png',
+            assets: 'https://assets.lang.live/gift/fedffb919a921cfab98660bb2400cb07'
+        };
+
+        function updateStatus(elementId, status, isSuccess = false) {
+            const element = document.getElementById(elementId);
+            element.textContent = status;
+            element.className = `status ${isSuccess ? 'success' : 'error'}`;
+        }
+
+        function setLoadingStatus(elementId) {
+            const element = document.getElementById(elementId);
+            element.textContent = 'Loading...';
+            element.className = 'status loading';
+        }
+
+        // Method 1: Direct Image Loading with CORS
+        async function testDirectImage() {
+            console.log('Testing direct image loading...');
+            
+            // Test GitLab avatar
+            setLoadingStatus('direct-gitlab-status');
+            try {
+                const img1 = new Image();
+                img1.crossOrigin = 'anonymous';
+                img1.onload = () => {
+                    document.getElementById('direct-gitlab').src = img1.src;
+                    updateStatus('direct-gitlab-status', 'Success: Loaded with CORS', true);
+                };
+                img1.onerror = (e) => {
+                    updateStatus('direct-gitlab-status', `Error: ${e.type}`);
+                };
+                img1.src = testUrls.gitlab + '?cb=' + Date.now();
+            } catch (error) {
+                updateStatus('direct-gitlab-status', `Error: ${error.message}`);
+            }
+
+            // Test Assets avatar
+            setLoadingStatus('direct-assets-status');
+            try {
+                const img2 = new Image();
+                img2.crossOrigin = 'anonymous';
+                img2.onload = () => {
+                    document.getElementById('direct-assets').src = img2.src;
+                    updateStatus('direct-assets-status', 'Success: Loaded with CORS', true);
+                };
+                img2.onerror = (e) => {
+                    updateStatus('direct-assets-status', `Error: ${e.type}`);
+                };
+                img2.src = testUrls.assets + '?cb=' + Date.now();
+            } catch (error) {
+                updateStatus('direct-assets-status', `Error: ${error.message}`);
+            }
+        }
+
+        // Method 2: Fetch API with Blob
+        async function testFetchBlob() {
+            console.log('Testing fetch blob approach...');
+            
+            // Test GitLab avatar
+            setLoadingStatus('fetch-gitlab-status');
+            try {
+                const response = await fetch(testUrls.gitlab, {
+                    mode: 'cors',
+                    cache: 'no-cache'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const blob = await response.blob();
+                const imageUrl = URL.createObjectURL(blob);
+                
+                const img = new Image();
+                img.onload = () => {
+                    document.getElementById('fetch-gitlab').src = imageUrl;
+                    updateStatus('fetch-gitlab-status', 'Success: Loaded via fetch', true);
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(imageUrl);
+                    updateStatus('fetch-gitlab-status', 'Error: Failed to load from blob');
+                };
+                img.src = imageUrl;
+            } catch (error) {
+                updateStatus('fetch-gitlab-status', `Error: ${error.message}`);
+            }
+
+            // Test Assets avatar
+            setLoadingStatus('fetch-assets-status');
+            try {
+                const response = await fetch(testUrls.assets, {
+                    mode: 'cors',
+                    cache: 'no-cache'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const blob = await response.blob();
+                const imageUrl = URL.createObjectURL(blob);
+                
+                const img = new Image();
+                img.onload = () => {
+                    document.getElementById('fetch-assets').src = imageUrl;
+                    updateStatus('fetch-assets-status', 'Success: Loaded via fetch', true);
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(imageUrl);
+                    updateStatus('fetch-assets-status', 'Error: Failed to load from blob');
+                };
+                img.src = imageUrl;
+            } catch (error) {
+                updateStatus('fetch-assets-status', `Error: ${error.message}`);
+            }
+        }
+
+        // Method 3: Canvas Approach
+        async function testCanvas() {
+            console.log('Testing canvas approach...');
+            
+            // Test GitLab avatar
+            setLoadingStatus('canvas-gitlab-status');
+            try {
+                const canvas = document.getElementById('canvas-gitlab');
+                const ctx = canvas.getContext('2d');
+                
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    ctx.drawImage(img, 0, 0, 100, 100);
+                    updateStatus('canvas-gitlab-status', 'Success: Rendered to canvas', true);
+                };
+                img.onerror = (e) => {
+                    updateStatus('canvas-gitlab-status', `Error: ${e.type}`);
+                };
+                img.src = testUrls.gitlab + '?cb=' + Date.now();
+            } catch (error) {
+                updateStatus('canvas-gitlab-status', `Error: ${error.message}`);
+            }
+
+            // Test Assets avatar
+            setLoadingStatus('canvas-assets-status');
+            try {
+                const canvas = document.getElementById('canvas-assets');
+                const ctx = canvas.getContext('2d');
+                
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    ctx.drawImage(img, 0, 0, 100, 100);
+                    updateStatus('canvas-assets-status', 'Success: Rendered to canvas', true);
+                };
+                img.onerror = (e) => {
+                    updateStatus('canvas-assets-status', `Error: ${e.type}`);
+                };
+                img.src = testUrls.assets + '?cb=' + Date.now();
+            } catch (error) {
+                updateStatus('canvas-assets-status', `Error: ${error.message}`);
+            }
+        }
+
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            console.log('Page loaded, ready to test avatar loading methods');
+        });
+    </script>
+</body>
+</html> 

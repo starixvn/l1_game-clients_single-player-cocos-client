@@ -77,16 +77,25 @@ export default class RouletteLeaderBoardItem extends cc.Component {
         } catch (error) {
             cc.error('Failed to load avatar with CORS handling:', error);
 
-            // Fallback to direct loading via GameUtils
+            // Try fetch-based approach as second option
             try {
-                const remoteTexture = await this.loadRemoteSharedResource<cc.Texture2D>(avatarUrl);
+                const remoteTexture = await this.loadAvatarWithFetch(avatarUrl);
                 this.AVATAR_CACHE.set(avatarUrl, remoteTexture);
                 this.assignSpriteFrame(remoteTexture);
-            } catch (directError) {
-                cc.error('Failed to load avatar directly:', directError);
+            } catch (fetchError) {
+                cc.error('Failed to load avatar with fetch:', fetchError);
 
-                // Final fallback to default avatar
-                await this.loadDefaultAvatar();
+                // Fallback to direct loading via GameUtils
+                try {
+                    const remoteTexture = await this.loadRemoteSharedResource<cc.Texture2D>(avatarUrl);
+                    this.AVATAR_CACHE.set(avatarUrl, remoteTexture);
+                    this.assignSpriteFrame(remoteTexture);
+                } catch (directError) {
+                    cc.error('Failed to load avatar directly:', directError);
+
+                    // Final fallback to default avatar
+                    await this.loadDefaultAvatar();
+                }
             }
         }
     }
@@ -125,6 +134,47 @@ export default class RouletteLeaderBoardItem extends cc.Component {
                 }
             }, 10000); // 10 second timeout
         });
+    }
+
+    private async loadAvatarWithFetch(avatarUrl: string): Promise<cc.Texture2D> {
+        try {
+            // Try using fetch API as an alternative approach
+            const response = await fetch(avatarUrl, {
+                mode: 'cors',
+                cache: 'no-cache'
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    try {
+                        const texture = new cc.Texture2D();
+                        texture.initWithElement(img);
+                        URL.revokeObjectURL(imageUrl); // Clean up
+                        resolve(texture);
+                    } catch (error) {
+                        URL.revokeObjectURL(imageUrl); // Clean up
+                        reject(new Error(`Failed to convert blob to texture: ${error.message}`));
+                    }
+                };
+
+                img.onerror = () => {
+                    URL.revokeObjectURL(imageUrl); // Clean up
+                    reject(new Error('Failed to load image from blob'));
+                };
+
+                img.src = imageUrl;
+            });
+        } catch (error) {
+            throw new Error(`Fetch failed: ${error.message}`);
+        }
     }
 
     private async loadDefaultAvatar(): Promise<void> {
