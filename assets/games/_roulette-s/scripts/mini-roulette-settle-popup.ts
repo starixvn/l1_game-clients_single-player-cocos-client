@@ -20,6 +20,9 @@ export default class NewClass extends cc.Component {
     @property(cc.AudioClip)
     confettiSound2: cc.AudioClip = null;
 
+    @property(cc.AudioClip)
+    closeSound: cc.AudioClip = null;
+
     public onConfettiTrigger: () => void = null;
 
     private readonly animationSpines: sp.Skeleton[] = [];
@@ -39,11 +42,13 @@ export default class NewClass extends cc.Component {
 
     hideSettlementResult() {
         this.resetAnimation();
-        AudioManager.getInstance().playClick();
 
         cc.tween(this.node)
             .to(0.6, { scale: 0, opacity: 0 }, { easing: "backIn" })
             .call(() => {
+                if (this.closeSound) {
+                    AudioManager.getInstance().playSFX(this.closeSound);
+                }
                 this.node.active = false;
             })
             .start();
