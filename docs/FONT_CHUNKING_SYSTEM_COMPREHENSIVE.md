@@ -257,6 +257,46 @@ PERFORMANCE_SPLASH_FONT_CONFIG: {
 }
 ```
 
+### 5. FontPerformanceComparator (`assets/common/utils/FontPerformanceComparator.ts`)
+
+**Purpose**: Parallel comparison of single vs chunked font loading performance
+
+**Key Features**:
+
+-   **Parallel loading** of both single and chunked fonts
+-   **Real-time progress tracking** for both methods
+-   **Detailed performance analysis** with winner determination
+-   **Comprehensive reporting** with recommendations
+-   **Multi-font comparison** support
+-   **Performance monitoring** over time
+
+**Comparison Capabilities**:
+
+```
+Performance Comparison:
+├── Time Improvement (%)
+├── Speedup Factor (x)
+├── Winner Determination
+├── Detailed Analysis
+├── Recommendations
+└── Summary Statistics
+```
+
+**Usage Example**:
+
+```typescript
+const result = await FontPerformanceComparator.compareFontLoading("PingFang-Bold", {
+    enableDetailedLogging: true,
+    onProgress: (progress) => {
+        console.log(`${progress.type} font: ${progress.percentage}%`);
+    },
+    onComparisonComplete: (result) => {
+        console.log(`Winner: ${result.comparison.winner}`);
+        console.log(`Improvement: ${result.comparison.timeImprovement}%`);
+    }
+});
+```
+
 ---
 
 ## Implementation Details
@@ -423,6 +463,62 @@ static generateReport(timing: FontLoadTiming, fontName: string): string {
 ---
 
 ## Performance Analysis
+
+### Performance Comparison System
+
+The Font Performance Comparison System provides real-time, parallel comparison between single and chunked font loading methods, enabling data-driven optimization decisions.
+
+#### Comparison Architecture
+
+```mermaid
+graph TB
+    subgraph "Parallel Loading"
+        A[Font Name] --> B[Single Font Loader]
+        A --> C[Chunked Font Loader]
+        B --> D[Single Font Result]
+        C --> E[Chunked Font Result]
+    end
+
+    subgraph "Analysis Engine"
+        D --> F[Performance Analyzer]
+        E --> F
+        F --> G[Winner Determination]
+        F --> H[Improvement Calculation]
+        F --> I[Recommendation Engine]
+    end
+
+    subgraph "Reporting"
+        G --> J[Comparison Report]
+        H --> J
+        I --> J
+        J --> K[Performance Summary]
+        J --> L[Optimization Recommendations]
+    end
+```
+
+#### Real-Time Comparison Flow
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant C as Comparator
+    participant S as Single Loader
+    participant Ch as Chunked Loader
+    participant A as Analyzer
+
+    U->>C: compareFontLoading('PingFang-Bold')
+    C->>S: loadFont(useChunkedFont: false)
+    C->>Ch: loadFont(useChunkedFont: true)
+
+    par Parallel Loading
+        S-->>C: Single font result
+        Ch-->>C: Chunked font result
+    end
+
+    C->>A: analyzeComparison()
+    A-->>C: Winner + metrics
+    C-->>U: Detailed comparison report
+```
 
 ### Performance Metrics
 
@@ -657,6 +753,47 @@ const font = await ChunkedFontLoader.loadFont("PingFang-Bold", {
 });
 ```
 
+### 4. Performance Comparison
+
+```typescript
+// Compare single vs chunked font loading
+const result = await FontPerformanceComparator.compareFontLoading("PingFang-Bold", {
+    enableDetailedLogging: true,
+    onProgress: (progress) => {
+        console.log(`${progress.type} font: ${progress.percentage.toFixed(1)}%`);
+    },
+    onComparisonComplete: (result) => {
+        console.log(`Winner: ${result.comparison.winner.toUpperCase()}`);
+        console.log(`Time Improvement: ${result.comparison.timeImprovement.toFixed(1)}%`);
+        console.log(`Speedup Factor: ${result.comparison.speedupFactor.toFixed(2)}x`);
+    }
+});
+
+// Generate detailed report
+const report = FontPerformanceComparator.generateComparisonReport(result);
+console.log(report);
+```
+
+### 5. Multi-Font Performance Comparison
+
+```typescript
+// Compare multiple fonts at once
+const fontNames = ["PingFang-Bold", "PingFang-Regular", "NotoSans-Bold"];
+const results = await FontPerformanceComparator.compareMultipleFonts(fontNames, {
+    enableDetailedLogging: true,
+    timeout: 60000
+});
+
+// Generate summary report
+const summaryReport = FontPerformanceComparator.generateMultiFontReport(results);
+console.log(summaryReport);
+
+// Analyze results
+const chunkedWins = results.filter((r) => r.comparison.winner === "chunked").length;
+const singleWins = results.filter((r) => r.comparison.winner === "single").length;
+console.log(`Chunked wins: ${chunkedWins}, Single wins: ${singleWins}`);
+```
+
 ### 4. Splash Screen Integration
 
 ```typescript
@@ -707,6 +844,47 @@ try {
         console.error("Font loading failed:", error);
         // Use system font as fallback
         label.font = cc.Font.getSystemFont();
+    }
+}
+```
+
+### 6. Performance Comparison UI Example
+
+```typescript
+// Example component for performance comparison UI
+export default class FontPerformanceComparisonExample extends cc.Component {
+    @property(cc.Button)
+    compareButton: cc.Button = null;
+
+    @property(cc.ProgressBar)
+    progressBar: cc.ProgressBar = null;
+
+    @property(cc.Label)
+    resultLabel: cc.Label = null;
+
+    private async onCompareSingleFont() {
+        const result = await FontPerformanceComparator.compareFontLoading("PingFang-Bold", {
+            enableDetailedLogging: true,
+            onProgress: (progress) => {
+                this.updateProgress(progress);
+            },
+            onComparisonComplete: (result) => {
+                this.displayResults(result);
+            }
+        });
+    }
+
+    private updateProgress(progress: { type: "single" | "chunked"; percentage: number }) {
+        this.progressBar.progress = progress.percentage / 100;
+        this.statusLabel.string = `${progress.type} font: ${progress.percentage.toFixed(1)}%`;
+    }
+
+    private displayResults(result: FontComparisonResult) {
+        const { comparison } = result;
+        this.resultLabel.string =
+            `Winner: ${comparison.winner.toUpperCase()}\n` +
+            `Improvement: ${comparison.timeImprovement.toFixed(1)}%\n` +
+            `Speedup: ${comparison.speedupFactor.toFixed(2)}x`;
     }
 }
 ```
@@ -768,6 +946,49 @@ describe("FontTimingAnalyzer", () => {
 
         expect(analysis.bottlenecks.length).toBeGreaterThan(0);
         expect(analysis.optimizationScore).toBeLessThan(50);
+    });
+});
+```
+
+#### FontPerformanceComparator Tests
+
+```typescript
+describe("FontPerformanceComparator", () => {
+    it("should compare successful single vs chunked loading", async () => {
+        const result = await FontPerformanceComparator.compareFontLoading("PingFang-Bold", {
+            enableDetailedLogging: false
+        });
+
+        expect(result.singleFont.success).toBe(true);
+        expect(result.chunkedFont.success).toBe(true);
+        expect(result.comparison.winner).toBeDefined();
+        expect(result.comparison.timeImprovement).toBeDefined();
+    });
+
+    it("should handle single font failure", async () => {
+        const result = await FontPerformanceComparator.compareFontLoading("InvalidFont", {
+            enableDetailedLogging: false
+        });
+
+        expect(result.singleFont.success).toBe(false);
+        expect(result.comparison.winner).toBe("chunked");
+    });
+
+    it("should identify performance thresholds correctly", () => {
+        const testCases = [
+            { single: 5000, chunked: 2000, expectedWinner: "chunked" },
+            { single: 2000, chunked: 5000, expectedWinner: "single" },
+            { single: 3000, chunked: 3100, expectedWinner: "tie" }
+        ];
+
+        testCases.forEach(({ single, chunked, expectedWinner }) => {
+            const singleResult = { success: true, timing: { totalDuration: single } };
+            const chunkedResult = { success: true, timing: { totalDuration: chunked } };
+
+            const comparison = FontPerformanceComparator["analyzeComparison"](singleResult, chunkedResult, "TestFont");
+
+            expect(comparison.winner).toBe(expectedWinner);
+        });
     });
 });
 ```
