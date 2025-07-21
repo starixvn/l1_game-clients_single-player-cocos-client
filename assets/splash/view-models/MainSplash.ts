@@ -12,6 +12,7 @@ import { InternalEvents } from "../../managers/InternalEvents";
 import RandomWaitingMessage from "./RandonWaitingMessage";
 import SplashConfig from "./SplashConfig";
 import * as i18n from "i18n/runtime-scripts/LanguageData";
+import ChunkedFontLoader from "../../common/utils/ChunkedFontLoader";
 
 const { ccclass, property } = cc._decorator;
 
@@ -195,6 +196,60 @@ export default class MainSplash extends cc.Component {
             const backgroundWidth = this.progressBarBackground.width;
             const newWidth = (progress * backgroundWidth);
             this.progressBar.width = newWidth;
+        }
+    }
+
+    /**
+     * Update progress with detailed loading information
+     * @param progress - Progress value between 0 and 1
+     * @param loadingType - Type of loading (fonts, resources, etc.)
+     */
+    updateProgressWithType(progress: number, loadingType = 'general') {
+        const progressPercent = Math.round(progress * 100);
+
+        // Create localized loading message
+        let loadingMessage = i18n.t("messages.message_loading");
+
+        switch (loadingType) {
+            case 'fonts':
+                loadingMessage = i18n.t("messages.loading_fonts") || "Loading fonts";
+                break;
+            case 'resources':
+                loadingMessage = i18n.t("messages.loading_resources") || "Loading resources";
+                break;
+            case 'game':
+                loadingMessage = i18n.t("messages.loading_game") || "Loading game";
+                break;
+            default:
+                loadingMessage = i18n.t("messages.message_loading");
+        }
+
+        // Update percentage text with loading type
+        this.percentResourceLoad && (this.percentResourceLoad.string = `${loadingMessage} ${progressPercent}%`);
+
+        // Update progress bar
+        this.updateProgressBar(progress);
+    }
+
+    /**
+     * Check if essential fonts are available
+     * @returns Promise<boolean> - True if fonts are available
+     */
+    async checkFontAvailability(): Promise<boolean> {
+        try {
+            const essentialFonts = ['PingFang-Bold', 'PingFang-Regular'];
+
+            for (const fontName of essentialFonts) {
+                const isAvailable = await ChunkedFontLoader.isChunkedFontAvailable(fontName);
+                if (!isAvailable) {
+                    cc.warn(`[MainSplash] Font ${fontName} not available in chunked format`);
+                }
+            }
+
+            return true;
+        } catch (error) {
+            cc.error("[MainSplash] Error checking font availability:", error);
+            return false;
         }
     }
 

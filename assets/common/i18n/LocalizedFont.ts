@@ -1,4 +1,5 @@
 import ColorAssembler2D from "../../../assets/common/ColorAssembler2D";
+import ChunkedFontLoader, { FontLoadProgress } from "../utils/ChunkedFontLoader";
 const { ccclass, property, menu } = cc._decorator;
 
 const LanguageFont = cc.Class({
@@ -12,8 +13,8 @@ const LanguageFont = cc.Class({
 @ccclass
 @menu("i18n/LocalizedFont")
 export default class LocalizedFont extends cc.Component {
-    @property({ type: LanguageFont })
-    overrideFonts: LanguageFont[] = [];
+    @property({ type: [LanguageFont] })
+    overrideFonts: any[] = [];
 
     @property
     enableCacheMode = false;
@@ -45,7 +46,7 @@ export default class LocalizedFont extends cc.Component {
         if (this.label) {
             this.loadFont(name).then((font) => {
                 if (this.label && this.label.isValid) {
-                    
+
                     this.label.font = font;
                     this.enableCacheMode && this.handleCacheMode();
                 }
@@ -78,8 +79,23 @@ export default class LocalizedFont extends cc.Component {
 
     loadFont(name: string) {
         return new Promise<cc.Font>((resolve, reject) => {
-            cc.resources.load<cc.Font>(`fonts/${name}`, cc.Font, (err, font) => {
-                resolve(font);
+            // Try chunked font loading first, then fallback to regular loading
+            ChunkedFontLoader.loadFont(name, {
+                useChunkedFont: true,
+                fallbackToRegular: true,
+                onProgress: (progress: FontLoadProgress) => {
+                    console.log(`[LocalizedFont] Loading font ${name}: ${progress.percentage.toFixed(1)}% (${progress.currentChunk}/${progress.totalChunks})`);
+                }
+            }).then(resolve).catch((error) => {
+                console.warn(`[LocalizedFont] Chunked font loading failed for ${name}, using regular loading:`, error);
+                // Fallback to regular loading
+                cc.resources.load<cc.Font>(`fonts/${name}`, cc.Font, (err, font) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(font);
+                    }
+                });
             });
         });
     }

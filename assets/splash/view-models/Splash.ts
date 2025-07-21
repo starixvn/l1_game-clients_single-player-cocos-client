@@ -14,6 +14,8 @@ import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
 import SocketIOController from "../../SocketIOController";
 import MainSplash from "./MainSplash";
+import ChunkedFontLoader, { FontLoadProgress } from "../../common/utils/ChunkedFontLoader";
+import { getSplashFontConfig, validateSplashFontConfig } from "./SplashFontConfig";
 
 const { ccclass, property } = cc._decorator;
 @ccclass
@@ -48,6 +50,7 @@ export default class Splash extends cc.Component {
         this.initUIListeners();
 
         this.enableMainSplashScreen();
+        this.preloadEssentialFonts();
         this.handleAuthorization();
         this.loadIconTop();
         this.loadIconBottom();
@@ -239,6 +242,89 @@ export default class Splash extends cc.Component {
 
     private loadIconBottom() {
         // handle after
+    }
+
+    /**
+ * Preload essential fonts during splash screen
+ * This ensures fonts are ready before the main game loads
+ */
+    private async preloadEssentialFonts(): Promise<void> {
+        try {
+            cc.log("[Splash] Starting font preloading...");
+
+            // Get font configuration
+            const fontConfig = getSplashFontConfig();
+
+            // Validate configuration
+            if (!validateSplashFontConfig(fontConfig)) {
+                cc.error("[Splash] Invalid font configuration, skipping font preloading");
+                return;
+            }
+
+            // Get the main splash component to update progress
+            const mainSplash = this.nodeMainSplash.getComponent(MainSplash);
+
+            const { essentialFonts, fontLoadingProgressWeight, showDetailedProgress, fontLoadingTimeout, continueOnFontError } = fontConfig;
+
+            cc.log(`[Splash] Font config: ${essentialFonts.length} fonts, ${fontLoadingProgressWeight * 100}% progress weight`);
+
+            let loadedFonts = 0;
+            const totalFonts = essentialFonts.length;
+
+            // Preload each font with progress tracking
+            for (const fontName of essentialFonts) {
+                try {
+                    // Create a timeout promise for font loading
+                    const timeoutPromise = new Promise((_, reject) => {
+                        setTimeout(() => reject(new Error(`Font loading timeout for ${fontName}`)), fontLoadingTimeout);
+                    });
+
+                    const fontPromise = ChunkedFontLoader.preloadFont(fontName, {
+                        useChunkedFont: true,
+                        fallbackToRegular: true,
+                        timeout: fontLoadingTimeout,
+                        onProgress: (progress: FontLoadProgress) => {
+                            if (showDetailedProgress) {
+                                // Update splash progress for font loading
+                                const overallProgress = (loadedFonts + progress.percentage / 100) / totalFonts;
+                                if (mainSplash) {
+                                    mainSplash.updateProgressWithType(overallProgress * fontLoadingProgressWeight, 'fonts');
+                                }
+
+                                cc.log(`[Splash] Loading font ${fontName}: ${progress.percentage.toFixed(1)}%`);
+                            }
+                        }
+                    });
+
+                    // Race between font loading and timeout
+                    await Promise.race([fontPromise, timeoutPromise]);
+
+                    loadedFonts++;
+                    cc.log(`[Splash] Successfully preloaded font: ${fontName}`);
+
+                } catch (error) {
+                    cc.warn(`[Splash] Failed to preload font ${fontName}:`, error);
+
+                    if (!continueOnFontError) {
+                        throw error; // Stop loading if configured to not continue on error
+                    }
+
+                    // Continue with other fonts even if one fails
+                    loadedFonts++;
+                }
+            }
+
+            cc.log(`[Splash] Font preloading completed: ${loadedFonts}/${totalFonts} fonts loaded`);
+
+            // Update final progress
+            if (mainSplash) {
+                mainSplash.updateProgressWithType(fontLoadingProgressWeight, 'fonts');
+            }
+
+        } catch (error) {
+            cc.error("[Splash] Error during font preloading:", error);
+            // Don't block the splash screen if font loading fails
+        }
     }
 
     private handleGatewayGame(gameId: number): boolean {
