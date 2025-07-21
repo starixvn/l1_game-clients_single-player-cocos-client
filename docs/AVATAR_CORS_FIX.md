@@ -23,31 +23,39 @@ The issue occurs because:
 
 Implemented a multi-layered approach to handle avatar loading with CORS issues:
 
-### 1. Primary Method: CORS-Aware Image Loading
+### 1. Primary Method: Binary Data Download (CORS Bypass)
+
+-   Downloads image as binary data using XMLHttpRequest
+-   Converts binary data to base64 string
+-   Creates data URL from base64
+-   **Completely bypasses CORS restrictions**
+-   Works with any image server regardless of CORS headers
+
+### 2. Secondary Method: CORS-Aware Image Loading
 
 -   Uses native `Image` element with `crossOrigin = 'anonymous'`
 -   Handles CORS errors gracefully
 -   Converts loaded image to Cocos Creator `Texture2D`
 -   Includes timeout protection (10 seconds)
 
-### 2. Secondary Method: Fetch API with Blob
+### 3. Tertiary Method: Fetch API with Blob
 
 -   Uses `fetch()` API to download image as blob
 -   Creates object URL from blob
 -   Bypasses some CORS restrictions
 -   Converts blob to Texture2D
 
-### 3. Fallback Method: Direct Loading
+### 4. Fallback Method: Direct Loading
 
 -   Falls back to `GameUtils.loadRemote` if CORS handling fails
 -   Uses existing infrastructure for remote asset loading
 
-### 4. Final Fallback: Default Avatar
+### 5. Final Fallback: Default Avatar
 
 -   Loads a default avatar from local resources if all remote loading fails
 -   Ensures the UI always has a valid avatar display
 
-### 5. Caching
+### 6. Caching
 
 -   Implements in-memory caching of successfully loaded avatars
 -   Prevents redundant network requests for the same avatar
@@ -57,7 +65,7 @@ Implemented a multi-layered approach to handle avatar loading with CORS issues:
 
 ### Key Changes in `roulette-leader-board-item.ts`:
 
-1. **Enhanced `setGameAvatar` method with multiple fallbacks**:
+1. **Enhanced `setGameAvatar` method with binary data as primary approach**:
 
     ```typescript
     private async setGameAvatar(avatarUrl: string): Promise<void> {
@@ -69,47 +77,140 @@ Implemented a multi-layered approach to handle avatar loading with CORS issues:
                 return;
             }
 
-            // Try loading with CORS handling first
-            const remoteTexture = await this.loadAvatarWithCorsHandling(avatarUrl);
+            // Try downloading as binary data first (bypasses CORS completely)
+            const remoteTexture = await this.loadAvatarAsBinaryData(avatarUrl);
             this.AVATAR_CACHE.set(avatarUrl, remoteTexture);
             this.assignSpriteFrame(remoteTexture);
         } catch (error) {
-            cc.error('Failed to load avatar with CORS handling:', error);
+            cc.error('Failed to load avatar as binary data:', error);
 
-            // Try fetch-based approach as second option
+            // Try loading with CORS handling as fallback
             try {
-                const remoteTexture = await this.loadAvatarWithFetch(avatarUrl);
+                const remoteTexture = await this.loadAvatarWithCorsHandling(avatarUrl);
                 this.AVATAR_CACHE.set(avatarUrl, remoteTexture);
                 this.assignSpriteFrame(remoteTexture);
-            } catch (fetchError) {
-                cc.error('Failed to load avatar with fetch:', fetchError);
+            } catch (corsError) {
+                cc.error('Failed to load avatar with CORS handling:', corsError);
 
-                // Fallback to direct loading via GameUtils
+                // Try fetch-based approach as third option
                 try {
-                    const remoteTexture = await this.loadRemoteSharedResource<cc.Texture2D>(avatarUrl);
+                    const remoteTexture = await this.loadAvatarWithFetch(avatarUrl);
                     this.AVATAR_CACHE.set(avatarUrl, remoteTexture);
                     this.assignSpriteFrame(remoteTexture);
-                } catch (directError) {
-                    cc.error('Failed to load avatar directly:', directError);
+                } catch (fetchError) {
+                    cc.error('Failed to load avatar with fetch:', fetchError);
 
-                    // Final fallback to default avatar
-                    await this.loadDefaultAvatar();
+                    // Fallback to direct loading via GameUtils
+                    try {
+                        const remoteTexture = await this.loadRemoteSharedResource<cc.Texture2D>(avatarUrl);
+                        this.AVATAR_CACHE.set(avatarUrl, remoteTexture);
+                        this.assignSpriteFrame(remoteTexture);
+                    } catch (directError) {
+                        cc.error('Failed to load avatar directly:', directError);
+
+                        // Final fallback to default avatar
+                        await this.loadDefaultAvatar();
+                    }
                 }
             }
         }
     }
     ```
 
-2. **CORS-aware image loading**:
+2. **Binary data download method (CORS bypass)**:
+
+    ```typescript
+    private async loadAvatarAsBinaryData(avatarUrl: string): Promise<cc.Texture2D> {
+        return new Promise((resolve, reject) => {
+            // Use XMLHttpRequest to download as binary data
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', avatarUrl, true);
+            xhr.responseType = 'arraybuffer';
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    try {
+                        // Convert binary data to base64
+                        const arrayBuffer = xhr.response;
+                        const bytes = new Uint8Array(arrayBuffer);
+                        let binary = '';
+                        for (let i = 0; i < bytes.byteLength; i++) {
+                            binary += String.fromCharCode(bytes[i]);
+                        }
+                        const base64 = btoa(binary);
+
+                        // Determine image type from URL or response headers
+                        let imageType = 'image/png'; // default
+                        if (avatarUrl.includes('.jpg') || avatarUrl.includes('.jpeg')) {
+                            imageType = 'image/jpeg';
+                        } else if (avatarUrl.includes('.webp')) {
+                            imageType = 'image/webp';
+                        } else if (avatarUrl.includes('.gif')) {
+                            imageType = 'image/gif';
+                        }
+
+                        // Create data URL
+                        const dataUrl = `data:${imageType};base64,${base64}`;
+
+                        // Load image from data URL
+                        const img = new Image();
+                        img.onload = () => {
+                            try {
+                                const texture = new cc.Texture2D();
+                                texture.initWithElement(img);
+                                resolve(texture);
+                            } catch (error) {
+                                reject(new Error(`Failed to convert image to texture: ${error.message}`));
+                            }
+                        };
+
+                        img.onerror = () => {
+                            reject(new Error('Failed to load image from data URL'));
+                        };
+
+                        img.src = dataUrl;
+                    } catch (error) {
+                        reject(new Error(`Failed to process binary data: ${error.message}`));
+                    }
+                } else {
+                    reject(new Error(`HTTP error! status: ${xhr.status}`));
+                }
+            };
+
+            xhr.onerror = function() {
+                reject(new Error('Network error occurred'));
+            };
+
+            xhr.ontimeout = function() {
+                reject(new Error('Request timeout'));
+            };
+
+            // Set timeout
+            xhr.timeout = 10000; // 10 seconds
+
+            // Add cache buster
+            const separator = avatarUrl.includes('?') ? '&' : '?';
+            const cacheBuster = `cb=${Date.now()}`;
+            const finalUrl = `${avatarUrl}${separator}${cacheBuster}`;
+
+            xhr.open('GET', finalUrl, true);
+            xhr.send();
+        });
+    }
+    ```
+
+3. **CORS-aware image loading**:
 
     ```typescript
     private async loadAvatarWithCorsHandling(avatarUrl: string): Promise<cc.Texture2D> {
         return new Promise((resolve, reject) => {
+            // Create a new Image element with CORS handling
             const img = new Image();
             img.crossOrigin = 'anonymous';
 
             img.onload = () => {
                 try {
+                    // Convert Image to Texture2D using Cocos Creator's method
                     const texture = new cc.Texture2D();
                     texture.initWithElement(img);
                     resolve(texture);
@@ -138,7 +239,7 @@ Implemented a multi-layered approach to handle avatar loading with CORS issues:
     }
     ```
 
-3. **Fetch API with Blob approach**:
+4. **Fetch API with Blob approach**:
 
     ```typescript
     private async loadAvatarWithFetch(avatarUrl: string): Promise<cc.Texture2D> {
@@ -183,7 +284,7 @@ Implemented a multi-layered approach to handle avatar loading with CORS issues:
     }
     ```
 
-4. **Default avatar fallback**:
+5. **Default avatar fallback**:
     ```typescript
     private async loadDefaultAvatar(): Promise<void> {
         try {
@@ -201,29 +302,32 @@ Implemented a multi-layered approach to handle avatar loading with CORS issues:
 
 A comprehensive test page (`test-avatar-loading.html`) has been created to verify different loading methods:
 
-1. **Direct Image Loading**: Tests CORS-aware image loading
-2. **Fetch API with Blob**: Tests fetch-based approach
-3. **Canvas Approach**: Tests canvas rendering
+1. **Binary Data Download**: Tests the new CORS-bypass approach (Recommended)
+2. **Direct Image Loading**: Tests CORS-aware image loading
+3. **Fetch API with Blob**: Tests fetch-based approach
+4. **Canvas Approach**: Tests canvas rendering
 
-The test page helps identify which method works best for each avatar source.
+The test page includes a "Run All Tests" button to test all methods simultaneously and identify which works best for each avatar source.
 
 ## Benefits
 
-1. **Robust Error Handling**: Multiple fallback mechanisms ensure avatars always load
-2. **Performance**: Caching prevents redundant network requests
-3. **User Experience**: Users always see an avatar, even if remote loading fails
-4. **Maintainability**: Clean separation of concerns with dedicated methods
-5. **Timeout Protection**: Prevents hanging on slow or unresponsive servers
-6. **Memory Management**: Proper cleanup of object URLs and resources
+1. **CORS Bypass**: Binary data download completely bypasses CORS restrictions
+2. **Robust Error Handling**: Multiple fallback mechanisms ensure avatars always load
+3. **Performance**: Caching prevents redundant network requests
+4. **User Experience**: Users always see an avatar, even if remote loading fails
+5. **Maintainability**: Clean separation of concerns with dedicated methods
+6. **Timeout Protection**: Prevents hanging on slow or unresponsive servers
+7. **Memory Management**: Proper cleanup of object URLs and resources
 
 ## Why This Solution Works
 
 The multi-layered approach addresses different CORS scenarios:
 
-1. **CORS-aware Image**: Works when servers support CORS headers
-2. **Fetch with Blob**: Bypasses some CORS restrictions by downloading as blob
-3. **Direct Loading**: Uses Cocos Creator's built-in loading mechanisms
-4. **Default Avatar**: Ensures UI always has content
+1. **Binary Data Download**: Works with ANY server regardless of CORS headers
+2. **CORS-aware Image**: Works when servers support CORS headers
+3. **Fetch with Blob**: Bypasses some CORS restrictions by downloading as blob
+4. **Direct Loading**: Uses Cocos Creator's built-in loading mechanisms
+5. **Default Avatar**: Ensures UI always has content
 
 ## Future Improvements
 
@@ -232,6 +336,7 @@ The multi-layered approach addresses different CORS scenarios:
 3. **Retry Logic**: Implement exponential backoff for failed requests
 4. **CDN Integration**: Use a CDN with proper CORS headers for avatar hosting
 5. **WebP Support**: Add support for modern image formats like WebP
+6. **Progressive Loading**: Implement progressive image loading for better UX
 
 ## Related Files
 

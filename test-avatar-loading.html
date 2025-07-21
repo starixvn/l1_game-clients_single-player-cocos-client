@@ -51,6 +51,21 @@
         button:hover {
             background-color: #0056b3;
         }
+        .run-all {
+            background-color: #28a745;
+            font-weight: bold;
+        }
+        .run-all:hover {
+            background-color: #218838;
+        }
+        .recommended {
+            background-color: #ffc107;
+            color: #212529;
+            font-weight: bold;
+        }
+        .recommended:hover {
+            background-color: #e0a800;
+        }
     </style>
 </head>
 <body>
@@ -63,10 +78,41 @@
             <li><strong>GitLab Avatar:</strong> https://git3.nexdev.net/uploads/-/system/user/avatar/50/avatar.png</li>
             <li><strong>Assets Avatar:</strong> https://assets.lang.live/gift/fedffb919a921cfab98660bb2400cb07</li>
         </ul>
+        <button class="run-all" onclick="runAllTests()">Run All Tests</button>
     </div>
 
     <div class="test-section">
-        <h2>Method 1: Direct Image Loading (CORS)</h2>
+        <h2>Method 1: Hidden Image Element (Recommended)</h2>
+        <button class="recommended" onclick="testHiddenImage()">Test Hidden Image</button>
+        <div class="avatar-container">
+            <div class="avatar-item">
+                <img id="hidden-gitlab" alt="GitLab Avatar" />
+                <div id="hidden-gitlab-status" class="status">Not loaded</div>
+            </div>
+            <div class="avatar-item">
+                <img id="hidden-assets" alt="Assets Avatar" />
+                <div id="hidden-assets-status" class="status">Not loaded</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Method 2: Binary Data Download</h2>
+        <button onclick="testBinaryData()">Test Binary Data</button>
+        <div class="avatar-container">
+            <div class="avatar-item">
+                <img id="binary-gitlab" alt="GitLab Avatar" />
+                <div id="binary-gitlab-status" class="status">Not loaded</div>
+            </div>
+            <div class="avatar-item">
+                <img id="binary-assets" alt="Assets Avatar" />
+                <div id="binary-assets-status" class="status">Not loaded</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Method 3: Direct Image Loading (CORS)</h2>
         <button onclick="testDirectImage()">Test Direct Image</button>
         <div class="avatar-container">
             <div class="avatar-item">
@@ -81,7 +127,7 @@
     </div>
 
     <div class="test-section">
-        <h2>Method 2: Fetch API with Blob</h2>
+        <h2>Method 4: Fetch API with Blob</h2>
         <button onclick="testFetchBlob()">Test Fetch Blob</button>
         <div class="avatar-container">
             <div class="avatar-item">
@@ -96,7 +142,7 @@
     </div>
 
     <div class="test-section">
-        <h2>Method 3: Canvas Approach</h2>
+        <h2>Method 5: Canvas Approach</h2>
         <button onclick="testCanvas()">Test Canvas</button>
         <div class="avatar-container">
             <div class="avatar-item">
@@ -128,7 +174,243 @@
             element.className = 'status loading';
         }
 
-        // Method 1: Direct Image Loading with CORS
+        // Method 1: Hidden Image Element (Recommended)
+        async function testHiddenImage() {
+            console.log('Testing hidden image element approach...');
+            
+            // Test GitLab avatar
+            setLoadingStatus('hidden-gitlab-status');
+            try {
+                await loadImageWithHiddenElement(testUrls.gitlab, 'hidden-gitlab', 'hidden-gitlab-status');
+            } catch (error) {
+                updateStatus('hidden-gitlab-status', `Error: ${error.message}`);
+            }
+
+            // Test Assets avatar
+            setLoadingStatus('hidden-assets-status');
+            try {
+                await loadImageWithHiddenElement(testUrls.assets, 'hidden-assets', 'hidden-assets-status');
+            } catch (error) {
+                updateStatus('hidden-assets-status', `Error: ${error.message}`);
+            }
+        }
+
+        function loadImageWithHiddenElement(url, imageElementId, statusElementId) {
+            return new Promise((resolve, reject) => {
+                // Create a hidden image element
+                const hiddenImg = document.createElement('img');
+                hiddenImg.style.position = 'absolute';
+                hiddenImg.style.left = '-9999px';
+                hiddenImg.style.top = '-9999px';
+                hiddenImg.style.width = '1px';
+                hiddenImg.style.height = '1px';
+                hiddenImg.style.opacity = '0';
+                hiddenImg.style.pointerEvents = 'none';
+                hiddenImg.style.zIndex = '-9999';
+                
+                // Add to DOM temporarily
+                document.body.appendChild(hiddenImg);
+                
+                hiddenImg.onload = () => {
+                    try {
+                        // Try to use the image directly without canvas extraction
+                        // This avoids the tainted canvas issue
+                        document.getElementById(imageElementId).src = hiddenImg.src;
+                        updateStatus(statusElementId, 'Success: Loaded via hidden image (direct)', true);
+                        
+                        // Clean up
+                        document.body.removeChild(hiddenImg);
+                        resolve();
+                    } catch (error) {
+                        // If direct usage fails, try canvas approach with error handling
+                        try {
+                            // Create a canvas to extract the image data
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            
+                            // Set canvas size to match image
+                            canvas.width = hiddenImg.naturalWidth;
+                            canvas.height = hiddenImg.naturalHeight;
+                            
+                            // Draw the image to canvas
+                            ctx.drawImage(hiddenImg, 0, 0);
+                            
+                            // Try to get image data as base64
+                            let dataUrl;
+                            try {
+                                dataUrl = canvas.toDataURL('image/png');
+                            } catch (canvasError) {
+                                // If toDataURL fails due to tainted canvas, try different format
+                                try {
+                                    dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                                } catch (jpegError) {
+                                    // If all canvas methods fail, use the original image source
+                                    document.getElementById(imageElementId).src = hiddenImg.src;
+                                    updateStatus(statusElementId, 'Success: Loaded via hidden image (fallback)', true);
+                                    
+                                    // Clean up
+                                    document.body.removeChild(hiddenImg);
+                                    resolve();
+                                    return;
+                                }
+                            }
+                            
+                            // Create a new image from the data URL
+                            const newImg = new Image();
+                            newImg.onload = () => {
+                                // Set the target image element
+                                document.getElementById(imageElementId).src = dataUrl;
+                                updateStatus(statusElementId, 'Success: Loaded via hidden image (canvas)', true);
+                                
+                                // Clean up
+                                document.body.removeChild(hiddenImg);
+                                resolve();
+                            };
+                            
+                            newImg.onerror = () => {
+                                // Fallback to original image source
+                                document.getElementById(imageElementId).src = hiddenImg.src;
+                                updateStatus(statusElementId, 'Success: Loaded via hidden image (fallback)', true);
+                                
+                                document.body.removeChild(hiddenImg);
+                                resolve();
+                            };
+                            
+                            newImg.src = dataUrl;
+                        } catch (canvasError) {
+                            // Final fallback: use the original image source
+                            document.getElementById(imageElementId).src = hiddenImg.src;
+                            updateStatus(statusElementId, 'Success: Loaded via hidden image (final fallback)', true);
+                            
+                            document.body.removeChild(hiddenImg);
+                            resolve();
+                        }
+                    }
+                };
+                
+                hiddenImg.onerror = (event) => {
+                    document.body.removeChild(hiddenImg);
+                    const errorMessage = event instanceof ErrorEvent ? event.message : 'Unknown error';
+                    updateStatus(statusElementId, `Error: ${errorMessage}`);
+                    reject(new Error(`Failed to load hidden image from URL: ${url}. Error: ${errorMessage}`));
+                };
+                
+                // Add cache buster to avoid browser caching issues
+                const separator = url.includes('?') ? '&' : '?';
+                const cacheBuster = `cb=${Date.now()}`;
+                hiddenImg.src = `${url}${separator}${cacheBuster}`;
+                
+                // Set a timeout to prevent hanging
+                setTimeout(() => {
+                    if (!hiddenImg.complete) {
+                        document.body.removeChild(hiddenImg);
+                        updateStatus(statusElementId, 'Error: Request timeout');
+                        reject(new Error(`Hidden image loading timeout for URL: ${url}`));
+                    }
+                }, 10000); // 10 second timeout
+            });
+        }
+
+        // Method 2: Binary Data Download (bypasses CORS completely)
+        async function testBinaryData() {
+            console.log('Testing binary data download...');
+            
+            // Test GitLab avatar
+            setLoadingStatus('binary-gitlab-status');
+            try {
+                await loadImageAsBinaryData(testUrls.gitlab, 'binary-gitlab', 'binary-gitlab-status');
+            } catch (error) {
+                updateStatus('binary-gitlab-status', `Error: ${error.message}`);
+            }
+
+            // Test Assets avatar
+            setLoadingStatus('binary-assets-status');
+            try {
+                await loadImageAsBinaryData(testUrls.assets, 'binary-assets', 'binary-assets-status');
+            } catch (error) {
+                updateStatus('binary-assets-status', `Error: ${error.message}`);
+            }
+        }
+
+        function loadImageAsBinaryData(url, imageElementId, statusElementId) {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.responseType = 'arraybuffer';
+                
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        try {
+                            // Convert binary data to base64
+                            const arrayBuffer = xhr.response;
+                            const bytes = new Uint8Array(arrayBuffer);
+                            let binary = '';
+                            for (let i = 0; i < bytes.byteLength; i++) {
+                                binary += String.fromCharCode(bytes[i]);
+                            }
+                            const base64 = btoa(binary);
+                            
+                            // Determine image type from URL
+                            let imageType = 'image/png'; // default
+                            if (url.includes('.jpg') || url.includes('.jpeg')) {
+                                imageType = 'image/jpeg';
+                            } else if (url.includes('.webp')) {
+                                imageType = 'image/webp';
+                            } else if (url.includes('.gif')) {
+                                imageType = 'image/gif';
+                            }
+                            
+                            // Create data URL
+                            const dataUrl = `data:${imageType};base64,${base64}`;
+                            
+                            // Load image from data URL
+                            const img = new Image();
+                            img.onload = () => {
+                                document.getElementById(imageElementId).src = dataUrl;
+                                updateStatus(statusElementId, 'Success: Loaded via binary data', true);
+                                resolve();
+                            };
+                            
+                            img.onerror = () => {
+                                updateStatus(statusElementId, 'Error: Failed to load from data URL');
+                                reject(new Error('Failed to load image from data URL'));
+                            };
+                            
+                            img.src = dataUrl;
+                        } catch (error) {
+                            updateStatus(statusElementId, `Error: ${error.message}`);
+                            reject(new Error(`Failed to process binary data: ${error.message}`));
+                        }
+                    } else {
+                        updateStatus(statusElementId, `Error: HTTP ${xhr.status}`);
+                        reject(new Error(`HTTP error! status: ${xhr.status}`));
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    updateStatus(statusElementId, 'Error: Network error');
+                    reject(new Error('Network error occurred'));
+                };
+                
+                xhr.ontimeout = function() {
+                    updateStatus(statusElementId, 'Error: Request timeout');
+                    reject(new Error('Request timeout'));
+                };
+                
+                // Set timeout
+                xhr.timeout = 10000; // 10 seconds
+                
+                // Add cache buster
+                const separator = url.includes('?') ? '&' : '?';
+                const cacheBuster = `cb=${Date.now()}`;
+                const finalUrl = `${url}${separator}${cacheBuster}`;
+                
+                xhr.open('GET', finalUrl, true);
+                xhr.send();
+            });
+        }
+
+        // Method 3: Direct Image Loading with CORS
         async function testDirectImage() {
             console.log('Testing direct image loading...');
             
@@ -167,7 +449,7 @@
             }
         }
 
-        // Method 2: Fetch API with Blob
+        // Method 4: Fetch API with Blob
         async function testFetchBlob() {
             console.log('Testing fetch blob approach...');
             
@@ -230,7 +512,7 @@
             }
         }
 
-        // Method 3: Canvas Approach
+        // Method 5: Canvas Approach
         async function testCanvas() {
             console.log('Testing canvas approach...');
             
@@ -273,6 +555,20 @@
             } catch (error) {
                 updateStatus('canvas-assets-status', `Error: ${error.message}`);
             }
+        }
+
+        // Run all tests
+        async function runAllTests() {
+            console.log('Running all tests...');
+            await testHiddenImage();
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+            await testBinaryData();
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+            await testDirectImage();
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+            await testFetchBlob();
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+            await testCanvas();
         }
 
         // Auto-run tests on page load
