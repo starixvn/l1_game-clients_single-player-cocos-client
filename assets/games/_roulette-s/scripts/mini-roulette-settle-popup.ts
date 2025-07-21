@@ -11,10 +11,9 @@ export default class NewClass extends cc.Component {
     totalWinAmount: cc.Label = null;
 
     @property(sp.Skeleton)
-    confettiSpine: sp.Skeleton = null;
-
-    @property(sp.Skeleton)
     lightEffectSpine: sp.Skeleton = null;
+
+    public onConfettiTrigger: () => void = null;
 
     showSettlementResult(betWinAmount: number, betAmount: number) {
         this.totalBetAmount.string = numberWithCommas(betAmount);
@@ -26,12 +25,8 @@ export default class NewClass extends cc.Component {
 
         cc.tween(this.node).to(0.6, { scale: 1, opacity: 255 }, { easing: "backOut" })
         .call(() => {
-            if (this.confettiSpine) {
-                this.confettiSpine.setAnimation(0, "show", false);
-            }
-            if(this.lightEffectSpine) {
-                this.lightEffectSpine.setAnimation(0, "show", false);
-            }
+            this.onConfettiTrigger?.();
+            this.lightEffectSpine?.setAnimation(0, "show", false);
         }).start();
     }
 
