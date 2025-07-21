@@ -16,6 +16,7 @@ import SocketIOController from "../../SocketIOController";
 import MainSplash from "./MainSplash";
 import ChunkedFontLoader, { FontLoadProgress } from "../../common/utils/ChunkedFontLoader";
 import { getSplashFontConfig, validateSplashFontConfig } from "./SplashFontConfig";
+import { FontTimingAnalyzer } from "../../common/utils/FontTimingAnalyzer";
 
 const { ccclass, property } = cc._decorator;
 @ccclass
@@ -283,6 +284,7 @@ export default class Splash extends cc.Component {
                         useChunkedFont: true,
                         fallbackToRegular: true,
                         timeout: fontLoadingTimeout,
+                        enableTiming: true, // Enable detailed timing logs
                         onProgress: (progress: FontLoadProgress) => {
                             if (showDetailedProgress) {
                                 // Update splash progress for font loading
@@ -291,8 +293,18 @@ export default class Splash extends cc.Component {
                                     mainSplash.updateProgressWithType(overallProgress * fontLoadingProgressWeight, 'fonts');
                                 }
 
-                                cc.log(`[Splash] Loading font ${fontName}: ${progress.percentage.toFixed(1)}%`);
+                                const elapsedStr = progress.elapsedTime ? ` (${(progress.elapsedTime / 1000).toFixed(1)}s)` : '';
+                                const etaStr = progress.estimatedTimeRemaining ? ` ETA: ${(progress.estimatedTimeRemaining / 1000).toFixed(1)}s` : '';
+                                cc.log(`[Splash] Loading font ${fontName}: ${progress.percentage.toFixed(1)}%${elapsedStr}${etaStr}`);
                             }
+                        },
+                        onTimingComplete: (timing) => {
+                            // Generate detailed performance report
+                            const report = FontTimingAnalyzer.generateReport(timing, fontName);
+                            cc.log(report);
+
+                            // Log summary for quick reference
+                            cc.log(`[Splash] Font ${fontName} summary: ${(timing.totalDuration! / 1000).toFixed(2)}s total, ${timing.chunkLoadTimes.length} chunks`);
                         }
                     });
 

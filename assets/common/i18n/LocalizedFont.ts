@@ -83,8 +83,19 @@ export default class LocalizedFont extends cc.Component {
             ChunkedFontLoader.loadFont(name, {
                 useChunkedFont: true,
                 fallbackToRegular: true,
+                enableTiming: true, // Enable timing for analysis
                 onProgress: (progress: FontLoadProgress) => {
-                    console.log(`[LocalizedFont] Loading font ${name}: ${progress.percentage.toFixed(1)}% (${progress.currentChunk}/${progress.totalChunks})`);
+                    const elapsedStr = progress.elapsedTime ? ` (${(progress.elapsedTime / 1000).toFixed(1)}s)` : '';
+                    const etaStr = progress.estimatedTimeRemaining ? ` ETA: ${(progress.estimatedTimeRemaining / 1000).toFixed(1)}s` : '';
+                    console.log(`[LocalizedFont] Loading font ${name}: ${progress.percentage.toFixed(1)}% (${progress.currentChunk}/${progress.totalChunks})${elapsedStr}${etaStr}`);
+                },
+                onTimingComplete: (timing) => {
+                    console.log(`[LocalizedFont] Font ${name} timing analysis:`);
+                    console.log(`  Total: ${(timing.totalDuration! / 1000).toFixed(2)}s`);
+                    console.log(`  Metadata: ${(timing.metadataLoadTime! / 1000).toFixed(2)}s`);
+                    console.log(`  Chunks: ${(timing.phases.chunks.duration! / 1000).toFixed(2)}s`);
+                    console.log(`  Merge: ${(timing.mergeTime! / 1000).toFixed(2)}s`);
+                    console.log(`  Font Creation: ${(timing.fontCreationTime! / 1000).toFixed(2)}s`);
                 }
             }).then(resolve).catch((error) => {
                 console.warn(`[LocalizedFont] Chunked font loading failed for ${name}, using regular loading:`, error);
