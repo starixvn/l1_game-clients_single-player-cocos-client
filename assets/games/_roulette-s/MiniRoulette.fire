@@ -36929,6 +36929,12 @@
     "lightEffectSpine": {
       "__id__": 966
     },
+    "confettiSound1": {
+      "__uuid__": "f57beabc-cf32-4d49-9a07-785714f2a896"
+    },
+    "confettiSound2": {
+      "__uuid__": "879b2ef9-b2ef-4142-9115-60f2f8dfc96f"
+    },
     "_id": "cfdDLTGBlIHJiamEr4Mn6E"
   },
   {

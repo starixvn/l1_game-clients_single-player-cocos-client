@@ -1,4 +1,5 @@
 import { numberWithCommas } from "../../../common/helpers/NumberHelper";
+import AudioManager from "../../../common/audio/AudioManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -11,10 +12,13 @@ export default class NewClass extends cc.Component {
     totalWinAmount: cc.Label = null;
 
     @property(sp.Skeleton)
-    trophyEffectSpine: sp.Skeleton = null;
-
-    @property(sp.Skeleton)
     lightEffectSpine: sp.Skeleton = null;
+
+    @property(cc.AudioClip)
+    confettiSound1: cc.AudioClip = null;
+
+    @property(cc.AudioClip)
+    confettiSound2: cc.AudioClip = null;
 
     public onConfettiTrigger: () => void = null;
 
@@ -35,6 +39,7 @@ export default class NewClass extends cc.Component {
 
     hideSettlementResult() {
         this.resetAnimation();
+        AudioManager.getInstance().playClick();
 
         cc.tween(this.node)
             .to(0.6, { scale: 0, opacity: 0 }, { easing: "backIn" })
@@ -45,7 +50,7 @@ export default class NewClass extends cc.Component {
     }
 
     private initAnimationSpines() {
-        this.animationSpines.push(this.trophyEffectSpine, this.lightEffectSpine);
+        this.animationSpines.push(this.lightEffectSpine);
     }
 
     private updateLabels(betWinAmount: number, betAmount: number) {
@@ -61,12 +66,22 @@ export default class NewClass extends cc.Component {
 
     private handleWinCondition(betWinAmount: number, betAmount: number) {
         if (betWinAmount >= betAmount) {
+            this.playWinSound();
             this.scheduleOnce(() => {
                 this.onConfettiTrigger?.();
             }, 0.03);
             this.playAnimation();
         } else {
             this.resetAnimation();
+        }
+    }
+
+    private playWinSound() {
+        if (this.confettiSound1) {
+            AudioManager.getInstance().playSFX(this.confettiSound1);
+        }
+        if (this.confettiSound2) {
+            AudioManager.getInstance().playSFX(this.confettiSound2);
         }
     }
 
