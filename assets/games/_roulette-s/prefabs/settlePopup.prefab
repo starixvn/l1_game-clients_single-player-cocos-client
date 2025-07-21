@@ -122,8 +122,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80,
-      "height": 50.4
+      "width": 397.62,
+      "height": 54.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -174,13 +174,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "結算",
-    "_N$string": "結算",
+    "_string": "MiniRoulette.settlement",
+    "_N$string": "MiniRoulette.settlement",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -468,7 +468,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 54.34,
+      "width": 363.42,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -520,13 +520,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "押注:",
-    "_N$string": "押注:",
+    "_string": "MiniRoulette.settlement_bet_amount",
+    "_N$string": "MiniRoulette.settlement_bet_amount",
     "_fontSize": 24,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -598,7 +598,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 76,
+      "width": 71.02000000000001,
       "height": 200
     },
     "_anchorPoint": {
@@ -674,7 +674,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -63,
+        -58.02000000000001,
         10.535,
         0,
         0,
@@ -771,7 +771,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 45,
+      "width": 40.02,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -783,7 +783,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -22.5,
+        -20.01000000000001,
         10.637,
         0,
         0,
@@ -829,7 +829,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "bbb837e4-89ce-47e2-ae61-858f93e222ac"
+      "__uuid__": "8b27e1cd-89e5-461d-a3d6-e70ed7b93b15"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -864,7 +864,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 76,
+      "width": 71.02000000000001,
       "height": 200
     },
     "_resize": 1,
@@ -1117,7 +1117,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30.34,
+      "width": 371.98,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1169,13 +1169,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "贏:",
-    "_N$string": "贏:",
+    "_string": "MiniRoulette.settlement_win_amount",
+    "_N$string": "MiniRoulette.settlement_win_amount",
     "_fontSize": 24,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -1478,7 +1478,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "bbb837e4-89ce-47e2-ae61-858f93e222ac"
+      "__uuid__": "8b27e1cd-89e5-461d-a3d6-e70ed7b93b15"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
