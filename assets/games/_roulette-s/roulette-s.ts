@@ -71,8 +71,6 @@ export default class RouletteS extends SoloGame {
     private chipFlyingStamp = 0;
     protected betChipContainer: cc.Node = null;
 
-    
-    private isConfettiTriggered = false;
     private settlePopupComponent: MiniRouletteSettlePopup = null;
 
     private leaderBoardsComponent: RouletteLeaderBoard = null;
@@ -97,10 +95,7 @@ export default class RouletteS extends SoloGame {
         this.wheel.setOnBallLandedWithSettlementCallback(this.highlightBetItemsBySettlement.bind(this));
         this.wheel.setOnBeforeShowResultCallback(this.handleBeforeShowResult.bind(this));
 
-        if (this.confettiSpine) {
-            this.confettiSpine.setAnimation(0, "", false); 
-            this.confettiSpine.node.active = false;
-        }
+        this.hideConfettiSpine();
 
         if (this.settlePopupComponent) {
             this.settlePopupComponent.onConfettiTrigger = this.triggerConfetti.bind(this);
@@ -474,13 +469,19 @@ export default class RouletteS extends SoloGame {
         this.currentMiniPanel.node.addChild(dialog);
     }
 
+    private hideConfettiSpine() {
+        if (this.confettiSpine) {
+            this.confettiSpine.setAnimation(0, "", false); 
+            this.confettiSpine.node.active = false;
+        }
+    }
+
     private triggerConfetti() {
-        if (!this.settlePopupComponent || this.isConfettiTriggered || !this.confettiSpine) {
+        if (!this.settlePopupComponent || !this.confettiSpine) {
             return;
         }
         
         this.confettiSpine.node.active = true;
         this.confettiSpine.setAnimation(0, "show", false);
-        this.isConfettiTriggered = true;
     }
 }
