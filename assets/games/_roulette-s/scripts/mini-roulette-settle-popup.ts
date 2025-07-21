@@ -28,12 +28,10 @@ export default class NewClass extends cc.Component {
     showSettlementResult(betWinAmount: number, betAmount: number) {
         this.updateLabels(betWinAmount, betAmount);
         this.showPopup();
+        this.handleWinCondition(betWinAmount, betAmount);
         
         cc.tween(this.node)
             .to(0.6, { scale: 1, opacity: 255 }, { easing: "backOut" })
-            .call(() => {
-                this.handleWinCondition(betWinAmount, betAmount);
-            })
             .start();
     }
 
