@@ -43,7 +43,7 @@ export default class RouletteLeaderBoard extends BaseComponent {
     private socketHandler: (data: { leaderboard?: LeaderboardData }) => void;
 
     protected onEnable(): void {
-        this.requestLeaderboardData();
+        // this.requestLeaderboardData(); // Moved to init
     }
 
     private requestLeaderboardData(): void {
@@ -55,11 +55,15 @@ export default class RouletteLeaderBoard extends BaseComponent {
     public init(socket: Socket, gameName: string): void {
         this.socket = socket;
         this.gameName = gameName;
+
+        // Setup and request data now that we have the socket
+        this.setupSocketHandler();
+        this.requestLeaderboardData();
     }
 
     protected onLoad(): void {
         this.setupDialogHandler();
-        this.setupSocketHandler();
+        // this.setupSocketHandler(); // Moved to init
     }
 
     private setupDialogHandler(): void {

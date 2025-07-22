@@ -56,9 +56,6 @@ export default class RouletteS extends SoloGame {
     statisticPrefab: cc.Prefab = null;
 
     @property(cc.Prefab)
-    leaderBoardsPrefab: cc.Prefab = null;
-
-    @property(cc.Prefab)
     settingsPrefab: cc.Prefab = null;
 
     @property(cc.Node)
@@ -464,10 +461,11 @@ export default class RouletteS extends SoloGame {
 
     public openLeaderBoards() {
         this.playClick();
-        const dialog = cc.instantiate(this.leaderBoardsPrefab);
-        this.leaderBoardsComponent = dialog.getComponent(RouletteLeaderBoard);
-        this.leaderBoardsComponent.init(this.socket, this.gameName);
-        this.currentMiniPanel.node.addChild(dialog);
+        if (this.leaderBoardLoader) {
+            this.leaderBoardLoader.showLeaderBoard();
+        } else {
+            console.error("LeaderBoardLoader is not assigned in the editor on RouletteS script.");
+        }
     }
 
     public openSettings() {
