@@ -555,7 +555,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 800.665,
+      "width": 734.46,
       "height": 200
     },
     "_anchorPoint": {
@@ -629,7 +629,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 627.665,
+      "width": 561.46,
       "height": 50
     },
     "_anchorPoint": {
@@ -712,7 +712,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -285.8325,
+        -252.73000000000002,
         0,
         0,
         0,
@@ -891,7 +891,7 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 2.842170943040401e-14,
+    "_left": 0,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
@@ -951,7 +951,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1115.33,
+      "width": 982.92,
       "height": 75.6
     },
     "_anchorPoint": {
@@ -963,7 +963,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -243.83249999999998,
+        -210.73000000000002,
         -0.535,
         0,
         0,
@@ -1009,7 +1009,7 @@
     "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -1172,7 +1172,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 627.665,
+      "width": 561.46,
       "height": 50
     },
     "_resize": 1,
@@ -1248,7 +1248,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        323.8325,
+        290.73,
         0,
         0,
         0,
@@ -1371,7 +1371,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 772.86,
+      "width": 687.08,
       "height": 88.2
     },
     "_anchorPoint": {
@@ -1429,7 +1429,7 @@
     "_lineHeight": 70,
     "_enableWrapText": false,
     "_N$file": {
-      "__uuid__": "694490e3-fff6-4349-bfc3-984448d7eb39"
+      "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -1642,7 +1642,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 800.665,
+      "width": 734.46,
       "height": 200
     },
     "_resize": 1,
