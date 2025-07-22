@@ -165,7 +165,6 @@ class AppManager {
     }
 
     redirectToLobby() {
-
         appManager.backToOperatorLobby();
     }
 
