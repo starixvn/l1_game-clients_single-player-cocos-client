@@ -1139,4 +1139,36 @@ export default class GameUtils {
             this.logError(`Error window.parent.postMessage (${action}):`, e);
         }
     }
+
+    public static isInWebView(): boolean {
+        // React Native WebView
+        if ((window as any).ReactNativeWebView) return true;
+        
+        // iOS WKWebView (Swift/Objective-C)
+        if ((window as any).webkit?.messageHandlers) return true;
+        
+        // Android WebView (Java/Kotlin)
+        if ((window as any).Android) return true;
+        
+        // Flutter WebView
+        if ((window as any).flutter_inappwebview) return true;
+        
+        // Capacitor WebView
+        if ((window as any).Capacitor) return true;
+        
+        // Cordova WebView
+        if ((window as any).cordova) return true;
+        
+        // Ionic WebView
+        if ((window as any).Ionic) return true;
+        
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.includes('wv') || // Android WebView
+            userAgent.includes('mobile') && userAgent.includes('safari') && !userAgent.includes('chrome') || // iOS WebView
+            userAgent.includes('webview')) {
+            return true;
+        }
+        
+        return false;
+    }
 }

@@ -4,6 +4,7 @@ import NotificationService from "../common/auth/NotificationService";
 import * as sessionManager from "../common/auth/SessionManager";
 import { getCacheLanguage, getLanguage, setLanguage } from "../common/auth/SessionManager";
 import UserService from "../common/auth/UserService";
+import GameUtils from "../common/GameUtils";
 import logger from "../common/logger";
 import NameGenerator from "../common/name-generator/NameGenerator";
 import { userManager } from "../common/user/UserManager";
@@ -155,12 +156,16 @@ class AppManager {
     }
 
     backToOperatorLobby() {
-        const url = appManager.urlInfo[UrlInfo.ReturnUrl];
-        if (url) {
-            const decodedUrl = EncryptUtils.base64Decode(url);
-            window.location.replace(decodedUrl);
+        if (GameUtils.isInWebView()) {
+            window.location.reload();
         } else {
-            console.warn("[AppManager] No return URL found");
+            const url = appManager.urlInfo[UrlInfo.ReturnUrl];
+            if (url) {
+                const decodedUrl = EncryptUtils.base64Decode(url);
+                window.location.replace(decodedUrl);
+            } else {
+                console.warn("[AppManager] No return URL found");
+            }
         }
     }
 
