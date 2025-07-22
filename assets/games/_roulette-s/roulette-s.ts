@@ -23,6 +23,10 @@ import GameUtils from "../../common/GameUtils";
 import { WEBVIEW_ACTION } from "../../constants";
 import { BetModel } from "../_base_new/models/BetModel";
 import GameBaseVoidTicketHandler from "../_base/handlers/GameBaseVoidTicketHandler";
+import { StorageManager } from "../../managers/StorageManager";
+import MiniRouletteTutorialMain from "./scripts/interactive-guide/mini-roulette-tutorial-main";
+
+const TimerShowInteractiveGuide = [20, 8, 8, 12];
 
 const { ccclass, property } = cc._decorator;
 
@@ -62,6 +66,12 @@ export default class RouletteS extends SoloGame {
 
     @property(sp.Skeleton)
     confettiSpine: sp.Skeleton = null;
+
+    @property(cc.Node)
+    interactiveGuide: cc.Node = null;
+
+    @property(cc.Prefab)
+    interactiveGuidePrefab: cc.Prefab = null;
 
     private singleBetControl: SingleBetControl = null;
 
@@ -471,7 +481,7 @@ export default class RouletteS extends SoloGame {
 
     private hideConfettiSpine() {
         if (this.confettiSpine) {
-            this.confettiSpine.setAnimation(0, "", false); 
+            this.confettiSpine.setAnimation(0, "", false);
             this.confettiSpine.node.active = false;
         }
     }
@@ -480,8 +490,39 @@ export default class RouletteS extends SoloGame {
         if (!this.settlePopupComponent || !this.confettiSpine) {
             return;
         }
-        
+
         this.confettiSpine.node.active = true;
         this.confettiSpine.setAnimation(0, "show", false);
+    }
+
+    private initInteractiveGuide() {
+        const storageKey = "mini_roulette_interactive_guide";
+        const data = StorageManager.get(storageKey) ?? {
+            enabled: true
+        };
+
+        if (!data.enabled || !this.interactiveGuidePrefab) {
+            return;
+        }
+
+        const node = cc.instantiate(this.interactiveGuidePrefab);
+        this.interactiveGuide.addChild(node);
+        const tutorialMain = node.getComponent(MiniRouletteTutorialMain);
+        tutorialMain.loadBetChips(this.gameConfigs);
+        tutorialMain.setTimeConfig(TimerShowInteractiveGuide);
+        tutorialMain.toggleCallback = (dontShow: boolean) => {
+            data.enabled = !dontShow;
+            StorageManager.set(storageKey, data);
+        };
+
+        tutorialMain.endSlideCallBack = () => {
+            // this.handleStatusNodeMain(true);
+        };
+        tutorialMain.show();
+    }
+
+    setGameConfigs(gameConfigs: any) {
+        super.setGameConfigs(gameConfigs);
+        this.initInteractiveGuide();
     }
 }
