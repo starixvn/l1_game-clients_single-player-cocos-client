@@ -1,4 +1,5 @@
 import CommonDialog from "../_base/view-models/CommonDialog";
+import AudioManager from "../audio/AudioManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -32,10 +33,12 @@ export default class CloseGameDialog extends cc.Component {
     }
 
     onCancel() {
+        AudioManager.getInstance().playClick();
         this.node.destroy();
     }
 
     onConfirm() {
+        AudioManager.getInstance().playClick();
         if (this.onConfirmCallback) this.onConfirmCallback();
         this.node.destroy();
     }
