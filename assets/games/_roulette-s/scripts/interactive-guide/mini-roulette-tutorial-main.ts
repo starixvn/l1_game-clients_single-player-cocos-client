@@ -1,7 +1,5 @@
 import BetChips from "../../../../common/bet-chips/view-models/BetChips";
-import TutorialItem from "../../../../common/tutorial/TutorialItem";
 import TutorialMain from "../../../../common/tutorial/TutorialMain";
-import MiniRouletteTutorialItem from "./mini-roulette-tutorial-item";
 
 const { ccclass, property } = cc._decorator;
 

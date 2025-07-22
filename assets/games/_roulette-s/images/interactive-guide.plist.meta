@@ -188,8 +188,8 @@
       "rawHeight": 117,
       "borderTop": 0,
       "borderBottom": 0,
-      "borderLeft": 0,
-      "borderRight": 0,
+      "borderLeft": 167,
+      "borderRight": 50,
       "spriteType": "normal",
       "subMetas": {}
     },
@@ -280,8 +280,8 @@
       "rawHeight": 143,
       "borderTop": 0,
       "borderBottom": 0,
-      "borderLeft": 0,
-      "borderRight": 0,
+      "borderLeft": 168,
+      "borderRight": 200,
       "spriteType": "normal",
       "subMetas": {}
     },
@@ -349,8 +349,8 @@
       "rawHeight": 92,
       "borderTop": 0,
       "borderBottom": 0,
-      "borderLeft": 0,
-      "borderRight": 0,
+      "borderLeft": 260,
+      "borderRight": 276,
       "spriteType": "normal",
       "subMetas": {}
     }

@@ -47,6 +47,6 @@ export default class TutorialItem extends cc.Component {
     }
 
     getParentNode() {
-        return this.node.parent.parent.parent;
+        return this.node.parent.parent;
     }
 }
