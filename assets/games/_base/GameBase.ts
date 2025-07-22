@@ -23,6 +23,7 @@ import WebViewGuide from "../../common/webview-guide/WebViewGuide";
 import { getGameConfiguration } from "../../configs/GameConfigurations";
 import { uiManager } from "../../managers/GameUIManager";
 import { InternalEvents } from "../../managers/InternalEvents";
+import { appManager } from "../../managers/AppManager";
 import { roundTimerManager } from "../../mini-games-panel/view-models/RoundTimerManager";
 import GameDataManager from "../_base_new/models/GameDataManager";
 import TableGameBaseInterface from "../_base_new/view-models/TableGameBaseInterface";
@@ -826,7 +827,7 @@ export default class GameBase extends GameViewBase implements IGameBase {
     }
 
     onCloseGame() {
-        // handle
+        appManager.backToOperatorLobby();
     }
 
     needShowNextDot() {
