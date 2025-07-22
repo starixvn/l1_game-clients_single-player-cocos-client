@@ -39,6 +39,7 @@ export const phrases = {
         "guide_tour_para2": "選擇籌碼",
         "guide_tour_para3": "點擊打開單一投注選項",
         "guide_tour_para4": "點擊以關閉\n單一投注",
+        "guide_tour_para5": "等待投注結束，開始新一局",
         "guide_tour_para6": "點擊可提前開始遊戲",
         "guide_tour_para7": "選擇自動再下注上一次的投注",
         "guide_tour_para8": "音效與排行榜設定",
