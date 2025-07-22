@@ -465,7 +465,9 @@ export default class RouletteS extends SoloGame {
 
     public openLeaderBoards() {
         this.playClick();
-        this.leaderBoardLoader.showLeaderBoard();
+        if (this.leaderBoardLoader) {
+            this.leaderBoardLoader.showLeaderBoard();
+        }
     }
 
     public openSettings() {
