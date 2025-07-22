@@ -1239,7 +1239,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 39.6,
+      "width": 0,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -22023,6 +22023,7 @@
     "nonZeroNode": {
       "__id__": 19
     },
+    "backgroundNode": null,
     "_id": ""
   },
   {

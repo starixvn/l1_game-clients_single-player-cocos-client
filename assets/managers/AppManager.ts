@@ -158,7 +158,6 @@ class AppManager {
     backToOperatorLobby() {
         if (GameUtils.isInWebView()) {
             window.location.reload();
-            
         } else {
             const url = appManager.urlInfo[UrlInfo.ReturnUrl];
             if (url) {
