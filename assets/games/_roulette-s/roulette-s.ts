@@ -25,6 +25,7 @@ import { BetModel } from "../_base_new/models/BetModel";
 import GameBaseVoidTicketHandler from "../_base/handlers/GameBaseVoidTicketHandler";
 import { StorageManager } from "../../managers/StorageManager";
 import MiniRouletteTutorialMain from "./scripts/interactive-guide/mini-roulette-tutorial-main";
+import LeaderBoardLoader from "./scripts/leader-board-loader";
 
 const TimerShowInteractiveGuide = [20, 8, 8, 12];
 
@@ -56,9 +57,6 @@ export default class RouletteS extends SoloGame {
     statisticPrefab: cc.Prefab = null;
 
     @property(cc.Prefab)
-    leaderBoardsPrefab: cc.Prefab = null;
-
-    @property(cc.Prefab)
     settingsPrefab: cc.Prefab = null;
 
     @property(cc.Node)
@@ -72,6 +70,9 @@ export default class RouletteS extends SoloGame {
 
     @property(cc.Prefab)
     interactiveGuidePrefab: cc.Prefab = null;
+
+    @property(LeaderBoardLoader)
+    leaderBoardLoader: LeaderBoardLoader = null;
 
     private singleBetControl: SingleBetControl = null;
 
@@ -464,10 +465,7 @@ export default class RouletteS extends SoloGame {
 
     public openLeaderBoards() {
         this.playClick();
-        const dialog = cc.instantiate(this.leaderBoardsPrefab);
-        this.leaderBoardsComponent = dialog.getComponent(RouletteLeaderBoard);
-        this.leaderBoardsComponent.init(this.socket, this.gameName);
-        this.currentMiniPanel.node.addChild(dialog);
+        this.leaderBoardLoader.showLeaderBoard();
     }
 
     public openSettings() {
