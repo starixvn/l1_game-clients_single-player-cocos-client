@@ -43,16 +43,16 @@ export default class AutoResizeNode extends cc.Component {
     heightPadding = 0;
 
     onLoad() {
-        this.target.on(cc.Node.EventType.SIZE_CHANGED, this.resizeNode, this);
+        this.target?.on(cc.Node.EventType.SIZE_CHANGED, this.resizeNode, this);
         this.resizeNode();
-        if(this.syncPosition){
-            this.target.on(cc.Node.EventType.POSITION_CHANGED, this.doSyncPosition, this);
-            this.doSyncPosition()
+        if (this.syncPosition) {
+            this.target?.on(cc.Node.EventType.POSITION_CHANGED, this.doSyncPosition, this);
+            this.doSyncPosition();
         }
     }
 
-    doSyncPosition(){
-        this.node.position = this.node.parent.convertToNodeSpaceAR (this.target.convertToWorldSpaceAR(cc.v3(0)))
+    doSyncPosition() {
+        this.node.position = this.node.parent.convertToNodeSpaceAR(this.target.convertToWorldSpaceAR(cc.v3(0)));
     }
 
     update(dt) {
@@ -60,7 +60,7 @@ export default class AutoResizeNode extends cc.Component {
     }
 
     onDestroy() {
-        this.target.off(cc.Node.EventType.SIZE_CHANGED, this.resizeNode, this);
+        this.target?.off(cc.Node.EventType.SIZE_CHANGED, this.resizeNode, this);
     }
 
     resizeNode() {
@@ -72,7 +72,7 @@ export default class AutoResizeNode extends cc.Component {
             richText.maxWidth = this.node.width;
         }
 
-        this.node.children.forEach((child) => {
+        this.node?.children?.forEach((child) => {
             const widget = child.getComponent(cc.Widget);
             if (widget) {
                 widget.updateAlignment();
@@ -81,14 +81,14 @@ export default class AutoResizeNode extends cc.Component {
     }
 
     setWidth() {
-        if (this.syncWidth) {
-            this.node.width = this.target.width * this.ratioWidth + 2 * this.widthPadding;
+        if (this.syncWidth && this.target) {
+            this.node.width = this.target.width * this.ratioWidth * this.target.scaleX + 2 * this.widthPadding;
         }
     }
 
     setHeight() {
-        if (this.syncHeight) {
-            this.node.height = this.target.height * this.ratioHeight;
+        if (this.syncHeight && this.target) {
+            this.node.height = this.target.height * this.ratioHeight * this.target.scaleY + 2 * this.heightPadding;
         }
     }
 }
