@@ -36,7 +36,7 @@
     "orientation": "portrait",
     "zip": false
   },
-  "startScene": "2dbb7549-feda-42b6-a6a9-86608310bcaf",
+  "startScene": "1ab0289b-10b3-40eb-a8a4-d19fd4bba2a5",
   "title": "L1",
   "webOrientation": "landscape",
   "wechatgame": {
@@ -48,13 +48,27 @@
   "xxteaKey": "d7b79ac9-5d15-44",
   "zipCompressJs": true,
   "android": {
-    "packageName": "org.lmn.l1"
+    "packageName": "org.lmn.l1",
+    "REMOTE_SERVER_ROOT": ""
   },
   "ios": {
-    "packageName": "com.l1.minigame"
+    "packageName": "com.l1.minigame",
+    "REMOTE_SERVER_ROOT": "",
+    "ios_enable_jit": true
   },
   "mac": {
-    "packageName": "org.cocos2d.vin99"
+    "packageName": "org.cocos2d.vin99",
+    "REMOTE_SERVER_ROOT": "",
+    "width": 1280,
+    "height": 720
   },
-  "win32": {}
+  "win32": {
+    "REMOTE_SERVER_ROOT": "",
+    "width": 1280,
+    "height": 720
+  },
+  "mainCompressionType": "default",
+  "mainIsRemote": false,
+  "nativeMd5Cache": true,
+  "agreements": {}
 }
