@@ -1021,10 +1021,8 @@
     "_fontSize": 40,
     "_lineHeight": 60,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "8b27e1cd-89e5-461d-a3d6-e70ed7b93b15"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
