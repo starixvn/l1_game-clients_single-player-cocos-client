@@ -31,16 +31,23 @@ export default class LocalizedFont extends cc.Component {
 
     initData() {
         this.fontBases = {
-            vi: "PingFangTC-Regular",
-            id: "PingFangTC-Regular",
-            en: "PingFangTC-Regular",
-            th: "PingFangTC-Regular",
+            vi: "Arial",
+            id: "Arial",
+            en: "Arial",
+            th: "Arial",
             zh_cn: "PingFangTC-Regular",
             zh_tw: "PingFangTC-Regular"
         };
     }
 
     updateFont() {
+        const lang = window.i18n.curLang;
+        if (lang !== "zh_cn" && lang !== "zh_tw") {
+            this.label.useSystemFont = true;
+            this.label.fontFamily = "Arial";
+            this.enableCacheMode && this.handleCacheMode();
+            return;
+        }
         const name = this.getFontNameByLanguage();
         if (this.label) {
             this.loadFont(name).then((font) => {
@@ -73,7 +80,7 @@ export default class LocalizedFont extends cc.Component {
     getFontNameByLanguage(): any {
         const lang = window.i18n.curLang;
         const overrideFonts = this.overrideFonts.find((data) => data.language === lang);
-        return overrideFonts?.name || this.fontBases[lang] || this.fontBases["en"];
+        return overrideFonts?.name || this.fontBases[lang] || this.fontBases["zh_tw"];
     }
 
     loadFont(name: string) {
