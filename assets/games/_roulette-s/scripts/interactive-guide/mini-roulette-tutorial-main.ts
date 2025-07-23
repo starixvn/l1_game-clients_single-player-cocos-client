@@ -3,6 +3,8 @@ import TutorialMain from "../../../../common/tutorial/TutorialMain";
 
 const { ccclass, property } = cc._decorator;
 
+export const TimerShowInteractiveGuide = [10, 10, 10, 10, 10, 14];
+
 @ccclass
 export default class MiniRouletteTutorialMain extends TutorialMain {
     @property(cc.Node)

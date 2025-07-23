@@ -3,7 +3,8 @@ const { ccclass } = cc._decorator;
 @ccclass
 export default class TutorialItem extends cc.Component {
     public displayTime = 1;
-    protected readonly transitionTime = 0.3;
+    protected pageTransitionTime = 0.3;
+    protected itemTransitionTime = 0.3;
 
     callback = {
         next: () => {
@@ -22,15 +23,15 @@ export default class TutorialItem extends cc.Component {
         this.callback.previous();
     }
 
-    show() {
+    showGuidePage() {
         this.node.active = true;
         this.node.opacity = 0;
-        cc.tween(this.node).to(this.transitionTime, { opacity: 255 }).start();
+        cc.tween(this.node).to(this.pageTransitionTime, { opacity: 255 }).start();
     }
 
     hide() {
         cc.tween(this.node)
-            .to(this.transitionTime, { opacity: 0 })
+            .to(this.pageTransitionTime, { opacity: 0 })
             .call(() => {
                 this.node.active = false;
                 this.onHidden();
@@ -43,7 +44,7 @@ export default class TutorialItem extends cc.Component {
     }
 
     showOpacity(node: cc.Node) {
-        cc.tween(node).to(this.transitionTime, { opacity: 255 }).start();
+        cc.tween(node).to(this.itemTransitionTime, { opacity: 255 }, { easing: "easeIn" }).start();
     }
 
     getParentNode() {

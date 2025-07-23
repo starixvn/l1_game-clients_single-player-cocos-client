@@ -24,10 +24,8 @@ import { WEBVIEW_ACTION } from "../../constants";
 import { BetModel } from "../_base_new/models/BetModel";
 import GameBaseVoidTicketHandler from "../_base/handlers/GameBaseVoidTicketHandler";
 import { StorageManager } from "../../managers/StorageManager";
-import MiniRouletteTutorialMain from "./scripts/interactive-guide/mini-roulette-tutorial-main";
+import MiniRouletteTutorialMain, { TimerShowInteractiveGuide } from "./scripts/interactive-guide/mini-roulette-tutorial-main";
 import LeaderBoardLoader from "./scripts/leader-board-loader";
-
-const TimerShowInteractiveGuide = [20, 8, 8, 12];
 
 const { ccclass, property } = cc._decorator;
 

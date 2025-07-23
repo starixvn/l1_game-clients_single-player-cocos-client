@@ -131,7 +131,7 @@ export default class TutorialMain extends cc.Component {
         }
         this.currentIndex = index;
         const nextItem = this.getItem(index);
-        nextItem.show();
+        nextItem.showGuidePage();
 
         if (index > -1 && index < this.items.length) {
             const time = this.timeConfig[index];
