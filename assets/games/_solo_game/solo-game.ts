@@ -44,6 +44,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     private isWaitingForBetResponse = false;
     protected isStopAutoRebetMode = false;
     private isCloseGameDialogOpen = false;
+    private isAutoRebetMessageVisible = false;
 
     onLoad() {
         super.onLoad();
@@ -166,10 +167,14 @@ export default class SoloGame extends StandAloneTableGameBase {
 
         if (this.autoRebetCount > 0) {
             this.updateAutoRebetCount();
-            this.showAutoRebetMessage();
+            if (!this.isAutoRebetMessageVisible) {
+                this.showAutoRebetMessage();
+                this.isAutoRebetMessageVisible = true;
+            }
             this.setStopAutoRebetVisible(true);
         } else {
             this.hideAutoRebetMessage();
+            this.isAutoRebetMessageVisible = false;
         }
 
         const betData = this.createBetData(bet);
@@ -218,6 +223,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     clickStopAutoRebet() {
         this.isStopAutoRebetMode = true;
         this.hideAutoRebetMessage();
+        this.isAutoRebetMessageVisible = false;
     }
 
     convertBetQueueToBetObject(bets: ChoiceBet[]): { [choice: string]: number } {
@@ -238,6 +244,7 @@ export default class SoloGame extends StandAloneTableGameBase {
     resetAutoRebetCount() {
         this.autoRebetCount = 0;
         this.setAutoRebetInteractable(false);
+        this.isAutoRebetMessageVisible = false;
     }
 
     setAutoRebetInteractable(isInteractable: boolean) {
@@ -261,6 +268,7 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     hideAutoRebetMessage() {
         this.setStopAutoRebetVisible(false);
+        this.isAutoRebetMessageVisible = false;
 
         const autoRebetMessage = this.lblAutoRebetCount.node.parent;
         cc.tween(autoRebetMessage)
