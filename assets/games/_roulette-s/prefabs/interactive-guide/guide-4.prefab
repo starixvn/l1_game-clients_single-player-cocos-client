@@ -27,20 +27,20 @@
         "__id__": 30
       },
       {
-        "__id__": 37
+        "__id__": 38
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 45
+        "__id__": 46
       },
       {
-        "__id__": 46
+        "__id__": 47
       }
     ],
     "_prefab": {
-      "__id__": 47
+      "__id__": 48
     },
     "_opacity": 255,
     "_color": {
@@ -1089,10 +1089,13 @@
     "_components": [
       {
         "__id__": 35
+      },
+      {
+        "__id__": 36
       }
     ],
     "_prefab": {
-      "__id__": 36
+      "__id__": 37
     },
     "_opacity": 255,
     "_color": {
@@ -1104,7 +1107,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 474,
+      "width": 548.3,
       "height": 109
     },
     "_anchorPoint": {
@@ -1116,7 +1119,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        352.817,
+        355.184,
         -192.177,
         0,
         0,
@@ -1183,7 +1186,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -0.9,
+        -39.99999999999994,
         9.1,
         0,
         0,
@@ -1283,8 +1286,8 @@
     "_spriteFrame": {
       "__uuid__": "33ec4445-6863-4a50-91e7-ae67c0473036"
     },
-    "_type": 0,
-    "_sizeMode": 1,
+    "_type": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -1293,10 +1296,42 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_atlas": {
       "__uuid__": "2dcf3d59-1dba-4a96-b8dc-8e5edf95aa81"
     },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Layout",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 30
+    },
+    "_enabled": true,
+    "_layoutSize": {
+      "__type__": "cc.Size",
+      "width": 548.3,
+      "height": 109
+    },
+    "_resize": 1,
+    "_N$layoutType": 1,
+    "_N$cellSize": {
+      "__type__": "cc.Size",
+      "width": 40,
+      "height": 40
+    },
+    "_N$startAxis": 0,
+    "_N$paddingLeft": 40,
+    "_N$paddingRight": 40,
+    "_N$paddingTop": 0,
+    "_N$paddingBottom": 0,
+    "_N$spacingX": 0,
+    "_N$spacingY": 0,
+    "_N$verticalDirection": 1,
+    "_N$horizontalDirection": 0,
+    "_N$affectedByScale": true,
     "_id": ""
   },
   {
@@ -1319,20 +1354,20 @@
     },
     "_children": [
       {
-        "__id__": 38
+        "__id__": 39
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 42
+        "__id__": 43
       },
       {
-        "__id__": 43
+        "__id__": 44
       }
     ],
     "_prefab": {
-      "__id__": 44
+      "__id__": 45
     },
     "_opacity": 255,
     "_color": {
@@ -1345,7 +1380,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 604.375,
-      "height": 117
+      "height": 143
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1357,7 +1392,7 @@
       "ctor": "Float64Array",
       "array": [
         376.845,
-        106.577,
+        94.464,
         0,
         0,
         0,
@@ -1386,20 +1421,20 @@
     "_name": "text",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 37
+      "__id__": 38
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 39
+        "__id__": 40
       },
       {
-        "__id__": 40
+        "__id__": 41
       }
     ],
     "_prefab": {
-      "__id__": 41
+      "__id__": 42
     },
     "_opacity": 255,
     "_color": {
@@ -1453,7 +1488,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 38
+      "__id__": 39
     },
     "_enabled": true,
     "_materials": [
@@ -1488,7 +1523,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 38
+      "__id__": 39
     },
     "_enabled": true,
     "_dataId": "MiniRoulette.guide_tour_para5",
@@ -1510,7 +1545,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 37
+      "__id__": 38
     },
     "_enabled": true,
     "_materials": [
@@ -1544,13 +1579,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 37
+      "__id__": 38
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 604.375,
-      "height": 117
+      "height": 143
     },
     "_resize": 1,
     "_N$layoutType": 1,
@@ -1619,7 +1654,7 @@
     "_enabled": true,
     "nodeToolTips": [
       {
-        "__id__": 37
+        "__id__": 38
       },
       {
         "__id__": 30
