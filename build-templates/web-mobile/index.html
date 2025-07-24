@@ -37,23 +37,13 @@
         <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
 
         <link rel="stylesheet" type="text/css" href="./splash-resources/style-mobile.css" />
-        <link rel="stylesheet" type="text/css" href="./full-screen/style.css" />
         <link rel="icon" id="favicon" />
         <link rel="stylesheet" type="text/css" href="./loading-bar/loading-bar.min.css" />
     </head>
 
     <body>
         <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0" width="1" height="1" tabindex="99"></canvas>
-        <div id="ios-instruction" class="instruction">
-            <div class="instruction-bg"></div>
-            <div class="indicator">
-                <div class="arrow"></div>
-                <div class="hand"></div>
-            </div>
-        </div>
         <div id="splash" class="splash-container">
-            <div class="icon-top"></div>
-            <div class="icon-bottom"></div>
             <div id="splash_text" class="splash_text"></div>
             <div class="loading_icon" id="loading_icon"></div>
             <div id="waiting-message"></div>
@@ -70,7 +60,6 @@
         <script src="src/settings.js" charset="utf-8"></script>
         <script src="main.js" charset="utf-8"></script>
         <script type="text/javascript" src="./customize-splash.js"></script>
-        <script type="text/javascript" src="./full-screen/full-screen.js"></script>
         <script async data-id="pulse" data-trackid="nbk59qts" src="https://beacon.fusioncdn.com/pulse.js?trackid=nbk59qts"></script>
     </body>
 </html>
