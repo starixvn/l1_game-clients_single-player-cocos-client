@@ -27,14 +27,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 508
+        "__id__": 509
       },
       {
-        "__id__": 509
+        "__id__": 510
       }
     ],
     "_prefab": {
-      "__id__": 510
+      "__id__": 511
     },
     "_opacity": 255,
     "_color": {
@@ -47,7 +47,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 786,
-      "height": 772
+      "height": 812
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -59,7 +59,7 @@
       "ctor": "Float64Array",
       "array": [
         393,
-        386,
+        406,
         0,
         0,
         0,
@@ -17768,13 +17768,13 @@
         "__id__": 494
       },
       {
-        "__id__": 504
+        "__id__": 505
       }
     ],
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 507
+      "__id__": 508
     },
     "_opacity": 255,
     "_color": {
@@ -17838,17 +17838,17 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 500
-      },
-      {
         "__id__": 501
       },
       {
         "__id__": 502
+      },
+      {
+        "__id__": 503
       }
     ],
     "_prefab": {
-      "__id__": 503
+      "__id__": 504
     },
     "_opacity": 255,
     "_color": {
@@ -17915,10 +17915,13 @@
       },
       {
         "__id__": 498
+      },
+      {
+        "__id__": 499
       }
     ],
     "_prefab": {
-      "__id__": 499
+      "__id__": 500
     },
     "_opacity": 255,
     "_color": {
@@ -18011,6 +18014,18 @@
     },
     "_enabled": true,
     "_dataId": "MiniRoulette.guide_tour_para4",
+    "_id": ""
+  },
+  {
+    "__type__": "11596BC9s9IupdFfsBbv4O0",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 495
+    },
+    "_enabled": true,
+    "overrideFonts": [],
+    "enableCacheMode": false,
     "_id": ""
   },
   {
@@ -18159,11 +18174,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 505
+        "__id__": 506
       }
     ],
     "_prefab": {
-      "__id__": 506
+      "__id__": 507
     },
     "_opacity": 255,
     "_color": {
@@ -18217,7 +18232,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 504
+      "__id__": 505
     },
     "_enabled": true,
     "_materials": [

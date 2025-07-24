@@ -27,14 +27,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 177
+        "__id__": 178
       },
       {
-        "__id__": 178
+        "__id__": 179
       }
     ],
     "_prefab": {
-      "__id__": 179
+      "__id__": 180
     },
     "_opacity": 255,
     "_color": {
@@ -47,7 +47,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 786,
-      "height": 772
+      "height": 812
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -59,7 +59,7 @@
       "ctor": "Float64Array",
       "array": [
         393,
-        386,
+        406,
         0,
         0,
         0,
@@ -5859,13 +5859,13 @@
         "__id__": 163
       },
       {
-        "__id__": 173
+        "__id__": 174
       }
     ],
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 176
+      "__id__": 177
     },
     "_opacity": 255,
     "_color": {
@@ -5929,17 +5929,17 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 169
-      },
-      {
         "__id__": 170
       },
       {
         "__id__": 171
+      },
+      {
+        "__id__": 172
       }
     ],
     "_prefab": {
-      "__id__": 172
+      "__id__": 173
     },
     "_opacity": 255,
     "_color": {
@@ -6006,10 +6006,13 @@
       },
       {
         "__id__": 167
+      },
+      {
+        "__id__": 168
       }
     ],
     "_prefab": {
-      "__id__": 168
+      "__id__": 169
     },
     "_opacity": 255,
     "_color": {
@@ -6102,6 +6105,18 @@
     },
     "_enabled": true,
     "_dataId": "MiniRoulette.guide_tour_para3",
+    "_id": ""
+  },
+  {
+    "__type__": "11596BC9s9IupdFfsBbv4O0",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 164
+    },
+    "_enabled": true,
+    "overrideFonts": [],
+    "enableCacheMode": false,
     "_id": ""
   },
   {
@@ -6250,11 +6265,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 174
+        "__id__": 175
       }
     ],
     "_prefab": {
-      "__id__": 175
+      "__id__": 176
     },
     "_opacity": 255,
     "_color": {
@@ -6308,7 +6323,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 173
+      "__id__": 174
     },
     "_enabled": true,
     "_materials": [
