@@ -18,13 +18,16 @@ export default class MiniRouletteTutorialItem extends TutorialItem {
     nodeBetChip: cc.Node;
 
     onLoad() {
-        this.nodeToolTips.forEach((node) => {
+        this.nodeToolTips?.forEach((node) => {
             node.opacity = 0;
         });
     }
 
     onEnable() {
         const parent = this.getParentNode();
+        if (!parent) {
+            return;
+        }
         const tutorialMain = parent.getComponent(MiniRouletteTutorialMain);
         const nodeBetChip = tutorialMain.betChipNode;
         nodeBetChip && (nodeBetChip.opacity = this.isShowChip ? 255 : 0);
@@ -32,6 +35,9 @@ export default class MiniRouletteTutorialItem extends TutorialItem {
 
     async showGuidePage() {
         super.showGuidePage();
+        if (!this.nodeToolTips || this.nodeToolTips.length === 0) {
+            return;
+        }
         await AnimationUtils.delayTime(0.2);
         for (let i = 0; i < this.nodeToolTips.length; i++) {
             this.showOpacity(this.nodeToolTips[i]);
