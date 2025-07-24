@@ -467,7 +467,7 @@
     "_string": "MiniRoulette.glossary_straight_up",
     "_N$string": "MiniRoulette.glossary_straight_up",
     "_fontSize": 72,
-    "_lineHeight": 40,
+    "_lineHeight": 72,
     "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
@@ -3280,8 +3280,8 @@
     "_dstBlendFactor": 771,
     "_string": "MiniRoulette.glossary_odd",
     "_N$string": "MiniRoulette.glossary_odd",
-    "_fontSize": 80,
-    "_lineHeight": 80,
+    "_fontSize": 72,
+    "_lineHeight": 72,
     "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "1346f0c3-0ac7-40de-9aa3-ee8c222913c3"
