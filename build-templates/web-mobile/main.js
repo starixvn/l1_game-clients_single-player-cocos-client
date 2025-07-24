@@ -84,34 +84,34 @@ window.boot = function () {
             var locFrameSize = this._frameSize;
             var w = __BrowserGetter.availWidth(cc.game.frame);
             var h = __BrowserGetter.availHeight(cc.game.frame);
-            var isLandscape = w >= h;
+            // var isLandscape = w >= h;
 
             //CHEAT: force height equal screen.width
-            const userAgent = window.navigator.userAgent;
-            if (isLandscape) {
-                h = window.innerHeight;
-            }
+            // const userAgent = window.navigator.userAgent;
+            // if (isLandscape) {
+            //     h = window.innerHeight;
+            // }
 
-            if (
-                CC_EDITOR ||
-                !cc.sys.isMobile ||
-                (isLandscape && this._orientation & cc.macro.ORIENTATION_LANDSCAPE) ||
-                (!isLandscape && this._orientation & cc.macro.ORIENTATION_PORTRAIT)
-            ) {
-                locFrameSize.width = w;
-                locFrameSize.height = h;
-                cc.game.container.style["-webkit-transform"] = "rotate(0deg)";
-                cc.game.container.style.transform = "rotate(0deg)";
-                this._isRotated = false;
-            } else {
-                locFrameSize.width = h;
-                locFrameSize.height = w;
-                cc.game.container.style["-webkit-transform"] = "rotate(90deg)";
-                cc.game.container.style.transform = "rotate(90deg)";
-                cc.game.container.style["-webkit-transform-origin"] = "0px 0px 0px";
-                cc.game.container.style.transformOrigin = "0px 0px 0px";
-                this._isRotated = true;
-            }
+            // if (
+            //     CC_EDITOR ||
+            //     !cc.sys.isMobile ||
+            //     (isLandscape && this._orientation & cc.macro.ORIENTATION_LANDSCAPE) ||
+            //     (!isLandscape && this._orientation & cc.macro.ORIENTATION_PORTRAIT)
+            // ) {
+            locFrameSize.width = w;
+            locFrameSize.height = h;
+            cc.game.container.style["-webkit-transform"] = "rotate(0deg)";
+            cc.game.container.style.transform = "rotate(0deg)";
+            this._isRotated = false;
+            // } else {
+            //     locFrameSize.width = h;
+            //     locFrameSize.height = w;
+            //     cc.game.container.style["-webkit-transform"] = "rotate(90deg)";
+            //     cc.game.container.style.transform = "rotate(90deg)";
+            //     cc.game.container.style["-webkit-transform-origin"] = "0px 0px 0px";
+            //     cc.game.container.style.transformOrigin = "0px 0px 0px";
+            //     this._isRotated = true;
+            // }
             if (this._orientationChanging) {
                 setTimeout(function () {
                     cc.view._orientationChanging = false;
@@ -158,6 +158,78 @@ window.boot = function () {
                 canvasBoundingRect.top = topOffset;
                 canvasBoundingRect.width = parseInt(element.style.width);
                 canvasBoundingRect.height = parseInt(element.style.height);
+            }
+        };
+    }
+
+    if (cc.sys.os === cc.sys.OS_ANDROID) {
+        var __BrowserGetter = {
+            init: function () {
+                this.html = document.getElementsByTagName("html")[0];
+            },
+            availWidth: function (frame) {
+                if (!frame || frame === this.html) {
+                    return window.innerWidth;
+                } else {
+                    return frame.clientWidth;
+                }
+            },
+            availHeight: function (frame) {
+                if (!frame || frame === this.html) {
+                    return window.innerHeight;
+                } else {
+                    return frame.clientHeight;
+                }
+            },
+            meta: {
+                width: "device-width"
+            },
+            adaptationType: cc.sys.browserType
+        };
+
+        switch (__BrowserGetter.adaptationType) {
+            case cc.sys.BROWSER_TYPE_SAFARI:
+            case cc.sys.BROWSER_TYPE_SOUGOU:
+            case cc.sys.BROWSER_TYPE_UC:
+                __BrowserGetter.meta["minimal-ui"] = "true";
+                __BrowserGetter.availWidth = function (frame) {
+                    return frame.clientWidth;
+                };
+                __BrowserGetter.availHeight = function (frame) {
+                    return frame.clientHeight;
+                };
+                break;
+        }
+
+        switch (__BrowserGetter.adaptationType) {
+            case cc.sys.BROWSER_TYPE_SAFARI:
+            case cc.sys.BROWSER_TYPE_SOUGOU:
+            case cc.sys.BROWSER_TYPE_UC:
+                __BrowserGetter.meta["minimal-ui"] = "true";
+                __BrowserGetter.availWidth = function (frame) {
+                    return frame.clientWidth;
+                };
+                __BrowserGetter.availHeight = function (frame) {
+                    return frame.clientHeight;
+                };
+                break;
+        }
+
+        // fix canvas display wrong scale
+        cc.view._initFrameSize = function () {
+            var locFrameSize = this._frameSize;
+            var w = __BrowserGetter.availWidth(cc.game.frame);
+            var h = __BrowserGetter.availHeight(cc.game.frame);
+
+            locFrameSize.width = w;
+            locFrameSize.height = h;
+            cc.game.container.style["-webkit-transform"] = "rotate(0deg)";
+            cc.game.container.style.transform = "rotate(0deg)";
+            this._isRotated = false;
+            if (this._orientationChanging) {
+                setTimeout(function () {
+                    cc.view._orientationChanging = false;
+                }, 1000);
             }
         };
     }
