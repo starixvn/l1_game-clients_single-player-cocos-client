@@ -11,6 +11,7 @@ import { WEBVIEW_ACTION } from "../../constants";
 import { userManager } from "../../common/user/UserManager";
 import { i18n } from "../../ClientModules";
 import { CommonEvents } from "../_new/_base/game-data-management/models/common-events";
+import { sentryLogger } from "../../common/logger";
 
 const { ccclass, property } = cc._decorator;
 

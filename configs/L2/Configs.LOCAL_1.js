@@ -4,7 +4,7 @@ window.envConfig = {
     subDomain: "l2-proxy1",
     env: "",
     sentry: {
-        url: "https://b015ef787273452c8fce4af733e62d59@sentry.lumigame.com/29",
+        url: "https://9c999f9b51e3b4543cb160b946b5bcbe@sentry-k8s.lumigame.com/30",
         env: "LOCAL_1"
     },
     subGuideDomain: "l2-guide-1",

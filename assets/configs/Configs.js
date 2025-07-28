@@ -8,7 +8,7 @@ const defaultConfig = {
     subDomain: "l2-proxy1",
     env: "",
     sentry: {
-        url: "",
+        url: "https://9c999f9b51e3b4543cb160b946b5bcbe@sentry-k8s.lumigame.com/30",
         env: "LOCAL2"
     },
     gameAnalytics: {
