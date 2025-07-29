@@ -19,6 +19,8 @@ export const sentryLogger = {
                 dsn: configs.sentry.url,
                 environment: configs.sentry.env,
                 maxValueLength: 5000,
+                tracesSampleRate: 1.0,
+                integrations: [new window.Sentry.BrowserTracing()],
                 ignoreErrors: [
                     "fullscreen error",
                     "exitFullscreen",
@@ -55,8 +57,7 @@ export const sentryLogger = {
                 const sentryScript = document.createElement("script");
 
                 sentryScript.setAttribute("id", "sentry-logger");
-                sentryScript.setAttribute("src", "https://browser.sentry-cdn.com/5.15.0/bundle.min.js");
-                sentryScript.setAttribute("integrity", "sha384-+ysfQckQvwCB5SppH41IScIz/Iynt2pePnJNMl+D7ZOzDJ+VYhQEuwB0pA60IDM0");
+                sentryScript.setAttribute("src", "https://browser.sentry-cdn.com/7.95.0/bundle.tracing.min.js");
                 sentryScript.setAttribute("crossorigin", "anonymous");
                 sentryScript.onload = () => {
                     

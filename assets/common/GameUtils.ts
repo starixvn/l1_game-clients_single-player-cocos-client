@@ -1,3 +1,4 @@
+import { String } from './../../creator.d';
 import axios from "axios";
 import { BundleManager } from "bundle-management";
 import * as i18n from "i18n/runtime-scripts/LanguageData";
@@ -354,6 +355,7 @@ export default class GameUtils {
             if (available) {
                 SessionManager.storeMicrositeGameId(gameId);
                 const sceneName = "microsite-game";
+                
                 await this.loadScene(gameId, sceneName);
             } else {
                 loading?.setLoadingVisibility(false);
@@ -387,7 +389,25 @@ export default class GameUtils {
 
     public static async loadSceneGame(gameId, socketIOController: SocketIOControllerInterface) {
         const sceneName = socketIOController.gameScene[gameId];
-        await this.loadScene(gameId, sceneName);
+        console.log("loadSceneGame", gameId, sceneName);
+        const transaction = (window as any).Sentry?.startTransaction?.({
+            name: `Load Game - ${sceneName}`,
+            op: "load.scene",
+            description: `Loading Cocos Scene for ${sceneName}`,
+        });
+        
+        (window as any).Sentry?.getCurrentHub()?.configureScope(scope => {
+            scope.setSpan(transaction);
+        });
+    
+        try {
+            await this.loadScene(gameId, sceneName);
+        } catch (error) {
+            (window as any).Sentry?.captureException(error);
+            transaction.setStatus("internal_error");
+        } finally {
+            transaction.finish(); 
+        }
     }
 
     public static async loadScene(gameId, sceneName: string) {
@@ -410,6 +430,7 @@ export default class GameUtils {
             );
         });
     }
+    
 
     private static onForceReload(showNotice = true, message = i18n.t("messages.newUpdateAvailable")) {
         const forceReload = () => {
