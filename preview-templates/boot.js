@@ -147,6 +147,7 @@ function initGA() {
             count++;
             if (count === bundleRoot.length + 1) {
                 cc.assetManager.loadBundle(MAIN, function (err) {
+                    cc.macro.ENABLE_TRANSPARENT_CANVAS = true;
                     if (!err) cc.game.run(option, onStart);
                 });
             }
