@@ -38540,7 +38540,7 @@
     "_enabled": true,
     "colliders": [],
     "targetNode": null,
-    "enableLogging": false,
+    "enableLogging": true,
     "enableCoordinateDisplay": true,
     "enableParentCommunication": true,
     "_id": "b9N90W1RpIlaz0L94/eStF"

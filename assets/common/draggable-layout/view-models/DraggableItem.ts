@@ -9,7 +9,7 @@ export default class DraggableItem extends cc.Component {
     targetNode: cc.Node = null;
 
     @property({ tooltip: "Enable logging for debugging" })
-    enableLogging: boolean = false;
+    enableLogging: boolean = true;
 
     @property({ tooltip: "Enable coordinate display" })
     enableCoordinateDisplay: boolean = true;
@@ -50,44 +50,54 @@ export default class DraggableItem extends cc.Component {
     }
 
     onLoad() {
-        this.setupCoordinateDisplay();
         this.setupEventListeners();
         this.setupParentMessageListener();
     }
 
-    setupCoordinateDisplay() {
-        if (!this.enableCoordinateDisplay) return;
-
-        // Create coordinate display node if it doesn't exist
-        if (!this.node.getChildByName("coords")) {
-            const coordsNode = new cc.Node("coords");
-            const label = coordsNode.addComponent(cc.Label);
-            label.string = "X: --, Y: -- | Parent: X: --, Y: --";
-            label.fontSize = 16;
-            label.fontFamily = "monospace";
-
-            // Position at top-left of the node
-            coordsNode.setPosition(-this.node.width / 2 + 10, this.node.height / 2 - 10);
-            coordsNode.zIndex = 1000;
-
-            this.node.addChild(coordsNode);
-        }
-    }
-
     setupEventListeners() {
-        // Touch events
-        this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
-        this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
-        this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
-
-        // Mouse events
-        this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
-        this.node.on(cc.Node.EventType.MOUSE_MOVE, this.onMouseMove, this);
-        this.node.on(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);
+        // Check device type to determine which events to register
+        const isMobile = cc.sys.isMobile;
+        const isDesktop = cc.sys.isBrowser && !isMobile;
 
         if (this.enableLogging) {
-            console.log("🎯 Setting up event listeners for:", this.node.name);
+            console.log(
+                `🎯 Setting up event listeners for: ${this.node.name} | Platform: ${cc.sys.platform} | Mobile: ${isMobile} | Desktop: ${isDesktop}`
+            );
+        }
+
+        if (isMobile) {
+            // Touch events for mobile devices
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+            this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+            this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+
+            if (this.enableLogging) {
+                console.log("📱 Registered touch events for mobile device");
+            }
+        } else if (isDesktop) {
+            // Mouse events for desktop devices
+            this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
+            this.node.on(cc.Node.EventType.MOUSE_MOVE, this.onMouseMove, this);
+            this.node.on(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);
+
+            if (this.enableLogging) {
+                console.log("🖱️ Registered mouse events for desktop device");
+            }
+        } else {
+            // Fallback: register both for unknown platforms
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+            this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+            this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+
+            this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
+            this.node.on(cc.Node.EventType.MOUSE_MOVE, this.onMouseMove, this);
+            this.node.on(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);
+
+            if (this.enableLogging) {
+                console.log("❓ Unknown platform, registered both touch and mouse events");
+            }
         }
     }
 
@@ -112,7 +122,6 @@ export default class DraggableItem extends cc.Component {
                 if (data.type === "parentPosition") {
                     this.parentX = data.x;
                     this.parentY = data.y;
-                    this.updateCoords(this.currentX, this.currentY);
                 }
             });
         }
@@ -147,7 +156,6 @@ export default class DraggableItem extends cc.Component {
         this.startPosition = this.target.position;
         this.startTouchLocation = touchLocation;
 
-        this.updateCoords(this.currentX, this.currentY);
         this.sendToParent("dragStart", {
             clientX: this.currentX,
             clientY: this.currentY
@@ -180,7 +188,6 @@ export default class DraggableItem extends cc.Component {
         this.target.position = touchLocation.sub(this.startTouchLocation).add(this.startPosition);
         this.touchCallback.move(touchLocation);
 
-        this.updateCoords(this.currentX, this.currentY);
         this.sendToParent("drag", {
             clientX: this.currentX,
             clientY: this.currentY,
@@ -215,7 +222,6 @@ export default class DraggableItem extends cc.Component {
 
         this.touchCallback.end(e && this.isClicked(e));
 
-        this.updateCoords(this.currentX, this.currentY);
         this.sendToParent("dragEnd", {});
     }
 
@@ -229,6 +235,14 @@ export default class DraggableItem extends cc.Component {
     }
 
     onMouseDown(e) {
+        // Only handle if we're actually going to drag (within collider bounds)
+        if (!this.checkCollider(e)) {
+            if (this.enableLogging) {
+                console.log("not mouse in collider");
+            }
+            return; // Let the event pass through to other nodes
+        }
+
         this.isMouseDragging = true;
         const mouseLocation = e.getLocation();
 
@@ -246,7 +260,6 @@ export default class DraggableItem extends cc.Component {
             );
         }
 
-        this.updateCoords(this.currentX, this.currentY);
         this.sendToParent("dragStart", {
             clientX: this.currentX,
             clientY: this.currentY
@@ -255,6 +268,14 @@ export default class DraggableItem extends cc.Component {
 
     onMouseMove(e) {
         if (!this.isMouseDragging) {
+            return;
+        }
+
+        // Additional check to ensure we're still within collider bounds during drag
+        if (!this.checkCollider(e)) {
+            // If we moved outside the collider, stop dragging
+            this.isMouseDragging = false;
+            this.sendToParent("dragEnd", {});
             return;
         }
 
@@ -276,7 +297,6 @@ export default class DraggableItem extends cc.Component {
             );
         }
 
-        this.updateCoords(this.currentX, this.currentY);
         this.sendToParent("drag", {
             clientX: this.currentX,
             clientY: this.currentY,
@@ -309,7 +329,6 @@ export default class DraggableItem extends cc.Component {
             console.log(`[${timestamp}] 📏 Total Movement: (${totalDeltaX}, ${totalDeltaY}) Distance: ${distance.toFixed(2)}px`);
         }
 
-        this.updateCoords(this.currentX, this.currentY);
         this.sendToParent("dragEnd", {});
     }
 
@@ -391,26 +410,31 @@ export default class DraggableItem extends cc.Component {
         }
     }
 
-    updateCoords(x: number, y: number) {
-        if (!this.enableCoordinateDisplay) return;
-
-        const coordsNode = this.node.getChildByName("coords");
-        if (coordsNode) {
-            const label = coordsNode.getComponent(cc.Label);
-            if (label) {
-                label.string = `X: ${Math.round(x)}, Y: ${Math.round(y)} | Parent: X: ${this.parentX}, Y: ${this.parentY}`;
-            }
-        }
-    }
-
     onDestroy() {
-        // Clean up event listeners
-        this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-        this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
-        this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
-        this.node.off(cc.Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
-        this.node.off(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
-        this.node.off(cc.Node.EventType.MOUSE_MOVE, this.onMouseMove, this);
-        this.node.off(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);
+        // Clean up event listeners based on device type
+        const isMobile = cc.sys.isMobile;
+        const isDesktop = cc.sys.isBrowser && !isMobile;
+
+        if (isMobile) {
+            // Remove touch events for mobile devices
+            this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+            this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+            this.node.off(cc.Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+        } else if (isDesktop) {
+            // Remove mouse events for desktop devices
+            this.node.off(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
+            this.node.off(cc.Node.EventType.MOUSE_MOVE, this.onMouseMove, this);
+            this.node.off(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);
+        } else {
+            // Remove both for unknown platforms
+            this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+            this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+            this.node.off(cc.Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+            this.node.off(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
+            this.node.off(cc.Node.EventType.MOUSE_MOVE, this.onMouseMove, this);
+            this.node.off(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);
+        }
     }
 }
