@@ -64,6 +64,7 @@ export default class BetItem extends cc.Component {
 
     public onBetClick(e) {
         AudioManager.getInstance().playClick();
+        e.stopPropagation();
         this.betCallback(e);
     }
 

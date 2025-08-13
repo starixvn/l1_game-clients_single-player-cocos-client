@@ -10,6 +10,7 @@ export default class SingleBetItem extends RouletteBetItem {
     singleBetControl: SingleBetControl = null;
 
     public onBetClick(event: cc.Event.EventTouch) {
+        event.stopPropagation();
         AudioManager.getInstance().playClick();
         this.singleBetControl.showControl();
     }

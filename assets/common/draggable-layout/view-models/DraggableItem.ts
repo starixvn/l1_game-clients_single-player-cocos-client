@@ -31,8 +31,6 @@ export default class DraggableItem extends cc.Component {
     private currentY: number = 0;
     private initialX: number = 0;
     private initialY: number = 0;
-    private parentX: string = "--";
-    private parentY: string = "--";
 
     public touchCallback = {
         start: (node: cc.Node) => {},
@@ -45,8 +43,19 @@ export default class DraggableItem extends cc.Component {
             return true;
         }
 
-        const touchLocation = event.touch.getLocation();
-        return this.colliders.some((collider) => cc.Intersection.pointInPolygon(touchLocation, collider.world.points));
+        // Handle both touch and mouse events
+        let location: cc.Vec2;
+        if (event.touch) {
+            // Touch event
+            location = event.touch.getLocation();
+        } else if (event.getLocation) {
+            // Mouse event
+            location = event.getLocation();
+        } else {
+            return false;
+        }
+
+        return this.colliders.some((collider) => cc.Intersection.pointInPolygon(location, collider.world.points));
     }
 
     onLoad() {
@@ -116,24 +125,30 @@ export default class DraggableItem extends cc.Component {
 
                 if (this.enableLogging) {
                     const timestamp = new Date().toLocaleTimeString();
-                    console.log(`[${timestamp}] 📥 Cocos received message from parent:`, data);
-                }
-
-                if (data.type === "parentPosition") {
-                    this.parentX = data.x;
-                    this.parentY = data.y;
+                    //console.log(`[${timestamp}] 📥 Cocos received message from parent:`, data);
                 }
             });
         }
     }
 
     onTouchStart(e) {
+        // Prevent double events by checking if already touching
+        if (this.isTouchStarted) {
+            if (this.enableLogging) {
+                console.log("🔄 Touch already started, ignoring duplicate touch start");
+            }
+            return;
+        }
+
         if (!this.checkCollider(e)) {
             if (this.enableLogging) {
                 console.log("not touch in collider");
             }
             return;
         }
+
+        // Prevent event bubbling to avoid double handling
+        e.stopPropagation();
 
         this.isTouchStarted = true;
         const touchLocation = e.touch.getLocation();
@@ -235,6 +250,14 @@ export default class DraggableItem extends cc.Component {
     }
 
     onMouseDown(e) {
+        // Prevent double events by checking if already dragging
+        if (this.isMouseDragging) {
+            if (this.enableLogging) {
+                console.log("🔄 Mouse already dragging, ignoring duplicate mouse down");
+            }
+            return;
+        }
+
         // Only handle if we're actually going to drag (within collider bounds)
         if (!this.checkCollider(e)) {
             if (this.enableLogging) {
@@ -242,6 +265,9 @@ export default class DraggableItem extends cc.Component {
             }
             return; // Let the event pass through to other nodes
         }
+
+        // Prevent event bubbling to avoid double handling
+        e.stopPropagation();
 
         this.isMouseDragging = true;
         const mouseLocation = e.getLocation();
@@ -402,7 +428,7 @@ export default class DraggableItem extends cc.Component {
 
         if (this.enableLogging) {
             const timestamp = new Date().toLocaleTimeString();
-            console.log(`[${timestamp}] 📤 Cocos sending to parent:`, message);
+            //console.log(`[${timestamp}] 📤 Cocos sending to parent:` + JSON.stringify(message));
         }
 
         if (window.parent && window.parent !== window) {
