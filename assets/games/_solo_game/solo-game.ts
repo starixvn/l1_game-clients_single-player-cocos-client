@@ -305,6 +305,8 @@ export default class SoloGame extends StandAloneTableGameBase {
         if (this.isCloseGameDialogOpen) {
             return;
         }
+
+        GameUtils.sendActionToParent(WEBVIEW_ACTION.RECEIVED_CLOSE_EVENT);
         
         this.isCloseGameDialogOpen = true;
         const dialog = cc.instantiate(this.closeGameDialogPrefab);
@@ -318,6 +320,7 @@ export default class SoloGame extends StandAloneTableGameBase {
             this.isCloseGameDialogOpen = false;
             GameUtils.sendActionToParent(WEBVIEW_ACTION.CLOSE);
         };
+        
         
         const commonDialog = comp.mainFrame.getComponent(CommonDialog);
         if (commonDialog) {
@@ -399,7 +402,9 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     handleMessageFromParent(message: any) {
         // Example: handle different message types
-        if (!message || typeof message !== "object") return;
+        if (!message || typeof message !== "object") {
+            return;
+        }
 
         switch (message.action) {
             case WEBVIEW_ACTION.CLOSE:
