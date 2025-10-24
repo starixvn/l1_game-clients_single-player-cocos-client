@@ -11,6 +11,7 @@ import { WEBVIEW_ACTION } from "../../constants";
 import { userManager } from "../../common/user/UserManager";
 import { i18n } from "../../ClientModules";
 import { CommonEvents } from "../_new/_base/game-data-management/models/common-events";
+import AudioManager from "../../common/audio/AudioManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -65,10 +66,12 @@ export default class SoloGame extends StandAloneTableGameBase {
         };
         setTimeout(step, 100);
         cc.game.resume();
+        AudioManager.getInstance().onGameHide();
     }
 
     onGameShow(): void {
         this.isGameHide = false;
+        AudioManager.getInstance().onGameShow();
     }
 
     setGameRound(gameRoundId) {

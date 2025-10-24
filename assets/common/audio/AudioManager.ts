@@ -1,16 +1,11 @@
 import { StorageManager } from "../../managers/StorageManager";
 import AnimationUtils from "../utils/AnimationUtils";
 
-
-
 export default class AudioManager {
     public static getInstance(): AudioManager {
-
         if (!this.instance) {
-
             this.instance = new AudioManager();
         } else {
-
         }
 
         return this.instance;
@@ -26,45 +21,43 @@ export default class AudioManager {
     private readonly MusicVolumeKey = "MUSIC_VOLUME";
     private readonly SFXVolumeKey = "SFX_VOLUME";
 
+    private isGameHide = false;
     // The AudioContext was not allowed to start.
     // It must be resumed (or created) after a user gesture on the page
     public isUserGesture = false;
 
-    constructor() {
-
-    }
-
     init() {
-
         this.initDefaultStorage();
         this.initVolumeSettings();
         this.initTouchBinded();
+    }
 
+    onGameHide() {
+        this.isGameHide = true;
+        cc.audioEngine.stopAllEffects();
+        cc.audioEngine.pauseMusic();
+    }
+
+    onGameShow() {
+        this.isGameHide = false;
+        cc.audioEngine.resumeMusic();
     }
 
     async awaitForReady() {
-
         if (cc.sys.os === cc.sys.OS_IOS) {
-
             while (!this.isReady) {
                 await AnimationUtils.delayTime(0.5);
             }
-
         } else {
-
         }
     }
 
     private initTouchBinded() {
-
         const touchend = "ontouchend" in window ? "touchend" : "mouseup";
         const touchStart = "ontouchstart" in window ? "touchstart" : "mousedown";
         const touchMove = "ontouchmove" in window ? "touchmove" : "mousemove";
 
-
-
         cc.game.canvas.addEventListener(touchStart, () => {
-
             this.touchStart = true;
             this.isUserGesture = true;
         });
@@ -76,27 +69,22 @@ export default class AudioManager {
                 return;
             }
 
-
             this.touchStart = false;
             this.isReady = true;
             this.isUserGesture = true;
         });
-
     }
 
     playClick() {
-
         if (this.clickAudio) {
             this.playSFX(this.clickAudio);
-
         } else {
             console.warn("[AudioManager] No click audio available");
         }
     }
 
     playSFX(clip: cc.AudioClip, loop = false): number {
-
-        if (this.sfxEnabled && clip) {
+        if (this.sfxEnabled && clip && !this.isGameHide) {
             const audioId = cc.audioEngine.playEffect(clip, loop);
 
             return audioId;
@@ -106,29 +94,21 @@ export default class AudioManager {
     }
 
     playSFXSource(audio: cc.AudioSource) {
-
         if (this.sfxEnabled && audio) {
             audio.play();
-
         } else {
-
         }
     }
 
     stopSFX(audioId: number) {
-
         cc.audioEngine.stopEffect(audioId);
-
     }
 
     stopAllSFX() {
-
         cc.audioEngine.stopAllEffects();
-
     }
 
     playMusic(clip: cc.AudioClip, loop: boolean) {
-
         if (this.musicEnabled && clip) {
             const audioId = cc.audioEngine.playMusic(clip, loop);
 
@@ -139,16 +119,12 @@ export default class AudioManager {
     }
 
     stopMusic() {
-
         cc.audioEngine.stopMusic();
-
     }
 
     initDefaultStorage() {
-
         this.musicEnabled = StorageManager.get(this.MusicStorageKey) ?? true;
         this.sfxEnabled = StorageManager.get(this.SFXStorageKey) ?? true;
-
     }
 
     private initVolumeSettings() {
@@ -160,41 +136,29 @@ export default class AudioManager {
     }
 
     addMusicChanged(key: string, observer: (changed: boolean) => void) {
-
         this.soundObservers["music"][key] = observer;
-
     }
 
     removeMusicChanged(key: string) {
-
         delete this.soundObservers["music"][key];
-
     }
 
     addSfxChanged(key: string, observer: (changed: boolean) => void) {
-
         this.soundObservers["sfx"][key] = observer;
-
     }
 
     removeSfxChanged(key: string) {
-
         delete this.soundObservers["sfx"][key];
-
     }
 
     private onMusicChanged(value: boolean) {
-
         const observers = this.soundObservers["music"];
         this.callObservers(observers, value);
-
     }
 
     private onSfxChanged(value: boolean) {
-
         const observers = this.soundObservers["sfx"];
         this.callObservers(observers, value);
-
     }
 
     private callObservers(observers: any, value: boolean) {
@@ -203,7 +167,6 @@ export default class AudioManager {
 
             observer(value);
         });
-
     }
 
     get musicEnabled(): boolean {
@@ -213,10 +176,8 @@ export default class AudioManager {
     }
 
     set musicEnabled(value: boolean) {
-
         StorageManager.set(this.MusicStorageKey, value);
         this.onMusicChanged(value);
-
     }
 
     get sfxEnabled(): boolean {
@@ -226,15 +187,10 @@ export default class AudioManager {
     }
 
     set sfxEnabled(value: boolean) {
-
         StorageManager.set(this.SFXStorageKey, value);
         this.onSfxChanged(value);
         if (!value) {
-
             this.stopAllSFX();
         }
-
     }
 }
-
-
