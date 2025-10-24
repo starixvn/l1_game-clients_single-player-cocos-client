@@ -57,6 +57,20 @@ export default class SoloGame extends StandAloneTableGameBase {
         return this.gameData.betModel as SoloBetModel;
     }
 
+    onGameHide(): void {
+        this.isGameHide = true;
+        const step = () => {
+            cc.game.step();
+            setTimeout(step, 100);
+        };
+        setTimeout(step, 100);
+        cc.game.resume();
+    }
+
+    onGameShow(): void {
+        this.isGameHide = false;
+    }
+
     setGameRound(gameRoundId) {
         const gameRound = this.formatGameRound(gameRoundId);
         this.gameRound.string = gameRound;
@@ -192,7 +206,6 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     clickConfirmBet() {
         this.gameData.durations.remaining = 0;
-        //this.soloBetModel.confirmBet();
     }
 
     clickAutoRebet() {
@@ -301,13 +314,13 @@ export default class SoloGame extends StandAloneTableGameBase {
 
     clickCloseGame() {
         this.playClick();
-        
+
         if (this.isCloseGameDialogOpen) {
             return;
         }
 
         GameUtils.sendActionToParent(WEBVIEW_ACTION.RECEIVED_CLOSE_EVENT);
-        
+
         this.isCloseGameDialogOpen = true;
         const dialog = cc.instantiate(this.closeGameDialogPrefab);
         const comp = dialog.getComponent(CloseGameDialog);
@@ -320,15 +333,14 @@ export default class SoloGame extends StandAloneTableGameBase {
             this.isCloseGameDialogOpen = false;
             GameUtils.sendActionToParent(WEBVIEW_ACTION.CLOSE);
         };
-        
-        
+
         const commonDialog = comp.mainFrame.getComponent(CommonDialog);
         if (commonDialog) {
             commonDialog.addOnDidHide(() => {
                 this.isCloseGameDialogOpen = false;
             });
         }
-        comp.btnCancel.node.once('click', () => {
+        comp.btnCancel.node.once("click", () => {
             this.isCloseGameDialogOpen = false;
         });
     }
