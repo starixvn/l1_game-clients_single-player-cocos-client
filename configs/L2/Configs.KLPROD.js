@@ -5,7 +5,7 @@ window.envConfig = {
     subDomain: "proxy",
     env: "",
     sentry: {
-        url: "https://eb5f1c92d1da4cb6a059fa40c1276a9d@sentry.sabagaming.com/48",
+        url: "https://eb5f1c92d1da4cb6a059fa40c1276a9d@sentry.sabagame.com/48",
         env: "PRO"
     },
     subGuideDomain: "guides",
