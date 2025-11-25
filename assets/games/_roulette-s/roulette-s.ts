@@ -31,8 +31,8 @@ const { ccclass, property } = cc._decorator;
 
 export class RouletteSConfig implements GameConfigBase {
     minBetTime = 1;
-    fullTime = 22;
-    betTime = 15;
+    fullTime = 37;
+    betTime = 30;
     stopBetTime = 0;
     waitTime = 7;
 }
@@ -337,28 +337,6 @@ export default class RouletteS extends SoloGame {
             this.isStartRound = false;
 
             this.setAutoRebetInteractable(true);
-
-            if (this.autoRebetCount > 0) {
-                if (this.isStopAutoRebetMode) {
-                    this.isStopAutoRebetMode = false;
-                    this.resetAutoRebetCount();
-                    this.updateSpinButtonInteractable();
-                    return;
-                }
-
-                const hasEnoughBalanceForAutoRebet = this.checkBalanceWhenStartAutoRebet();
-                this.setAutoRebetInteractable(hasEnoughBalanceForAutoRebet);
-                if (!hasEnoughBalanceForAutoRebet) {
-                    this.resetAutoRebetCount();
-                }
-
-                const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
-                this.autoRebetCount--;
-                this.updateAutoRebetCount();
-                this.onReBet(betObject, this.autoRebetCount);
-            } else {
-                this.hideAutoRebetMessage();
-            }
         });
     }
 

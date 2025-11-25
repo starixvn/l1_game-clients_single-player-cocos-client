@@ -3,7 +3,6 @@ import StandAloneTableGameBase from "../_base_new/view-models/StandAloneTableGam
 import { ChoiceBet, SoloBetModel, SoloBetState } from "./solo-bet-model";
 import SoloGameData from "./solo-game-data";
 import { Durations } from "../_new/_base/game-data-management/models/durations";
-import AutoRebetDialog from "../../common/auto-rebet-dialog/AutoRebetDialog";
 import GameUtils from "../../common/GameUtils";
 import CloseGameDialog from "../../common/close-game-dialog/CloseGameDialog";
 import CommonDialog from "../../common/_base/view-models/CommonDialog";
@@ -136,13 +135,6 @@ export default class SoloGame extends StandAloneTableGameBase {
     }
 
     private continueAfterBetSuccess() {
-        const choice = this.pendingBetChoice;
-        const amount = this.pendingBetAmount;
-
-        if (!choice || !amount) {
-            return;
-        }
-
         this.showProcessingWarning(false);
 
         !this.isStartRound && this.soloBetModel.changeState(SoloBetState.STARTING_ROUND);
@@ -175,24 +167,13 @@ export default class SoloGame extends StandAloneTableGameBase {
             this.clickStopAutoRebet();
             return;
         }
+        this.isWaitingForBetResponse = true;
 
         this.handleRebetWhenAvailableBalance(bet);
     }
 
     private handleRebetWhenAvailableBalance(bet: any) {
         this.setAutoRebetInteractable(false);
-
-        if (this.autoRebetCount > 0) {
-            this.updateAutoRebetCount();
-            if (!this.isAutoRebetMessageVisible) {
-                this.showAutoRebetMessage();
-                this.isAutoRebetMessageVisible = true;
-            }
-            this.setStopAutoRebetVisible(true);
-        } else {
-            this.hideAutoRebetMessage();
-            this.isAutoRebetMessageVisible = false;
-        }
 
         const betData = this.createBetData(bet);
         this.sendSocketData("rebet", betData);
@@ -219,14 +200,8 @@ export default class SoloGame extends StandAloneTableGameBase {
             return;
         }
 
-        const dialog = cc.instantiate(this.autoRebetDialogPrefab);
-        const comp = dialog.getComponent(AutoRebetDialog);
-        this.currentMiniPanel.node.addChild(dialog);
-
-        comp.onConfirmCallback = (autoRebetCount: number) => {
-            const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
-            this.onReBet(betObject, autoRebetCount - 1);
-        };
+        const betObject = this.convertBetQueueToBetObject(this.soloBetModel.lastQueueBet);
+        this.onReBet(betObject);
     }
 
     checkBalanceWhenStartAutoRebet(): boolean {
@@ -361,12 +336,11 @@ export default class SoloGame extends StandAloneTableGameBase {
     onBetClick(choice: string) {
         const amount = this.currentBet;
 
-        if (this.isAutoRebetMode() || !this.checkAvailableBetChoices(choice, amount) || !this.checkAvailableBalance(amount)) {
+        if (!this.checkAvailableBetChoices(choice, amount) || !this.checkAvailableBalance(amount)) {
             return;
         }
 
         if (this.isWaitingForBetResponse) {
-            this.showProcessingWarning(true);
             return;
         }
 
