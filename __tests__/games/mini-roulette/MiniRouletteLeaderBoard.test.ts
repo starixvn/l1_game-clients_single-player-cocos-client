@@ -31,7 +31,8 @@ describe("Test class RouletteLeaderBoard", () => {
     const mockLeaderboardData = {
         leaderboard: [mockLeaderBoardItem],
         time: "2023-12-20T10:30:00Z",
-        currentPlayer: mockCurrentPlayer
+        currentPlayer: mockCurrentPlayer,
+        timeRange: { start: "2023-12-20T09:00:00Z", end: "2023-12-20T10:00:00Z" }
     };
 
     beforeEach(() => {
@@ -43,9 +44,17 @@ describe("Test class RouletteLeaderBoard", () => {
             })
         };
 
-        // Mock formatLongDateTime
+        // Mock formatLongDateTime to return context-specific strings so each label can be asserted
         jest.spyOn(require('../../../assets/common/helpers/DateTimeHelper'), 'formatLongDateTime')
-            .mockReturnValue('Dec 20, 2023 10:30 AM');
+            .mockImplementation((value: string) => {
+                if (value === mockLeaderboardData.timeRange.start) {
+                    return 'Dec 20, 2023 09:00 AM';
+                }
+                if (value === mockLeaderboardData.timeRange.end) {
+                    return 'Dec 20, 2023 10:00 AM';
+                }
+                return 'Dec 20, 2023 10:30 AM';
+            });
 
         // Create mock socket
         mockSocket = {
@@ -64,7 +73,9 @@ describe("Test class RouletteLeaderBoard", () => {
         comp.mainFrame.addComponent(CommonDialog);
         comp.leaderBoardItemPrefab = new cc.Prefab();
         comp.bodyContent = new cc.Node();
-        comp.lblTime = new cc.Node().addComponent(cc.Label);
+        comp.lblUpdateTime = new cc.Node().addComponent(cc.Label);
+        comp.lblStartTime = new cc.Node().addComponent(cc.Label);
+        comp.lblEndTime = new cc.Node().addComponent(cc.Label);
 
         // Mock cc.instantiate
         const mockLeaderboardItemNode = {
@@ -170,13 +181,15 @@ describe("Test class RouletteLeaderBoard", () => {
             comp["handleLeaderboardData"]({ leaderboard: mockLeaderboardData });
 
             // Assert
-            expect(comp.lblTime.string).toBe('Dec 20, 2023 10:30 AM');
+            expect(comp.lblUpdateTime.string).toBe('Dec 20, 2023 10:30 AM');
+            expect(comp.lblStartTime.string).toBe('Dec 20, 2023 09:00 AM');
+            expect(comp.lblEndTime.string).toBe('Dec 20, 2023 10:00 AM');
             expect(comp.scheduleOnce).toHaveBeenCalledWith(expect.any(Function), 0.1);
             
             // Test that the scheduled function calls displayLeaderboardItems
             const scheduledCallback = (comp.scheduleOnce as jest.Mock).mock.calls[0][0];
             scheduledCallback();
-            expect(displaySpy).toHaveBeenCalledWith(mockLeaderboardData.leaderboard, mockLeaderboardData.currentPlayer);
+            expect(displaySpy).toHaveBeenCalledWith(mockLeaderboardData.leaderboard,mockLeaderboardData.currentPlayer);
         });
 
         it("should return early when no leaderboard data", () => {

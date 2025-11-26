@@ -11,6 +11,10 @@ interface LeaderboardData {
     leaderboard: LeaderBoardItem[];
     time: string;
     currentPlayer: CurrentPlayer;
+    timeRange: {
+        start: string;
+        end: string;
+    };
 }
 
 interface CurrentPlayer {
@@ -36,7 +40,13 @@ export default class RouletteLeaderBoard extends BaseComponent {
     bodyContent: cc.Node = null;
 
     @property(cc.Label)
-    lblTime: cc.Label = null;
+    lblStartTime: cc.Label = null;
+
+    @property(cc.Label)
+    lblEndTime: cc.Label = null;
+
+    @property(cc.Label)
+    lblUpdateTime: cc.Label = null;
 
     private socket: Socket;
     private gameName: string;
@@ -91,9 +101,10 @@ export default class RouletteLeaderBoard extends BaseComponent {
             return;
         }
 
-        const { leaderboard, time, currentPlayer } = data.leaderboard;
-        
-        this.lblTime.string = formatLongDateTime(time);
+        const { leaderboard, time, currentPlayer, timeRange } = data.leaderboard;
+        this.lblStartTime.string = formatLongDateTime(timeRange.start);
+        this.lblEndTime.string = formatLongDateTime(timeRange.end);
+        this.lblUpdateTime.string = formatLongDateTime(time);
         this.scheduleOnce(() => {
             this.displayLeaderboardItems(leaderboard, currentPlayer);
         }, 0.1);
