@@ -5154,7 +5154,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "e6b7a7c0-cd79-4ab4-99b2-a6cdbf98f688"
+      "__uuid__": "ed541301-a691-4624-9b0b-6b4b755d2b03"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -5413,7 +5413,7 @@
       "__id__": 90
     },
     "personalContentNode": {
-      "__id__": 104
+      "__id__": 105
     },
     "lblStartTime": {
       "__id__": 26

@@ -115,8 +115,6 @@ export default class RouletteLeaderBoard extends BaseComponent {
         
     }
 
-
-
     private displayLeaderboardItems(leaderboard: LeaderBoardItem[], currentPlayer: CurrentPlayer): void {
         leaderboard.forEach((item) => {
             const isCurrentPlayer = item.rank === currentPlayer.rank;
@@ -127,7 +125,7 @@ export default class RouletteLeaderBoard extends BaseComponent {
     private displayPersonalContent(currentPlayer: CurrentPlayer): void {
         const { rank, totalWin, currentPlayerSettings } = currentPlayer;
         const currentPlayerData = {
-            rank: rank === "-1" ? "-" : rank,
+            rank: parseInt(rank) === -1 ? "-" : rank,
             nickname: currentPlayerSettings.nickname,
             totalWin: totalWin,
             avatarUrl: currentPlayerSettings.avatarUrl
@@ -135,6 +133,7 @@ export default class RouletteLeaderBoard extends BaseComponent {
         
         if (this.personalContentNode) {
             const item = this.personalContentNode.getComponent(RouletteLeaderBoardItem);
+
             if (item) {
                 item.setData(currentPlayerData, false);
                 this.personalContentNode.active = true;
@@ -148,23 +147,5 @@ export default class RouletteLeaderBoard extends BaseComponent {
         const item = leaderboardItemNode.getComponent(RouletteLeaderBoardItem);
         this.bodyContent.addChild(leaderboardItemNode);
         item.setData(leaderboardItem, isCurrentPlayer);
-    }
-
-    private formatCurrentPlayerData(currentPlayer: CurrentPlayer): LeaderBoardItem {
-        const { currentPlayerSettings, totalWin } = currentPlayer;
-        if (!currentPlayerSettings) {
-            return {
-                rank: "-",
-                nickname: "",
-                totalWin,
-                avatarUrl: ""
-            };
-        }
-        return {
-            rank: "-",
-            nickname: currentPlayerSettings.hideName ? "" : currentPlayerSettings.nickname,
-            totalWin,
-            avatarUrl: currentPlayerSettings.hideAvatar ? "" : currentPlayerSettings.avatarUrl
-        };
     }
 }
