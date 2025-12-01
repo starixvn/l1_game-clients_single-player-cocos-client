@@ -39,6 +39,9 @@ export default class RouletteLeaderBoard extends BaseComponent {
     @property(cc.Node)
     bodyContent: cc.Node = null;
 
+    @property(cc.Node)
+    personalContentNode: cc.Node = null;
+
     @property(cc.Label)
     lblStartTime: cc.Label = null;
 
@@ -107,6 +110,7 @@ export default class RouletteLeaderBoard extends BaseComponent {
         this.lblUpdateTime.string = formatLongDateTime(time);
         this.scheduleOnce(() => {
             this.displayLeaderboardItems(leaderboard, currentPlayer);
+            this.displayPersonalContent(currentPlayer);
         }, 0.1);
         
     }
@@ -118,15 +122,25 @@ export default class RouletteLeaderBoard extends BaseComponent {
             const isCurrentPlayer = item.rank === currentPlayer.rank;
             this.createLeaderboardItem(item, isCurrentPlayer);
         });
-
-        if (this.shouldDisplayCurrentPlayer(currentPlayer.rank)) {
-            const currentPlayerData = this.formatCurrentPlayerData(currentPlayer);
-            this.createLeaderboardItem(currentPlayerData, true);
-        }
     }
 
-    private shouldDisplayCurrentPlayer(rank: string): boolean {
-        return parseInt(rank) === -1 || parseInt(rank) > 30;
+    private displayPersonalContent(currentPlayer: CurrentPlayer): void {
+        const { rank, totalWin, currentPlayerSettings } = currentPlayer;
+        const currentPlayerData = {
+            rank: rank === "-1" ? "-" : rank,
+            nickname: currentPlayerSettings.nickname,
+            totalWin: totalWin,
+            avatarUrl: currentPlayerSettings.avatarUrl
+        }
+        
+        if (this.personalContentNode) {
+            const item = this.personalContentNode.getComponent(RouletteLeaderBoardItem);
+            if (item) {
+                item.setData(currentPlayerData, false);
+                this.personalContentNode.active = true;
+                return;
+            }
+        }
     }
 
     private createLeaderboardItem(leaderboardItem: LeaderBoardItem, isCurrentPlayer = false): void {
