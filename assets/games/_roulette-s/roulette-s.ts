@@ -1,4 +1,3 @@
-import _ = require("lodash");
 import { i18n } from "../../ClientModules";
 import { numberWithCommas } from "../../common/helpers/NumberHelper";
 import { InGameMenuEvents } from "../../common/in-game-menu/InGameMenu";
@@ -17,7 +16,6 @@ import { convertOwnChipToFlattened, convertOwnChipToTempBet, getTypeFromChoice }
 import RouletteStatistics from "./scripts/roulette-statistics";
 import SingleBetControl from "./scripts/single-bet-control";
 import MiniRouletteSettlePopup from "./scripts/mini-roulette-settle-popup";
-import RouletteLeaderBoard from "./scripts/roulette-leader-board";
 import RouletteSettings from "./scripts/roulette-settings";
 import GameUtils from "../../common/GameUtils";
 import { WEBVIEW_ACTION } from "../../constants";
@@ -26,6 +24,7 @@ import GameBaseVoidTicketHandler from "../_base/handlers/GameBaseVoidTicketHandl
 import { StorageManager } from "../../managers/StorageManager";
 import MiniRouletteTutorialMain, { TimerShowInteractiveGuide } from "./scripts/interactive-guide/mini-roulette-tutorial-main";
 import LeaderBoardLoader from "./scripts/leader-board-loader";
+import SingleBetItem from "./scripts/single-bet-item";
 
 const { ccclass, property } = cc._decorator;
 
@@ -72,17 +71,16 @@ export default class RouletteS extends SoloGame {
     @property(LeaderBoardLoader)
     leaderBoardLoader: LeaderBoardLoader = null;
 
+    private straightUpBetItem: SingleBetItem = null;
     private singleBetControl: SingleBetControl = null;
 
     private rouletteBetItems: RouletteBetItem[] = [];
     private roundHistoryComponent: MiniRouletteRoundHistory = null;
 
-    private chipFlyingStamp = 0;
     protected betChipContainer: cc.Node = null;
 
     private settlePopupComponent: MiniRouletteSettlePopup = null;
 
-    private leaderBoardsComponent: RouletteLeaderBoard = null;
     private settingsComponent: RouletteSettings = null;
     constructor() {
         super();
@@ -98,7 +96,11 @@ export default class RouletteS extends SoloGame {
         this.initRouletteBetItems();
         this.initRoundHistory();
 
+        this.straightUpBetItem = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetItem);
         this.singleBetControl = this.rouletteBetItemsContainer.getComponentInChildren(SingleBetControl);
+        if (this.straightUpBetItem && this.singleBetControl) {
+            this.straightUpBetItem.singleBetControl = this.singleBetControl;
+        }
         this.settlePopupComponent = this.settlePopup.getComponent(MiniRouletteSettlePopup);
 
         this.wheel.setOnBallLandedWithSettlementCallback(this.highlightBetItemsBySettlement.bind(this));
