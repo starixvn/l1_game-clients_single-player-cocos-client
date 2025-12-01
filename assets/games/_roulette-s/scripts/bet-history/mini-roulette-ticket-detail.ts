@@ -16,8 +16,8 @@ export default class MiniRouletteTicketDetail extends GameTicketDetailBase {
     @property(cc.Prefab)
     itemPrefab: cc.Prefab = null;
 
-    @property(cc.Prefab)
-    totalItemPrefab: cc.Prefab = null;
+    @property(MiniRouletteTicketDetailTotalItem)
+    totalItem: MiniRouletteTicketDetailTotalItem = null;
 
     @property(cc.Label)
     profitLabel: cc.Label = null;
@@ -54,10 +54,7 @@ export default class MiniRouletteTicketDetail extends GameTicketDetailBase {
     }
 
     createTotalItem() {
-        const totalItem = cc.instantiate(this.totalItemPrefab);
-        const totalItemComponent = totalItem.getComponent(MiniRouletteTicketDetailTotalItem);
-        totalItemComponent.createTotalItem(this.totalBet, this.totalWin);
-        this.content.addChild(totalItem);
+        this.totalItem?.createTotalItem(this.totalBet, this.totalWin);
     }
 
     setRouletteData(round: number, result: number) {
