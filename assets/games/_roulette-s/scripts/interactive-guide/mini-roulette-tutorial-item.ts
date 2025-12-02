@@ -39,7 +39,7 @@ export default class MiniRouletteTutorialItem extends TutorialItem {
             return;
         }
         await AnimationUtils.delayTime(0.2);
-        for (let i = 0; i < this.nodeToolTips.length; i++) {
+        for (let i = 0; i < this.nodeToolTips?.length; i++) {
             this.showOpacity(this.nodeToolTips[i]);
             await AnimationUtils.delayTime(this.delayTime);
         }
