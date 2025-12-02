@@ -9674,7 +9674,7 @@
         "__id__": 815
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 820
@@ -34825,7 +34825,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -95.181,
+        -112.03,
         0,
         0,
         0,
@@ -35249,19 +35249,19 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 363.42,
+      "width": 423.99,
       "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0,
       "y": 0.5
     },
     "_trs": {
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -189.459,
+        -231.741,
         8.897,
         0,
         0,
@@ -35303,7 +35303,7 @@
     "_dstBlendFactor": 771,
     "_string": "MiniRoulette.settlement_bet_amount",
     "_N$string": "MiniRoulette.settlement_bet_amount",
-    "_fontSize": 24,
+    "_fontSize": 28,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
@@ -35391,7 +35391,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 71.02000000000001,
+      "width": 75.83,
       "height": 200
     },
     "_anchorPoint": {
@@ -35467,7 +35467,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -58.02000000000001,
+        -62.83,
         10.535,
         0,
         0,
@@ -35567,7 +35567,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40.02,
+      "width": 44.83,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -35579,7 +35579,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -20.01000000000001,
+        -22.415,
         10.637,
         0,
         0,
@@ -35621,7 +35621,7 @@
     "_dstBlendFactor": 771,
     "_string": "100",
     "_N$string": "100",
-    "_fontSize": 25,
+    "_fontSize": 28,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
@@ -35672,7 +35672,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 71.02000000000001,
+      "width": 75.83,
       "height": 200
     },
     "_resize": 1,
@@ -35928,19 +35928,19 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 371.98,
+      "width": 433.97,
       "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0,
       "y": 0.5
     },
     "_trs": {
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -185.878,
+        -212.416,
         -14.731,
         0,
         0,
@@ -35982,7 +35982,7 @@
     "_dstBlendFactor": 771,
     "_string": "MiniRoulette.settlement_win_amount",
     "_N$string": "MiniRoulette.settlement_win_amount",
-    "_fontSize": 24,
+    "_fontSize": 28,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
@@ -36070,7 +36070,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 76,
+      "width": 81.4,
       "height": 200
     },
     "_anchorPoint": {
@@ -36146,7 +36146,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -63,
+        -68.4,
         -23.213,
         0,
         0,
@@ -36246,7 +36246,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 45,
+      "width": 50.4,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -36258,7 +36258,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -22.5,
+        -25.200000000000006,
         -23.398,
         0,
         0,
@@ -36300,7 +36300,7 @@
     "_dstBlendFactor": 771,
     "_string": "200",
     "_N$string": "200",
-    "_fontSize": 25,
+    "_fontSize": 28,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
@@ -36351,7 +36351,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 76,
+      "width": 81.4,
       "height": 200
     },
     "_resize": 1,
