@@ -168,7 +168,7 @@
     "_spriteFrame": {
       "__uuid__": "14798733-6194-48d7-8a4f-fa15117122d1"
     },
-    "_type": 0,
+    "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
@@ -388,8 +388,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 25.2
+      "width": 76.8,
+      "height": 126
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -407,8 +407,8 @@
         0,
         0,
         1,
-        1,
-        1,
+        0.5,
+        0.5,
         1
       ]
     },
@@ -442,11 +442,11 @@
     "_dstBlendFactor": 771,
     "_string": "36",
     "_N$string": "36",
-    "_fontSize": 25,
-    "_lineHeight": 20,
+    "_fontSize": 64,
+    "_lineHeight": 100,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "8b27e1cd-89e5-461d-a3d6-e70ed7b93b15"
+      "__uuid__": "58c23c82-0a58-4eda-ae34-7d72775b8986"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -454,7 +454,7 @@
     "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
+    "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
